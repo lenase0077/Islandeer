@@ -11,7 +11,6 @@ class Game
         void run();
         void guardar(Personaje &character);
         void cargar (Personaje &character);
-
     private:
         Personaje _personaje;
         Personaje personaTest;

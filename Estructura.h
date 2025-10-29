@@ -16,12 +16,12 @@ private:
 public:
 
     Estructura(float porX, float posY);
+
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     void recibirGolpe(float danio);
     Colisionador &getColisionador() {return _colision;};
     void update();
     bool estaDestruido() const;
-
-
+    ~Estructura(){};
 
 };

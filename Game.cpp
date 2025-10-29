@@ -9,12 +9,14 @@ using namespace std;
 
 
 Game::Game()
-    : window(sf::VideoMode(1024, 768), "SFML works!"), personaTest(300,300) {
+    : window(sf::VideoMode(1024, 768), "SFML works!"), personaTest(300,300)
+{
     window.setFramerateLimit(75);
 }
 
-void Game::run() {
-
+void Game::run()
+{
+    vector<Estructura> vectorEstructuras;
 
 ///         inventario  ////
 
@@ -53,7 +55,8 @@ void Game::run() {
     ///MUSICA
     sf::SoundBuffer buffer;
     sf::Sound sonido;
-    if (!buffer.loadFromFile("music.wav")) {
+    if (!buffer.loadFromFile("music.wav"))
+    {
         return;
     }
 
@@ -65,23 +68,22 @@ void Game::run() {
 
 /// ESTRUCTURA TEST
 
-    Estructura Madera(50,50);
+    vectorEstructuras.push_back(Estructura(45,50));
+    vectorEstructuras.push_back(Estructura(70,50));
+    vectorEstructuras.push_back(Estructura(80,50));
+    vectorEstructuras.push_back(Estructura(10,50));
 
-
-
-
-
-
-
-    while (window.isOpen()) {
+    while (window.isOpen())
+    {
 
         sf::Event event;
-        while (window.pollEvent(event)) {
+        while (window.pollEvent(event))
+        {
             if (event.type == sf::Event::Closed)
             {
                 window.close();
             }
-                inv.controlAbrirCerrarInventario(event);
+            inv.controlAbrirCerrarInventario(event);
         }
 
         window.clear(sf::Color::Black);
@@ -130,24 +132,29 @@ void Game::run() {
 
 
 
-
-        for (auto& colisionador : mapa._colisiones){
+        for (auto& colisionador : mapa._colisiones)
+        {
             character.chocar(colisionador);
         }
 
 
-        if(!Madera.estaDestruido())
+        for (int i = 0; i < vectorEstructuras.size(); ++i)
         {
-
-            if(character.getColisionador().detectorDeColision(Madera.getColisionador())) ///EJEMPLO
+            if(!vectorEstructuras[i].estaDestruido())
             {
-                character.chocar(Madera.getColisionador());
-                Madera.recibirGolpe(5);
+                if(character.getColisionador().detectorDeColision(vectorEstructuras[i].getColisionador())) ///EJEMPLO
+                {
+                    character.chocar(vectorEstructuras[i].getColisionador());
+                    vectorEstructuras[i].recibirGolpe(5);
+                }
+                window.draw(vectorEstructuras[i]);
+            }
+            else
+            {
+                vectorEstructuras.erase(vectorEstructuras.begin() + i);
             }
         }
-
 ///////////
-
         character.update();
         character.updateEspada(mouse);
 /// DRAW
@@ -157,15 +164,9 @@ void Game::run() {
 
         window.draw(character);
 
-
-        if(!Madera.estaDestruido()){
-        window.draw(Madera);
-        };
-
         window.draw(inv);
         float relacion = (float)window.getSize().x/(float)window.getSize().y;
         inv.update(mouse.getPosicion(),mause,Camara,relacion);
-
 
         camaraPosicion.x = camaraPosicion.x + ((character.getPosition().x - camaraPosicion.x) * 0.05f );
         camaraPosicion.y = camaraPosicion.y + ((character.getPosition().y- camaraPosicion.y) * 0.05f );
@@ -175,11 +176,8 @@ void Game::run() {
 
         Camara.setCenter(camaraPosicion);
 
-
-
-
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+        {
             guardar(character);
             cout << "Guardado Exitosamente!!" << endl;
         }
@@ -188,9 +186,11 @@ void Game::run() {
     }
 }
 
-void Game::guardar(Personaje &character) {
+void Game::guardar(Personaje &character)
+{
     FILE *Puntero = fopen("ultimoGuardado", "wb");
-    if (Puntero== nullptr) {
+    if (Puntero== nullptr)
+    {
         cout << "ERROR 404" << endl;
     }
 
@@ -201,10 +201,12 @@ void Game::guardar(Personaje &character) {
     fclose(Puntero);
 }
 
-void Game::cargar(Personaje &character) {
+void Game::cargar(Personaje &character)
+{
 
     FILE *Puntero = fopen("ultimoGuardado", "rb");
-    if (Puntero== nullptr) {
+    if (Puntero== nullptr)
+    {
         cout << "ERROR 404" << endl;
     }
 
