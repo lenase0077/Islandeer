@@ -1,7 +1,8 @@
 #include <iostream>
 using namespace std;
 #include "Game.h"
-
+#include "InventarioIntefaz.h"
+#include "InventarioResumidoInterfaz.h"
 
 
 
@@ -14,17 +15,16 @@ Game::Game()
 void Game::run() {
 
 
+///         inventario  ////
 
+
+InventarioInterfaz inv;
 
 ///      MAPA TEST ///
 
 
     TileMap mapa;
     mapa.loadFromJSON("mapa.json", "Sprite-0003.png", "Items.png");
-
-
-///      MAPA TEST ///
-
 
 
 
@@ -136,7 +136,7 @@ void Game::run() {
         window.draw(character);
         window.draw(personaTest);
 
-        sf::FloatRect uwu(0,0,200,200);
+        window.draw(inv);
 
         camaraPosicion.x = camaraPosicion.x + ((character.getPosition().x - camaraPosicion.x) * 0.05f );
         camaraPosicion.y = camaraPosicion.y + ((character.getPosition().y- camaraPosicion.y) * 0.05f );
