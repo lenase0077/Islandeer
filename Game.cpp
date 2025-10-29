@@ -18,7 +18,9 @@ void Game::run() {
 ///         inventario  ////
 
 
-InventarioInterfaz inv;
+    InventarioInterfaz inv;
+    inv.agregarItem(44,30);
+
 
 ///      MAPA TEST ///
 
@@ -37,17 +39,12 @@ InventarioInterfaz inv;
     Camara.setSize({300.f, 300.f});
     sf::Vector2f camaraPosicion = {640, 1120};
 
-    float relacion = (float)window.getSize().x/(float)window.getSize().y;
 
-    ///TILEMAP
-//    TileMap Mapa;
-//    Mapa.load("Sprite-0003.png" , sf::Vector2u (32,32) , level , 30 , 20);
-//    Mapa.setScale(1.f , 1.f);
 
     ///PERSONAJE
     Personaje character;
-    Personaje personaTest(200,300);
     cargar(character);
+
 
     ///ENEMIGO
 //    Enemigo VectEnemy[10];
@@ -74,7 +71,10 @@ InventarioInterfaz inv;
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
+            {
                 window.close();
+            }
+                inv.controlAbrirCerrarInventario(event);
         }
 
         window.clear(sf::Color::Black);
@@ -89,7 +89,6 @@ InventarioInterfaz inv;
 
         character.cmd();
 
-        character.chocar(personaTest.getColisionador());
 
         sf::Vector2f PosicionJugador = character.getPosition();
 
@@ -134,12 +133,14 @@ InventarioInterfaz inv;
         character.updateEspada(mouse);
 
         character.getColisionador().draw(window);
-        personaTest.getColisionador().draw(window);
 
         window.draw(character);
-        window.draw(personaTest);
 
         window.draw(inv);
+
+        float relacion = (float)window.getSize().x/(float)window.getSize().y;
+        inv.update(mouse.getPosicion(),mause,Camara,relacion);
+
 
         camaraPosicion.x = camaraPosicion.x + ((character.getPosition().x - camaraPosicion.x) * 0.05f );
         camaraPosicion.y = camaraPosicion.y + ((character.getPosition().y- camaraPosicion.y) * 0.05f );
@@ -150,15 +151,12 @@ InventarioInterfaz inv;
         Camara.setCenter(camaraPosicion);
 
 
-        inv.update(mouse.getPosicion(),mause,Camara,relacion);
+
 
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
             guardar(character);
             cout << "Guardado Exitosamente!!" << endl;
-        }
-
-        if (character.getColisionador().detectorDeColision(personaTest.getColisionador())) {
         }
 
         window.display();

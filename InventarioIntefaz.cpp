@@ -530,8 +530,8 @@ void InventarioInterfaz::ajustarEscalaAutomaticamente(const sf::View& vista, con
 
     float centroX = (_sprFondoInventario.getGlobalBounds().width/ 2) * getScale().x;
 
-    setPosicionAbierto(vista.getCenter().x-centroX,vista.getCenter().y-vista.getSize().y/4);
-    setPosicionEscondite(vista.getCenter().x-centroX,vista.getCenter().y+vista.getSize().y/2);
+    setPosicionAbierto(vista.getCenter().x-centroX, vista.getCenter().y-vista.getSize().y/4);
+    setPosicionEscondite(vista.getCenter().x-centroX, vista.getCenter().y+vista.getSize().y);
 
     if (!_primerVuelta){
         _primerVuelta = true;
