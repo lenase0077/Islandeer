@@ -16,5 +16,5 @@ class Game
         Personaje _personaje;
         Personaje personaTest;
         sf::RenderWindow window;
-        sf::Vector2f _posicion;
+        sf::Vector2f _posicionPersonaje;
 };

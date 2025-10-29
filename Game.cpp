@@ -194,9 +194,9 @@ void Game::guardar(Personaje &character) {
         cout << "ERROR 404" << endl;
     }
 
-    _posicion = character.getPosition();
+    _posicionPersonaje = character.getPosition();
 
-    fwrite(&_posicion, sizeof(_posicion),1,Puntero);
+    fwrite(&_posicionPersonaje, sizeof(_posicionPersonaje),1,Puntero);
 
     fclose(Puntero);
 }
@@ -208,9 +208,9 @@ void Game::cargar(Personaje &character) {
         cout << "ERROR 404" << endl;
     }
 
-    fread(&_posicion, sizeof(_posicion),1,Puntero);
+    fread(&_posicionPersonaje, sizeof(_posicionPersonaje),1,Puntero);
 
-    character.setPosicion(_posicion.x, _posicion.y);
+    character.setPosicion(_posicionPersonaje.x, _posicionPersonaje.y);
 
     fclose(Puntero);
 }
