@@ -1,0 +1,2196 @@
+# depslib dependency file v1.0
+1760045437 source:c:\users\leand\onedrive\documentos\github\aprendiendo\main.cpp
+	"Game.h"
+	<iostream>
+	<ctime>
+
+1760473262 c:\users\leand\onedrive\documentos\github\aprendiendo\include\game.h
+	<SFML/Graphics.hpp>
+	"Personaje.h"
+	"TileMap.h"
+	"Enemigo.h"
+
+1760473250 source:c:\users\leand\onedrive\documentos\github\aprendiendo\src\game.cpp
+	<iostream>
+	"Game.h"
+
+1760051522 source:c:\users\leand\onedrive\documentos\github\aprendiendo\src\personaje.cpp
+	<iostream>
+	"Personaje.h"
+	<cmath>
+
+1760473261 c:\users\leand\onedrive\documentos\github\aprendiendo\include\personaje.h
+	"Colisionador.h"
+	<SFML/Graphics.hpp>
+	"Funciones.h"
+	<SFML/Audio.hpp>
+
+1760473262 c:\users\leand\onedrive\documentos\github\aprendiendo\include\colisionador.h
+	<SFML/Graphics.hpp>
+	<cstring>
+
+1760473250 source:c:\users\leand\onedrive\documentos\github\aprendiendo\src\colisionador.cpp
+	<iostream>
+	"Colisionador.h"
+	<cmath>
+
+1759267092 source:c:\users\leand\onedrive\documentos\github\aprendiendo\funcion.cpp
+	"Funcion.h"
+	<iostream>
+
+1759265182 c:\users\leand\onedrive\documentos\github\aprendiendo\funcion.h
+	<SFML/Graphics.hpp>
+
+1759265182 c:\users\leand\onedrive\documentos\github\aprendiendo\include\funcion.h
+	<SFML/Graphics.hpp>
+
+1759267092 source:c:\users\leand\onedrive\documentos\github\aprendiendo\src\funcion.cpp
+	"Funcion.h"
+	<iostream>
+
+1759352712 source:c:\users\leand\onedrive\documentos\github\aprendiendo\auxiliar.cpp
+
+1760473262 c:\users\leand\onedrive\documentos\github\aprendiendo\include\tilemap.h
+	<SFML/Graphics.hpp>
+	<vector>
+
+1760473250 source:c:\users\leand\onedrive\documentos\github\aprendiendo\src\tilemap.cpp
+	"tilemap.h"
+
+1760473249 source:c:\users\leand\onedrive\documentos\github\aprendiendo\src\enemigo.cpp
+	<iostream>
+	"Enemigo.h"
+	<cmath>
+
+1760043091 c:\users\leand\onedrive\documentos\github\aprendiendo\src\enemigo.h
+	<SFML/Graphics.hpp>
+
+1760473261 c:\users\leand\onedrive\documentos\github\aprendiendo\include\enemigo.h
+	<SFML/Graphics.hpp>
+	"Colisionador.h"
+	<ctime>
+
+1760473261 c:\users\leand\onedrive\documentos\github\aprendiendo\include\funciones.h
+	<SFML/Graphics.hpp>
+
+1760473262 c:\users\leand\onedrive\documentos\github\aprendiendo\game.h
+	<SFML/Graphics.hpp>
+	"Personaje.h"
+	"TileMap.h"
+	"Enemigo.h"
+
+1760622553 c:\users\leand\onedrive\documentos\github\aprendiendo\personaje.h
+	"Colisionador.h"
+	<SFML/Graphics.hpp>
+	"Funciones.h"
+	<SFML/Audio.hpp>
+	"Espada.h"
+	"Raton.h"
+	"TileMap.h"
+
+1760473262 c:\users\leand\onedrive\documentos\github\aprendiendo\colisionador.h
+	<SFML/Graphics.hpp>
+	<cstring>
+
+1760473261 c:\users\leand\onedrive\documentos\github\aprendiendo\funciones.h
+	<SFML/Graphics.hpp>
+
+1760730083 c:\users\leand\onedrive\documentos\github\aprendiendo\tilemap.h
+	<SFML/Graphics.hpp>
+	<vector>
+	"json.hpp"
+	"Colisionador.h"
+
+1761225063 c:\users\leand\onedrive\documentos\github\aprendiendo\enemigo.h
+
+1760473250 source:c:\users\leand\onedrive\documentos\github\aprendiendo\colisionador.cpp
+	<iostream>
+	"Colisionador.h"
+	<cmath>
+
+1761225063 source:c:\users\leand\onedrive\documentos\github\aprendiendo\enemigo.cpp
+
+1760473249 source:c:\users\leand\onedrive\documentos\github\aprendiendo\funciones.cpp
+	<iostream>
+	"Funciones.h"
+
+1761224432 source:c:\users\leand\onedrive\documentos\github\aprendiendo\game.cpp
+	<iostream>
+	"Game.h"
+
+1760623474 source:c:\users\leand\onedrive\documentos\github\aprendiendo\personaje.cpp
+	<iostream>
+	"Personaje.h"
+	"Funciones.h"
+	<cmath>
+
+1760730091 source:c:\users\leand\onedrive\documentos\github\aprendiendo\tilemap.cpp
+	"tilemap.h"
+	<fstream>
+	<iostream>
+
+1760474886 source:c:\users\leand\onedrive\documentos\github\aprendiendo\raton.cpp
+	<iostream>
+	"Raton.h"
+
+1760474886 c:\users\leand\onedrive\documentos\github\aprendiendo\raton.h
+	<SFML/Graphics.hpp>
+
+1760536004 source:c:\users\leand\onedrive\documentos\github\aprendiendo\espada.cpp
+	<iostream>
+	"Espada.h"
+
+1760535836 c:\users\leand\onedrive\documentos\github\aprendiendo\espada.h
+	<SFML/Graphics.hpp>
+	<cmath>
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\include\tmxlite\map.hpp
+	<tmxlite/Tileset.hpp>
+	<tmxlite/Layer.hpp>
+	<tmxlite/Property.hpp>
+	<tmxlite/Types.hpp>
+	<tmxlite/Object.hpp>
+	<string>
+	<vector>
+	<map>
+	<unordered_map>
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\include\tmxlite\tileset.hpp
+	<tmxlite/Config.hpp>
+	<tmxlite/Property.hpp>
+	<tmxlite/ObjectGroup.hpp>
+	<string>
+	<vector>
+	<array>
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\include\tmxlite\config.hpp
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\include\tmxlite\property.hpp
+	<tmxlite/Config.hpp>
+	<tmxlite/Types.hpp>
+	<string>
+	<cassert>
+	<vector>
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\include\tmxlite\types.hpp
+	<tmxlite/Config.hpp>
+	<cstdint>
+	<ostream>
+	"Types.inl"
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\include\tmxlite\types.inl
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\include\tmxlite\objectgroup.hpp
+	<tmxlite/Config.hpp>
+	<tmxlite/Layer.hpp>
+	<tmxlite/Object.hpp>
+	<vector>
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\include\tmxlite\layer.hpp
+	<tmxlite/Config.hpp>
+	<tmxlite/Property.hpp>
+	<tmxlite/Types.hpp>
+	<string>
+	<memory>
+	<vector>
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\include\tmxlite\object.hpp
+	<tmxlite/Config.hpp>
+	<tmxlite/Property.hpp>
+	<tmxlite/Types.hpp>
+	<string>
+	<vector>
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\include\tmxlite\tilelayer.hpp
+	<tmxlite/Layer.hpp>
+	<tmxlite/Types.hpp>
+
+1760546019 source:c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\src\detail\pugixml.cpp
+	"pugixml.hpp"
+	<tmxlite/detail/Android.hpp>
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<assert.h>
+	<limits.h>
+	<wchar.h>
+	<math.h>
+	<float.h>
+	<setjmp.h>
+	<istream>
+	<ostream>
+	<string>
+	<new>
+	<stdint.h>
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\src\detail\pugixml.hpp
+	"pugiconfig.hpp"
+	<stddef.h>
+	<exception>
+	<iterator>
+	<iosfwd>
+	<string>
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\src\detail\pugiconfig.hpp
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\include\tmxlite\detail\android.hpp
+	<string>
+	<sstream>
+	<cstdlib>
+
+1760546019 source:c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\src\freefuncs.cpp
+	"miniz.h"
+	<zlib.h>
+	<tmxlite/FreeFuncs.hpp>
+	<tmxlite/Types.hpp>
+	<tmxlite/detail/Log.hpp>
+	<cstring>
+	<fstream>
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\src\miniz.h
+	"miniz.c"
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\src\miniz.c
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<assert.h>
+	<stdio.h>
+	<sys/stat.h>
+	<sys/utime.h>
+	<sys/utime.h>
+	<sys/utime.h>
+	<utime.h>
+	<utime.h>
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\include\tmxlite\freefuncs.hpp
+	<tmxlite/detail/Android.hpp>
+	<tmxlite/detail/Log.hpp>
+	<tmxlite/Config.hpp>
+	<tmxlite/Types.hpp>
+	<string>
+	<sstream>
+	<vector>
+	<functional>
+	<algorithm>
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\include\tmxlite\detail\log.hpp
+	<string>
+	<iostream>
+	<iomanip>
+	<fstream>
+	<sstream>
+	<list>
+	<ctime>
+	<windows.h>
+	<android/log.h>
+	<cstring>
+
+1760546019 source:c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\src\imagelayer.cpp
+	<pugixml.hpp>
+	"detail/pugixml.hpp"
+	<tmxlite/ImageLayer.hpp>
+	<tmxlite/FreeFuncs.hpp>
+	<tmxlite/detail/Log.hpp>
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\include\tmxlite\imagelayer.hpp
+	<tmxlite/Config.hpp>
+	<tmxlite/Layer.hpp>
+	<tmxlite/Types.hpp>
+
+1760546019 source:c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\src\layergroup.cpp
+	<pugixml.hpp>
+	"detail/pugixml.hpp"
+	<tmxlite/LayerGroup.hpp>
+	<tmxlite/FreeFuncs.hpp>
+	<tmxlite/ObjectGroup.hpp>
+	<tmxlite/ImageLayer.hpp>
+	<tmxlite/TileLayer.hpp>
+	<tmxlite/detail/Log.hpp>
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\include\tmxlite\layergroup.hpp
+	<tmxlite/Config.hpp>
+	<tmxlite/Layer.hpp>
+	<tmxlite/Types.hpp>
+	<vector>
+
+1760546019 source:c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\src\map.cpp
+	<pugixml.hpp>
+	"detail/pugixml.hpp"
+	<tmxlite/Map.hpp>
+	<tmxlite/FreeFuncs.hpp>
+	<tmxlite/ObjectGroup.hpp>
+	<tmxlite/ImageLayer.hpp>
+	<tmxlite/TileLayer.hpp>
+	<tmxlite/LayerGroup.hpp>
+	<tmxlite/detail/Log.hpp>
+	<tmxlite/detail/Android.hpp>
+	<queue>
+
+1760546019 source:c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\src\miniz.c
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<assert.h>
+	<stdio.h>
+	<sys/stat.h>
+	<sys/utime.h>
+	<sys/utime.h>
+	<sys/utime.h>
+	<utime.h>
+	<utime.h>
+
+1760546019 source:c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\src\object.cpp
+	<pugixml.hpp>
+	"detail/pugixml.hpp"
+	<tmxlite/Object.hpp>
+	<tmxlite/FreeFuncs.hpp>
+	<tmxlite/Map.hpp>
+	<tmxlite/Tileset.hpp>
+	<tmxlite/detail/Log.hpp>
+	<sstream>
+
+1760546019 source:c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\src\objectgroup.cpp
+	<pugixml.hpp>
+	"detail/pugixml.hpp"
+	<tmxlite/FreeFuncs.hpp>
+	<tmxlite/ObjectGroup.hpp>
+	<tmxlite/detail/Log.hpp>
+
+1760546019 source:c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\src\objecttypes.cpp
+	<pugixml.hpp>
+	"detail/pugixml.hpp"
+	<tmxlite/FreeFuncs.hpp>
+	<tmxlite/ObjectTypes.hpp>
+	<tmxlite/detail/Log.hpp>
+
+1760546019 c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\include\tmxlite\objecttypes.hpp
+	<tmxlite/Property.hpp>
+	<string>
+	<vector>
+
+1760546019 source:c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\src\property.cpp
+	<pugixml.hpp>
+	"detail/pugixml.hpp"
+	<tmxlite/Property.hpp>
+	<tmxlite/detail/Log.hpp>
+	<tmxlite/FreeFuncs.hpp>
+
+1760546019 source:c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\src\tilelayer.cpp
+	<pugixml.hpp>
+	<zstd.h>
+	"detail/pugixml.hpp"
+	<zstd.h>
+	<tmxlite/FreeFuncs.hpp>
+	<tmxlite/TileLayer.hpp>
+	<tmxlite/detail/Log.hpp>
+	<sstream>
+
+1760546019 source:c:\users\leand\onedrive\documentos\github\aprendiendo\tmxlite\src\tileset.cpp
+	<pugixml.hpp>
+	"detail/pugixml.hpp"
+	<tmxlite/Tileset.hpp>
+	<tmxlite/FreeFuncs.hpp>
+	<tmxlite/detail/Log.hpp>
+	<ctype.h>
+
+1760625039 c:\users\leand\onedrive\documentos\github\aprendiendo\json.hpp
+	<algorithm>
+	<cstddef>
+	<functional>
+	<initializer_list>
+	<iosfwd>
+	<iterator>
+	<memory>
+	<string>
+	<utility>
+	<vector>
+	<utility>
+	<algorithm>
+	<array>
+	<forward_list>
+	<iterator>
+	<map>
+	<string>
+	<tuple>
+	<type_traits>
+	<unordered_map>
+	<utility>
+	<valarray>
+	<cstddef>
+	<exception>
+	<numeric>
+	<stdexcept>
+	<string>
+	<vector>
+	<array>
+	<cstddef>
+	<cstdint>
+	<string>
+	<utility>
+	<type_traits>
+	<stdint.h>
+	<stdint.h>
+	<version>
+	<cstdlib>
+	<cassert>
+	<compare>
+	<cstddef>
+	<array>
+	<cstddef>
+	<type_traits>
+	<utility>
+	<limits>
+	<type_traits>
+	<utility>
+	<tuple>
+	<string>
+	<iterator>
+	<cstdint>
+	<map>
+	<memory>
+	<string>
+	<vector>
+	<cstring>
+	<string>
+	<utility>
+	<experimental/filesystem>
+	<filesystem>
+	<algorithm>
+	<iterator>
+	<string>
+	<tuple>
+	<type_traits>
+	<utility>
+	<valarray>
+	<vector>
+	<cstddef>
+	<iterator>
+	<string>
+	<tuple>
+	<utility>
+	<ranges>
+	<cstdint>
+	<tuple>
+	<utility>
+	<cstdint>
+	<cstddef>
+	<functional>
+	<algorithm>
+	<array>
+	<cmath>
+	<cstddef>
+	<cstdint>
+	<cstdio>
+	<cstring>
+	<iterator>
+	<limits>
+	<string>
+	<utility>
+	<vector>
+	<array>
+	<cstddef>
+	<cstring>
+	<iterator>
+	<memory>
+	<numeric>
+	<string>
+	<type_traits>
+	<utility>
+	<cstdio>
+	<istream>
+	<cstddef>
+	<string>
+	<utility>
+	<vector>
+	<array>
+	<clocale>
+	<cstddef>
+	<cstdio>
+	<cstdlib>
+	<initializer_list>
+	<string>
+	<utility>
+	<vector>
+	<cstdint>
+	<utility>
+	<string>
+	<cmath>
+	<cstdint>
+	<functional>
+	<string>
+	<utility>
+	<vector>
+	<cstddef>
+	<limits>
+	<iterator>
+	<type_traits>
+	<cstddef>
+	<iterator>
+	<utility>
+	<type_traits>
+	<algorithm>
+	<cctype>
+	<cerrno>
+	<cstdlib>
+	<iosfwd>
+	<limits>
+	<numeric>
+	<string>
+	<utility>
+	<vector>
+	<initializer_list>
+	<utility>
+	<algorithm>
+	<array>
+	<map>
+	<cmath>
+	<cstdint>
+	<cstring>
+	<limits>
+	<string>
+	<utility>
+	<vector>
+	<algorithm>
+	<cstddef>
+	<iterator>
+	<memory>
+	<string>
+	<vector>
+	<ios>
+	<ostream>
+	<algorithm>
+	<array>
+	<clocale>
+	<cmath>
+	<cstddef>
+	<cstdint>
+	<cstdio>
+	<limits>
+	<string>
+	<iomanip>
+	<type_traits>
+	<utility>
+	<array>
+	<cmath>
+	<cstdint>
+	<cstring>
+	<limits>
+	<type_traits>
+	<functional>
+	<initializer_list>
+	<iterator>
+	<memory>
+	<stdexcept>
+	<type_traits>
+	<utility>
+	<vector>
+	<any>
+	<string_view>
+
+1761224475 source:c:\users\leand\onedrive\documentos\github\aprendiendo\mob.cpp
+
+1761224475 source:c:\users\leand\onedrive\documentos\github\aprendiendo\mob_hostil.cpp
+
+1761225061 source:c:\users\leand\onedrive\documentos\github\aprendiendo\movimiento_ia.cpp
+
+1759352712 source:c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\auxiliar.cpp
+
+1760473250 source:c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\colisionador.cpp
+	<iostream>
+	"Colisionador.h"
+	<cmath>
+
+1760473262 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\colisionador.h
+	<SFML/Graphics.hpp>
+	<cstring>
+
+1760536004 source:c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\espada.cpp
+	<iostream>
+	"Espada.h"
+
+1760535836 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\espada.h
+	<SFML/Graphics.hpp>
+	<cmath>
+
+1760473249 source:c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\funciones.cpp
+	<iostream>
+	"Funciones.h"
+
+1760473261 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\funciones.h
+	<SFML/Graphics.hpp>
+
+1760045437 source:c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\main.cpp
+	"Game.h"
+	<iostream>
+	<ctime>
+
+1760473262 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\game.h
+	<SFML/Graphics.hpp>
+	"Personaje.h"
+	"TileMap.h"
+	"Enemigo.h"
+
+1761249878 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\personaje.h
+	"Colisionador.h"
+	<SFML/Graphics.hpp>
+	"Funciones.h"
+	<SFML/Audio.hpp>
+	"Espada.h"
+	"Raton.h"
+	"TileMap.h"
+	"BarraDeVida.h"
+
+1760474886 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\raton.h
+	<SFML/Graphics.hpp>
+
+1760730083 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\tilemap.h
+	<SFML/Graphics.hpp>
+	<vector>
+	"json.hpp"
+	"Colisionador.h"
+
+1760625039 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\json.hpp
+	<algorithm>
+	<cstddef>
+	<functional>
+	<initializer_list>
+	<iosfwd>
+	<iterator>
+	<memory>
+	<string>
+	<utility>
+	<vector>
+	<utility>
+	<algorithm>
+	<array>
+	<forward_list>
+	<iterator>
+	<map>
+	<string>
+	<tuple>
+	<type_traits>
+	<unordered_map>
+	<utility>
+	<valarray>
+	<cstddef>
+	<exception>
+	<numeric>
+	<stdexcept>
+	<string>
+	<vector>
+	<array>
+	<cstddef>
+	<cstdint>
+	<string>
+	<utility>
+	<type_traits>
+	<stdint.h>
+	<stdint.h>
+	<version>
+	<cstdlib>
+	<cassert>
+	<compare>
+	<cstddef>
+	<array>
+	<cstddef>
+	<type_traits>
+	<utility>
+	<limits>
+	<type_traits>
+	<utility>
+	<tuple>
+	<string>
+	<iterator>
+	<cstdint>
+	<map>
+	<memory>
+	<string>
+	<vector>
+	<cstring>
+	<string>
+	<utility>
+	<experimental/filesystem>
+	<filesystem>
+	<algorithm>
+	<iterator>
+	<string>
+	<tuple>
+	<type_traits>
+	<utility>
+	<valarray>
+	<vector>
+	<cstddef>
+	<iterator>
+	<string>
+	<tuple>
+	<utility>
+	<ranges>
+	<cstdint>
+	<tuple>
+	<utility>
+	<cstdint>
+	<cstddef>
+	<functional>
+	<algorithm>
+	<array>
+	<cmath>
+	<cstddef>
+	<cstdint>
+	<cstdio>
+	<cstring>
+	<iterator>
+	<limits>
+	<string>
+	<utility>
+	<vector>
+	<array>
+	<cstddef>
+	<cstring>
+	<iterator>
+	<memory>
+	<numeric>
+	<string>
+	<type_traits>
+	<utility>
+	<cstdio>
+	<istream>
+	<cstddef>
+	<string>
+	<utility>
+	<vector>
+	<array>
+	<clocale>
+	<cstddef>
+	<cstdio>
+	<cstdlib>
+	<initializer_list>
+	<string>
+	<utility>
+	<vector>
+	<cstdint>
+	<utility>
+	<string>
+	<cmath>
+	<cstdint>
+	<functional>
+	<string>
+	<utility>
+	<vector>
+	<cstddef>
+	<limits>
+	<iterator>
+	<type_traits>
+	<cstddef>
+	<iterator>
+	<utility>
+	<type_traits>
+	<algorithm>
+	<cctype>
+	<cerrno>
+	<cstdlib>
+	<iosfwd>
+	<limits>
+	<numeric>
+	<string>
+	<utility>
+	<vector>
+	<initializer_list>
+	<utility>
+	<algorithm>
+	<array>
+	<map>
+	<cmath>
+	<cstdint>
+	<cstring>
+	<limits>
+	<string>
+	<utility>
+	<vector>
+	<algorithm>
+	<cstddef>
+	<iterator>
+	<memory>
+	<string>
+	<vector>
+	<ios>
+	<ostream>
+	<algorithm>
+	<array>
+	<clocale>
+	<cmath>
+	<cstddef>
+	<cstdint>
+	<cstdio>
+	<limits>
+	<string>
+	<iomanip>
+	<type_traits>
+	<utility>
+	<array>
+	<cmath>
+	<cstdint>
+	<cstring>
+	<limits>
+	<type_traits>
+	<functional>
+	<initializer_list>
+	<iterator>
+	<memory>
+	<stdexcept>
+	<type_traits>
+	<utility>
+	<vector>
+	<any>
+	<string_view>
+
+1761225063 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\enemigo.h
+
+1761224475 source:c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\mob.cpp
+
+1761224475 source:c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\mob_hostil.cpp
+
+1761225061 source:c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\movimiento_ia.cpp
+
+1761250013 source:c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\personaje.cpp
+	<iostream>
+	"Personaje.h"
+	"Funciones.h"
+	<cmath>
+
+1760474886 source:c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\raton.cpp
+	<iostream>
+	"Raton.h"
+
+1760730091 source:c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\tilemap.cpp
+	"tilemap.h"
+	<fstream>
+	<iostream>
+
+1761229638 source:c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\enemigo.cpp
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics.hpp
+	<SFML/Window.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/CircleShape.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/ConvexShape.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/Glyph.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/RectangleShape.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Graphics/RenderTexture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/Graphics/Shader.hpp>
+	<SFML/Graphics/Shape.hpp>
+	<SFML/Graphics/Sprite.hpp>
+	<SFML/Graphics/Text.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/Graphics/VertexBuffer.hpp>
+	<SFML/Graphics/View.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\window.hpp
+	<SFML/System.hpp>
+	<SFML/Window/Clipboard.hpp>
+	<SFML/Window/Context.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/Cursor.hpp>
+	<SFML/Window/Event.hpp>
+	<SFML/Window/Joystick.hpp>
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+	<SFML/Window/Sensor.hpp>
+	<SFML/Window/Touch.hpp>
+	<SFML/Window/VideoMode.hpp>
+	<SFML/Window/Window.hpp>
+	<SFML/Window/WindowHandle.hpp>
+	<SFML/Window/WindowStyle.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/Err.hpp>
+	<SFML/System/FileInputStream.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/Lock.hpp>
+	<SFML/System/MemoryInputStream.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Sleep.hpp>
+	<SFML/System/String.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/System/Utf.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+
+1539635488 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\config.hpp
+	"TargetConditionals.h"
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\clock.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\export.hpp
+	<SFML/Config.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\time.hpp
+	<SFML/System/Export.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\err.hpp
+	<SFML/System/Export.hpp>
+	<ostream>
+
+1539635488 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\fileinputstream.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Export.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdio>
+	<string>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\inputstream.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Export.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\noncopyable.hpp
+	<SFML/System/Export.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\lock.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\memoryinputstream.hpp
+	<SFML/Config.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/Export.hpp>
+	<cstdlib>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\mutex.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\sleep.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\string.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Utf.hpp>
+	<iterator>
+	<locale>
+	<string>
+	<SFML/System/String.inl>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\utf.hpp
+	<SFML/Config.hpp>
+	<algorithm>
+	<locale>
+	<string>
+	<cstdlib>
+	<SFML/System/Utf.inl>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\utf.inl
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\string.inl
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\thread.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+	<SFML/System/Thread.inl>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\thread.inl
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\threadlocal.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\threadlocalptr.hpp
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.inl>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\threadlocalptr.inl
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\vector2.hpp
+	<SFML/System/Vector2.inl>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\vector2.inl
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\vector3.hpp
+	<SFML/System/Vector3.inl>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\system\vector3.inl
+
+1539635488 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\window\clipboard.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/String.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\window\export.hpp
+	<SFML/Config.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\window\context.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\window\glresource.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\window\contextsettings.hpp
+	<SFML/Config.hpp>
+
+1539635488 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\window\cursor.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Vector2.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\window\event.hpp
+	<SFML/Config.hpp>
+	<SFML/Window/Joystick.hpp>
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+	<SFML/Window/Sensor.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\window\joystick.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/String.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\window\keyboard.hpp
+	<SFML/Window/Export.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\window\mouse.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector2.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\window\sensor.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector3.hpp>
+	<SFML/System/Time.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\window\touch.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector2.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\window\videomode.hpp
+	<SFML/Window/Export.hpp>
+	<vector>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\window\window.hpp
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/Cursor.hpp>
+	<SFML/Window/Export.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/Window/VideoMode.hpp>
+	<SFML/Window/WindowHandle.hpp>
+	<SFML/Window/WindowStyle.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/String.hpp>
+	<SFML/System/Vector2.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\window\windowhandle.hpp
+	<SFML/Config.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\window\windowstyle.hpp
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\blendmode.hpp
+	<SFML/Graphics/Export.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\export.hpp
+	<SFML/Config.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\circleshape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\shape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/System/Vector2.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\drawable.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\renderstates.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/Transform.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\transform.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/System/Vector2.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\rect.hpp
+	<SFML/System/Vector2.hpp>
+	<algorithm>
+	<SFML/Graphics/Rect.inl>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\rect.inl
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\transformable.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Transform.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\vertexarray.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<vector>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\vertex.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/System/Vector2.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\color.hpp
+	<SFML/Graphics/Export.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\primitivetype.hpp
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\convexshape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
+	<vector>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\font.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Glyph.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/String.hpp>
+	<map>
+	<string>
+	<vector>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\glyph.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\texture.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Window/GlResource.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\image.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<string>
+	<vector>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\rectangleshape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\rendertarget.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/View.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\view.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/System/Vector2.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\rendertexture.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Window/ContextSettings.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\renderwindow.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Window/Window.hpp>
+	<string>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\shader.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Glsl.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+	<map>
+	<string>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\glsl.hpp
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+	<SFML/Graphics/Glsl.inl>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\glsl.inl
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\sprite.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/Rect.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\text.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/System/String.hpp>
+	<string>
+	<vector>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\graphics\vertexbuffer.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Window/GlResource.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\audio.hpp
+	<SFML/System.hpp>
+	<SFML/Audio/InputSoundFile.hpp>
+	<SFML/Audio/Listener.hpp>
+	<SFML/Audio/Music.hpp>
+	<SFML/Audio/OutputSoundFile.hpp>
+	<SFML/Audio/Sound.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundBufferRecorder.hpp>
+	<SFML/Audio/SoundFileFactory.hpp>
+	<SFML/Audio/SoundFileReader.hpp>
+	<SFML/Audio/SoundFileWriter.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/Audio/SoundStream.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\audio\inputsoundfile.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<algorithm>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\audio\export.hpp
+	<SFML/Config.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\audio\listener.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/Vector3.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\audio\music.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundStream.hpp>
+	<SFML/Audio/InputSoundFile.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\audio\soundstream.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/System/Mutex.hpp>
+	<cstdlib>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\audio\soundsource.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Vector3.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\audio\alresource.hpp
+	<SFML/Audio/Export.hpp>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\audio\outputsoundfile.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<string>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\audio\sound.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Time.hpp>
+	<cstdlib>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\audio\soundbuffer.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+	<set>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\audio\soundbufferrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<vector>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\audio\soundrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/Time.hpp>
+	<vector>
+	<string>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\audio\soundfilefactory.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+	<vector>
+	<SFML/Audio/SoundFileFactory.inl>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\audio\soundfilefactory.inl
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\audio\soundfilereader.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+
+1525812018 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\sfml\include\sfml\audio\soundfilewriter.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+
+1761229636 source:c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\game.cpp
+	<iostream>
+	"Game.h"
+
+1761249683 c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\barradevida.h
+	<SFML/Graphics.hpp>
+
+1761250151 source:c:\users\user\desktop\juegito\aprendiendo 1\aprendiendo\barradevida.cpp
+	<iostream>
+	"BarraDeVida.h"
+	<SFML/Graphics.hpp>
+
+1759352712 source:c:\users\leand\onedrive\escritorio\islandeer\auxiliar.cpp
+
+1761250151 source:c:\users\leand\onedrive\escritorio\islandeer\barradevida.cpp
+	<iostream>
+	"BarraDeVida.h"
+	<SFML/Graphics.hpp>
+
+1761249683 c:\users\leand\onedrive\escritorio\islandeer\barradevida.h
+	<SFML/Graphics.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics.hpp
+	<SFML/Window.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/CircleShape.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/ConvexShape.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/Glyph.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/RectangleShape.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Graphics/RenderTexture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/Graphics/Shader.hpp>
+	<SFML/Graphics/Shape.hpp>
+	<SFML/Graphics/Sprite.hpp>
+	<SFML/Graphics/Text.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/Graphics/VertexBuffer.hpp>
+	<SFML/Graphics/View.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\window.hpp
+	<SFML/System.hpp>
+	<SFML/Window/Clipboard.hpp>
+	<SFML/Window/Context.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/Cursor.hpp>
+	<SFML/Window/Event.hpp>
+	<SFML/Window/Joystick.hpp>
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+	<SFML/Window/Sensor.hpp>
+	<SFML/Window/Touch.hpp>
+	<SFML/Window/VideoMode.hpp>
+	<SFML/Window/Window.hpp>
+	<SFML/Window/WindowHandle.hpp>
+	<SFML/Window/WindowStyle.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/Err.hpp>
+	<SFML/System/FileInputStream.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/Lock.hpp>
+	<SFML/System/MemoryInputStream.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Sleep.hpp>
+	<SFML/System/String.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/System/Utf.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+
+1539635488 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\config.hpp
+	"TargetConditionals.h"
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\clock.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\export.hpp
+	<SFML/Config.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\time.hpp
+	<SFML/System/Export.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\err.hpp
+	<SFML/System/Export.hpp>
+	<ostream>
+
+1539635488 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\fileinputstream.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Export.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdio>
+	<string>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\inputstream.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Export.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\noncopyable.hpp
+	<SFML/System/Export.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\lock.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\memoryinputstream.hpp
+	<SFML/Config.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/Export.hpp>
+	<cstdlib>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\mutex.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\sleep.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\string.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Utf.hpp>
+	<iterator>
+	<locale>
+	<string>
+	<SFML/System/String.inl>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\utf.hpp
+	<SFML/Config.hpp>
+	<algorithm>
+	<locale>
+	<string>
+	<cstdlib>
+	<SFML/System/Utf.inl>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\utf.inl
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\string.inl
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\thread.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+	<SFML/System/Thread.inl>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\thread.inl
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\threadlocal.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\threadlocalptr.hpp
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.inl>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\threadlocalptr.inl
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\vector2.hpp
+	<SFML/System/Vector2.inl>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\vector2.inl
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\vector3.hpp
+	<SFML/System/Vector3.inl>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\system\vector3.inl
+
+1539635488 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\window\clipboard.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/String.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\window\export.hpp
+	<SFML/Config.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\window\context.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\window\glresource.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\window\contextsettings.hpp
+	<SFML/Config.hpp>
+
+1539635488 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\window\cursor.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Vector2.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\window\event.hpp
+	<SFML/Config.hpp>
+	<SFML/Window/Joystick.hpp>
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+	<SFML/Window/Sensor.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\window\joystick.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/String.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\window\keyboard.hpp
+	<SFML/Window/Export.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\window\mouse.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector2.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\window\sensor.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector3.hpp>
+	<SFML/System/Time.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\window\touch.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector2.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\window\videomode.hpp
+	<SFML/Window/Export.hpp>
+	<vector>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\window\window.hpp
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/Cursor.hpp>
+	<SFML/Window/Export.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/Window/VideoMode.hpp>
+	<SFML/Window/WindowHandle.hpp>
+	<SFML/Window/WindowStyle.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/String.hpp>
+	<SFML/System/Vector2.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\window\windowhandle.hpp
+	<SFML/Config.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\window\windowstyle.hpp
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\blendmode.hpp
+	<SFML/Graphics/Export.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\export.hpp
+	<SFML/Config.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\circleshape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\shape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/System/Vector2.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\drawable.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\renderstates.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/Transform.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\transform.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/System/Vector2.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\rect.hpp
+	<SFML/System/Vector2.hpp>
+	<algorithm>
+	<SFML/Graphics/Rect.inl>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\rect.inl
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\transformable.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Transform.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\vertexarray.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<vector>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\vertex.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/System/Vector2.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\color.hpp
+	<SFML/Graphics/Export.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\primitivetype.hpp
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\convexshape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
+	<vector>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\font.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Glyph.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/String.hpp>
+	<map>
+	<string>
+	<vector>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\glyph.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\texture.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Window/GlResource.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\image.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<string>
+	<vector>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\rectangleshape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\rendertarget.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/View.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\view.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/System/Vector2.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\rendertexture.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Window/ContextSettings.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\renderwindow.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Window/Window.hpp>
+	<string>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\shader.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Glsl.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+	<map>
+	<string>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\glsl.hpp
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+	<SFML/Graphics/Glsl.inl>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\glsl.inl
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\sprite.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/Rect.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\text.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/System/String.hpp>
+	<string>
+	<vector>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\graphics\vertexbuffer.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Window/GlResource.hpp>
+
+1760473250 source:c:\users\leand\onedrive\escritorio\islandeer\colisionador.cpp
+	<iostream>
+	"Colisionador.h"
+	<cmath>
+
+1760473262 c:\users\leand\onedrive\escritorio\islandeer\colisionador.h
+	<SFML/Graphics.hpp>
+	<cstring>
+
+1761229638 source:c:\users\leand\onedrive\escritorio\islandeer\enemigo.cpp
+
+1760536004 source:c:\users\leand\onedrive\escritorio\islandeer\espada.cpp
+	<iostream>
+	"Espada.h"
+
+1760535836 c:\users\leand\onedrive\escritorio\islandeer\espada.h
+	<SFML/Graphics.hpp>
+	<cmath>
+
+1760473249 source:c:\users\leand\onedrive\escritorio\islandeer\funciones.cpp
+	<iostream>
+	"Funciones.h"
+
+1760473261 c:\users\leand\onedrive\escritorio\islandeer\funciones.h
+	<SFML/Graphics.hpp>
+
+1761229636 source:c:\users\leand\onedrive\escritorio\islandeer\game.cpp
+	<iostream>
+	"Game.h"
+
+1760473262 c:\users\leand\onedrive\escritorio\islandeer\game.h
+	<SFML/Graphics.hpp>
+	"Personaje.h"
+	"TileMap.h"
+	"Enemigo.h"
+
+1761249878 c:\users\leand\onedrive\escritorio\islandeer\personaje.h
+	"Colisionador.h"
+	<SFML/Graphics.hpp>
+	"Funciones.h"
+	<SFML/Audio.hpp>
+	"Espada.h"
+	"Raton.h"
+	"TileMap.h"
+	"BarraDeVida.h"
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\audio.hpp
+	<SFML/System.hpp>
+	<SFML/Audio/InputSoundFile.hpp>
+	<SFML/Audio/Listener.hpp>
+	<SFML/Audio/Music.hpp>
+	<SFML/Audio/OutputSoundFile.hpp>
+	<SFML/Audio/Sound.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundBufferRecorder.hpp>
+	<SFML/Audio/SoundFileFactory.hpp>
+	<SFML/Audio/SoundFileReader.hpp>
+	<SFML/Audio/SoundFileWriter.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/Audio/SoundStream.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\audio\inputsoundfile.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<algorithm>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\audio\export.hpp
+	<SFML/Config.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\audio\listener.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/Vector3.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\audio\music.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundStream.hpp>
+	<SFML/Audio/InputSoundFile.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\audio\soundstream.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/System/Mutex.hpp>
+	<cstdlib>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\audio\soundsource.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Vector3.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\audio\alresource.hpp
+	<SFML/Audio/Export.hpp>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\audio\outputsoundfile.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<string>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\audio\sound.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Time.hpp>
+	<cstdlib>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\audio\soundbuffer.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+	<set>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\audio\soundbufferrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<vector>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\audio\soundrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/Time.hpp>
+	<vector>
+	<string>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\audio\soundfilefactory.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+	<vector>
+	<SFML/Audio/SoundFileFactory.inl>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\audio\soundfilefactory.inl
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\audio\soundfilereader.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+
+1525812018 c:\users\leand\onedrive\escritorio\islandeer\sfml\include\sfml\audio\soundfilewriter.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+
+1760474886 c:\users\leand\onedrive\escritorio\islandeer\raton.h
+	<SFML/Graphics.hpp>
+
+1760730083 c:\users\leand\onedrive\escritorio\islandeer\tilemap.h
+	<SFML/Graphics.hpp>
+	<vector>
+	"json.hpp"
+	"Colisionador.h"
+
+1760625039 c:\users\leand\onedrive\escritorio\islandeer\json.hpp
+	<algorithm>
+	<cstddef>
+	<functional>
+	<initializer_list>
+	<iosfwd>
+	<iterator>
+	<memory>
+	<string>
+	<utility>
+	<vector>
+	<utility>
+	<algorithm>
+	<array>
+	<forward_list>
+	<iterator>
+	<map>
+	<string>
+	<tuple>
+	<type_traits>
+	<unordered_map>
+	<utility>
+	<valarray>
+	<cstddef>
+	<exception>
+	<numeric>
+	<stdexcept>
+	<string>
+	<vector>
+	<array>
+	<cstddef>
+	<cstdint>
+	<string>
+	<utility>
+	<type_traits>
+	<stdint.h>
+	<stdint.h>
+	<version>
+	<cstdlib>
+	<cassert>
+	<compare>
+	<cstddef>
+	<array>
+	<cstddef>
+	<type_traits>
+	<utility>
+	<limits>
+	<type_traits>
+	<utility>
+	<tuple>
+	<string>
+	<iterator>
+	<cstdint>
+	<map>
+	<memory>
+	<string>
+	<vector>
+	<cstring>
+	<string>
+	<utility>
+	<experimental/filesystem>
+	<filesystem>
+	<algorithm>
+	<iterator>
+	<string>
+	<tuple>
+	<type_traits>
+	<utility>
+	<valarray>
+	<vector>
+	<cstddef>
+	<iterator>
+	<string>
+	<tuple>
+	<utility>
+	<ranges>
+	<cstdint>
+	<tuple>
+	<utility>
+	<cstdint>
+	<cstddef>
+	<functional>
+	<algorithm>
+	<array>
+	<cmath>
+	<cstddef>
+	<cstdint>
+	<cstdio>
+	<cstring>
+	<iterator>
+	<limits>
+	<string>
+	<utility>
+	<vector>
+	<array>
+	<cstddef>
+	<cstring>
+	<iterator>
+	<memory>
+	<numeric>
+	<string>
+	<type_traits>
+	<utility>
+	<cstdio>
+	<istream>
+	<cstddef>
+	<string>
+	<utility>
+	<vector>
+	<array>
+	<clocale>
+	<cstddef>
+	<cstdio>
+	<cstdlib>
+	<initializer_list>
+	<string>
+	<utility>
+	<vector>
+	<cstdint>
+	<utility>
+	<string>
+	<cmath>
+	<cstdint>
+	<functional>
+	<string>
+	<utility>
+	<vector>
+	<cstddef>
+	<limits>
+	<iterator>
+	<type_traits>
+	<cstddef>
+	<iterator>
+	<utility>
+	<type_traits>
+	<algorithm>
+	<cctype>
+	<cerrno>
+	<cstdlib>
+	<iosfwd>
+	<limits>
+	<numeric>
+	<string>
+	<utility>
+	<vector>
+	<initializer_list>
+	<utility>
+	<algorithm>
+	<array>
+	<map>
+	<cmath>
+	<cstdint>
+	<cstring>
+	<limits>
+	<string>
+	<utility>
+	<vector>
+	<algorithm>
+	<cstddef>
+	<iterator>
+	<memory>
+	<string>
+	<vector>
+	<ios>
+	<ostream>
+	<algorithm>
+	<array>
+	<clocale>
+	<cmath>
+	<cstddef>
+	<cstdint>
+	<cstdio>
+	<limits>
+	<string>
+	<iomanip>
+	<type_traits>
+	<utility>
+	<array>
+	<cmath>
+	<cstdint>
+	<cstring>
+	<limits>
+	<type_traits>
+	<functional>
+	<initializer_list>
+	<iterator>
+	<memory>
+	<stdexcept>
+	<type_traits>
+	<utility>
+	<vector>
+	<any>
+	<string_view>
+
+1761225063 c:\users\leand\onedrive\escritorio\islandeer\enemigo.h
+
+1760045437 source:c:\users\leand\onedrive\escritorio\islandeer\main.cpp
+	"Game.h"
+	<iostream>
+	<ctime>
+
+1761224475 source:c:\users\leand\onedrive\escritorio\islandeer\mob.cpp
+
+1761224475 source:c:\users\leand\onedrive\escritorio\islandeer\mob_hostil.cpp
+
+1761225061 source:c:\users\leand\onedrive\escritorio\islandeer\movimiento_ia.cpp
+
+1761250238 source:c:\users\leand\onedrive\escritorio\islandeer\personaje.cpp
+	<iostream>
+	"Personaje.h"
+	"Funciones.h"
+	<cmath>
+
+1760474886 source:c:\users\leand\onedrive\escritorio\islandeer\raton.cpp
+	<iostream>
+	"Raton.h"
+
+1760730091 source:c:\users\leand\onedrive\escritorio\islandeer\tilemap.cpp
+	"tilemap.h"
+	<fstream>
+	<iostream>
+

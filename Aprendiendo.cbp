@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Aprendiendo" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Aprendiendo" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="include" />
+					<Add directory="tmxlite/include" />
+					<Add directory="SFML/include" />
+				</Compiler>
+				<Linker>
+					<Add library="sfml-window" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-system" />
+					<Add library="sfml-audio" />
+					<Add directory="SFML/lib" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Aprendiendo" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<UnitsGlob directory="tmxlite\include\tmxlite" wildcard="" recursive="0" id="794438417" addToProject="1">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</UnitsGlob>
+		<Unit filename="BarraDeVida.cpp" />
+		<Unit filename="BarraDeVida.h" />
+		<Unit filename="Colisionador.cpp" />
+		<Unit filename="Colisionador.h" />
+		<Unit filename="Enemigo.cpp" />
+		<Unit filename="Enemigo.h" />
+		<Unit filename="Espada.cpp" />
+		<Unit filename="Espada.h" />
+		<Unit filename="Funcion.h" />
+		<Unit filename="Funciones.cpp" />
+		<Unit filename="Funciones.h" />
+		<Unit filename="Game.cpp" />
+		<Unit filename="Game.h" />
+		<Unit filename="Mob.cpp" />
+		<Unit filename="Mob.h" />
+		<Unit filename="Mob_Hostil.cpp" />
+		<Unit filename="Mob_Hostil.h" />
+		<Unit filename="Movimiento_IA.cpp" />
+		<Unit filename="Movimiento_IA.h" />
+		<Unit filename="Personaje.cpp" />
+		<Unit filename="Personaje.h" />
+		<Unit filename="Raton.cpp" />
+		<Unit filename="Raton.h" />
+		<Unit filename="TileMap.cpp" />
+		<Unit filename="TileMap.h" />
+		<Unit filename="auxiliar.cpp" />
+		<Unit filename="json.hpp" />
+		<Unit filename="main.cpp" />
+		<Unit filename="tmxlite/include/tmxlite/detail/Android.hpp" />
+		<Unit filename="tmxlite/include/tmxlite/detail/Log.hpp" />
+		<Unit filename="tmxlite/src/FreeFuncs.cpp" />
+		<Unit filename="tmxlite/src/ImageLayer.cpp" />
+		<Unit filename="tmxlite/src/LayerGroup.cpp" />
+		<Unit filename="tmxlite/src/Map.cpp" />
+		<Unit filename="tmxlite/src/Object.cpp" />
+		<Unit filename="tmxlite/src/ObjectGroup.cpp" />
+		<Unit filename="tmxlite/src/ObjectTypes.cpp" />
+		<Unit filename="tmxlite/src/Property.cpp" />
+		<Unit filename="tmxlite/src/TileLayer.cpp" />
+		<Unit filename="tmxlite/src/Tileset.cpp" />
+		<Unit filename="tmxlite/src/detail/pugiconfig.hpp" />
+		<Unit filename="tmxlite/src/detail/pugixml.cpp" />
+		<Unit filename="tmxlite/src/detail/pugixml.hpp" />
+		<Unit filename="tmxlite/src/miniz.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tmxlite/src/miniz.h" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
