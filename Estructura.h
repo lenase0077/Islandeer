@@ -15,7 +15,8 @@ private:
 
 public:
 
-    Estructura(float porX, float posY);
+    Estructura( float posX, float posY);
+    void actualizarTextura();
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     void recibirGolpe(float danio);
