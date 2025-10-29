@@ -3,6 +3,7 @@ using namespace std;
 #include "Game.h"
 #include "InventarioIntefaz.h"
 #include "InventarioResumidoInterfaz.h"
+#include "Estructura.h"
 
 
 
@@ -62,6 +63,12 @@ void Game::run() {
     sonido.setLoop(true);
 
 
+/// ESTRUCTURA TEST
+
+    Estructura Madera(50,50);
+
+
+
 
 
 
@@ -117,7 +124,9 @@ void Game::run() {
 //            VectEnemy[i].getColisionador().draw(window);
 //            window.draw(VectEnemy[i]);
 //        }
-///////
+
+
+/////// COLISIONES
 
 
 
@@ -126,17 +135,34 @@ void Game::run() {
             character.chocar(colisionador);
         }
 
-        ///////////
+
+        if(!Madera.estaDestruido())
+        {
+
+            if(character.getColisionador().detectorDeColision(Madera.getColisionador())) ///EJEMPLO
+            {
+                character.chocar(Madera.getColisionador());
+                Madera.recibirGolpe(5);
+            }
+        }
+
+///////////
 
         character.update();
         character.updateEspada(mouse);
+/// DRAW
+
 
         character.getColisionador().draw(window);
 
         window.draw(character);
 
-        window.draw(inv);
 
+        if(!Madera.estaDestruido()){
+        window.draw(Madera);
+        };
+
+        window.draw(inv);
         float relacion = (float)window.getSize().x/(float)window.getSize().y;
         inv.update(mouse.getPosicion(),mause,Camara,relacion);
 
