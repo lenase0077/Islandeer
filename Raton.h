@@ -9,4 +9,6 @@ public:
     sf::Vector2f getPosicion() const;
 
 
+
+
 };

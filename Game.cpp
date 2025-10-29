@@ -30,11 +30,14 @@ InventarioInterfaz inv;
 
     /// MOUSE
     Raton mouse;
+    sf::Mouse mause;
 
     ///CAMARA
     sf::View Camara;
     Camara.setSize({300.f, 300.f});
     sf::Vector2f camaraPosicion = {640, 1120};
+
+    float relacion = (float)window.getSize().x/(float)window.getSize().y;
 
     ///TILEMAP
 //    TileMap Mapa;
@@ -145,6 +148,10 @@ InventarioInterfaz inv;
         else Camara.setSize(Camara.getSize().x + (300 - Camara.getSize().x)*0.05, Camara.getSize().y + (300 - Camara.getSize().y)*0.05);
 
         Camara.setCenter(camaraPosicion);
+
+
+        inv.update(mouse.getPosicion(),mause,Camara,relacion);
+
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
             guardar(character);
