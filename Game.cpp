@@ -5,6 +5,7 @@ using namespace std;
 
 
 
+
 Game::Game()
     : window(sf::VideoMode(1024, 768), "SFML works!"), personaTest(300,300) {
     window.setFramerateLimit(75);
