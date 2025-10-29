@@ -65,7 +65,6 @@ void Game::run()
     sonido.setVolume(5.0);
     sonido.setLoop(true);
 
-
 /// ESTRUCTURA TEST
 
     vectorEstructuras.push_back(Estructura(45,50));
@@ -102,7 +101,8 @@ void Game::run()
         sf::Vector2f PosicionJugador = character.getPosition();
 
         ///Mostramos la vida del jugador
-        cout << character.getVida() << endl;
+
+//        cout << character.getVida() << endl;
 
 
 /////////
@@ -140,6 +140,7 @@ void Game::run()
 
         for (int i = 0; i < vectorEstructuras.size(); ++i)
         {
+            vectorEstructuras[i].actualizarTextura();
             if(!vectorEstructuras[i].estaDestruido())
             {
                 if(character.getColisionador().detectorDeColision(vectorEstructuras[i].getColisionador())) ///EJEMPLO
@@ -154,6 +155,8 @@ void Game::run()
                 vectorEstructuras.erase(vectorEstructuras.begin() + i);
             }
         }
+
+
 ///////////
         character.update();
         character.updateEspada(mouse);
