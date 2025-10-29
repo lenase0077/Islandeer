@@ -94,7 +94,9 @@ void Game::run() {
 
         ///Mostramos la vida del jugador
         cout << character.getVida() << endl;
-//
+
+
+/////////
 //        for (int i = 0 ; i < 3 ; i++) {
 //
 //            VectEnemy[i].Update(PosicionJugador);
@@ -115,17 +117,14 @@ void Game::run() {
 //            VectEnemy[i].getColisionador().draw(window);
 //            window.draw(VectEnemy[i]);
 //        }
-        /////////
+///////
+
+
 
 
         for (auto& colisionador : mapa._colisiones){
             character.chocar(colisionador);
         }
-
-
-
-
-
 
         ///////////
 
