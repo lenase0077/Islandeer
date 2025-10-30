@@ -4,9 +4,8 @@ using namespace std;
 #include "InventarioIntefaz.h"
 #include "InventarioResumidoInterfaz.h"
 #include "Estructura.h"
-
-
-
+#include "Loot.h"
+#include <list>
 
 Game::Game()
     : window(sf::VideoMode(1024, 768), "SFML works!"), personaTest(300,300)
@@ -16,13 +15,17 @@ Game::Game()
 
 void Game::run()
 {
-    vector<Estructura> vectorEstructuras;
+   // vector<Estructura> vectorEstructuras;
+    list <Estructura> listaEstructuras;
+
+    Loot l1({60,50},20,5);
 
 ///         inventario  ////
 
 
     InventarioInterfaz inv;
     inv.agregarItem(44,30);
+    inv.agregarItem(15,3);
 
 
 ///      MAPA TEST ///
@@ -67,10 +70,16 @@ void Game::run()
 
 /// ESTRUCTURA TEST
 
-    vectorEstructuras.push_back(Estructura(45,50));
-    vectorEstructuras.push_back(Estructura(70,50));
-    vectorEstructuras.push_back(Estructura(80,50));
-    vectorEstructuras.push_back(Estructura(10,50));
+    listaEstructuras.emplace_back(70,50);
+    listaEstructuras.emplace_back(80,60);
+    listaEstructuras.emplace_back(10,50);
+
+    //Se suele usar List no vector
+    //Convendria que la textura fuera puntero + llamar a dispose antes de erase()
+
+    /*for(auto& p:listaEstructuras){
+        p.actualizarTextura();
+    }*/
 
     while (window.isOpen())
     {
@@ -137,25 +146,22 @@ void Game::run()
             character.chocar(colisionador);
         }
 
-
-        for (int i = 0; i < vectorEstructuras.size(); ++i)
+        for (auto it = listaEstructuras.begin(); it != listaEstructuras.end(); )
         {
-            vectorEstructuras[i].actualizarTextura();
-            if(!vectorEstructuras[i].estaDestruido())
-            {
-                if(character.getColisionador().detectorDeColision(vectorEstructuras[i].getColisionador())) ///EJEMPLO
+            if (!it->estaDestruido()){
+                if(character.getColisionador().detectorDeColision(it->getColisionador())) ///EJEMPLO
                 {
-                    character.chocar(vectorEstructuras[i].getColisionador());
-                    vectorEstructuras[i].recibirGolpe(5);
+                    character.chocar(it->getColisionador());
+                    it->recibirGolpe(5);
                 }
-                window.draw(vectorEstructuras[i]);
+                window.draw(*it);
             }
             else
             {
-                vectorEstructuras.erase(vectorEstructuras.begin() + i);
+                it = listaEstructuras.erase(it);
             }
+            it++;
         }
-
 
 ///////////
         character.update();
@@ -164,6 +170,9 @@ void Game::run()
 
 
         character.getColisionador().draw(window);
+
+        l1.update();
+        window.draw(l1);
 
         window.draw(character);
 
@@ -219,3 +228,18 @@ void Game::cargar(Personaje &character)
 
     fclose(Puntero);
 }
+
+/*
+
+input
+
+terminar:
+-objeto loot
+-hacer los mobs
+
+-relacion
+    -> inventario
+    -> estructura
+    -> loot
+
+*/

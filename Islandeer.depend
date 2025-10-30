@@ -1291,7 +1291,7 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1761749986 source:c:\users\sebas\onedrive\documentos\github\islandeer\colisionador.cpp
+1761771551 source:c:\users\sebas\onedrive\documentos\github\islandeer\colisionador.cpp
 	<iostream>
 	"Colisionador.h"
 	<cmath>
@@ -1310,11 +1310,11 @@
 	<SFML/Graphics.hpp>
 	<cmath>
 
-1761769368 source:c:\users\sebas\onedrive\documentos\github\islandeer\estructura.cpp
+1761828696 source:c:\users\sebas\onedrive\documentos\github\islandeer\estructura.cpp
 	"Estructura.h"
 	<iostream>
 
-1761769421 c:\users\sebas\onedrive\documentos\github\islandeer\estructura.h
+1761771551 c:\users\sebas\onedrive\documentos\github\islandeer\estructura.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 
@@ -1332,12 +1332,14 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1761769600 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1761828632 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
 	"Game.h"
 	"InventarioIntefaz.h"
 	"InventarioResumidoInterfaz.h"
 	"Estructura.h"
+	"Loot.h"
+	<list>
 
 1761766421 c:\users\sebas\onedrive\documentos\github\islandeer\game.h
 	<SFML/Graphics.hpp>
@@ -1706,13 +1708,14 @@
 	<iostream>
 	"ItemDescripcion.h"
 
-1761749986 source:c:\users\sebas\onedrive\documentos\github\islandeer\loot.cpp
+1761828757 source:c:\users\sebas\onedrive\documentos\github\islandeer\loot.cpp
 	"Loot.h"
 	"cmath"
 
-1761749986 c:\users\sebas\onedrive\documentos\github\islandeer\loot.h
+1761823668 c:\users\sebas\onedrive\documentos\github\islandeer\loot.h
 	<SFML/Graphics.hpp>
 	"Item.h"
+	"Colisionador.h"
 
 1761749987 source:c:\users\sebas\onedrive\documentos\github\islandeer\main.cpp
 	"Game.h"
