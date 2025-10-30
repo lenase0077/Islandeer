@@ -16,6 +16,11 @@ void Game::run() {
         std::cout << "Error cargando GatoFantasma-Sheet.png" << endl;
     }
 
+    sf::Texture texturaMurcielago;
+    if(!texturaMurcielago.loadFromFile("murcielago.png")) {
+        std::cout << "Error cargando murcielago.png" << endl;
+    }
+
     // vector<Estructura> vectorEstructuras;
     list <Estructura> listaEstructuras;
 
@@ -56,15 +61,14 @@ void Game::run() {
     cargar(character);
 
     ///ENEMIGO
-//    Enemigo VectEnemy[10];
-
 
     sf::Vector2f empuje;
     empuje.x = 0.f;
     empuje.y = 0.f;
     float fuerzaEmpuje = 50.f;
 
-    Fantasma miFantasma(texturaFantasma);
+    Fantasma miFantasma(texturaFantasma , {100 , 100});
+    Murcielago miMurcielago (texturaMurcielago , {50 , 50});
 
     ///MUSICA
     sf::SoundBuffer buffer;
@@ -152,11 +156,18 @@ void Game::run() {
         if (character.getColisionador().detectorDeColision(miFantasma._colision , empuje.x , empuje.y)) {
 
             if (miFantasma._colision.getID()== "Fantasma") {
-                character.move(empuje.x * fuerzaEmpuje, empuje.x * fuerzaEmpuje);
+                character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
             }
         }
 
+        character.chocar(miMurcielago._colision);
 
+        if (character.getColisionador().detectorDeColision(miMurcielago._colision , empuje.x , empuje.y)) {
+
+            if (miMurcielago._colision.getID()== "Murcielago") {
+                character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
+            }
+        }
 
         for (auto& colisionador : mapa._colisiones) {
             character.chocar(colisionador);
@@ -179,6 +190,7 @@ void Game::run() {
         character.update();
         character.updateEspada(mouse);
         miFantasma.fantasmaUpdate(PosicionJugador);
+        miMurcielago.murcielagoUpdate(PosicionJugador);
 
 /// DRAW
 
@@ -191,6 +203,7 @@ void Game::run() {
 
         window.draw(character);
         window.draw(miFantasma);
+        window.draw(miMurcielago);
 
         window.draw(inv);
         float relacion = (float)window.getSize().x/(float)window.getSize().y;

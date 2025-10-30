@@ -28,6 +28,10 @@ bool Mob::perseguir(sf::Vector2f Posicionpersonaje, float aceleracion) {
     }
 }
 
+sf::Clock& Mob::getRelojMob()
+{
+    return _relojMob;
+}
 
 void Mob::update() {
 
@@ -40,10 +44,9 @@ void Mob::updateColision() {
 
 }
 
-void Mob::setFrame(int fila , int columna){
-
+void Mob::setFrame(int fila , int columna)
+{
     setTextureRect((sf::IntRect(columna * 32 , fila * 32 , 32 , 32)));
-
 }
 
 float Mob::getVida() const

@@ -8,6 +8,7 @@
 #include "Estructura.h"
 #include "Loot.h"
 #include "Fantasma.h"
+#include "Murcielago.h"
 #include <list>
 
 
@@ -19,6 +20,7 @@ class Game
         void guardar(Personaje &character);
         void cargar (Personaje &character);
         sf::Clock getRelojInterno();
+
     private:
         Personaje _personaje;
         Personaje personaTest;
