@@ -16,16 +16,17 @@ void Game::run() {
         std::cout << "Error cargando GatoFantasma-Sheet.png" << endl;
     }
 
-
-
-
-
-
-
     // vector<Estructura> vectorEstructuras;
     list <Estructura> listaEstructuras;
 
     Loot l1({60,50},20,5);
+
+
+
+///RELOJ INTERNO/////
+
+
+
 
 ///         inventario  ////
 
@@ -41,8 +42,6 @@ void Game::run() {
     TileMap mapa;
     mapa.loadFromJSON("mapa.json", "Sprite-0003.png", "Items.png");
 
-
-
     /// MOUSE
     Raton mouse;
     sf::Mouse mause;
@@ -52,12 +51,9 @@ void Game::run() {
     Camara.setSize({300.f, 300.f});
     sf::Vector2f camaraPosicion = {640, 1120};
 
-
-
     ///PERSONAJE
     Personaje character;
     cargar(character);
-
 
     ///ENEMIGO
 //    Enemigo VectEnemy[10];
@@ -68,16 +64,7 @@ void Game::run() {
     empuje.y = 0.f;
     float fuerzaEmpuje = 50.f;
 
-
-
     Fantasma miFantasma(texturaFantasma);
-
-
-
-
-
-
-
 
     ///MUSICA
     sf::SoundBuffer buffer;
@@ -251,6 +238,11 @@ void Game::cargar(Personaje &character) {
     character.setPosicion(_posicionPersonaje.x, _posicionPersonaje.y);
 
     fclose(Puntero);
+}
+
+sf::Clock Game::getRelojInterno()
+{
+    return _relojInterno;
 }
 
 /*

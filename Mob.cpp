@@ -2,10 +2,7 @@
 #include <cmath>
 #include <iostream>
 
-
-
-void Mob::perseguir(sf::Vector2f Posicionpersonaje, float aceleracion) {
-
+bool Mob::perseguir(sf::Vector2f Posicionpersonaje, float aceleracion) {
 
     sf::Vector2f PosicionEnemigo = getPosition();
 
@@ -13,19 +10,23 @@ void Mob::perseguir(sf::Vector2f Posicionpersonaje, float aceleracion) {
 
     float longitud = std::sqrt(Direccion.x * Direccion.x + Direccion.y * Direccion.y);
 
-    if (longitud > 1) {
+    if (longitud < 150 && longitud > 1)
+    {
         Direccion.x /= longitud;
         Direccion.y /= longitud;
 
         _velocidad.x = Direccion.x * aceleracion;
         _velocidad.y = Direccion.y * aceleracion;
 
-    } else {
+        return true;
+    }
+    else
+    {
         _velocidad = {0, 0};
+
+        return false;
     }
 }
-
-
 
 
 void Mob::update() {
@@ -39,13 +40,24 @@ void Mob::updateColision() {
 
 }
 
+void Mob::setFrame(int fila , int columna){
+
+    setTextureRect((sf::IntRect(columna * 32 , fila * 32 , 32 , 32)));
+
+}
+
+float Mob::getVida() const
+{
+    return _vida;
+}
+
+sf::Vector2f Mob::getVelocidad()
+{
+    return _velocidad;
+}
 
 
-
-float Mob::getVida() const { return _vida; }
-
-sf::Vector2f Mob::getVelocidad() {return _velocidad;}
-
-
-
-void Mob::setVida(float vida) { _vida = vida; }
+void Mob::setVida(float vida)
+{
+    _vida = vida;
+}
