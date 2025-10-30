@@ -444,11 +444,11 @@
 1761749223 c:\users\leand\onedrive\documentos\repositorio\islandeer\funciones.h
 	<SFML/Graphics.hpp>
 
-1761856510 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1761861552 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	"Game.h"
 
-1761856586 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
+1761861554 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
 	<SFML/Graphics.hpp>
 	"Personaje.h"
 	"TileMap.h"
@@ -458,6 +458,7 @@
 	"Estructura.h"
 	"Loot.h"
 	"Fantasma.h"
+	"Murcielago.h"
 	<list>
 
 1761749223 c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.h
@@ -784,7 +785,7 @@
 	<iostream>
 	<ctime>
 
-1761856607 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.cpp
+1761861556 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.cpp
 	"Mob.h"
 	<cmath>
 	<iostream>
@@ -1755,14 +1756,17 @@
 	<fstream>
 	<iostream>
 
-1761856088 c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.h
+1761861558 c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<string>
 
-1761856569 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\fantasma.cpp
+1761857673 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\fantasma.cpp
 	"Fantasma.h"
 
-1761856569 c:\users\leand\onedrive\documentos\repositorio\islandeer\fantasma.h
+1761861496 c:\users\leand\onedrive\documentos\repositorio\islandeer\fantasma.h
+	"Mob.h"
+
+1761861563 c:\users\leand\onedrive\documentos\repositorio\islandeer\murcielago.h
 	"Mob.h"
 

@@ -45,7 +45,7 @@ void Fantasma::fantasmaUpdate(sf::Vector2f& Posicionpersonaje)
 
     if (perseguir(Posicionpersonaje, 1.f)){
 
-        setFrame(0,1);
+        setFrame(1,0);
     }
 
     else{setFrame(0,0);}
