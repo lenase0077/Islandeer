@@ -27,6 +27,10 @@ void Game::run() {
 
     Loot l1({60,50},20,5);
 
+
+///         RELOJ INTERNO       ///
+
+
 ///         inventario  ////
 
 
@@ -70,7 +74,7 @@ void Game::run() {
 
 
 
-    Fantasma miFantasma(texturaFantasma);
+    Fantasma miFantasma(texturaFantasma, sf::Vector2f(400,400));
 
 
 
@@ -160,7 +164,7 @@ void Game::run() {
 /////// COLISIONES
 
 
-        character.chocar(miFantasma._colision);
+//        character.chocar(miFantasma._colision);
 
         if (character.getColisionador().detectorDeColision(miFantasma._colision , empuje.x , empuje.y)) {
 

@@ -22,7 +22,7 @@ public:
 
         sf::Vector2f getVelocidad();
 
-        void perseguir(sf::Vector2f Posicionpersonaje, float aceleracion);
+        bool perseguir(sf::Vector2f Posicionpersonaje, float aceleracion);
 
 
         float getVida() const;
@@ -31,6 +31,8 @@ public:
 
         void update();
         void updateColision();
+
+        void setFrame(int fila , int columna);
 
 
 
