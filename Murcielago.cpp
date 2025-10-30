@@ -18,18 +18,20 @@ Murcielago::Murcielago(const sf::Texture& textura , sf::Vector2f PosicionInicial
     setVida(100);
 }
 
-void Murcielago::murcielagoUpdate(sf::Vector2f& Posicionpersonaje)
+void Murcielago::murcielagoUpdate(sf::Vector2f& Posicionpersonaje, float deltatime)
 {
     updateColision();
-    Animar();
-    perseguir(Posicionpersonaje, 1.f);
+    Animar(deltatime);
+    comportamiento(Posicionpersonaje, 1.f,deltatime);
     move(getVelocidad());
 }
 
-void Murcielago::Animar()
+void Murcielago::Animar(float deltaTime)
 {
 
-    if (getRelojMob().getElapsedTime().asMilliseconds() > 80)
+    _tiempoDeAnimar += deltaTime;
+
+    if (_tiempoDeAnimar >= 80)
     {
 
         if (_frameActual >= 5)
@@ -43,7 +45,7 @@ void Murcielago::Animar()
 
         setFrame(0, _frameActual);
 
-        getRelojMob().restart();
+        _tiempoDeAnimar -= 80;
 
     }
 }

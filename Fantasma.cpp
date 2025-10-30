@@ -36,16 +36,16 @@ Fantasma::Fantasma(const sf::Texture& textura, sf::Vector2f posicionInicial)
 
 }
 
-void Fantasma::fantasmaUpdate(sf::Vector2f& Posicionpersonaje)
+void Fantasma::fantasmaUpdate(sf::Vector2f& Posicionpersonaje, float deltatime)
 {
 
 
 
     updateColision();
 
-    if (perseguir(Posicionpersonaje, 1.f)){
+    if (comportamiento(Posicionpersonaje, 1.f, deltatime)){
 
-        setFrame(1,0);
+        setFrame(0,1);
     }
 
     else{setFrame(0,0);}
