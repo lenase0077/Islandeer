@@ -11,6 +11,8 @@ Game::Game()
 void Game::run() {
     ///     TEXTURAS    ////
 
+
+
     sf::Texture texturaFantasma;
     if(!texturaFantasma.loadFromFile("GatoFantasma-Sheet.png")) {
         std::cout << "Error cargando GatoFantasma-Sheet.png" << endl;
@@ -29,6 +31,8 @@ void Game::run() {
 
 
 ///RELOJ INTERNO/////
+
+    float deltatime;
 
 
 
@@ -108,7 +112,11 @@ void Game::run() {
         window.clear(sf::Color::Black);
         window.draw(mapa);
 
-        ///
+        /// RELOJ
+
+        deltatime = _relojInterno.restart().asMilliseconds();
+
+
 
         ///
         mouse.update(window);
@@ -151,6 +159,8 @@ void Game::run() {
 /////// COLISIONES
 
 
+
+
         character.chocar(miFantasma._colision);
 
         if (character.getColisionador().detectorDeColision(miFantasma._colision , empuje.x , empuje.y)) {
@@ -189,8 +199,8 @@ void Game::run() {
 /////////// UPDATE
         character.update();
         character.updateEspada(mouse);
-        miFantasma.fantasmaUpdate(PosicionJugador);
-        miMurcielago.murcielagoUpdate(PosicionJugador);
+        miFantasma.fantasmaUpdate(PosicionJugador, deltatime);
+        miMurcielago.murcielagoUpdate(PosicionJugador, deltatime);
 
 /// DRAW
 
