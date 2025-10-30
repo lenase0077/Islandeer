@@ -18,7 +18,13 @@ class Game
         void run();
         void guardar(Personaje &character);
         void cargar (Personaje &character);
+
+        sf::Clock getRelojInterno(){return _relojInterno;};
     private:
+
+
+        sf::Clock _relojInterno;
+
         Personaje _personaje;
         Personaje personaTest;
         sf::RenderWindow window;
