@@ -6,7 +6,7 @@ using namespace std;
 Estructura::Estructura( float posX, float posY)
     : _vida(100.f) {
 
-
+    actualizarTextura();
 
     _sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
     _sprite.setPosition(posX, posY);

@@ -1,6 +1,7 @@
 #include "Loot.h"
 #include "cmath"
 
+
 using namespace std;
 
 Loot::Loot(const sf::Vector2f& posicion, const int& id, const int& cantidad){
@@ -9,6 +10,10 @@ Loot::Loot(const sf::Vector2f& posicion, const int& id, const int& cantidad){
     _item.actualizarSprite();
     _item.setCantidad(1);//Hacemos esto para que no sea visible el numero cantidad.
     _cantidad = cantidad;
+
+    ///Definimos dimenciones de Colicionador
+  /*  sf::FloatRect dimencionColision();
+    _colisionConJugador.setColision(dimencionColision);*/
 }
 
 ///HACER GET y SET de _cantidad
