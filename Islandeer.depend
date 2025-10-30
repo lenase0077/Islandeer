@@ -1332,7 +1332,7 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1761828632 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1761836986 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
 	"Game.h"
 	"InventarioIntefaz.h"
@@ -1666,7 +1666,7 @@
 
 1761749986 c:\users\sebas\onedrive\documentos\github\islandeer\enemigo.h
 
-1761749986 c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.h
+1761836986 c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.h
 	"SeleccionRectangulo.h"
 	"Item.h"
 	"ItemDescripcion.h"
@@ -1676,7 +1676,7 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\seleccionrectangulo.h
 	<SFML/Graphics.hpp>
 
-1761749986 c:\users\sebas\onedrive\documentos\github\islandeer\item.h
+1761835781 c:\users\sebas\onedrive\documentos\github\islandeer\item.h
 	<SFML/Graphics.hpp>
 	<string>
 	"json.hpp"
@@ -1690,7 +1690,7 @@
 	"SeleccionRectangulo.h"
 	<SFML/Graphics.hpp>
 
-1761765548 source:c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.cpp
+1761837268 source:c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.cpp
 	"InventarioIntefaz.h"
 	"funcionesInterpolacion.h"
 
@@ -1698,7 +1698,7 @@
 	"InventarioResumidoInterfaz.h"
 	<iostream>
 
-1761749986 source:c:\users\sebas\onedrive\documentos\github\islandeer\item.cpp
+1761835932 source:c:\users\sebas\onedrive\documentos\github\islandeer\item.cpp
 	"Item.h"
 	<iostream>
 	"json.hpp"
@@ -1708,14 +1708,16 @@
 	<iostream>
 	"ItemDescripcion.h"
 
-1761828757 source:c:\users\sebas\onedrive\documentos\github\islandeer\loot.cpp
+1761836005 source:c:\users\sebas\onedrive\documentos\github\islandeer\loot.cpp
 	"Loot.h"
 	"cmath"
+	"funcionesInterpolacion.h"
 
-1761823668 c:\users\sebas\onedrive\documentos\github\islandeer\loot.h
+1761836057 c:\users\sebas\onedrive\documentos\github\islandeer\loot.h
 	<SFML/Graphics.hpp>
 	"Item.h"
 	"Colisionador.h"
+	"InventarioIntefaz.h"
 
 1761749987 source:c:\users\sebas\onedrive\documentos\github\islandeer\main.cpp
 	"Game.h"

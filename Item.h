@@ -23,7 +23,6 @@ private:
     int _cantidad;
     float _posX, _posY; //Almacena y controla la posicion del item
 
-    sf::Texture texturaItems;
     sf::Sprite sprItem;
 
     sf::Font _fuenteTextoCantidad;
@@ -43,7 +42,7 @@ public:
     void actualizarSprite();
 
     /// Constructores
-    Item(int id);
+    Item(sf::Texture& texturaItems, int id);
     Item();
     Item(int id, int x, int y, int cantidad = 1);
 

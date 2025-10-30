@@ -5,7 +5,7 @@ using namespace std;
 
 ///CONSTRUCTORES
 //{
-InventarioInterfaz::InventarioInterfaz(std::string nombreDireccionTextura)
+InventarioInterfaz::InventarioInterfaz(sf::Texture& texturaItems, std::string nombreDireccionTextura)
 {
     setNombreDireccionTextura("Inventario.png");
 
@@ -15,7 +15,7 @@ InventarioInterfaz::InventarioInterfaz(std::string nombreDireccionTextura)
 
     for(int i = 0; i<30; i++)
     {
-        _inventarioItems[i].setID(-1);
+        _inventarioItems[i] = Item(texturaItems,-1); // <--------------- ESTO ES LO QUE DA ERROR
         _inventarioItems[i].setCantidad(1);
     }
 }

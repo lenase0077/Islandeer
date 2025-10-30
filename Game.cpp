@@ -15,15 +15,25 @@ Game::Game()
 
 void Game::run()
 {
-   // vector<Estructura> vectorEstructuras;
-    list <Estructura> listaEstructuras;
+    ///
 
-    Loot l1({60,50},20,5);
+
+    list <Estructura> listaEstructuras;
+    list <Loot> listaLoots;
+
+
+
+    sf::Texture texturaItems;
+    if (!texturaItems.loadFromFile("ItemsSprites.png")){
+        cout << "Error al cargar ItemsSprites.png" << endl;
+    }
+
+    Loot l1(texturaItems,{60,50},20);
 
 ///         inventario  ////
 
 
-    InventarioInterfaz inv;
+    InventarioInterfaz inv(texturaItems);
     inv.agregarItem(44,30);
     inv.agregarItem(15,3);
 
@@ -74,8 +84,14 @@ void Game::run()
     listaEstructuras.emplace_back(80,60);
     listaEstructuras.emplace_back(10,50);
 
+    listaLoots.emplace_back(texturaItems,sf::Vector2f(100,100),5);
+    listaLoots.emplace_back(texturaItems,sf::Vector2f(105,105),8);
+    listaLoots.emplace_back(texturaItems,sf::Vector2f(120,100),9);
+    listaLoots.emplace_back(texturaItems,sf::Vector2f(150,50),10);
+
     //Se suele usar List no vector
     //Convendria que la textura fuera puntero + llamar a dispose antes de erase()
+
 
     /*for(auto& p:listaEstructuras){
         p.actualizarTextura();
@@ -163,6 +179,13 @@ void Game::run()
             it++;
         }
 
+        for (auto it = listaLoots.begin(); it != listaLoots.end(); ){
+            it->update(character.getPosition(),inv);
+            window.draw(*it);
+            if (it->getLooted()) it = listaLoots.erase(it);
+            it++;
+        }
+
 ///////////
         character.update();
         character.updateEspada(mouse);
@@ -171,7 +194,7 @@ void Game::run()
 
         character.getColisionador().draw(window);
 
-        l1.update();
+        l1.update(character.getPosition(), inv);
         window.draw(l1);
 
         window.draw(character);

@@ -48,7 +48,7 @@ private:
 
 public:
     /// Constructores
-    InventarioInterfaz(std::string nombreDireccionTextura = "Inventario.png");
+    InventarioInterfaz(sf::Texture& texturaItems,std::string nombreDireccionTextura = "Inventario.png");
 
     /// Getters
     float getPosX();

@@ -7,7 +7,7 @@
 using namespace std;
 
 /// Constructores
-Item::Item(int id){
+Item::Item(sf::Texture& texturaItems, int id){
     setCantidad(1);
     if (!texturaItems.loadFromFile("ItemsSprites.png")){
         cout << "Error al cargar ItemsSprites.png" << endl;
@@ -40,7 +40,7 @@ Item::Item(int id){
 
     setID(id);
 }
-
+/*
 Item::Item(int id, int x, int y, int cantidad){
     setCantidad(cantidad);
     if (!texturaItems.loadFromFile("ItemsSprites.png")){
@@ -78,15 +78,15 @@ Item::Item(int id, int x, int y, int cantidad){
 
     setID(id);
 }
-
+*/
 Item::Item(){
-    if (!texturaItems.loadFromFile("ItemsSprites.png")){
+    /*if (!texturaItems.loadFromFile("ItemsSprites.png")){
         cout << "Error al cargar ItemsSprites.png" << endl;
-    }
+    }*/
     if (!_fuenteTextoCantidad.loadFromFile("PIXEARG_.TTF")){
         cout << "Error al cargar PIXEARG_.TTF" << endl;
     }
-    sprItem.setTexture(texturaItems);
+    //sprItem.setTexture(texturaItems);
 
     _textoCantidad.setFont(_fuenteTextoCantidad);
     _textoCantidad.setOrigin(0.5,0.5);
