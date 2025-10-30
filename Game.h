@@ -3,6 +3,13 @@
 #include "Personaje.h"
 #include "TileMap.h"
 #include "Enemigo.h"
+#include "InventarioIntefaz.h"
+#include "InventarioResumidoInterfaz.h"
+#include "Estructura.h"
+#include "Loot.h"
+#include "Fantasma.h"
+#include <list>
+
 
 class Game
 {
