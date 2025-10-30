@@ -1,21 +1,28 @@
 #include <iostream>
 using namespace std;
 #include "Game.h"
-#include "InventarioIntefaz.h"
-#include "InventarioResumidoInterfaz.h"
-#include "Estructura.h"
-#include "Loot.h"
-#include <list>
+
 
 Game::Game()
-    : window(sf::VideoMode(1024, 768), "SFML works!"), personaTest(300,300)
-{
+    : window(sf::VideoMode(1024, 768), "SFML works!"), personaTest(300,300) {
     window.setFramerateLimit(75);
 }
 
-void Game::run()
-{
-   // vector<Estructura> vectorEstructuras;
+void Game::run() {
+    ///     TEXTURAS    ////
+
+    sf::Texture texturaFantasma;
+    if(!texturaFantasma.loadFromFile("GatoFantasma-Sheet.png")) {
+        std::cout << "Error cargando GatoFantasma-Sheet.png" << endl;
+    }
+
+
+
+
+
+
+
+    // vector<Estructura> vectorEstructuras;
     list <Estructura> listaEstructuras;
 
     Loot l1({60,50},20,5);
@@ -55,11 +62,27 @@ void Game::run()
     ///ENEMIGO
 //    Enemigo VectEnemy[10];
 
+
+    sf::Vector2f empuje;
+    empuje.x = 0.f;
+    empuje.y = 0.f;
+    float fuerzaEmpuje = 50.f;
+
+
+
+    Fantasma miFantasma(texturaFantasma);
+
+
+
+
+
+
+
+
     ///MUSICA
     sf::SoundBuffer buffer;
     sf::Sound sonido;
-    if (!buffer.loadFromFile("music.wav"))
-    {
+    if (!buffer.loadFromFile("music.wav")) {
         return;
     }
 
@@ -81,14 +104,11 @@ void Game::run()
         p.actualizarTextura();
     }*/
 
-    while (window.isOpen())
-    {
+    while (window.isOpen()) {
 
         sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-            {
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
                 window.close();
             }
             inv.controlAbrirCerrarInventario(event);
@@ -140,41 +160,50 @@ void Game::run()
 /////// COLISIONES
 
 
+        character.chocar(miFantasma._colision);
 
-        for (auto& colisionador : mapa._colisiones)
-        {
+        if (character.getColisionador().detectorDeColision(miFantasma._colision , empuje.x , empuje.y)) {
+
+            if (miFantasma._colision.getID()== "Fantasma") {
+                character.move(empuje.x * fuerzaEmpuje, empuje.x * fuerzaEmpuje);
+            }
+        }
+
+
+
+        for (auto& colisionador : mapa._colisiones) {
             character.chocar(colisionador);
         }
 
-        for (auto it = listaEstructuras.begin(); it != listaEstructuras.end(); )
-        {
-            if (!it->estaDestruido()){
-                if(character.getColisionador().detectorDeColision(it->getColisionador())) ///EJEMPLO
-                {
+        for (auto it = listaEstructuras.begin(); it != listaEstructuras.end(); ) {
+            if (!it->estaDestruido()) {
+                if(character.getColisionador().detectorDeColision(it->getColisionador())) { ///EJEMPLO
                     character.chocar(it->getColisionador());
                     it->recibirGolpe(5);
                 }
                 window.draw(*it);
-            }
-            else
-            {
+            } else {
                 it = listaEstructuras.erase(it);
             }
             it++;
         }
 
-///////////
+/////////// UPDATE
         character.update();
         character.updateEspada(mouse);
+        miFantasma.fantasmaUpdate(PosicionJugador);
+
 /// DRAW
 
 
         character.getColisionador().draw(window);
 
         l1.update();
+
         window.draw(l1);
 
         window.draw(character);
+        window.draw(miFantasma);
 
         window.draw(inv);
         float relacion = (float)window.getSize().x/(float)window.getSize().y;
@@ -188,8 +217,7 @@ void Game::run()
 
         Camara.setCenter(camaraPosicion);
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
-        {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
             guardar(character);
             cout << "Guardado Exitosamente!!" << endl;
         }
@@ -198,11 +226,9 @@ void Game::run()
     }
 }
 
-void Game::guardar(Personaje &character)
-{
+void Game::guardar(Personaje &character) {
     FILE *Puntero = fopen("ultimoGuardado", "wb");
-    if (Puntero== nullptr)
-    {
+    if (Puntero== nullptr) {
         cout << "ERROR 404" << endl;
     }
 
@@ -213,12 +239,10 @@ void Game::guardar(Personaje &character)
     fclose(Puntero);
 }
 
-void Game::cargar(Personaje &character)
-{
+void Game::cargar(Personaje &character) {
 
     FILE *Puntero = fopen("ultimoGuardado", "rb");
-    if (Puntero== nullptr)
-    {
+    if (Puntero== nullptr) {
         cout << "ERROR 404" << endl;
     }
 
