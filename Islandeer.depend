@@ -2212,13 +2212,13 @@
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 
-1761857280 source:d:\alemart\documents\github\islander\fantasma.cpp
+1761866167 source:d:\alemart\documents\github\islander\fantasma.cpp
 	"Fantasma.h"
 
-1761859659 d:\alemart\documents\github\islander\fantasma.h
+1761866191 d:\alemart\documents\github\islander\fantasma.h
 	"Mob.h"
 
-1761860861 d:\alemart\documents\github\islander\mob.h
+1761866322 d:\alemart\documents\github\islander\mob.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<string>
@@ -2237,11 +2237,11 @@
 1761750014 d:\alemart\documents\github\islander\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1761861081 source:d:\alemart\documents\github\islander\game.cpp
+1761866635 source:d:\alemart\documents\github\islander\game.cpp
 	<iostream>
 	"Game.h"
 
-1761859659 d:\alemart\documents\github\islander\game.h
+1761863430 d:\alemart\documents\github\islander\game.h
 	<SFML/Graphics.hpp>
 	"Personaje.h"
 	"TileMap.h"
@@ -2629,10 +2629,11 @@
 	<iostream>
 	<ctime>
 
-1761860861 source:d:\alemart\documents\github\islander\mob.cpp
+1761866469 source:d:\alemart\documents\github\islander\mob.cpp
 	"Mob.h"
 	<cmath>
 	<iostream>
+	<ctime>
 
 1761750013 source:d:\alemart\documents\github\islander\mob_hostil.cpp
 
@@ -2658,9 +2659,9 @@
 
 1761855003 source:d:\alemart\documents\github\islander\movimiento_ia.cpp
 
-1761860129 d:\alemart\documents\github\islander\murcielago.h
+1761866322 d:\alemart\documents\github\islander\murcielago.h
 	"Mob.h"
 
-1761861408 source:d:\alemart\documents\github\islander\murcielago.cpp
+1761866253 source:d:\alemart\documents\github\islander\murcielago.cpp
 	"Murcielago.h"
 

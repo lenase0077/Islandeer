@@ -11,7 +11,6 @@
 #include "Murcielago.h"
 #include <list>
 
-
 class Game
 {
     public:

@@ -26,12 +26,8 @@ void Game::run() {
 
     Loot l1({60,50},20,5);
 
-
-
-///RELOJ INTERNO/////
-
-
-
+    ///RELOJ
+    float deltaTime;
 
 ///         inventario  ////
 
@@ -67,8 +63,8 @@ void Game::run() {
     empuje.y = 0.f;
     float fuerzaEmpuje = 50.f;
 
-    Fantasma miFantasma(texturaFantasma , {100 , 100});
-    Murcielago miMurcielago (texturaMurcielago , {50 , 50});
+    Fantasma miFantasma(texturaFantasma , {400 , 400});
+    Murcielago miMurcielago (texturaMurcielago , {500 , 500});
 
     ///MUSICA
     sf::SoundBuffer buffer;
@@ -108,7 +104,8 @@ void Game::run() {
         window.clear(sf::Color::Black);
         window.draw(mapa);
 
-        ///
+        ///RELOJ
+        deltaTime = _relojInterno.restart().asMilliseconds();
 
         ///
         mouse.update(window);
@@ -189,8 +186,8 @@ void Game::run() {
 /////////// UPDATE
         character.update();
         character.updateEspada(mouse);
-        miFantasma.fantasmaUpdate(PosicionJugador);
-        miMurcielago.murcielagoUpdate(PosicionJugador);
+        miFantasma.fantasmaUpdate(PosicionJugador , deltaTime);
+        miMurcielago.murcielagoUpdate(PosicionJugador , deltaTime);
 
 /// DRAW
 
