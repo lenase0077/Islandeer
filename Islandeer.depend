@@ -1310,13 +1310,15 @@
 	<SFML/Graphics.hpp>
 	<cmath>
 
-1761828696 source:c:\users\sebas\onedrive\documentos\github\islandeer\estructura.cpp
+1761919691 source:c:\users\sebas\onedrive\documentos\github\islandeer\estructura.cpp
 	"Estructura.h"
 	<iostream>
 
-1761771551 c:\users\sebas\onedrive\documentos\github\islandeer\estructura.h
+1761912211 c:\users\sebas\onedrive\documentos\github\islandeer\estructura.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
+	<list>
+	"Loot.h"
 
 1761749986 source:c:\users\sebas\onedrive\documentos\github\islandeer\funciones.cpp
 	<iostream>
@@ -1332,7 +1334,7 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1761836986 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1761920796 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
 	"Game.h"
 	"InventarioIntefaz.h"
@@ -1666,7 +1668,7 @@
 
 1761749986 c:\users\sebas\onedrive\documentos\github\islandeer\enemigo.h
 
-1761836986 c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.h
+1761910932 c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.h
 	"SeleccionRectangulo.h"
 	"Item.h"
 	"ItemDescripcion.h"
@@ -1676,7 +1678,7 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\seleccionrectangulo.h
 	<SFML/Graphics.hpp>
 
-1761835781 c:\users\sebas\onedrive\documentos\github\islandeer\item.h
+1761910605 c:\users\sebas\onedrive\documentos\github\islandeer\item.h
 	<SFML/Graphics.hpp>
 	<string>
 	"json.hpp"
@@ -1690,7 +1692,7 @@
 	"SeleccionRectangulo.h"
 	<SFML/Graphics.hpp>
 
-1761837268 source:c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.cpp
+1761909281 source:c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.cpp
 	"InventarioIntefaz.h"
 	"funcionesInterpolacion.h"
 
@@ -1698,7 +1700,7 @@
 	"InventarioResumidoInterfaz.h"
 	<iostream>
 
-1761835932 source:c:\users\sebas\onedrive\documentos\github\islandeer\item.cpp
+1761921101 source:c:\users\sebas\onedrive\documentos\github\islandeer\item.cpp
 	"Item.h"
 	<iostream>
 	"json.hpp"
@@ -1708,7 +1710,7 @@
 	<iostream>
 	"ItemDescripcion.h"
 
-1761836005 source:c:\users\sebas\onedrive\documentos\github\islandeer\loot.cpp
+1761910683 source:c:\users\sebas\onedrive\documentos\github\islandeer\loot.cpp
 	"Loot.h"
 	"cmath"
 	"funcionesInterpolacion.h"

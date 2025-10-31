@@ -15,8 +15,9 @@ InventarioInterfaz::InventarioInterfaz(sf::Texture& texturaItems, std::string no
 
     for(int i = 0; i<30; i++)
     {
-        _inventarioItems[i] = Item(texturaItems,-1); // <--------------- ESTO ES LO QUE DA ERROR
+        _inventarioItems[i].setID(-1);
         _inventarioItems[i].setCantidad(1);
+        _inventarioItems[i].setTexture(texturaItems);
     }
 }
 //}
