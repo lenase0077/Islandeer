@@ -4,34 +4,33 @@
 using namespace std;
 
 
-Estructura::Estructura( float posX, float posY)
+Estructura::Estructura(sf::Texture& texturaBloques, float posX, float posY, int id)
     : _vida(100.f) {
 
-    actualizarTextura();
+    _sprite.setTexture(texturaBloques);
 
-    _sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+    ///Acomodamos su sprite en base a su ID
+    int columnasTextura = 7;
+    int alturaFrame = 32;
+    int anchuraFrame = 32;
+
+    int frameX = anchuraFrame * (id % columnasTextura);
+    int frameY = alturaFrame * (id / columnasTextura);
+
+    _sprite.setTextureRect(sf::IntRect(frameX,frameY,anchuraFrame,alturaFrame));
+
+
     setPosition(posX,posY);
 
     sf::FloatRect colisionadorDimenciones(posX + 8,posY + 8,16,16);
 
     _colision.setColision(colisionadorDimenciones);
     _colision.setID("Estructura");
-
 }
 
 void Estructura::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform();
     target.draw(_sprite, states);
-}
-
-
-
-void Estructura::actualizarTextura() {
-    if (!_textura.loadFromFile("Bloques.png")) {
-        std::cout << "Error cargando textura" << std::endl;
-    }
-    _sprite.setTexture(_textura);
-
 }
 
 

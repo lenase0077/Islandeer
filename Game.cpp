@@ -26,9 +26,6 @@ void Game::run() {
 
     // vector<Estructura> vectorEstructuras;
     list <Estructura> listaEstructuras;
-
-
-    list <Estructura> listaEstructuras;
     list <Loot> listaLoots;
 
     sf::Texture texturaItems;
@@ -96,9 +93,9 @@ void Game::run() {
 
 /// ESTRUCTURA TEST
 
-    listaEstructuras.emplace_back(70,50);
+    /*listaEstructuras.emplace_back(70,50);
     listaEstructuras.emplace_back(80,60);
-    listaEstructuras.emplace_back(10,50);
+    listaEstructuras.emplace_back(10,50);*/
 
     listaLoots.emplace_back(texturaItems,sf::Vector2f(99,105),7);
     listaLoots.emplace_back(texturaItems,sf::Vector2f(105,105),8);
@@ -109,10 +106,6 @@ void Game::run() {
 
     //Se suele usar List no vector
     //Convendria que la textura fuera puntero + llamar a dispose antes de erase()
-
-    for(auto& p:listaEstructuras){
-        p.actualizarTextura();
-    }
 
     while (window.isOpen()) {
 
@@ -196,22 +189,6 @@ void Game::run() {
 
         for (auto& colisionador : mapa._colisiones) {
             character.chocar(colisionador);
-        }
-
-        for (auto it = listaEstructuras.begin(); it != listaEstructuras.end(); ) {
-            if (!it->estaDestruido()) {
-                if(character.getColisionador().detectorDeColision(it->getColisionador())) { ///EJEMPLO
-                    character.chocar(it->getColisionador());
-                    it->recibirGolpe(5);
-                }
-                window.draw(*it);
-            }
-            else
-            {
-                it->liberarLoot(texturaItems,listaLoots);
-                it = listaEstructuras.erase(it);
-            }
-            it++;
         }
 
 

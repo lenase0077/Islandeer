@@ -6,24 +6,18 @@
 
 class Estructura : public sf::Transformable, public sf::Drawable
 {
-
-
 private:
-
     float _vida;
+    int _bloqueID;
     Colisionador _colision;
     sf::Sprite _sprite;
     sf::Texture _textura;
-
 public:
-
-    Estructura( float posX, float posY);
-    void actualizarTextura();
+    Estructura( sf::Texture& texturaBloques, float posX, float posY, int id);
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
     void recibirGolpe(float danio);
     Colisionador &getColisionador() {return _colision;};
-    void update();
     bool estaDestruido() const;
     ~Estructura(){};
     void liberarLoot(sf::Texture& texturaItems,std::list<Loot>& listaLoot);
