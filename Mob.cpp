@@ -52,11 +52,12 @@ bool Mob::comportamiento(sf::Vector2f Posicionpersonaje, float aceleracion, floa
 }
 
 
+     void Mob::update(sf::Vector2f& Posicionpersonaje, float deltatime)
+    {
 
-    void Mob::update() {
-
-        updateColision();
     }
+
+
 
 
     void Mob::updateColision() {

@@ -12,17 +12,6 @@ void Game::run() {
     ///     TEXTURAS    ////
 
 
-
-    sf::Texture texturaFantasma;
-    if(!texturaFantasma.loadFromFile("GatoFantasma-Sheet.png")) {
-        std::cout << "Error cargando GatoFantasma-Sheet.png" << endl;
-    }
-
-    sf::Texture texturaMurcielago;
-    if(!texturaMurcielago.loadFromFile("murcielago.png")) {
-        std::cout << "Error cargando murcielago.png" << endl;
-    }
-
     // vector<Estructura> vectorEstructuras;
     list <Estructura> listaEstructuras;
 
@@ -71,8 +60,15 @@ void Game::run() {
     empuje.y = 0.f;
     float fuerzaEmpuje = 50.f;
 
-    Fantasma miFantasma(texturaFantasma , {100 , 100});
-    Murcielago miMurcielago (texturaMurcielago , {50 , 50});
+
+
+    std::list<std::unique_ptr<Mob>> enemigos;
+
+    enemigos.push_back(_FabricaEnemigos.crearEnemigo("Fantasma", {100 , 100}));
+    enemigos.push_back(_FabricaEnemigos.crearEnemigo("Murcielago", {50 , 50}));
+
+//    Fantasma miFantasma(texturaFantasma , {100 , 100});
+//    Murcielago miMurcielago (texturaMurcielago , {50 , 50});
 
     ///MUSICA
     sf::SoundBuffer buffer;
@@ -118,6 +114,15 @@ void Game::run() {
 
 
 
+
+
+
+//        sf::Vector2f uwu (rand()%1000 , rand()%1000);
+//
+//            enemigos.push_back(_FabricaEnemigos.crearEnemigo("Fantasma", {uwu.x , uwu.y}));
+
+
+
         ///
         mouse.update(window);
 
@@ -159,25 +164,21 @@ void Game::run() {
 /////// COLISIONES
 
 
+for (auto& enemigo : enemigos){
+
+    enemigo->update(PosicionJugador, deltatime);
+
+    character.chocar(enemigo->_colision);
+
+    if(character.getColisionador().detectorDeColision(enemigo->_colision, empuje.x, empuje.y))
+    {
+        character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
+    }
+
+}
 
 
-        character.chocar(miFantasma._colision);
 
-        if (character.getColisionador().detectorDeColision(miFantasma._colision , empuje.x , empuje.y)) {
-
-            if (miFantasma._colision.getID()== "Fantasma") {
-                character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
-            }
-        }
-
-        character.chocar(miMurcielago._colision);
-
-        if (character.getColisionador().detectorDeColision(miMurcielago._colision , empuje.x , empuje.y)) {
-
-            if (miMurcielago._colision.getID()== "Murcielago") {
-                character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
-            }
-        }
 
         for (auto& colisionador : mapa._colisiones) {
             character.chocar(colisionador);
@@ -199,8 +200,8 @@ void Game::run() {
 /////////// UPDATE
         character.update();
         character.updateEspada(mouse);
-        miFantasma.fantasmaUpdate(PosicionJugador, deltatime);
-        miMurcielago.murcielagoUpdate(PosicionJugador, deltatime);
+//        miFantasma.fantasmaUpdate(PosicionJugador, deltatime);
+//        miMurcielago.murcielagoUpdate(PosicionJugador, deltatime);
 
 /// DRAW
 
@@ -212,8 +213,17 @@ void Game::run() {
         window.draw(l1);
 
         window.draw(character);
-        window.draw(miFantasma);
-        window.draw(miMurcielago);
+
+        for(auto& enemigo : enemigos)
+        {
+            window.draw(*enemigo);
+        }
+
+
+
+
+//        window.draw(miFantasma);
+//        window.draw(miMurcielago);
 
         window.draw(inv);
         float relacion = (float)window.getSize().x/(float)window.getSize().y;

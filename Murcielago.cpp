@@ -49,3 +49,9 @@ void Murcielago::Animar(float deltaTime)
 
     }
 }
+
+
+void Murcielago::update(sf::Vector2f& Posicionpersonaje, float deltatime)
+{
+    murcielagoUpdate(Posicionpersonaje, deltatime);
+}

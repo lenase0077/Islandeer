@@ -18,7 +18,7 @@ private:
 
 public:
     FabricaEnemigos();
-    std::unique_ptr<Mob> crearEnemigo(const std::string& tipo, sf::Vector2f posicion;
+    std::unique_ptr<Mob> crearEnemigo(const std::string& tipo, sf::Vector2f posicion);
 
 
 };
