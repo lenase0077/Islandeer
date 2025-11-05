@@ -46,6 +46,8 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 		</UnitsGlob>
+		<Unit filename="Animal.cpp" />
+		<Unit filename="Animal.h" />
 		<Unit filename="BarraDeVida.cpp" />
 		<Unit filename="BarraDeVida.h" />
 		<Unit filename="Colisionador.cpp" />
@@ -56,8 +58,8 @@
 		<Unit filename="Espada.h" />
 		<Unit filename="Estructura.cpp" />
 		<Unit filename="Estructura.h" />
-		<Unit filename="FabricaEnemigos.cpp" />
-		<Unit filename="FabricaEnemigos.h" />
+		<Unit filename="FabricaMobs.cpp" />
+		<Unit filename="FabricaMobs.h" />
 		<Unit filename="Fantasma.cpp" />
 		<Unit filename="Fantasma.h" />
 		<Unit filename="Funcion.h" />

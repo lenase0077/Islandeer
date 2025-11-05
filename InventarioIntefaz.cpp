@@ -495,9 +495,9 @@ bool InventarioInterfaz::sumarItems(Item& ItemIncrementador, Item& ItemIncrement
     int sumaCantidades = ItemIncrementado.getCantidad()+ItemIncrementador.getCantidad();
     if (sumaCantidades > ItemIncrementado.getCantidadMax())
     {
-        int nuevaCantidad = sumaCantidades - ItemIncrementado.getCantidadMax();
+        int nueAnimalntidad = sumaCantidades - ItemIncrementado.getCantidadMax();
         ItemIncrementado.setCantidad(ItemIncrementado.getCantidadMax());
-        ItemIncrementador.setCantidad(nuevaCantidad);
+        ItemIncrementador.setCantidad(nueAnimalntidad);
         return false;
     }
     else

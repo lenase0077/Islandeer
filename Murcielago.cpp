@@ -22,7 +22,9 @@ void Murcielago::murcielagoUpdate(sf::Vector2f& Posicionpersonaje, float deltati
 {
     updateColision();
     Animar(deltatime);
-    comportamiento(Posicionpersonaje, 1.f,deltatime);
+    if (perseguir(Posicionpersonaje, 1.f) == false){
+        divagar(Posicionpersonaje, 1.f,deltatime);
+    }
     move(getVelocidad());
 }
 
