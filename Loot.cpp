@@ -8,8 +8,8 @@ using namespace std;
 Loot::Loot(sf::Texture& texturaItems,const sf::Vector2f& posicion, const int& id)
 {
     setPosicion(posicion);
-    Item item(texturaItems,id);
-    _item = item;
+    _item.setID(id);
+    _item.setTexture(texturaItems);
     _item.actualizarSprite();
     _item.setCantidad(1);//Hacemos esto para que no sea visible el numero cantidad.
 }
@@ -49,7 +49,6 @@ void Loot::update(const sf::Vector2f posicionJugador, InventarioInterfaz& invent
                 if (inventario.agregarItem(_item.getID(),1)) _looted = true;
             }
         }
-
     }
 }
 

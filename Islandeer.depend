@@ -1310,9 +1310,10 @@
 	<SFML/Graphics.hpp>
 	<cmath>
 
-1761919691 source:c:\users\sebas\onedrive\documentos\github\islandeer\estructura.cpp
+1762344322 source:c:\users\sebas\onedrive\documentos\github\islandeer\estructura.cpp
 	"Estructura.h"
 	<iostream>
+	<cmath>
 
 1761912211 c:\users\sebas\onedrive\documentos\github\islandeer\estructura.h
 	"SFML/Graphics.hpp"
@@ -1334,7 +1335,7 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1761920796 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1762343244 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
 	"Game.h"
 	"InventarioIntefaz.h"
@@ -1710,12 +1711,12 @@
 	<iostream>
 	"ItemDescripcion.h"
 
-1761910683 source:c:\users\sebas\onedrive\documentos\github\islandeer\loot.cpp
+1762344176 source:c:\users\sebas\onedrive\documentos\github\islandeer\loot.cpp
 	"Loot.h"
 	"cmath"
 	"funcionesInterpolacion.h"
 
-1761836057 c:\users\sebas\onedrive\documentos\github\islandeer\loot.h
+1762266448 c:\users\sebas\onedrive\documentos\github\islandeer\loot.h
 	<SFML/Graphics.hpp>
 	"Item.h"
 	"Colisionador.h"

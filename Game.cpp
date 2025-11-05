@@ -78,6 +78,7 @@ void Game::run()
     listaEstructuras.emplace_back(80,60);
     listaEstructuras.emplace_back(10,50);
 
+    listaLoots.emplace_back(texturaItems,sf::Vector2f(99,105),7);
     listaLoots.emplace_back(texturaItems,sf::Vector2f(105,105),8);
     listaLoots.emplace_back(texturaItems,sf::Vector2f(120,100),9);
     listaLoots.emplace_back(texturaItems,sf::Vector2f(150,50),10);
@@ -87,9 +88,9 @@ void Game::run()
     //Se suele usar List no vector
     //Convendria que la textura fuera puntero + llamar a dispose antes de erase()
 
-    /*for(auto& p:listaEstructuras){
+    for(auto& p:listaEstructuras){
         p.actualizarTextura();
-    }*/
+    }
 
     while (window.isOpen())
     {
@@ -173,6 +174,7 @@ void Game::run()
             }
             it++;
         }
+
 
         for (auto it = listaLoots.begin(); it != listaLoots.end(); ){
             it->update(character.getPosition(),inv);
