@@ -27,8 +27,6 @@ void Game::run() {
     // vector<Estructura> vectorEstructuras;
     list <Estructura> listaEstructuras;
 
-
-    list <Estructura> listaEstructuras;
     list <Loot> listaLoots;
 
     sf::Texture texturaItems;
