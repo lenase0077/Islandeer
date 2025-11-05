@@ -11,5 +11,5 @@ private:
 public:
     FabricaEstructuras();
     void update();
-    void crearEstructura(float x, float y, int ID);
+    std::unique_ptr<Estructura> crearEstructura(float x, float y, int ID);
 };

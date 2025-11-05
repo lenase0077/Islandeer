@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 #include "Game.h"
+#include "FabricaEstructuras.h"
 
 
 Game::Game()
@@ -12,7 +13,7 @@ Game::Game()
 void Game::run() {
     ///     TEXTURAS    ////
 
-
+    FabricaEstructuras fabE;
 
     sf::Texture texturaFantasma;
     if(!texturaFantasma.loadFromFile("GatoFantasma-Sheet.png")) {
@@ -24,8 +25,7 @@ void Game::run() {
         std::cout << "Error cargando murcielago.png" << endl;
     }
 
-    // vector<Estructura> vectorEstructuras;
-    list <Estructura> listaEstructuras;
+    list <std::unique_ptr<Estructura>> listaEstructuras;
     list <Loot> listaLoots;
 
     sf::Texture texturaItems;
@@ -93,16 +93,9 @@ void Game::run() {
 
 /// ESTRUCTURA TEST
 
-    /*listaEstructuras.emplace_back(70,50);
-    listaEstructuras.emplace_back(80,60);
-    listaEstructuras.emplace_back(10,50);*/
-
-    listaLoots.emplace_back(texturaItems,sf::Vector2f(99,105),7);
-    listaLoots.emplace_back(texturaItems,sf::Vector2f(105,105),8);
-    listaLoots.emplace_back(texturaItems,sf::Vector2f(120,100),9);
-    listaLoots.emplace_back(texturaItems,sf::Vector2f(150,50),10);
-    listaLoots.emplace_back(texturaItems,sf::Vector2f(125,200),11);
-    listaLoots.emplace_back(texturaItems,sf::Vector2f(150,100),12);
+    listaEstructuras.push_back(fabE.crearEstructura(100,100,0));
+    listaEstructuras.push_back(fabE.crearEstructura(200,200,0));
+    listaEstructuras.push_back(fabE.crearEstructura(300,300,0));
 
     //Se suele usar List no vector
     //Convendria que la textura fuera puntero + llamar a dispose antes de erase()
@@ -189,6 +182,39 @@ void Game::run() {
 
         for (auto& colisionador : mapa._colisiones) {
             character.chocar(colisionador);
+        }
+
+        /*
+         for (auto it = listaEstructuras.begin(); it != listaEstructuras.end(); ) {
+            if (!it->estaDestruido()) {
+                if(character.getColisionador().detectorDeColision(it->getColisionador())) { ///EJEMPLO
+                    character.chocar(it->getColisionador());
+                    it->recibirGolpe(5);
+                }
+                window.draw(*it);
+            }
+            else
+            {
+                it->liberarLoot(texturaItems,listaLoots);
+                it = listaEstructuras.erase(it);
+            }
+            it++;
+        }*/
+
+        for (auto estructura = listaEstructuras.begin(); estructura != listaEstructuras.end(); ) {
+            if ((*estructura)->estaDestruido() == false) {
+                if(character.getColisionador().detectorDeColision((*estructura)->getColisionador())) { ///EJEMPLO
+                    character.chocar((*estructura)->getColisionador());
+                    (*estructura)->recibirGolpe(5);
+                }
+                window.draw(**estructura);
+            }
+            else
+            {
+                (*estructura)->liberarLoot(texturaItems,listaLoots);
+                estructura = listaEstructuras.erase(estructura);
+            }
+            estructura++;
         }
 
 
