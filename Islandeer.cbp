@@ -56,6 +56,8 @@
 		<Unit filename="Espada.h" />
 		<Unit filename="Estructura.cpp" />
 		<Unit filename="Estructura.h" />
+		<Unit filename="Fantasma.cpp" />
+		<Unit filename="Fantasma.h" />
 		<Unit filename="Funcion.h" />
 		<Unit filename="Funciones.cpp" />
 		<Unit filename="Funciones.h" />
@@ -77,6 +79,8 @@
 		<Unit filename="Mob_Hostil.h" />
 		<Unit filename="Movimiento_IA.cpp" />
 		<Unit filename="Movimiento_IA.h" />
+		<Unit filename="Murcielago.cpp" />
+		<Unit filename="Murcielago.h" />
 		<Unit filename="Personaje.cpp" />
 		<Unit filename="Personaje.h" />
 		<Unit filename="Raton.cpp" />

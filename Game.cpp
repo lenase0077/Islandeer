@@ -1,21 +1,31 @@
 #include <iostream>
 using namespace std;
 #include "Game.h"
-#include "InventarioIntefaz.h"
-#include "InventarioResumidoInterfaz.h"
-#include "Estructura.h"
-#include "Loot.h"
-#include <list>
+
 
 Game::Game()
-    : window(sf::VideoMode(1024, 768), "SFML works!"), personaTest(300,300)
-{
+    : window(sf::VideoMode(1024, 768), "SFML works!"), personaTest(300,300) {
     window.setFramerateLimit(75);
 }
 
-void Game::run()
-{
-    ///
+
+void Game::run() {
+    ///     TEXTURAS    ////
+
+
+
+    sf::Texture texturaFantasma;
+    if(!texturaFantasma.loadFromFile("GatoFantasma-Sheet.png")) {
+        std::cout << "Error cargando GatoFantasma-Sheet.png" << endl;
+    }
+
+    sf::Texture texturaMurcielago;
+    if(!texturaMurcielago.loadFromFile("murcielago.png")) {
+        std::cout << "Error cargando murcielago.png" << endl;
+    }
+
+    // vector<Estructura> vectorEstructuras;
+    list <Estructura> listaEstructuras;
 
 
     list <Estructura> listaEstructuras;
@@ -25,6 +35,15 @@ void Game::run()
     if (!texturaItems.loadFromFile("ItemsSprites.png")){
         cout << "Error al cargar ItemsSprites.png" << endl;
     }
+
+
+
+///RELOJ INTERNO/////
+
+    float deltatime;
+
+
+
 
 ///         inventario  ////
 
@@ -49,21 +68,24 @@ void Game::run()
     Camara.setSize({300.f, 300.f});
     sf::Vector2f camaraPosicion = {640, 1120};
 
-
-
     ///PERSONAJE
     Personaje character;
     cargar(character);
 
-
     ///ENEMIGO
-//    Enemigo VectEnemy[10];
+
+    sf::Vector2f empuje;
+    empuje.x = 0.f;
+    empuje.y = 0.f;
+    float fuerzaEmpuje = 50.f;
+
+    Fantasma miFantasma(texturaFantasma , {100 , 100});
+    Murcielago miMurcielago (texturaMurcielago , {50 , 50});
 
     ///MUSICA
     sf::SoundBuffer buffer;
     sf::Sound sonido;
-    if (!buffer.loadFromFile("music.wav"))
-    {
+    if (!buffer.loadFromFile("music.wav")) {
         return;
     }
 
@@ -92,14 +114,11 @@ void Game::run()
         p.actualizarTextura();
     }
 
-    while (window.isOpen())
-    {
+    while (window.isOpen()) {
 
         sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-            {
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
                 window.close();
             }
             inv.controlAbrirCerrarInventario(event);
@@ -108,7 +127,11 @@ void Game::run()
         window.clear(sf::Color::Black);
         window.draw(mapa);
 
-        ///
+        /// RELOJ
+
+        deltatime = _relojInterno.restart().asMilliseconds();
+
+
 
         ///
         mouse.update(window);
@@ -152,16 +175,32 @@ void Game::run()
 
 
 
-        for (auto& colisionador : mapa._colisiones)
-        {
+
+        character.chocar(miFantasma._colision);
+
+        if (character.getColisionador().detectorDeColision(miFantasma._colision , empuje.x , empuje.y)) {
+
+            if (miFantasma._colision.getID()== "Fantasma") {
+                character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
+            }
+        }
+
+        character.chocar(miMurcielago._colision);
+
+        if (character.getColisionador().detectorDeColision(miMurcielago._colision , empuje.x , empuje.y)) {
+
+            if (miMurcielago._colision.getID()== "Murcielago") {
+                character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
+            }
+        }
+
+        for (auto& colisionador : mapa._colisiones) {
             character.chocar(colisionador);
         }
 
-        for (auto it = listaEstructuras.begin(); it != listaEstructuras.end(); )
-        {
-            if (!it->estaDestruido()){
-                if(character.getColisionador().detectorDeColision(it->getColisionador())) ///EJEMPLO
-                {
+        for (auto it = listaEstructuras.begin(); it != listaEstructuras.end(); ) {
+            if (!it->estaDestruido()) {
+                if(character.getColisionador().detectorDeColision(it->getColisionador())) { ///EJEMPLO
                     character.chocar(it->getColisionador());
                     it->recibirGolpe(5);
                 }
@@ -183,14 +222,19 @@ void Game::run()
             it++;
         }
 
-///////////
+/////////// UPDATE
         character.update();
         character.updateEspada(mouse);
+        miFantasma.fantasmaUpdate(PosicionJugador, deltatime);
+        miMurcielago.murcielagoUpdate(PosicionJugador, deltatime);
+
 /// DRAW
 
         character.getColisionador().draw(window);
 
         window.draw(character);
+        window.draw(miFantasma);
+        window.draw(miMurcielago);
 
         window.draw(inv);
         float relacion = (float)window.getSize().x/(float)window.getSize().y;
@@ -204,8 +248,7 @@ void Game::run()
 
         Camara.setCenter(camaraPosicion);
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
-        {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
             guardar(character);
             cout << "Guardado Exitosamente!!" << endl;
         }
@@ -214,11 +257,9 @@ void Game::run()
     }
 }
 
-void Game::guardar(Personaje &character)
-{
+void Game::guardar(Personaje &character) {
     FILE *Puntero = fopen("ultimoGuardado", "wb");
-    if (Puntero== nullptr)
-    {
+    if (Puntero== nullptr) {
         cout << "ERROR 404" << endl;
     }
 
@@ -229,12 +270,10 @@ void Game::guardar(Personaje &character)
     fclose(Puntero);
 }
 
-void Game::cargar(Personaje &character)
-{
+void Game::cargar(Personaje &character) {
 
     FILE *Puntero = fopen("ultimoGuardado", "rb");
-    if (Puntero== nullptr)
-    {
+    if (Puntero== nullptr) {
         cout << "ERROR 404" << endl;
     }
 
@@ -243,6 +282,11 @@ void Game::cargar(Personaje &character)
     character.setPosicion(_posicionPersonaje.x, _posicionPersonaje.y);
 
     fclose(Puntero);
+}
+
+sf::Clock Game::getRelojInterno()
+{
+    return _relojInterno;
 }
 
 /*
