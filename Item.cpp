@@ -7,11 +7,8 @@
 using namespace std;
 
 /// Constructores
-Item::Item(int id){
+Item::Item(sf::Texture& texturaItems, int id){
     setCantidad(1);
-    if (!texturaItems.loadFromFile("ItemsSprites.png")){
-        cout << "Error al cargar ItemsSprites.png" << endl;
-    }
        if (!_fuenteTextoCantidad.loadFromFile("PIXEARG_.TTF")){
         cout << "Error al cargar PIXEARG_.TTF" << endl;
     }
@@ -41,52 +38,10 @@ Item::Item(int id){
     setID(id);
 }
 
-Item::Item(int id, int x, int y, int cantidad){
-    setCantidad(cantidad);
-    if (!texturaItems.loadFromFile("ItemsSprites.png")){
-        cout << "Error al cargar ItemsSprites.png" << endl;
-    }
-    if (!_fuenteTextoCantidad.loadFromFile("PIXEARG_.TTF")){
-        cout << "Error al cargar PIXEARG_.TTF" << endl;
-    }
-
-    sprItem.setTexture(texturaItems);
-
-    _textoCantidad.setFont(_fuenteTextoCantidad);
-    _textoCantidad.setOrigin(0.5,0.5);
-    _textoCantidad.setFillColor(sf::Color::White);
-    _textoCantidad.setCharacterSize(8);
-    _textoCantidad.setOutlineThickness(0.8);
-    _textoCantidad.setOutlineColor(sf::Color::Black);
-    _textoCantidad.setStyle(sf::Text::Regular);
-
-    sf::Texture& texture = const_cast<sf::Texture&>(_fuenteTextoCantidad.getTexture(8));
-    texture.setSmooth(false);
-
-
-    std::ifstream archivo("ItemsConfiguraciones.json");
-
-    // Convertir ifstream a string
-    std::stringstream buffer;
-    buffer << archivo.rdbuf();
-    std::string _contenidoParaJson = buffer.str();
-    archivo.close();
-    ConfiguracionItems = nlohmann::json::parse(_contenidoParaJson);
-
-    setPosX(x);
-    setPosY(y);
-
-    setID(id);
-}
-
 Item::Item(){
-    if (!texturaItems.loadFromFile("ItemsSprites.png")){
-        cout << "Error al cargar ItemsSprites.png" << endl;
-    }
     if (!_fuenteTextoCantidad.loadFromFile("PIXEARG_.TTF")){
         cout << "Error al cargar PIXEARG_.TTF" << endl;
     }
-    sprItem.setTexture(texturaItems);
 
     _textoCantidad.setFont(_fuenteTextoCantidad);
     _textoCantidad.setOrigin(0.5,0.5);
@@ -110,6 +65,10 @@ Item::Item(){
     ConfiguracionItems = nlohmann::json::parse(_contenidoParaJson);
 
     setID(0);
+}
+
+void Item::setTexture(sf::Texture& texturaItems){
+    sprItem.setTexture(texturaItems);
 }
 
 /// Getters
@@ -177,6 +136,7 @@ void Item::setDescripcion( string descripcion){
 
 /// Otros Metodos
 void Item::actualizarSprite(){
+
     int columnasTextura = 9;
     int alturaFrame = 32;
     int anchuraFrame = 32;
@@ -189,11 +149,10 @@ void Item::actualizarSprite(){
 
     sprItem.setPosition(getPosX(),getPosY());
     _textoCantidad.setPosition(getPosX(),getPosY()+5);
+
 }
 
 void Item::draw(sf::RenderTarget& target, sf::RenderStates states) const{
-    //actualizarSprite(); FUERA
-    //sprItem.setPosition(getPosX(),getPosY()); CAMBIADO POR TRANSFORMABLE
     target.draw(sprItem,states);
     if (_cantidad > 1){
         target.draw(_textoCantidad,states);
@@ -201,9 +160,6 @@ void Item::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 }
 
 void Item::actualizarPropiedades(){
-    ///PODRIAMOS USAR JSON.
-    ///Investigar patron fabrica.
-
     if (getID() != -1){
         setTitulo(ConfiguracionItems[getID()]["titulo"].get<string>());
         setDescripcion(ConfiguracionItems[getID()]["descripcion"].get<string>());

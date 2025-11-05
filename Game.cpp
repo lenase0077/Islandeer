@@ -8,6 +8,7 @@ Game::Game()
     window.setFramerateLimit(75);
 }
 
+
 void Game::run() {
     ///     TEXTURAS    ////
 
@@ -26,7 +27,14 @@ void Game::run() {
     // vector<Estructura> vectorEstructuras;
     list <Estructura> listaEstructuras;
 
-    Loot l1({60,50},20,5);
+
+    list <Estructura> listaEstructuras;
+    list <Loot> listaLoots;
+
+    sf::Texture texturaItems;
+    if (!texturaItems.loadFromFile("ItemsSprites.png")){
+        cout << "Error al cargar ItemsSprites.png" << endl;
+    }
 
 
 
@@ -40,16 +48,16 @@ void Game::run() {
 ///         inventario  ////
 
 
-    InventarioInterfaz inv;
+    InventarioInterfaz inv(texturaItems);
     inv.agregarItem(44,30);
     inv.agregarItem(15,3);
 
 
 ///      MAPA TEST ///
 
-
     TileMap mapa;
     mapa.loadFromJSON("mapa.json", "Sprite-0003.png", "Items.png");
+
 
     /// MOUSE
     Raton mouse;
@@ -92,12 +100,19 @@ void Game::run() {
     listaEstructuras.emplace_back(80,60);
     listaEstructuras.emplace_back(10,50);
 
+    listaLoots.emplace_back(texturaItems,sf::Vector2f(99,105),7);
+    listaLoots.emplace_back(texturaItems,sf::Vector2f(105,105),8);
+    listaLoots.emplace_back(texturaItems,sf::Vector2f(120,100),9);
+    listaLoots.emplace_back(texturaItems,sf::Vector2f(150,50),10);
+    listaLoots.emplace_back(texturaItems,sf::Vector2f(125,200),11);
+    listaLoots.emplace_back(texturaItems,sf::Vector2f(150,100),12);
+
     //Se suele usar List no vector
     //Convendria que la textura fuera puntero + llamar a dispose antes de erase()
 
-    /*for(auto& p:listaEstructuras){
+    for(auto& p:listaEstructuras){
         p.actualizarTextura();
-    }*/
+    }
 
     while (window.isOpen()) {
 
@@ -190,9 +205,20 @@ void Game::run() {
                     it->recibirGolpe(5);
                 }
                 window.draw(*it);
-            } else {
+            }
+            else
+            {
+                it->liberarLoot(texturaItems,listaLoots);
                 it = listaEstructuras.erase(it);
             }
+            it++;
+        }
+
+
+        for (auto it = listaLoots.begin(); it != listaLoots.end(); ){
+            it->update(character.getPosition(),inv);
+            window.draw(*it);
+            if (it->getLooted()) it = listaLoots.erase(it);
             it++;
         }
 
@@ -204,12 +230,7 @@ void Game::run() {
 
 /// DRAW
 
-
         character.getColisionador().draw(window);
-
-        l1.update();
-
-        window.draw(l1);
 
         window.draw(character);
         window.draw(miFantasma);
@@ -219,8 +240,8 @@ void Game::run() {
         float relacion = (float)window.getSize().x/(float)window.getSize().y;
         inv.update(mouse.getPosicion(),mause,Camara,relacion);
 
-        camaraPosicion.x = camaraPosicion.x + ((character.getPosition().x - camaraPosicion.x) * 0.05f );
-        camaraPosicion.y = camaraPosicion.y + ((character.getPosition().y- camaraPosicion.y) * 0.05f );
+        camaraPosicion.x = camaraPosicion.x + ((character.getPosition().x - camaraPosicion.x) * 0.1f );
+        camaraPosicion.y = camaraPosicion.y + ((character.getPosition().y- camaraPosicion.y) * 0.1f );
 
         if (character.getEstaCorriendo()) Camara.setSize(Camara.getSize().x + (350 - Camara.getSize().x)*0.05, Camara.getSize().y + (350 - Camara.getSize().y)*0.05);
         else Camara.setSize(Camara.getSize().x + (300 - Camara.getSize().x)*0.05, Camara.getSize().y + (300 - Camara.getSize().y)*0.05);

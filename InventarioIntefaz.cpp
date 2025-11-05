@@ -5,7 +5,7 @@ using namespace std;
 
 ///CONSTRUCTORES
 //{
-InventarioInterfaz::InventarioInterfaz(std::string nombreDireccionTextura)
+InventarioInterfaz::InventarioInterfaz(sf::Texture& texturaItems, std::string nombreDireccionTextura)
 {
     setNombreDireccionTextura("Inventario.png");
 
@@ -17,6 +17,7 @@ InventarioInterfaz::InventarioInterfaz(std::string nombreDireccionTextura)
     {
         _inventarioItems[i].setID(-1);
         _inventarioItems[i].setCantidad(1);
+        _inventarioItems[i].setTexture(texturaItems);
     }
 }
 //}

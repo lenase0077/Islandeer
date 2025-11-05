@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Item.h"
 #include "Colisionador.h"
+#include "InventarioIntefaz.h"
 
 class Loot : public sf::Transformable, public sf::Drawable
 {
@@ -9,11 +10,12 @@ class Loot : public sf::Transformable, public sf::Drawable
         Item _item;
         int _cantidad;
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-        Colisionador _colisionConJugador;
         ///Variables para efectos
-        float _incrementoSeno;
+        float _incrementoSeno = 0;
+        bool _looted = false;
     public:
-        Loot(const sf::Vector2f& posicion, const int& id, const int& cantidad);
+        Loot( sf::Texture& texturaItems,const sf::Vector2f& posicion, const int& id);
         void setPosicion(sf::Vector2f posicion);
-        void update();
+        void update(const sf::Vector2f posicionJugador, InventarioInterfaz& inventario);
+        bool getLooted();
 };
