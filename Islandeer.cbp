@@ -56,6 +56,8 @@
 		<Unit filename="Espada.h" />
 		<Unit filename="Estructura.cpp" />
 		<Unit filename="Estructura.h" />
+		<Unit filename="FabricaEnemigos.cpp" />
+		<Unit filename="FabricaEnemigos.h" />
 		<Unit filename="Fantasma.cpp" />
 		<Unit filename="Fantasma.h" />
 		<Unit filename="Funcion.h" />
