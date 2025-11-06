@@ -10,6 +10,9 @@
 #include "Fantasma.h"
 #include "Murcielago.h"
 #include <list>
+#include "FabricaMobs.h"
+#include <memory>
+#include <ctime>
 
 
 class Game
@@ -27,4 +30,5 @@ class Game
         sf::RenderWindow window;
         sf::Vector2f _posicionPersonaje;
         sf::Clock _relojInterno;
+        FabricaMobs _FabricaMobs;
 };

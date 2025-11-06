@@ -6,23 +6,13 @@ using namespace std;
 Game::Game()
     : window(sf::VideoMode(1024, 768), "SFML works!"), personaTest(300,300) {
     window.setFramerateLimit(75);
+    srand(time(NULL));
 }
 
 
 void Game::run() {
     ///     TEXTURAS    ////
 
-
-
-    sf::Texture texturaFantasma;
-    if(!texturaFantasma.loadFromFile("GatoFantasma-Sheet.png")) {
-        std::cout << "Error cargando GatoFantasma-Sheet.png" << endl;
-    }
-
-    sf::Texture texturaMurcielago;
-    if(!texturaMurcielago.loadFromFile("murcielago.png")) {
-        std::cout << "Error cargando murcielago.png" << endl;
-    }
 
     // vector<Estructura> vectorEstructuras;
     list <Estructura> listaEstructuras;
@@ -54,8 +44,7 @@ void Game::run() {
 ///      MAPA TEST ///
 
     TileMap mapa;
-    mapa.loadFromJSON("mapa.json", "Sprite-0003.png", "Items.png");
-
+    mapa.loadFromJSON("mapa.json", "Sprite-0003.png", "UtilidadMapa.png");
 
     /// MOUSE
     Raton mouse;
@@ -71,14 +60,29 @@ void Game::run() {
     cargar(character);
 
     ///ENEMIGO
-
     sf::Vector2f empuje;
     empuje.x = 0.f;
     empuje.y = 0.f;
     float fuerzaEmpuje = 50.f;
 
-    Fantasma miFantasma(texturaFantasma , {100 , 100});
-    Murcielago miMurcielago (texturaMurcielago , {50 , 50});
+    std::list<std::unique_ptr<Mob>> enemigos;
+    std::list<std::unique_ptr<Mob>> animales;
+
+//    enemigos.push_back(_FabricaMobs.crearMobs("Fantasma", {100 , 100}));
+//    enemigos.push_back(_FabricaMobs.crearMobs("Murcielago", {50 , 50}));
+
+    ///ANIMALES
+    sf::Vector2f _posicionAleatoria;
+
+    for (int i = 0 ; i < 5 ; i++)
+    {
+        _posicionAleatoria.x = (float)(rand()%400);
+        _posicionAleatoria.y = (float)(rand()%400);
+
+        animales.push_back(_FabricaMobs.crearMobs("Vaca", _posicionAleatoria));
+        animales.push_back(_FabricaMobs.crearMobs("Oveja", _posicionAleatoria));
+        animales.push_back(_FabricaMobs.crearMobs("Cerdo", _posicionAleatoria));
+    }
 
     ///MUSICA
     sf::SoundBuffer buffer;
@@ -118,7 +122,7 @@ void Game::run() {
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
-            }
+             }
             inv.controlAbrirCerrarInventario(event);
         }
 
@@ -129,7 +133,9 @@ void Game::run() {
 
         deltatime = _relojInterno.restart().asMilliseconds();
 
-
+//        sf::Vector2f uwu (rand()%1000 , rand()%1000);
+//
+//        enemigos.push_back(_FabricaMobs.crearMobs("Fantasma", {uwu.x , uwu.y}));
 
         ///
         mouse.update(window);
@@ -171,30 +177,34 @@ void Game::run() {
 
 /////// COLISIONES
 
+for (auto& enemigo: enemigos){
 
+    enemigo->update(PosicionJugador, deltatime);
 
+    character.chocar(enemigo->_colision);
 
-        character.chocar(miFantasma._colision);
+    if(character.getColisionador().detectorDeColision(enemigo->_colision, empuje.x, empuje.y))
+    {
+        character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
+    }
+}
 
-        if (character.getColisionador().detectorDeColision(miFantasma._colision , empuje.x , empuje.y)) {
+for (auto& animal: animales){
 
-            if (miFantasma._colision.getID()== "Fantasma") {
-                character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
-            }
-        }
+    animal->update(PosicionJugador, deltatime);
 
-        character.chocar(miMurcielago._colision);
+    character.chocar(animal->_colision);
 
-        if (character.getColisionador().detectorDeColision(miMurcielago._colision , empuje.x , empuje.y)) {
+    if(character.getColisionador().detectorDeColision(animal->_colision, empuje.x, empuje.y))
+    {
+        animal->move(-empuje.x * fuerzaEmpuje, -empuje.y * fuerzaEmpuje);
+        character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
+    }
+}
 
-            if (miMurcielago._colision.getID()== "Murcielago") {
-                character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
-            }
-        }
-
-        for (auto& colisionador : mapa._colisiones) {
-            character.chocar(colisionador);
-        }
+for (auto& colisionador : mapa._colisiones) {
+    character.chocar(colisionador);
+}
 
         for (auto it = listaEstructuras.begin(); it != listaEstructuras.end(); ) {
             if (!it->estaDestruido()) {
@@ -223,16 +233,30 @@ void Game::run() {
 /////////// UPDATE
         character.update();
         character.updateEspada(mouse);
-        miFantasma.fantasmaUpdate(PosicionJugador, deltatime);
-        miMurcielago.murcielagoUpdate(PosicionJugador, deltatime);
+//        miFantasma.fantasmaUpdate(PosicionJugador, deltatime);
+//        miMurcielago.murcielagoUpdate(PosicionJugador, deltatime);
 
 /// DRAW
 
         character.getColisionador().draw(window);
 
         window.draw(character);
-        window.draw(miFantasma);
-        window.draw(miMurcielago);
+
+        for(auto& enemigo : enemigos)
+        {
+            window.draw(*enemigo);
+        }
+
+        for(auto& animal : animales)
+        {
+            window.draw(*animal);
+        }
+
+
+
+
+//        window.draw(miFantasma);
+//        window.draw(miMurcielago);
 
         window.draw(inv);
         float relacion = (float)window.getSize().x/(float)window.getSize().y;

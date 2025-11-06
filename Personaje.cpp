@@ -155,6 +155,11 @@ void Personaje::actuarEnBaseALaColision (string IDColision) {
         setVida(getVida()-1);
     }
 
+    else if (IDColision == "Animal")
+    {
+        _tocoEnemigo = false;
+    }
+
     else {
         _tocoEnemigo = false;
         _velocidad = {0.f, 0.f};
