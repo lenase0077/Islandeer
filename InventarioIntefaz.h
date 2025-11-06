@@ -24,7 +24,7 @@ private:
     bool _clickIzquierdoDisponible;
     bool _clickDerechoDisponible;
     bool _botonAbrirInventarioDisponible = true;
-    bool _hayItemEnMano;
+    bool _hayItemEnMano = false;
     bool _izquierdoPresionadoAnterior = false;
     int _indiceUltimoItemAnalizado;
     sf::Clock _timerDobleClick2;
@@ -48,7 +48,7 @@ private:
 
 public:
     /// Constructores
-    InventarioInterfaz(std::string nombreDireccionTextura = "Inventario.png");
+    InventarioInterfaz(sf::Texture& texturaItems,std::string nombreDireccionTextura = "Inventario.png");
 
     /// Getters
     float getPosX();

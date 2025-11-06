@@ -10,7 +10,6 @@ las principales son:
     -ID
     -Cantidad
     -Posicion
-    -Escala
     -Descripcion
 y con ellas brinda herramientas para permitir un control mas eficiente para los
 inventarios y cofres.
@@ -18,12 +17,11 @@ inventarios y cofres.
 
 class Item : public sf::Drawable{
 private:
-    int _id; //define que item, de la lista de items, es. Afecta, principalmente, a la textura y descripcion
+    int _id; //define que item, de la lista de items, es.
     int _cantidadMax;
     int _cantidad;
     float _posX, _posY; //Almacena y controla la posicion del item
 
-    sf::Texture texturaItems;
     sf::Sprite sprItem;
 
     sf::Font _fuenteTextoCantidad;
@@ -32,20 +30,14 @@ private:
     std::string _descripcion;
     std::string _titulo;
 
-     //Metodo que permite actualizar el sprite a la
-                             //id correspondiente
-
     nlohmann::json ConfiguracionItems;
     std::string _contenidoParaJson;
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 public:
 
-    void actualizarSprite();
-
     /// Constructores
-    Item(int id);
+    Item(sf::Texture& texturaItems, int id);
     Item();
-    Item(int id, int x, int y, int cantidad = 1);
 
     /// Getters
     int getID()const;
@@ -67,11 +59,10 @@ public:
     void setTitulo( std::string titulo);
     void setDescripcion( std::string descripcion);
 
+    void actualizarSprite(); //acomoda la parte de la textura que debe verse segun el sprite que le indiquemos
 
     /// Otros Metodos
-    void actualizarSeleccion(sf::Vector2f posGlobalDelMouse, sf::Mouse mouse, bool &seleccionando);
-    //void draw(sf::RenderWindow& window);
-
-    void actualizarPropiedades();
+    void actualizarPropiedades(); //Actualiza las propiedades Titulo, Descripcion y cantidad maxima basandose en los datos del json de configuraqciones Items
+    void setTexture(sf::Texture& texturaItems); //Se usa para setear la textura, Importatisimo si se trabaja con el constructor Item();
 
 };
