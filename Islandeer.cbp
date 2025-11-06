@@ -14,7 +14,6 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add directory="include" />
-					<Add directory="tmxlite/include" />
 					<Add directory="SFML/include" />
 				</Compiler>
 				<Linker>
@@ -52,6 +51,8 @@
 		<Unit filename="BarraDeVida.h" />
 		<Unit filename="Colisionador.cpp" />
 		<Unit filename="Colisionador.h" />
+		<Unit filename="Comando.cpp" />
+		<Unit filename="Comando.h" />
 		<Unit filename="Enemigo.cpp" />
 		<Unit filename="Enemigo.h" />
 		<Unit filename="Espada.cpp" />

@@ -33,6 +33,7 @@ class Game
         sf::Clock _relojInterno;
         FabricaMobs _FabricaMobs;
         Minimap _minimap;
+        TileMap mapa;
 
 //        sf::RenderTexture _minimapaTexture;
 //        sf::Sprite _minimapaSprite;

@@ -5,11 +5,42 @@
 	<iostream>
 	"BarraDeVida.h"
 	<SFML/Graphics.hpp>
+	<iostream>
+	"BarraDeVida.h"
+	<SFML/Graphics.hpp>
 
 1762448651 c:\users\leand\onedrive\documentos\repositorio\islandeer\barradevida.h
 	<SFML/Graphics.hpp>
+	<SFML/Graphics.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics.hpp
+	<SFML/Window.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/CircleShape.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/ConvexShape.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/Glyph.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/RectangleShape.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Graphics/RenderTexture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/Graphics/Shader.hpp>
+	<SFML/Graphics/Shape.hpp>
+	<SFML/Graphics/Sprite.hpp>
+	<SFML/Graphics/Text.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/Graphics/VertexBuffer.hpp>
+	<SFML/Graphics/View.hpp>
 	<SFML/Window.hpp>
 	<SFML/Graphics/BlendMode.hpp>
 	<SFML/Graphics/CircleShape.hpp>
@@ -54,8 +85,41 @@
 	<SFML/Window/Window.hpp>
 	<SFML/Window/WindowHandle.hpp>
 	<SFML/Window/WindowStyle.hpp>
+	<SFML/System.hpp>
+	<SFML/Window/Clipboard.hpp>
+	<SFML/Window/Context.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/Cursor.hpp>
+	<SFML/Window/Event.hpp>
+	<SFML/Window/Joystick.hpp>
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+	<SFML/Window/Sensor.hpp>
+	<SFML/Window/Touch.hpp>
+	<SFML/Window/VideoMode.hpp>
+	<SFML/Window/Window.hpp>
+	<SFML/Window/WindowHandle.hpp>
+	<SFML/Window/WindowStyle.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\system.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/Err.hpp>
+	<SFML/System/FileInputStream.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/Lock.hpp>
+	<SFML/System/MemoryInputStream.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Sleep.hpp>
+	<SFML/System/String.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/System/Utf.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
 	<SFML/Config.hpp>
 	<SFML/System/Clock.hpp>
 	<SFML/System/Err.hpp>
@@ -77,18 +141,25 @@
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\config.hpp
 	"TargetConditionals.h"
+	"TargetConditionals.h"
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\system\clock.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Time.hpp>
 	<SFML/System/Export.hpp>
 	<SFML/System/Time.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\system\export.hpp
 	<SFML/Config.hpp>
+	<SFML/Config.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\system\time.hpp
 	<SFML/System/Export.hpp>
+	<SFML/System/Export.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\system\err.hpp
+	<SFML/System/Export.hpp>
+	<ostream>
 	<SFML/System/Export.hpp>
 	<ostream>
 
@@ -99,15 +170,26 @@
 	<SFML/System/NonCopyable.hpp>
 	<cstdio>
 	<string>
+	<SFML/Config.hpp>
+	<SFML/System/Export.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdio>
+	<string>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\system\inputstream.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Export.hpp>
 	<SFML/Config.hpp>
 	<SFML/System/Export.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\system\noncopyable.hpp
 	<SFML/System/Export.hpp>
+	<SFML/System/Export.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\system\lock.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 
@@ -116,12 +198,20 @@
 	<SFML/System/InputStream.hpp>
 	<SFML/System/Export.hpp>
 	<cstdlib>
+	<SFML/Config.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/Export.hpp>
+	<cstdlib>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\system\mutex.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\system\sleep.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Time.hpp>
 	<SFML/System/Export.hpp>
 	<SFML/System/Time.hpp>
 
@@ -132,8 +222,20 @@
 	<locale>
 	<string>
 	<SFML/System/String.inl>
+	<SFML/System/Export.hpp>
+	<SFML/System/Utf.hpp>
+	<iterator>
+	<locale>
+	<string>
+	<SFML/System/String.inl>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\system\utf.hpp
+	<SFML/Config.hpp>
+	<algorithm>
+	<locale>
+	<string>
+	<cstdlib>
+	<SFML/System/Utf.inl>
 	<SFML/Config.hpp>
 	<algorithm>
 	<locale>
@@ -150,6 +252,10 @@
 	<SFML/System/NonCopyable.hpp>
 	<cstdlib>
 	<SFML/System/Thread.inl>
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+	<SFML/System/Thread.inl>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\system\thread.inl
 
@@ -157,8 +263,13 @@
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<cstdlib>
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\system\threadlocalptr.hpp
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.inl>
 	<SFML/System/ThreadLocal.hpp>
 	<SFML/System/ThreadLocalPtr.inl>
 
@@ -166,10 +277,12 @@
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\system\vector2.hpp
 	<SFML/System/Vector2.inl>
+	<SFML/System/Vector2.inl>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\system\vector2.inl
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\system\vector3.hpp
+	<SFML/System/Vector3.inl>
 	<SFML/System/Vector3.inl>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\system\vector3.inl
@@ -177,11 +290,18 @@
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\window\clipboard.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/String.hpp>
+	<SFML/Window/Export.hpp>
+	<SFML/System/String.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\window\export.hpp
 	<SFML/Config.hpp>
+	<SFML/Config.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\window\context.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/System/NonCopyable.hpp>
 	<SFML/Window/Export.hpp>
 	<SFML/Window/GlResource.hpp>
 	<SFML/Window/ContextSettings.hpp>
@@ -190,11 +310,17 @@
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\window\glresource.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
+	<SFML/Window/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\window\contextsettings.hpp
 	<SFML/Config.hpp>
+	<SFML/Config.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\window\cursor.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Vector2.hpp>
 	<SFML/Window/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<SFML/System/Vector2.hpp>
@@ -205,15 +331,25 @@
 	<SFML/Window/Keyboard.hpp>
 	<SFML/Window/Mouse.hpp>
 	<SFML/Window/Sensor.hpp>
+	<SFML/Config.hpp>
+	<SFML/Window/Joystick.hpp>
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+	<SFML/Window/Sensor.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\window\joystick.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/String.hpp>
 	<SFML/Window/Export.hpp>
 	<SFML/System/String.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\window\keyboard.hpp
 	<SFML/Window/Export.hpp>
+	<SFML/Window/Export.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\window\mouse.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector2.hpp>
 	<SFML/Window/Export.hpp>
 	<SFML/System/Vector2.hpp>
 
@@ -221,12 +357,19 @@
 	<SFML/Window/Export.hpp>
 	<SFML/System/Vector3.hpp>
 	<SFML/System/Time.hpp>
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector3.hpp>
+	<SFML/System/Time.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\window\touch.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/Vector2.hpp>
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector2.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\window\videomode.hpp
+	<SFML/Window/Export.hpp>
+	<vector>
 	<SFML/Window/Export.hpp>
 	<vector>
 
@@ -242,19 +385,35 @@
 	<SFML/System/NonCopyable.hpp>
 	<SFML/System/String.hpp>
 	<SFML/System/Vector2.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/Cursor.hpp>
+	<SFML/Window/Export.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/Window/VideoMode.hpp>
+	<SFML/Window/WindowHandle.hpp>
+	<SFML/Window/WindowStyle.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/String.hpp>
+	<SFML/System/Vector2.hpp>
 
 1762448656 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\window\windowhandle.hpp
+	<SFML/Config.hpp>
 	<SFML/Config.hpp>
 
 1762448656 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\window\windowstyle.hpp
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\blendmode.hpp
 	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Export.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\export.hpp
 	<SFML/Config.hpp>
+	<SFML/Config.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\circleshape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Shape.hpp>
 
@@ -264,12 +423,22 @@
 	<SFML/Graphics/Transformable.hpp>
 	<SFML/Graphics/VertexArray.hpp>
 	<SFML/System/Vector2.hpp>
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/System/Vector2.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\drawable.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/RenderStates.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\renderstates.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/Transform.hpp>
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/BlendMode.hpp>
 	<SFML/Graphics/Transform.hpp>
@@ -278,8 +447,14 @@
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Rect.hpp>
 	<SFML/System/Vector2.hpp>
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/System/Vector2.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\rect.hpp
+	<SFML/System/Vector2.hpp>
+	<algorithm>
+	<SFML/Graphics/Rect.inl>
 	<SFML/System/Vector2.hpp>
 	<algorithm>
 	<SFML/Graphics/Rect.inl>
@@ -289,8 +464,16 @@
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\transformable.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Transform.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\vertexarray.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<vector>
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Vertex.hpp>
 	<SFML/Graphics/PrimitiveType.hpp>
@@ -302,13 +485,20 @@
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Color.hpp>
 	<SFML/System/Vector2.hpp>
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/System/Vector2.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\color.hpp
+	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Export.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\primitivetype.hpp
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\convexshape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
+	<vector>
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Shape.hpp>
 	<vector>
@@ -323,12 +513,26 @@
 	<map>
 	<string>
 	<vector>
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Glyph.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/String.hpp>
+	<map>
+	<string>
+	<vector>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\glyph.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\texture.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Window/GlResource.hpp>
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Image.hpp>
 	<SFML/Window/GlResource.hpp>
@@ -339,12 +543,29 @@
 	<SFML/Graphics/Rect.hpp>
 	<string>
 	<vector>
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<string>
+	<vector>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\rectangleshape.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Shape.hpp>
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\rendertarget.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/View.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/System/NonCopyable.hpp>
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Color.hpp>
 	<SFML/Graphics/Rect.hpp>
@@ -361,14 +582,27 @@
 	<SFML/Graphics/Rect.hpp>
 	<SFML/Graphics/Transform.hpp>
 	<SFML/System/Vector2.hpp>
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/System/Vector2.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\rendertexture.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Texture.hpp>
 	<SFML/Graphics/RenderTarget.hpp>
 	<SFML/Window/ContextSettings.hpp>
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Window/ContextSettings.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\renderwindow.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Window/Window.hpp>
+	<string>
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/RenderTarget.hpp>
 	<SFML/Graphics/Image.hpp>
@@ -384,8 +618,21 @@
 	<SFML/System/Vector3.hpp>
 	<map>
 	<string>
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Glsl.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+	<map>
+	<string>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\glsl.hpp
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+	<SFML/Graphics/Glsl.inl>
 	<SFML/Graphics/Transform.hpp>
 	<SFML/Graphics/Color.hpp>
 	<SFML/System/Vector2.hpp>
@@ -395,6 +642,11 @@
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\glsl.inl
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\sprite.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/Rect.hpp>
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Graphics/Transformable.hpp>
@@ -411,8 +663,21 @@
 	<SFML/System/String.hpp>
 	<string>
 	<vector>
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/System/String.hpp>
+	<string>
+	<vector>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\graphics\vertexbuffer.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Window/GlResource.hpp>
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/PrimitiveType.hpp>
 	<SFML/Graphics/Drawable.hpp>
@@ -422,8 +687,13 @@
 	<iostream>
 	"Colisionador.h"
 	<cmath>
+	<iostream>
+	"Colisionador.h"
+	<cmath>
 
 1762448651 c:\users\leand\onedrive\documentos\repositorio\islandeer\colisionador.h
+	<SFML/Graphics.hpp>
+	<cstring>
 	<SFML/Graphics.hpp>
 	<cstring>
 
@@ -432,23 +702,30 @@
 1762448651 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\espada.cpp
 	<iostream>
 	"Espada.h"
+	<iostream>
+	"Espada.h"
 
 1762448651 c:\users\leand\onedrive\documentos\repositorio\islandeer\espada.h
+	<SFML/Graphics.hpp>
+	<cmath>
 	<SFML/Graphics.hpp>
 	<cmath>
 
 1762448651 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\funciones.cpp
 	<iostream>
 	"Funciones.h"
+	<iostream>
+	"Funciones.h"
 
 1762448651 c:\users\leand\onedrive\documentos\repositorio\islandeer\funciones.h
 	<SFML/Graphics.hpp>
+	<SFML/Graphics.hpp>
 
-1762453692 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1762472127 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	"Game.h"
 
-1762453462 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
+1762471579 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
 	<SFML/Graphics.hpp>
 	"Personaje.h"
 	"TileMap.h"
@@ -474,8 +751,30 @@
 	"Raton.h"
 	"TileMap.h"
 	"BarraDeVida.h"
+	"Colisionador.h"
+	<SFML/Graphics.hpp>
+	"Funciones.h"
+	<SFML/Audio.hpp>
+	"Espada.h"
+	"Raton.h"
+	"TileMap.h"
+	"BarraDeVida.h"
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\audio.hpp
+	<SFML/System.hpp>
+	<SFML/Audio/InputSoundFile.hpp>
+	<SFML/Audio/Listener.hpp>
+	<SFML/Audio/Music.hpp>
+	<SFML/Audio/OutputSoundFile.hpp>
+	<SFML/Audio/Sound.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundBufferRecorder.hpp>
+	<SFML/Audio/SoundFileFactory.hpp>
+	<SFML/Audio/SoundFileReader.hpp>
+	<SFML/Audio/SoundFileWriter.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/Audio/SoundStream.hpp>
 	<SFML/System.hpp>
 	<SFML/Audio/InputSoundFile.hpp>
 	<SFML/Audio/Listener.hpp>
@@ -497,15 +796,30 @@
 	<SFML/System/Time.hpp>
 	<string>
 	<algorithm>
+	<SFML/Audio/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<algorithm>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\audio\export.hpp
+	<SFML/Config.hpp>
 	<SFML/Config.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\audio\listener.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/System/Vector3.hpp>
+	<SFML/Audio/Export.hpp>
+	<SFML/System/Vector3.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\audio\music.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundStream.hpp>
+	<SFML/Audio/InputSoundFile.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/SoundStream.hpp>
 	<SFML/Audio/InputSoundFile.hpp>
@@ -521,21 +835,38 @@
 	<SFML/System/Time.hpp>
 	<SFML/System/Mutex.hpp>
 	<cstdlib>
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/System/Mutex.hpp>
+	<cstdlib>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\audio\soundsource.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Vector3.hpp>
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/AlResource.hpp>
 	<SFML/System/Vector3.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\audio\alresource.hpp
 	<SFML/Audio/Export.hpp>
+	<SFML/Audio/Export.hpp>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\audio\outputsoundfile.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<string>
+	<SFML/Audio/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<string>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\audio\sound.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Time.hpp>
+	<cstdlib>
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/SoundSource.hpp>
 	<SFML/System/Time.hpp>
@@ -548,8 +879,18 @@
 	<string>
 	<vector>
 	<set>
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+	<set>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\audio\soundbufferrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<vector>
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/SoundBuffer.hpp>
 	<SFML/Audio/SoundRecorder.hpp>
@@ -562,8 +903,18 @@
 	<SFML/System/Time.hpp>
 	<vector>
 	<string>
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/Time.hpp>
+	<vector>
+	<string>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\audio\soundfilefactory.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+	<vector>
+	<SFML/Audio/SoundFileFactory.inl>
 	<SFML/Audio/Export.hpp>
 	<string>
 	<vector>
@@ -574,21 +925,222 @@
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\audio\soundfilereader.hpp
 	<SFML/Audio/Export.hpp>
 	<string>
+	<SFML/Audio/Export.hpp>
+	<string>
 
 1762448655 c:\users\leand\onedrive\documentos\repositorio\islandeer\sfml\include\sfml\audio\soundfilewriter.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
 	<SFML/Audio/Export.hpp>
 	<string>
 
 1762448651 c:\users\leand\onedrive\documentos\repositorio\islandeer\raton.h
 	<SFML/Graphics.hpp>
+	<SFML/Graphics.hpp>
 
-1762451272 c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.h
+1762453882 c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.h
+	<SFML/Graphics.hpp>
+	<vector>
+	"json.hpp"
+	"Colisionador.h"
 	<SFML/Graphics.hpp>
 	<vector>
 	"json.hpp"
 	"Colisionador.h"
 
 1760669154 c:\users\leand\onedrive\documentos\repositorio\islandeer\json.hpp
+	<algorithm>
+	<cstddef>
+	<functional>
+	<initializer_list>
+	<iosfwd>
+	<iterator>
+	<memory>
+	<string>
+	<utility>
+	<vector>
+	<utility>
+	<algorithm>
+	<array>
+	<forward_list>
+	<iterator>
+	<map>
+	<string>
+	<tuple>
+	<type_traits>
+	<unordered_map>
+	<utility>
+	<valarray>
+	<cstddef>
+	<exception>
+	<numeric>
+	<stdexcept>
+	<string>
+	<vector>
+	<array>
+	<cstddef>
+	<cstdint>
+	<string>
+	<utility>
+	<type_traits>
+	<stdint.h>
+	<stdint.h>
+	<version>
+	<cstdlib>
+	<cassert>
+	<compare>
+	<cstddef>
+	<array>
+	<cstddef>
+	<type_traits>
+	<utility>
+	<limits>
+	<type_traits>
+	<utility>
+	<tuple>
+	<string>
+	<iterator>
+	<cstdint>
+	<map>
+	<memory>
+	<string>
+	<vector>
+	<cstring>
+	<string>
+	<utility>
+	<experimental/filesystem>
+	<filesystem>
+	<algorithm>
+	<iterator>
+	<string>
+	<tuple>
+	<type_traits>
+	<utility>
+	<valarray>
+	<vector>
+	<cstddef>
+	<iterator>
+	<string>
+	<tuple>
+	<utility>
+	<ranges>
+	<cstdint>
+	<tuple>
+	<utility>
+	<cstdint>
+	<cstddef>
+	<functional>
+	<algorithm>
+	<array>
+	<cmath>
+	<cstddef>
+	<cstdint>
+	<cstdio>
+	<cstring>
+	<iterator>
+	<limits>
+	<string>
+	<utility>
+	<vector>
+	<array>
+	<cstddef>
+	<cstring>
+	<iterator>
+	<memory>
+	<numeric>
+	<string>
+	<type_traits>
+	<utility>
+	<cstdio>
+	<istream>
+	<cstddef>
+	<string>
+	<utility>
+	<vector>
+	<array>
+	<clocale>
+	<cstddef>
+	<cstdio>
+	<cstdlib>
+	<initializer_list>
+	<string>
+	<utility>
+	<vector>
+	<cstdint>
+	<utility>
+	<string>
+	<cmath>
+	<cstdint>
+	<functional>
+	<string>
+	<utility>
+	<vector>
+	<cstddef>
+	<limits>
+	<iterator>
+	<type_traits>
+	<cstddef>
+	<iterator>
+	<utility>
+	<type_traits>
+	<algorithm>
+	<cctype>
+	<cerrno>
+	<cstdlib>
+	<iosfwd>
+	<limits>
+	<numeric>
+	<string>
+	<utility>
+	<vector>
+	<initializer_list>
+	<utility>
+	<algorithm>
+	<array>
+	<map>
+	<cmath>
+	<cstdint>
+	<cstring>
+	<limits>
+	<string>
+	<utility>
+	<vector>
+	<algorithm>
+	<cstddef>
+	<iterator>
+	<memory>
+	<string>
+	<vector>
+	<ios>
+	<ostream>
+	<algorithm>
+	<array>
+	<clocale>
+	<cmath>
+	<cstddef>
+	<cstdint>
+	<cstdio>
+	<limits>
+	<string>
+	<iomanip>
+	<type_traits>
+	<utility>
+	<array>
+	<cmath>
+	<cstdint>
+	<cstring>
+	<limits>
+	<type_traits>
+	<functional>
+	<initializer_list>
+	<iterator>
+	<memory>
+	<stdexcept>
+	<type_traits>
+	<utility>
+	<vector>
+	<any>
+	<string_view>
 	<algorithm>
 	<cstddef>
 	<functional>
@@ -788,8 +1340,13 @@
 	"Game.h"
 	<iostream>
 	<ctime>
+	"Game.h"
+	<iostream>
+	<ctime>
 
 1762451205 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.cpp
+	"Mob.h"
+	<iostream>
 	"Mob.h"
 	<iostream>
 
@@ -797,7 +1354,7 @@
 
 1762448651 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\movimiento_ia.cpp
 
-1762451205 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
+1762472329 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
 	<iostream>
 	"Personaje.h"
 	"Funciones.h"
@@ -806,8 +1363,13 @@
 1762448651 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\raton.cpp
 	<iostream>
 	"Raton.h"
+	<iostream>
+	"Raton.h"
 
 1762451205 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.cpp
+	"tilemap.h"
+	<fstream>
+	<iostream>
 	"tilemap.h"
 	<fstream>
 	<iostream>
@@ -815,11 +1377,16 @@
 1761599952 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\funcionesinterpolacion.cpp
 	"funcionesInterpolacion.h"
 	<math.h>
+	"funcionesInterpolacion.h"
+	<math.h>
 
 1761599952 c:\users\leand\onedrive\documentos\repositorio\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
+	<SFML/Graphics.hpp>
 
 1762451205 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\inventariointefaz.cpp
+	"InventarioIntefaz.h"
+	"funcionesInterpolacion.h"
 	"InventarioIntefaz.h"
 	"funcionesInterpolacion.h"
 
@@ -829,11 +1396,20 @@
 	"ItemDescripcion.h"
 	<SFML/Graphics.hpp>
 	<string>
+	"SeleccionRectangulo.h"
+	"Item.h"
+	"ItemDescripcion.h"
+	<SFML/Graphics.hpp>
+	<string>
 
 1758551821 c:\users\leand\onedrive\documentos\repositorio\islandeer\seleccionrectangulo.h
 	<SFML/Graphics.hpp>
+	<SFML/Graphics.hpp>
 
 1762448822 c:\users\leand\onedrive\documentos\repositorio\islandeer\item.h
+	<SFML/Graphics.hpp>
+	<string>
+	"json.hpp"
 	<SFML/Graphics.hpp>
 	<string>
 	"json.hpp"
@@ -841,12 +1417,19 @@
 1761739052 c:\users\leand\onedrive\documentos\repositorio\islandeer\itemdescripcion.h
 	<cstring>
 	"SeleccionRectangulo.h"
+	<cstring>
+	"SeleccionRectangulo.h"
 
 1761741514 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\inventarioresumidointerfaz.cpp
 	"InventarioResumidoInterfaz.h"
 	<iostream>
+	"InventarioResumidoInterfaz.h"
+	<iostream>
 
 1761741514 c:\users\leand\onedrive\documentos\repositorio\islandeer\inventarioresumidointerfaz.h
+	"Item.h"
+	"SeleccionRectangulo.h"
+	<SFML/Graphics.hpp>
 	"Item.h"
 	"SeleccionRectangulo.h"
 	<SFML/Graphics.hpp>
@@ -856,12 +1439,21 @@
 	<iostream>
 	"json.hpp"
 	<fstream>
+	"Item.h"
+	<iostream>
+	"json.hpp"
+	<fstream>
 
 1761602129 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\itemdescripcion.cpp
 	<iostream>
 	"ItemDescripcion.h"
+	<iostream>
+	"ItemDescripcion.h"
 
 1762448822 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\loot.cpp
+	"Loot.h"
+	"cmath"
+	"funcionesInterpolacion.h"
 	"Loot.h"
 	"cmath"
 	"funcionesInterpolacion.h"
@@ -871,8 +1463,15 @@
 	"Item.h"
 	"Colisionador.h"
 	"InventarioIntefaz.h"
+	<SFML/Graphics.hpp>
+	"Item.h"
+	"Colisionador.h"
+	"InventarioIntefaz.h"
 
 1759842881 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\seleccionrectangulo.cpp
+	"SeleccionRectangulo.h"
+	<SFML/Graphics.hpp>
+	<iostream>
 	"SeleccionRectangulo.h"
 	<SFML/Graphics.hpp>
 	<iostream>
@@ -881,8 +1480,15 @@
 	"Estructura.h"
 	<iostream>
 	<cmath>
+	"Estructura.h"
+	<iostream>
+	<cmath>
 
 1762448822 c:\users\leand\onedrive\documentos\repositorio\islandeer\estructura.h
+	"SFML/Graphics.hpp"
+	"Colisionador.h"
+	<list>
+	"Loot.h"
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<list>
@@ -1775,17 +2381,26 @@
 	<string>
 	<cmath>
 	<ctime>
+	"SFML/Graphics.hpp"
+	"Colisionador.h"
+	<string>
+	<cmath>
+	<ctime>
 
 1762451205 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\fantasma.cpp
+	"Fantasma.h"
 	"Fantasma.h"
 
 1762451205 c:\users\leand\onedrive\documentos\repositorio\islandeer\fantasma.h
 	"Mob.h"
+	"Mob.h"
 
 1762451205 c:\users\leand\onedrive\documentos\repositorio\islandeer\murcielago.h
 	"Mob.h"
+	"Mob.h"
 
 1762451205 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\murcielago.cpp
+	"Murcielago.h"
 	"Murcielago.h"
 
 1762347538 c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricaenemigos.h
@@ -2747,13 +3362,20 @@
 1762451205 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\animal.cpp
 	"Animal.h"
 	<iostream>
+	"Animal.h"
+	<iostream>
 
 1762451205 c:\users\leand\onedrive\documentos\repositorio\islandeer\animal.h
 	<SFML/Graphics.hpp>
 	"Mob.h"
 	<ctime>
+	<SFML/Graphics.hpp>
+	"Mob.h"
+	<ctime>
 
 1762451205 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricamobs.cpp
+	"FabricaMobs.h"
+	<iostream>
 	"FabricaMobs.h"
 	<iostream>
 
@@ -2765,15 +3387,33 @@
 	"Murcielago.h"
 	"Animal.h"
 	<memory>
+	<SFML/Graphics.hpp>
+	<string>
+	"Mob.h"
+	"Fantasma.h"
+	"Murcielago.h"
+	"Animal.h"
+	<memory>
 
-1762453228 c:\users\leand\onedrive\documentos\repositorio\islandeer\minimap.h
+1762453882 c:\users\leand\onedrive\documentos\repositorio\islandeer\minimap.h
+	<SFML/Graphics.hpp>
+	"TileMap.h"
+	"Mob.h"
+	<list>
+	<memory>
 	<SFML/Graphics.hpp>
 	"TileMap.h"
 	"Mob.h"
 	<list>
 	<memory>
 
-1762453253 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\minimap.cpp
+1762471926 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\minimap.cpp
 	"Minimap.h"
 	<iostream>
+
+1762471047 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\comando.cpp
+	"Comando.h"
+
+1762471299 c:\users\leand\onedrive\documentos\repositorio\islandeer\comando.h
+	<SFML/Graphics.hpp>
 
