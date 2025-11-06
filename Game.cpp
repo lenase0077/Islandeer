@@ -39,7 +39,7 @@ void Game::run() {
 
 
     TileMap mapa;
-    mapa.loadFromJSON("mapa.json", "Sprite-0003.png", "Items.png");
+    mapa.loadFromJSON("mapa.json", "Sprite-0003.png", "UtilidadMapa.png");
 
     /// MOUSE
     Raton mouse;

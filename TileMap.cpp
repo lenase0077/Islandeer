@@ -90,7 +90,7 @@ bool TileMap::loadFromJSON(const std::string& filename,
                 // 🔹 COLISIONES - Solo en segunda capa
                 if (capaIndex == 1 && localID >= 0) {
                     switch(gid) {
-                    case 129: {
+                    case 1090: {
                         Colisionador colision;
                         sf::FloatRect tamanioColision(
                             x * _tileWidth, y * _tileHeight, _tileWidth, _tileHeight);
