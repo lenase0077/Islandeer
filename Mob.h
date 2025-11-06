@@ -20,6 +20,7 @@ private:
         sf::Vector2f _posicionObjetivoDivagar;
 
 public:
+        Mob();
         DireccionMob _direccionActual;
         Colisionador _colision;
         sf::Vector2f getVelocidad();
@@ -31,5 +32,7 @@ public:
         void updateColision();
         void setFrame(int fila , int columna);
         sf::Clock& getRelojMob();
+        int _frameActual;
+        float _tiempoDeAnimar;
 };
 

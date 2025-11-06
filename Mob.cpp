@@ -1,6 +1,17 @@
 #include "Mob.h"
 #include <iostream>
 
+Mob::Mob() :
+    _velocidad({0.f, 0.f}),
+    _vida(100.f),
+    _tiempoDivagar(0.f),
+    _posicionObjetivoDivagar({0.f, 0.f}),
+    _tiempoDeAnimar(0.f),
+    _frameActual(0),
+    _direccionActual(DireccionMob::Abajo)
+{
+}
+
 bool Mob::perseguir(sf::Vector2f Posicionpersonaje, float aceleracion) {
 
     sf::Vector2f PosicionEnemigo = getPosition();

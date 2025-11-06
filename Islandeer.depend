@@ -2240,7 +2240,7 @@
 1762350384 d:\alemart\documents\github\islander\fantasma.h
 	"Mob.h"
 
-1762383292 d:\alemart\documents\github\islander\mob.h
+1762387023 d:\alemart\documents\github\islander\mob.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<string>
@@ -2260,7 +2260,7 @@
 1761750014 d:\alemart\documents\github\islander\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1762385529 source:d:\alemart\documents\github\islander\game.cpp
+1762386806 source:d:\alemart\documents\github\islander\game.cpp
 	<iostream>
 	"Game.h"
 
@@ -2666,7 +2666,7 @@
 	<iostream>
 	<ctime>
 
-1762382574 source:d:\alemart\documents\github\islander\mob.cpp
+1762387032 source:d:\alemart\documents\github\islander\mob.cpp
 	"Mob.h"
 	<iostream>
 
@@ -2722,11 +2722,11 @@
 	"Animal.h"
 	<memory>
 
-1762384688 d:\alemart\documents\github\islander\animal.h
+1762386806 d:\alemart\documents\github\islander\animal.h
 	<SFML/Graphics.hpp>
 	"Mob.h"
 
-1762385832 source:d:\alemart\documents\github\islander\animal.cpp
+1762386872 source:d:\alemart\documents\github\islander\animal.cpp
 	"Animal.h"
 	<iostream>
 
