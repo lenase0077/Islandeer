@@ -60,30 +60,24 @@ void Game::run() {
     empuje.y = 0.f;
     float fuerzaEmpuje = 50.f;
 
-
-
     std::list<std::unique_ptr<Mob>> enemigos;
     std::list<std::unique_ptr<Mob>> animales;
 
 //    enemigos.push_back(_FabricaMobs.crearMobs("Fantasma", {100 , 100}));
 //    enemigos.push_back(_FabricaMobs.crearMobs("Murcielago", {50 , 50}));
 
+    ///ANIMALES
     sf::Vector2f _posicionAleatoria;
-
-    _posicionAleatoria.x = (float)(rand()%400);
-    _posicionAleatoria.y = (float)(rand()%400);
 
     for (int i = 0 ; i < 5 ; i++)
     {
+        _posicionAleatoria.x = (float)(rand()%400);
+        _posicionAleatoria.y = (float)(rand()%400);
+
         animales.push_back(_FabricaMobs.crearMobs("Vaca", _posicionAleatoria));
         animales.push_back(_FabricaMobs.crearMobs("Oveja", _posicionAleatoria));
         animales.push_back(_FabricaMobs.crearMobs("Cerdo", _posicionAleatoria));
     }
-
-
-
-//    Fantasma miFantasma(texturaFantasma , {100 , 100});
-//    Murcielago miMurcielago (texturaMurcielago , {50 , 50});
 
     ///MUSICA
     sf::SoundBuffer buffer;
@@ -181,7 +175,6 @@ for (auto& enemigo: enemigos){
     {
         character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
     }
-
 }
 
 for (auto& animal: animales){
@@ -189,6 +182,12 @@ for (auto& animal: animales){
     animal->update(PosicionJugador, deltatime);
 
     character.chocar(animal->_colision);
+
+    if(character.getColisionador().detectorDeColision(animal->_colision, empuje.x, empuje.y))
+    {
+        animal->move(-empuje.x * fuerzaEmpuje, -empuje.y * fuerzaEmpuje);
+        character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
+    }
 }
 
 for (auto& colisionador : mapa._colisiones) {

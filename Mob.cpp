@@ -4,7 +4,7 @@
 Mob::Mob() :
     _velocidad({0.f, 0.f}),
     _vida(100.f),
-    _tiempoDivagar(0.f),
+    _tiempoDivagar(0),
     _posicionObjetivoDivagar({0.f, 0.f}),
     _tiempoDeAnimar(0.f),
     _frameActual(0),

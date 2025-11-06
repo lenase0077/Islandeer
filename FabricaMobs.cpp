@@ -47,7 +47,6 @@ std::unique_ptr<Mob> FabricaMobs::crearMobs(const std::string& tipo, sf::Vector2
         return std::make_unique<Animal>(_ovejaTexture, posicion);
     }
 
-
     if (tipo == "Cerdo")
     {
         return std::make_unique<Animal>(_cerdoTexture, posicion);

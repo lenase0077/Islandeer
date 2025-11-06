@@ -2240,11 +2240,12 @@
 1762350384 d:\alemart\documents\github\islander\fantasma.h
 	"Mob.h"
 
-1762387023 d:\alemart\documents\github\islander\mob.h
+1762433555 d:\alemart\documents\github\islander\mob.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<string>
 	<cmath>
+	<ctime>
 
 1761750013 source:d:\alemart\documents\github\islander\funciones.cpp
 	<iostream>
@@ -2260,7 +2261,7 @@
 1761750014 d:\alemart\documents\github\islander\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1762386806 source:d:\alemart\documents\github\islander\game.cpp
+1762431605 source:d:\alemart\documents\github\islander\game.cpp
 	<iostream>
 	"Game.h"
 
@@ -2666,7 +2667,7 @@
 	<iostream>
 	<ctime>
 
-1762387032 source:d:\alemart\documents\github\islander\mob.cpp
+1762433683 source:d:\alemart\documents\github\islander\mob.cpp
 	"Mob.h"
 	<iostream>
 
@@ -2677,7 +2678,7 @@
 1762382591 source:d:\alemart\documents\github\islander\murcielago.cpp
 	"Murcielago.h"
 
-1761750013 source:d:\alemart\documents\github\islander\personaje.cpp
+1762428899 source:d:\alemart\documents\github\islander\personaje.cpp
 	<iostream>
 	"Personaje.h"
 	"Funciones.h"
@@ -2713,7 +2714,7 @@
 	"FabricaMobs.h"
 	<iostream>
 
-1762385309 d:\alemart\documents\github\islander\fabricamobs.h
+1762437522 d:\alemart\documents\github\islander\fabricamobs.h
 	<SFML/Graphics.hpp>
 	<string>
 	"Mob.h"
@@ -2722,11 +2723,12 @@
 	"Animal.h"
 	<memory>
 
-1762386806 d:\alemart\documents\github\islander\animal.h
+1762433555 d:\alemart\documents\github\islander\animal.h
 	<SFML/Graphics.hpp>
 	"Mob.h"
+	<ctime>
 
-1762386872 source:d:\alemart\documents\github\islander\animal.cpp
+1762433970 source:d:\alemart\documents\github\islander\animal.cpp
 	"Animal.h"
 	<iostream>
 

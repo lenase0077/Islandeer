@@ -3,6 +3,7 @@
 #include "Colisionador.h"
 #include <string>
 #include <cmath>
+#include <ctime>
 
 enum class DireccionMob {
     Arriba,
@@ -16,7 +17,6 @@ class Mob: public sf::Sprite
 private:
         sf::Vector2f _velocidad;
         float _vida;
-        float _tiempoDivagar;
         sf::Vector2f _posicionObjetivoDivagar;
 
 public:
@@ -33,6 +33,8 @@ public:
         void setFrame(int fila , int columna);
         sf::Clock& getRelojMob();
         int _frameActual;
+        float _tiempoDivagar;
         float _tiempoDeAnimar;
+
 };
 

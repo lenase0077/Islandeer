@@ -10,7 +10,6 @@
 class FabricaMobs
 {
 private:
-
     sf::Texture _fantasmaTexture;
     sf::Texture _murcielagoTexture;
     sf::Texture _vacaTexture;
