@@ -343,9 +343,9 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
             lerp(escalaActual,escalaObjetivo,0.2);
             _inventarioItems[i].setEscala(escalaActual);
         }
-        _inventarioItems[i].setPosX(16+columna*32);
-        _inventarioItems[i].setPosY(16+fila*32);
+        _inventarioItems[i].setPosition(16 + columna * 32, 16 + fila * 32);
         _inventarioItems[i].actualizarSprite();
+
 
     }
 
@@ -355,10 +355,10 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
 
     if (_hayItemEnMano)
     {
-        _itemEnMano.setPosX(posGlobalDelMouse.x);
-        _itemEnMano.setPosY(posGlobalDelMouse.y);
+        _itemEnMano.setPosition(posGlobalDelMouse.x,posGlobalDelMouse.y);
         _itemEnMano.setEscala(sf::Vector2f(1.3*getScale().x,1.3*getScale().y));
         _itemEnMano.actualizarSprite();
+
     }
 
     if(!mouseInteractuo || _hayItemEnMano)
@@ -509,7 +509,7 @@ bool InventarioInterfaz::sumarItems(Item& ItemIncrementador, Item& ItemIncrement
     }
 }
 
-void InventarioInterfaz::controlAbrirCerrarInventario(sf::Event& evento)
+void InventarioInterfaz::controlDeEventos(sf::Event& evento)
 {
     if (evento.type == sf::Event::KeyPressed)
     {

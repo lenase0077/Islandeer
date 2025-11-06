@@ -33,6 +33,11 @@ void Game::run() {
         cout << "Error al cargar ItemsSprites.png" << endl;
     }
 
+    sf::Texture texturaInventarioResumido;
+    if(!texturaInventarioResumido.loadFromFile("InventarioResumido.png")){
+        cout << "ERROR AL CARGAR InventarioResumido.png" << endl;
+    }
+
 
 
 ///RELOJ INTERNO/////
@@ -48,6 +53,9 @@ void Game::run() {
     InventarioInterfaz inv(texturaItems);
     inv.agregarItem(44,30);
     inv.agregarItem(15,3);
+
+    InventarioResumido invR(texturaInventarioResumido);
+
 
 
 ///      MAPA TEST ///
@@ -93,12 +101,13 @@ void Game::run() {
 
 /// ESTRUCTURA TEST
 
-    listaEstructuras.push_back(fabE.crearEstructura(100,100,0));
-    listaEstructuras.push_back(fabE.crearEstructura(200,200,0));
-    listaEstructuras.push_back(fabE.crearEstructura(300,300,0));
-
-    //Se suele usar List no vector
-    //Convendria que la textura fuera puntero + llamar a dispose antes de erase()
+    listaEstructuras.push_back(fabE.crearEstructura(100,132,0));
+    listaEstructuras.push_back(fabE.crearEstructura(132,132,1));
+    listaEstructuras.push_back(fabE.crearEstructura(164,132,2));
+    listaEstructuras.push_back(fabE.crearEstructura(200,132,3));
+    listaEstructuras.push_back(fabE.crearEstructura(232,132,4));
+    listaEstructuras.push_back(fabE.crearEstructura(264,132,5));
+    listaEstructuras.push_back(fabE.crearEstructura(300,132,6));
 
     while (window.isOpen()) {
 
@@ -107,7 +116,8 @@ void Game::run() {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
-            inv.controlAbrirCerrarInventario(event);
+            inv.controlDeEventos(event);
+            invR.cambiarSlotsConEventos(event);
         }
 
         window.clear(sf::Color::Black);
@@ -159,9 +169,6 @@ void Game::run() {
 
 /////// COLISIONES
 
-
-
-
         character.chocar(miFantasma._colision);
 
         if (character.getColisionador().detectorDeColision(miFantasma._colision , empuje.x , empuje.y)) {
@@ -184,23 +191,6 @@ void Game::run() {
             character.chocar(colisionador);
         }
 
-        /*
-         for (auto it = listaEstructuras.begin(); it != listaEstructuras.end(); ) {
-            if (!it->estaDestruido()) {
-                if(character.getColisionador().detectorDeColision(it->getColisionador())) { ///EJEMPLO
-                    character.chocar(it->getColisionador());
-                    it->recibirGolpe(5);
-                }
-                window.draw(*it);
-            }
-            else
-            {
-                it->liberarLoot(texturaItems,listaLoots);
-                it = listaEstructuras.erase(it);
-            }
-            it++;
-        }*/
-
         for (auto estructura = listaEstructuras.begin(); estructura != listaEstructuras.end(); ) {
             if ((*estructura)->estaDestruido() == false) {
                 if(character.getColisionador().detectorDeColision((*estructura)->getColisionador())) { ///EJEMPLO
@@ -218,11 +208,12 @@ void Game::run() {
         }
 
 
-        for (auto it = listaLoots.begin(); it != listaLoots.end(); ){
+        for (auto it = listaLoots.begin(); it != listaLoots.end();){
             it->update(character.getPosition(),inv);
             window.draw(*it);
             if (it->getLooted()) it = listaLoots.erase(it);
-            it++;
+            else it++;
+
         }
 
 /////////// UPDATE
@@ -256,6 +247,9 @@ void Game::run() {
             cout << "Guardado Exitosamente!!" << endl;
         }
 
+        invR.setItems(inv.obtenerPunteroInventario());
+        invR.update(Camara, relacion);
+        window.draw(invR);
         window.display();
     }
 }

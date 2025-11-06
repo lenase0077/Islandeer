@@ -81,6 +81,6 @@ public:
     void cargarVectorCantidades(int vectorCantidades[30]);
     Item* obtenerPunteroInventario();
 
-    void controlAbrirCerrarInventario(sf::Event& evento);
+    void controlDeEventos(sf::Event& evento);
 
 };

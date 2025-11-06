@@ -75,13 +75,6 @@ void Item::setTexture(sf::Texture& texturaItems){
 int Item::getID() const{
     return _id;
 }
-float Item::getPosX(){
-    return _posX;
-}
-float Item::getPosY(){
-    return _posY;
-}
-
 
 sf::Vector2f Item::getEscala(){
     return sprItem.getScale();
@@ -103,12 +96,6 @@ std::string Item::getDescripcion(){
 void Item::setID(int id){
     _id = id;
     actualizarPropiedades();
-}
-void Item::setPosX(float x){
-    _posX = x;
-}
-void Item::setPosY(float y){
-    _posY = y;
 }
 
 void Item::setEscala(sf::Vector2f nuevaEscala){
@@ -147,12 +134,12 @@ void Item::actualizarSprite(){
     sprItem.setTextureRect(sf::IntRect(frameX,frameY,anchuraFrame,alturaFrame));
     sprItem.setOrigin(16,16);
 
-    sprItem.setPosition(getPosX(),getPosY());
-    _textoCantidad.setPosition(getPosX(),getPosY()+5);
-
+    sprItem.setPosition(0, 0);
+    _textoCantidad.setPosition(0, 5);
 }
 
 void Item::draw(sf::RenderTarget& target, sf::RenderStates states) const{
+    states.transform *= getTransform();
     target.draw(sprItem,states);
     if (_cantidad > 1){
         target.draw(_textoCantidad,states);

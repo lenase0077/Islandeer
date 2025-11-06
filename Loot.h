@@ -9,6 +9,7 @@ class Loot : public sf::Transformable, public sf::Drawable
     private:
         Item _item;
         int _cantidad;
+        int _timerReposo = 0;
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
         ///Variables para efectos
         float _incrementoSeno = 0;

@@ -15,7 +15,7 @@ private:
     sf::Text _textoTitulo;
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 public:
-    InventarioResumido();
+    InventarioResumido(sf::Texture& textura);
     ///SETTERS
     void setItems( Item vectorItems[]); ///Este Setter se usara principalmente por el InventarioInterfaz
     void setSlotSeleccionado(int slot);

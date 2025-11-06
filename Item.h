@@ -15,7 +15,7 @@ y con ellas brinda herramientas para permitir un control mas eficiente para los
 inventarios y cofres.
 */
 
-class Item : public sf::Drawable{
+class Item : public sf::Drawable, public sf::Transformable{
 private:
     int _id; //define que item, de la lista de items, es.
     int _cantidadMax;
@@ -41,8 +41,6 @@ public:
 
     /// Getters
     int getID()const;
-    float getPosX();
-    float getPosY();
     sf::Vector2f getEscala();
     int getCantidad();
     int getCantidadMax();
@@ -51,8 +49,6 @@ public:
 
     /// Setters
     void setID(int id);
-    void setPosX(float x);
-    void setPosY(float y);
     void setEscala(sf::Vector2f nuevaEscala);
     void setCantidad( int cantidad);
     void setCantidadMax( int cantidadMax);

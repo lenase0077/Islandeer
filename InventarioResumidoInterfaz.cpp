@@ -4,13 +4,10 @@
 using namespace std;
 
 ///CONSTRUCTORES
-InventarioResumido::InventarioResumido() ///Este Setter se usara principalmente por el InventarioInterfaz
+InventarioResumido::InventarioResumido(sf::Texture& textura) ///Este Setter se usara principalmente por el InventarioInterfaz
 {
     setSlotSeleccionado(0);
-    if(!_texturaFondo.loadFromFile("InventarioResumido.png")){
-        cout << "ERROR AL CARGAR InventarioResumido.png" << endl;
-    }
-    _sprFondo.setTexture(_texturaFondo);
+    _sprFondo.setTexture(textura);
 
     ///Configuracion Rectangulo Slot Seleccion
     _rectanguloSlotSeleccionado.setFillColor(sf::Color::Transparent);
@@ -131,8 +128,7 @@ void InventarioResumido::update(const sf::View& vista, const float& relacionAspe
     _rectanguloSlotSeleccionado.setPosition(_slotSeleccionado*32,0);
 
     for (int i = 0; i < 10; i++){
-        _items[i].setPosX( 16 + (i*32));
-        _items[i].setPosY(16);
+        _items[i].setPosition(16 + i*32,16);
     }
 
     if (_items[getSlotSeleccionado()].getID() != -1){
