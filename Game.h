@@ -13,6 +13,7 @@
 #include "FabricaMobs.h"
 #include <memory>
 #include <ctime>
+#include "Minimap.h"
 
 
 class Game
@@ -31,4 +32,12 @@ class Game
         sf::Vector2f _posicionPersonaje;
         sf::Clock _relojInterno;
         FabricaMobs _FabricaMobs;
+        Minimap _minimap;
+
+//        sf::RenderTexture _minimapaTexture;
+//        sf::Sprite _minimapaSprite;
+//        sf::CircleShape _characterIcon;
+//        float _minimapaScale;
+
+
 };
