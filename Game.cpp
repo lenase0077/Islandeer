@@ -4,7 +4,7 @@ using namespace std;
 
 
 Game::Game()
-    : window(sf::VideoMode(1024, 768), "SFML works!"), personaTest(300,300) {
+    : window(sf::VideoMode(1024, 768), "SFML works!"), personaTest(300,300), _minimap({150.f, 150.f}, {1024.f - 160.f, 10.f}) {
     window.setFramerateLimit(75);
     srand(time(NULL));
 }
@@ -45,6 +45,27 @@ void Game::run() {
 
     TileMap mapa;
     mapa.loadFromJSON("mapa.json", "Sprite-0003.png", "UtilidadMapa.png");
+
+
+    _minimap.build(mapa);
+
+
+
+
+
+/// --- INICIALIZACIÓN DEL MINIMAPA ///
+
+
+
+
+
+
+
+
+
+
+
+
 
     /// MOUSE
     Raton mouse;
@@ -126,53 +147,53 @@ void Game::run() {
             inv.controlAbrirCerrarInventario(event);
         }
 
+
+        ///DRAWABLES
+
         window.clear(sf::Color::Black);
+
+        window.setView(Camara);
         window.draw(mapa);
+
+
+
+
+        character.getColisionador().draw(window);
+
+        window.draw(character);
+
+
+        for(auto& enemigo : enemigos)
+        {
+            window.draw(*enemigo);
+        }
+
+        for(auto& animal : animales)
+        {
+            window.draw(*animal);
+        }
+
+        window.draw(inv);
+
+
 
         /// RELOJ
 
         deltatime = _relojInterno.restart().asMilliseconds();
 
-//        sf::Vector2f uwu (rand()%1000 , rand()%1000);
-//
-//        enemigos.push_back(_FabricaMobs.crearMobs("Fantasma", {uwu.x , uwu.y}));
 
-        ///
         mouse.update(window);
 
-        window.setView(Camara);
+
+/// CHARACTER COMANDOS
 
         character.cmd();
-
-
         sf::Vector2f PosicionJugador = character.getPosition();
 
         ///Mostramos la vida del jugador
 
 //        cout << character.getVida() << endl;
 
-
-/////////
-//        for (int i = 0 ; i < 3 ; i++) {
-//
-//            VectEnemy[i].Update(PosicionJugador);
-//
-//            character.chocar(VectEnemy[i].getColisionador());
-//
-//            float empujeX = 0.f;
-//            float empujeY = 0.f;
-//            float fuerzaEmpuje = 5.f;
-//
-//            if (character.getColisionador().detectorDeColision(VectEnemy[i].getColisionador(), empujeX, empujeY)) {
-//
-////                if (VectEnemy[i].getColisionador().getID()== "Enemy") {
-////                    character.move(empujeX * fuerzaEmpuje, empujeY * fuerzaEmpuje);
-////                }
-//            }
-//
-//            VectEnemy[i].getColisionador().draw(window);
-//            window.draw(VectEnemy[i]);
-//        }
 
 
 /////// COLISIONES
@@ -230,35 +251,24 @@ for (auto& colisionador : mapa._colisiones) {
             it++;
         }
 
+
+
 /////////// UPDATE
         character.update();
         character.updateEspada(mouse);
-//        miFantasma.fantasmaUpdate(PosicionJugador, deltatime);
-//        miMurcielago.murcielagoUpdate(PosicionJugador, deltatime);
+
+        _minimap.update(character.getPosition());
+
+/// MINIMAPA UPDATE
+
 
 /// DRAW
 
-        character.getColisionador().draw(window);
 
-        window.draw(character);
-
-        for(auto& enemigo : enemigos)
-        {
-            window.draw(*enemigo);
-        }
-
-        for(auto& animal : animales)
-        {
-            window.draw(*animal);
-        }
+        window.setView(window.getDefaultView());
+        window.draw(_minimap);
 
 
-
-
-//        window.draw(miFantasma);
-//        window.draw(miMurcielago);
-
-        window.draw(inv);
         float relacion = (float)window.getSize().x/(float)window.getSize().y;
         inv.update(mouse.getPosicion(),mause,Camara,relacion);
 

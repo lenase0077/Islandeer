@@ -33,4 +33,10 @@ public:
         states.texture = &_texturaObjetos;
         target.draw(_verticesObjetos, states);
     }
+
+
+    int getMapWidth() const { return _width; }
+    int getMapHeight() const { return _height; }
+    int getTileWidth() const { return _tileWidth; }
+    int getTileHeight() const { return _tileHeight; }
 };
