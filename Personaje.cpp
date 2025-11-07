@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Personaje.h"
 #include "Funciones.h"
+#include "Comando.h"
 #include <cmath>
 
 using namespace std;
@@ -120,23 +121,24 @@ void Personaje::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 void Personaje::cmd() {
 
     _velocidad = sf::Vector2f(0.f,0.f);
+    Comandos& input = Comandos::getInstancia();
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+    if (input.teclaIzquierda) {
         _velocidad.x = -1.5;
         _movimiento = 2;
     };
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+    if (input.teclaDerecha) {
         _velocidad.x = 1.5;
         _movimiento = 3;
     };
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+    if (input.teclaArriba) {
         _velocidad.y = -1.5;
         _movimiento = 1;
     };
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+    if (input.teclaAbajo) {
         _velocidad.y = 1.5;
         _movimiento = 0;
     };
@@ -228,7 +230,8 @@ void Personaje::setVelocidad(float vx, float vy) {
 }
 
 void Personaje::Correr(sf::Vector2f& velocidad) {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
+    Comandos& input = Comandos::getInstancia();
+    if (input.teclaCorrer) {
         if (!_energia == 0) {
             velocidad *= 1.5f;
             setEstaCorriendo(true);

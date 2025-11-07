@@ -129,6 +129,8 @@ void Game::run() {
             inv.controlAbrirCerrarInventario(event);
         }
 
+        Comandos::getInstancia().actualizar();
+
 
         ///DRAWABLES
 

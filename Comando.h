@@ -30,6 +30,7 @@ public:
     bool teclaDerecha   = false;
     bool teclaCorrer    = false;
 
+
     bool mouseIzqPresionado = false;
     bool mouseIzqRecienPresionado = false;
     bool mouseIzqRecienSoltado = false;

@@ -721,16 +721,17 @@
 	<SFML/Graphics.hpp>
 	<SFML/Graphics.hpp>
 
-1762472432 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1762532681 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	"Game.h"
 
-1762471579 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
+1762532488 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
 	<SFML/Graphics.hpp>
 	"Personaje.h"
 	"TileMap.h"
 	"Enemigo.h"
 	"InventarioIntefaz.h"
+	"Comando.h"
 	"InventarioResumidoInterfaz.h"
 	"Estructura.h"
 	"Loot.h"
@@ -742,15 +743,7 @@
 	<ctime>
 	"Minimap.h"
 
-1762448651 c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.h
-	"Colisionador.h"
-	<SFML/Graphics.hpp>
-	"Funciones.h"
-	<SFML/Audio.hpp>
-	"Espada.h"
-	"Raton.h"
-	"TileMap.h"
-	"BarraDeVida.h"
+1762532488 c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.h
 	"Colisionador.h"
 	<SFML/Graphics.hpp>
 	"Funciones.h"
@@ -1354,10 +1347,11 @@
 
 1762448651 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\movimiento_ia.cpp
 
-1762472442 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
+1762532557 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
 	<iostream>
 	"Personaje.h"
 	"Funciones.h"
+	"Comando.h"
 	<cmath>
 
 1762448651 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\raton.cpp
@@ -3407,13 +3401,13 @@
 	<list>
 	<memory>
 
-1762477719 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\minimap.cpp
+1762531678 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\minimap.cpp
 	"Minimap.h"
 	<iostream>
 
-1762471047 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\comando.cpp
+1762531678 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\comando.cpp
 	"Comando.h"
 
-1762471299 c:\users\leand\onedrive\documentos\repositorio\islandeer\comando.h
+1762532538 c:\users\leand\onedrive\documentos\repositorio\islandeer\comando.h
 	<SFML/Graphics.hpp>
 

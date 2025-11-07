@@ -4,6 +4,7 @@
 #include "TileMap.h"
 #include "Enemigo.h"
 #include "InventarioIntefaz.h"
+#include "Comando.h"
 #include "InventarioResumidoInterfaz.h"
 #include "Estructura.h"
 #include "Loot.h"
