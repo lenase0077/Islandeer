@@ -4,13 +4,18 @@ using namespace std;
 
 
 Game::Game()
-    : window(sf::VideoMode(1024, 768), "SFML works!"), personaTest(300,300), _minimap({150.f, 150.f}, {1024.f - 160.f, 10.f}) {
+    : window(sf::VideoMode(1024, 768), "SFML works!"), personaTest(300,300), _minimap({150.f, 150.f},
+{
+    1024.f - 160.f, 10.f
+})
+{
     window.setFramerateLimit(75);
     srand(time(NULL));
 }
 
 
-void Game::run() {
+void Game::run()
+{
     ///     TEXTURAS    ////
 
 
@@ -20,7 +25,8 @@ void Game::run() {
     list <Loot> listaLoots;
 
     sf::Texture texturaItems;
-    if (!texturaItems.loadFromFile("ItemsSprites.png")){
+    if (!texturaItems.loadFromFile("ItemsSprites.png"))
+    {
         cout << "Error al cargar ItemsSprites.png" << endl;
     }
 
@@ -43,27 +49,8 @@ void Game::run() {
 
 ///      MAPA TEST ///
 
-    TileMap mapa;
     mapa.loadFromJSON("mapa.json", "Sprite-0003.png", "UtilidadMapa.png");
-
-
     _minimap.build(mapa);
-
-
-
-
-
-/// --- INICIALIZACIÓN DEL MINIMAPA ///
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -100,21 +87,22 @@ void Game::run() {
         _posicionAleatoria.x = (float)(rand()%400);
         _posicionAleatoria.y = (float)(rand()%400);
 
-        animales.push_back(_FabricaMobs.crearMobs("Vaca", _posicionAleatoria));
-        animales.push_back(_FabricaMobs.crearMobs("Oveja", _posicionAleatoria));
-        animales.push_back(_FabricaMobs.crearMobs("Cerdo", _posicionAleatoria));
+        animales.push_back(_FabricaMobs.crearMobs("Vaca", {1001,1000}));
+        animales.push_back(_FabricaMobs.crearMobs("Oveja", {1001,1000}));
+        animales.push_back(_FabricaMobs.crearMobs("Cerdo", {1001,1000}));
     }
 
     ///MUSICA
     sf::SoundBuffer buffer;
     sf::Sound sonido;
-    if (!buffer.loadFromFile("music.wav")) {
+    if (!buffer.loadFromFile("music.wav"))
+    {
         return;
     }
 
     sonido.setBuffer(buffer);
     sonido.play();
-    sonido.setVolume(5.0);
+    sonido.setVolume(100.0);
     sonido.setLoop(true);
 
 /// ESTRUCTURA TEST
@@ -133,64 +121,124 @@ void Game::run() {
     //Se suele usar List no vector
     //Convendria que la textura fuera puntero + llamar a dispose antes de erase()
 
-    for(auto& p:listaEstructuras){
+    for(auto& p:listaEstructuras)
+    {
         p.actualizarTextura();
     }
 
-    while (window.isOpen()) {
+    while (window.isOpen())
+    {
 
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
+        switch(_estadoActual)
+        {
+
+        case EstadoJuego::MenuPrincipal:
+        {
+
+            sf::Event event;
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                    window.close();
+            }
+
+            Comandos::getInstancia().actualizar();
+            sf::Vector2f posMouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+
+            OpcionMenu opcion = _menuPrincipal.actualizar(posMouse);
+
+            if (opcion == OpcionMenu::Jugar)
+            {
+                _estadoActual = EstadoJuego::Jugando;
+                _menuPrincipal.actualizar(posMouse);
+
+
+            }
+            else if (opcion == OpcionMenu::Salir)
+            {
                 window.close();
-             }
-            inv.controlAbrirCerrarInventario(event);
+            }
+
+            window.clear(sf::Color::Black);
+            window.setView(window.getDefaultView());
+            window.draw(_menuPrincipal);
+            window.display();
+            break;
         }
 
-
-        ///DRAWABLES
-
-        window.clear(sf::Color::Black);
-
-        window.setView(Camara);
-        window.draw(mapa);
-
-
-
-
-        character.getColisionador().draw(window);
-
-        window.draw(character);
-
-
-        for(auto& enemigo : enemigos)
+        case EstadoJuego::Jugando:
         {
-            window.draw(*enemigo);
-        }
 
-        for(auto& animal : animales)
-        {
-            window.draw(*animal);
-        }
+            sf::Event event;
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                {
+                    window.close();
+                }
 
-        window.draw(inv);
-
-
-
-        /// RELOJ
-
-        deltatime = _relojInterno.restart().asMilliseconds();
+                inv.controlAbrirCerrarInventario(event);
+            }
 
 
-        mouse.update(window);
+
+
+            Comandos::getInstancia().actualizar();
+            sf::Vector2f posMouseAux = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+
+
+
+
+
+
+
+
+
+            ///DRAWABLES
+
+            window.clear(sf::Color::Black);
+
+            window.setView(Camara);
+            window.draw(mapa);
+            window.draw(character);
+
+
+
+
+
+
+            character.getColisionador().draw(window);
+
+
+
+            for(auto& enemigo : enemigos)
+            {
+                window.draw(*enemigo);
+            }
+
+            for(auto& animal : animales)
+            {
+                window.draw(*animal);
+            }
+
+            window.draw(inv);
+
+
+
+            /// RELOJ
+
+            deltatime = _relojInterno.restart().asMilliseconds();
+
+
+            mouse.update(window);
 
 
 /// CHARACTER COMANDOS
 
-        character.cmd();
-        sf::Vector2f PosicionJugador = character.getPosition();
+            character.cmd();
+            sf::Vector2f PosicionJugador = character.getPosition();
 
-        ///Mostramos la vida del jugador
+            ///Mostramos la vida del jugador
 
 //        cout << character.getVida() << endl;
 
@@ -198,100 +246,118 @@ void Game::run() {
 
 /////// COLISIONES
 
-for (auto& enemigo: enemigos){
-
-    enemigo->update(PosicionJugador, deltatime);
-
-    character.chocar(enemigo->_colision);
-
-    if(character.getColisionador().detectorDeColision(enemigo->_colision, empuje.x, empuje.y))
-    {
-        character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
-    }
-}
-
-for (auto& animal: animales){
-
-    animal->update(PosicionJugador, deltatime);
-
-    character.chocar(animal->_colision);
-
-    if(character.getColisionador().detectorDeColision(animal->_colision, empuje.x, empuje.y))
-    {
-        animal->move(-empuje.x * fuerzaEmpuje, -empuje.y * fuerzaEmpuje);
-        character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
-    }
-}
-
-for (auto& colisionador : mapa._colisiones) {
-    character.chocar(colisionador);
-}
-
-        for (auto it = listaEstructuras.begin(); it != listaEstructuras.end(); ) {
-            if (!it->estaDestruido()) {
-                if(character.getColisionador().detectorDeColision(it->getColisionador())) { ///EJEMPLO
-                    character.chocar(it->getColisionador());
-                    it->recibirGolpe(5);
-                }
-                window.draw(*it);
-            }
-            else
+            for (auto& enemigo: enemigos)
             {
-                it->liberarLoot(texturaItems,listaLoots);
-                it = listaEstructuras.erase(it);
+
+                enemigo->update(PosicionJugador, deltatime);
+
+                character.chocar(enemigo->_colision);
+
+                if(character.getColisionador().detectorDeColision(enemigo->_colision, empuje.x, empuje.y))
+                {
+                    character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
+                }
             }
-            it++;
-        }
+
+            for (auto& animal: animales)
+            {
+
+                animal->update(PosicionJugador, deltatime);
+
+                character.chocar(animal->_colision);
+
+                if(character.getColisionador().detectorDeColision(animal->_colision, empuje.x, empuje.y))
+                {
+                    animal->move(-empuje.x * fuerzaEmpuje, -empuje.y * fuerzaEmpuje);
+                    character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
+                }
+            }
+
+            for (auto& colisionador : mapa._colisiones)
+            {
+                character.chocar(colisionador);
+            }
+
+            for (auto it = listaEstructuras.begin(); it != listaEstructuras.end(); )
+            {
+                if (!it->estaDestruido())
+                {
+                    if(character.getColisionador().detectorDeColision(it->getColisionador()))   ///EJEMPLO
+                    {
+                        character.chocar(it->getColisionador());
+                        it->recibirGolpe(5);
+                    }
+                    window.draw(*it);
+                }
+                else
+                {
+                    it->liberarLoot(texturaItems,listaLoots);
+                    it = listaEstructuras.erase(it);
+                }
+                it++;
+            }
 
 
-        for (auto it = listaLoots.begin(); it != listaLoots.end(); ){
-            it->update(character.getPosition(),inv);
-            window.draw(*it);
-            if (it->getLooted()) it = listaLoots.erase(it);
-            it++;
-        }
+            for (auto it = listaLoots.begin(); it != listaLoots.end(); )
+            {
+                it->update(character.getPosition(),inv);
+                window.draw(*it);
+                if (it->getLooted()) it = listaLoots.erase(it);
+                it++;
+            }
 
 
 
 /////////// UPDATE
-        character.update();
-        character.updateEspada(mouse);
+            character.update();
+            character.updateEspada(mouse);
 
-        _minimap.update(character.getPosition());
+            _minimap.update(character.getPosition());
 
 /// MINIMAPA UPDATE
 
 
 /// DRAW
+            window.setView(window.getDefaultView());
+            window.draw(_minimap);
 
 
-        window.setView(window.getDefaultView());
-        window.draw(_minimap);
 
 
-        float relacion = (float)window.getSize().x/(float)window.getSize().y;
-        inv.update(mouse.getPosicion(),mause,Camara,relacion);
 
-        camaraPosicion.x = camaraPosicion.x + ((character.getPosition().x - camaraPosicion.x) * 0.1f );
-        camaraPosicion.y = camaraPosicion.y + ((character.getPosition().y- camaraPosicion.y) * 0.1f );
+            float relacion = (float)window.getSize().x/(float)window.getSize().y;
+            inv.update(mouse.getPosicion(),mause,Camara,relacion);
 
-        if (character.getEstaCorriendo()) Camara.setSize(Camara.getSize().x + (350 - Camara.getSize().x)*0.05, Camara.getSize().y + (350 - Camara.getSize().y)*0.05);
-        else Camara.setSize(Camara.getSize().x + (300 - Camara.getSize().x)*0.05, Camara.getSize().y + (300 - Camara.getSize().y)*0.05);
+            camaraPosicion.x = camaraPosicion.x + ((character.getPosition().x - camaraPosicion.x) * 0.1f );
+            camaraPosicion.y = camaraPosicion.y + ((character.getPosition().y- camaraPosicion.y) * 0.1f );
 
-        Camara.setCenter(camaraPosicion);
+            if (character.getEstaCorriendo()) Camara.setSize(Camara.getSize().x + (350 - Camara.getSize().x)*0.05, Camara.getSize().y + (350 - Camara.getSize().y)*0.05);
+            else Camara.setSize(Camara.getSize().x + (300 - Camara.getSize().x)*0.05, Camara.getSize().y + (300 - Camara.getSize().y)*0.05);
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
-            guardar(character);
-            cout << "Guardado Exitosamente!!" << endl;
+            Camara.setCenter(camaraPosicion);
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+            {
+                guardar(character);
+                cout << "Guardado Exitosamente!!" << endl;
+            }
+
+            window.display();
+
         }
 
-        window.display();
+
+        }
+
+
     }
 }
 
-void Game::guardar(Personaje &character) {
+void Game::guardar(Personaje &character)
+{
     FILE *Puntero = fopen("ultimoGuardado", "wb");
-    if (Puntero== nullptr) {
+    if (Puntero== nullptr)
+    {
         cout << "ERROR 404" << endl;
     }
 
@@ -302,10 +368,12 @@ void Game::guardar(Personaje &character) {
     fclose(Puntero);
 }
 
-void Game::cargar(Personaje &character) {
+void Game::cargar(Personaje &character)
+{
 
     FILE *Puntero = fopen("ultimoGuardado", "rb");
-    if (Puntero== nullptr) {
+    if (Puntero== nullptr)
+    {
         cout << "ERROR 404" << endl;
     }
 

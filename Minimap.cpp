@@ -35,6 +35,7 @@ void Minimap::build(const TileMap& map)
     _texture.clear(sf::Color::Transparent);
     _texture.draw(map);
     _texture.display();
+    _texture.setSmooth(false);
 
 
     _sprite.setTexture(_texture.getTexture());

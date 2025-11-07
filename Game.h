@@ -4,6 +4,7 @@
 #include "TileMap.h"
 #include "Enemigo.h"
 #include "InventarioIntefaz.h"
+#include "Comando.h"
 #include "InventarioResumidoInterfaz.h"
 #include "Estructura.h"
 #include "Loot.h"
@@ -14,6 +15,12 @@
 #include <memory>
 #include <ctime>
 #include "Minimap.h"
+#include "Menu_Principal.h"
+#include "EstadodeJuego.h"
+
+
+
+
 
 
 class Game
@@ -33,11 +40,13 @@ class Game
         sf::Clock _relojInterno;
         FabricaMobs _FabricaMobs;
         Minimap _minimap;
+        TileMap mapa;
 
-//        sf::RenderTexture _minimapaTexture;
-//        sf::Sprite _minimapaSprite;
-//        sf::CircleShape _characterIcon;
-//        float _minimapaScale;
+
+        EstadoJuego _estadoActual = EstadoJuego::MenuPrincipal;
+        MenuPrincipal _menuPrincipal;
+
+
 
 
 };
