@@ -102,7 +102,7 @@ void Game::run()
 
     sonido.setBuffer(buffer);
     sonido.play();
-    sonido.setVolume(5.0);
+    sonido.setVolume(100.0);
     sonido.setLoop(true);
 
 /// ESTRUCTURA TEST
@@ -150,6 +150,9 @@ void Game::run()
             if (opcion == OpcionMenu::Jugar)
             {
                 _estadoActual = EstadoJuego::Jugando;
+                _menuPrincipal.actualizar(posMouse);
+
+
             }
             else if (opcion == OpcionMenu::Salir)
             {

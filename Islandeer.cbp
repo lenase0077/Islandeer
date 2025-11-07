@@ -57,6 +57,7 @@
 		<Unit filename="Enemigo.h" />
 		<Unit filename="Espada.cpp" />
 		<Unit filename="Espada.h" />
+		<Unit filename="EstadodeJuego.h" />
 		<Unit filename="Estructura.cpp" />
 		<Unit filename="Estructura.h" />
 		<Unit filename="FabricaMobs.cpp" />

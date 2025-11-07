@@ -721,11 +721,11 @@
 	<SFML/Graphics.hpp>
 	<SFML/Graphics.hpp>
 
-1762541813 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1762549655 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	"Game.h"
 
-1762540398 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
+1762549614 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
 	<SFML/Graphics.hpp>
 	"Personaje.h"
 	"TileMap.h"
@@ -743,6 +743,7 @@
 	<ctime>
 	"Minimap.h"
 	"Menu_Principal.h"
+	"EstadodeJuego.h"
 
 1762532488 c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.h
 	"Colisionador.h"
@@ -3412,11 +3413,15 @@
 1762532538 c:\users\leand\onedrive\documentos\repositorio\islandeer\comando.h
 	<SFML/Graphics.hpp>
 
-1762540457 c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.h
+1762549837 c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.h
 	<SFML/Graphics.hpp>
 	"Comando.h"
+	<SFML/Audio.hpp>
+	"EstadodeJuego.h"
 
-1762542317 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.cpp
+1762549837 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.cpp
 	"Menu_Principal.h"
 	<iostream>
+
+1762548437 c:\users\leand\onedrive\documentos\repositorio\islandeer\estadodejuego.h
 

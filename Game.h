@@ -16,13 +16,11 @@
 #include <ctime>
 #include "Minimap.h"
 #include "Menu_Principal.h"
+#include "EstadodeJuego.h"
 
 
 
-enum class EstadoJuego {
-    MenuPrincipal,
-    Jugando
-};
+
 
 
 class Game
