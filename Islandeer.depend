@@ -721,7 +721,7 @@
 	<SFML/Graphics.hpp>
 	<SFML/Graphics.hpp>
 
-1762472127 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1762472432 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	"Game.h"
 
@@ -1354,7 +1354,7 @@
 
 1762448651 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\movimiento_ia.cpp
 
-1762472329 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
+1762472442 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
 	<iostream>
 	"Personaje.h"
 	"Funciones.h"
@@ -3407,7 +3407,7 @@
 	<list>
 	<memory>
 
-1762471926 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\minimap.cpp
+1762477719 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\minimap.cpp
 	"Minimap.h"
 	<iostream>
 
