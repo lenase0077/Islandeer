@@ -15,6 +15,14 @@
 #include <memory>
 #include <ctime>
 #include "Minimap.h"
+#include "Menu_Principal.h"
+
+
+
+enum class EstadoJuego {
+    MenuPrincipal,
+    Jugando
+};
 
 
 class Game
@@ -36,10 +44,11 @@ class Game
         Minimap _minimap;
         TileMap mapa;
 
-//        sf::RenderTexture _minimapaTexture;
-//        sf::Sprite _minimapaSprite;
-//        sf::CircleShape _characterIcon;
-//        float _minimapaScale;
+
+        EstadoJuego _estadoActual = EstadoJuego::MenuPrincipal;
+        MenuPrincipal _menuPrincipal;
+
+
 
 
 };
