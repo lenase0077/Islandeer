@@ -65,7 +65,6 @@ void Estructura::liberarLoot(sf::Texture& texturaItems,list<Loot>& listaLoot){
 }
 
 void Estructura::setLootsIDs(const std::vector<int>& nuevoLootsIDs){
-
     _lootsIDs = nuevoLootsIDs;
 }
 

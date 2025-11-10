@@ -2,7 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "Item.h"
 #include "Colisionador.h"
-#include "InventarioIntefaz.h"
+
+class InventarioInterfaz; ///<<<== Consultar si es viable
 
 class Loot : public sf::Transformable, public sf::Drawable
 {

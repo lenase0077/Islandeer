@@ -15,6 +15,8 @@ void Game::run() {
 
     FabricaEstructuras fabE;
 
+    sf::Keyboard tecladoEntrada;
+
     sf::Texture texturaFantasma;
     if(!texturaFantasma.loadFromFile("GatoFantasma-Sheet.png")) {
         std::cout << "Error cargando GatoFantasma-Sheet.png" << endl;
@@ -232,7 +234,7 @@ void Game::run() {
 
         window.draw(inv);
         float relacion = (float)window.getSize().x/(float)window.getSize().y;
-        inv.update(mouse.getPosicion(),mause,Camara,relacion);
+        inv.update( mouse.getPosicion(), mause, Camara, relacion, listaLoots, tecladoEntrada);
 
         camaraPosicion.x = camaraPosicion.x + ((character.getPosition().x - camaraPosicion.x) * 0.1f );
         camaraPosicion.y = camaraPosicion.y + ((character.getPosition().y- camaraPosicion.y) * 0.1f );

@@ -2,8 +2,10 @@
 #include "SeleccionRectangulo.h"
 #include "Item.h"
 #include "ItemDescripcion.h"
+#include "Loot.h"
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <list>
 
 /***
 NOTAS PARA EL CORRECTO MANEJO DEL OBJETO:
@@ -26,7 +28,9 @@ private:
     bool _botonAbrirInventarioDisponible = true;
     bool _hayItemEnMano = false;
     bool _izquierdoPresionadoAnterior = false;
+    bool _frameActualQprecionada = false;
     int _indiceUltimoItemAnalizado;
+    sf::Texture* _texturaItems;
     sf::Clock _timerDobleClick2;
     int _contadorClicksIzquierdo = 0;
     float _posX, _posY;
@@ -71,7 +75,7 @@ public:
 
     /// Otros Metodos
     //void actualizar(sf::Vector2f posGlobalDelMouse, sf::Mouse mouse);
-    void update(const sf::Vector2f& posGlobalDelMouse, const sf::Mouse& mouse, const sf::View& vista, const float& relacionAspecto);
+    void update(const sf::Vector2f& posGlobalDelMouse, const sf::Mouse& mouse, const sf::View& vista, const float& relacionAspecto, std::list<Loot>& listaLoots, sf::Keyboard& tecladoEntrada);
     void cargarVectorIDs(int vectorIDs[30]);
     void copiarVectorDeIDs(int vectorAlmacen[30]);
     bool agregarItem(int ID, int cantidad = 1);
@@ -83,4 +87,5 @@ public:
 
     void controlDeEventos(sf::Event& evento);
 
+    void soltarLoot(Item& itemQueTirar, std::list<Loot>& listaLoots, bool tirarCompleto = false);
 };

@@ -1,6 +1,7 @@
 #include "Loot.h"
 #include <cmath>
 #include "funcionesInterpolacion.h"
+#include "InventarioIntefaz.h"
 
 
 using namespace std;

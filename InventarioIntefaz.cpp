@@ -1,5 +1,6 @@
 #include "InventarioIntefaz.h"
 #include "funcionesInterpolacion.h"
+#include "cmath"
 
 using namespace std;
 
@@ -12,6 +13,10 @@ InventarioInterfaz::InventarioInterfaz(sf::Texture& texturaItems, std::string no
     _texturaFondo.loadFromFile(getNombreDireccionTextura());
     _sprFondoInventario.setTexture(_texturaFondo);
     _sprFondoInventario.setOrigin(sf::Vector2f(0,0));
+
+    ///ACA ESTA EL MALDITO ERRRROORRR
+
+    _texturaItems = &texturaItems;
 
     for(int i = 0; i<30; i++)
     {
@@ -86,7 +91,7 @@ void InventarioInterfaz::setPosicionAbierto(float X, float Y)
 //}
 
 
-void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf::Mouse& mouse, const sf::View& vista, const float& relacionAspecto)
+void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf::Mouse& mouse, const sf::View& vista, const float& relacionAspecto, std::list<Loot>& listaLoots, sf::Keyboard& tecladoEntrada)
 {
     ajustarEscalaAutomaticamente(vista,relacionAspecto);
 
@@ -134,7 +139,19 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
             lerp(escalaActual,escalaObjetivo,0.2);
             _inventarioItems[i].setEscala(escalaActual);
 
-
+            ///==============================================================================
+            ///==============================================================================
+            ///                         CONTROL SOLTAR ITEMS CON LA Q
+            if (!tecladoEntrada.isKeyPressed(sf::Keyboard::Q)){
+                _frameActualQprecionada = false;
+            }
+            if (tecladoEntrada.isKeyPressed(sf::Keyboard::Q) && !_frameActualQprecionada){
+                _frameActualQprecionada = true;
+                soltarLoot(_inventarioItems[i], listaLoots);
+            }
+            ///
+            ///==============================================================================
+            ///==============================================================================
             if (!_clickDerechoDisponible && (!mouse.isButtonPressed(sf::Mouse::Right)))
             {
                 _clickDerechoDisponible = true;
@@ -359,12 +376,20 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
         _itemEnMano.setEscala(sf::Vector2f(1.3*getScale().x,1.3*getScale().y));
         _itemEnMano.actualizarSprite();
 
+        if (!mouseInteractuo){
+            if (izquierdoRecienPresionado){
+                _hayItemEnMano = false;
+                soltarLoot(_itemEnMano,listaLoots,true);
+            }
+        }
+
     }
 
     if(!mouseInteractuo || _hayItemEnMano)
     {
         _descripcion.setVisible(false);
     }
+
 }
 
 Item* InventarioInterfaz::obtenerPunteroInventario()
@@ -520,7 +545,7 @@ void InventarioInterfaz::controlDeEventos(sf::Event& evento)
         }
     }
     if (evento.type == sf::Event::KeyReleased){
-        _botonAbrirInventarioDisponible = true;
+            if (evento.key.code == sf::Keyboard::E) _botonAbrirInventarioDisponible = true;
     }
 }
 
@@ -551,5 +576,44 @@ void InventarioInterfaz::ajustarEscalaAutomaticamente(const sf::View& vista, con
         lerp(_posX, getPosicionAbierto().x, 0.1);
         lerp(_posY, getPosicionAbierto().y, 0.1);
         setPosition(_posX,_posY);
+    }
+}
+
+void InventarioInterfaz::soltarLoot(Item& itemQueTirar, std::list<Loot>& listaLoots, bool tirarCompleto){
+    sf::Vector2f posicionLoot;
+
+    if (itemQueTirar.getID() != -1){
+         if (tirarCompleto){
+            int distanciaLoots = 4;
+            const float PI = 3.1415926535f;
+            for (int i = 0; i < itemQueTirar.getCantidad(); i++){
+
+                posicionLoot = getPosicionAbierto();
+
+                posicionLoot.x += (_sprFondoInventario.getGlobalBounds().width / 2) * getScale().x;
+                posicionLoot.y += (_sprFondoInventario.getGlobalBounds().height+48) * getScale().y;
+
+                float anguloGrados = (360.0f / itemQueTirar.getCantidad()) * i;
+                float anguloRadianes = anguloGrados * (PI / 180.0f);
+
+                posicionLoot.x += (cos(anguloRadianes)* distanciaLoots);
+                posicionLoot.y += (sin(anguloRadianes)* distanciaLoots);
+                listaLoots.emplace_back(*_texturaItems, posicionLoot, itemQueTirar.getID());
+            }
+            itemQueTirar.setID(-1);
+        }
+        else{
+            posicionLoot = getPosicionAbierto();
+
+            posicionLoot.x += (_sprFondoInventario.getGlobalBounds().width / 2) * getScale().x;
+            posicionLoot.y += (_sprFondoInventario.getGlobalBounds().height+48) * getScale().y;
+
+            listaLoots.emplace_back(*_texturaItems, posicionLoot, itemQueTirar.getID());
+            int cantidadItem = itemQueTirar.getCantidad();
+            if (cantidadItem > 1) itemQueTirar.setCantidad(cantidadItem - 1);
+            else{
+                itemQueTirar.setID(-1);
+            }
+        }
     }
 }
