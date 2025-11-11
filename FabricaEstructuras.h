@@ -2,6 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include <list>
 #include "Estructura.h"
+#include "MesaDeCrafteo.h"
 
 class FabricaEstructuras
 {

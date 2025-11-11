@@ -110,6 +110,7 @@ void Game::run() {
     listaEstructuras.push_back(fabE.crearEstructura(232,132,4));
     listaEstructuras.push_back(fabE.crearEstructura(264,132,5));
     listaEstructuras.push_back(fabE.crearEstructura(300,132,6));
+    listaEstructuras.push_back(fabE.crearEstructura(332,132,7));
 
     while (window.isOpen()) {
 
@@ -193,6 +194,8 @@ void Game::run() {
             character.chocar(colisionador);
         }
 
+        float relacion = (float)window.getSize().x/(float)window.getSize().y;
+
         for (auto estructura = listaEstructuras.begin(); estructura != listaEstructuras.end(); ) {
             if ((*estructura)->estaDestruido() == false) {
                 if(character.getColisionador().detectorDeColision((*estructura)->getColisionador())) { ///EJEMPLO
@@ -200,6 +203,8 @@ void Game::run() {
                     (*estructura)->recibirGolpe(5);
                 }
                 window.draw(**estructura);
+                (*estructura)->update( PosicionJugador, mouse.getPosicion(), mause, Camara, relacion, inv);
+                //virtual void update(posicionJugador, posGlobalDelMouse, mouse, vista, relacionAspecto, inventario);
             }
             else
             {
@@ -233,7 +238,6 @@ void Game::run() {
         window.draw(miMurcielago);
 
         window.draw(inv);
-        float relacion = (float)window.getSize().x/(float)window.getSize().y;
         inv.update( mouse.getPosicion(), mause, Camara, relacion, listaLoots, tecladoEntrada);
 
         camaraPosicion.x = camaraPosicion.x + ((character.getPosition().x - camaraPosicion.x) * 0.1f );
@@ -244,11 +248,10 @@ void Game::run() {
 
         Camara.setCenter(camaraPosicion);
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
             guardar(character);
             cout << "Guardado Exitosamente!!" << endl;
         }
-
         invR.setItems(inv.obtenerPunteroInventario());
         invR.update(Camara, relacion);
         window.draw(invR);
@@ -288,17 +291,53 @@ sf::Clock Game::getRelojInterno()
     return _relojInterno;
 }
 
+
 /*
 
 input
 
 terminar:
--objeto loot
--hacer los mobs
+-objeto loot ######
+-hacer los mobs ######
+    -mejorar estados de mobs
 
 -relacion
-    -> inventario
-    -> estructura
-    -> loot
+    -> inventario ########
+    -> estructura ########
+    -> loot       ########
+
+    --> Modificar inventario para que funcione con PUNTEROS DE ITEMS
+
+    -> crear mesa de craftea ####
+      -> Detecta jugador a cierta distancia ####
+      -> Mostrar UI cuando este cerca
+      -> Poner Botones y navegar entre la UI
+
+
+    Fabrica items:
+        Comida
+            Usar();
+        Herramienta
+            Usar();
+        Estructura
+            Usar();
+
+    Buscar item en mano
+        Items
+            Usar();
+
+    clase comportamiento item:
+        Alimento
+        Ataque
+        Estructura
+
+    Herramienta
+        Herramienta(setID) tiene metodo usar();
+            Decide que hijo ser:
+                    Comida
+
+                    Estructura
+
+                    Ataque
 
 */

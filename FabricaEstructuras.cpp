@@ -65,6 +65,12 @@ std::unique_ptr<Estructura> FabricaEstructuras::crearEstructura(float x, float y
         insertarLootEntre(23,vectorLootIDs,1,3);
         estructuraCreada -> setLootsIDs(vectorLootIDs);
         break;
+    case 7:///mesa de crafteo
+        estructuraCreada = std::make_unique<MesaDeCrafteo>(_texturaEstructuras, x, y, ID);
+        estructuraCreada -> setVida(100);
+        vectorLootIDs.push_back(52);
+        estructuraCreada -> setLootsIDs(vectorLootIDs);
+        break;
     }
     return estructuraCreada;
 }
