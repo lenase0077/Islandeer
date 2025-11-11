@@ -12,7 +12,6 @@ private:
     int _bloqueID;
     Colisionador _colision;
     sf::Sprite _sprite;
-    sf::Texture _textura;
     std::vector<int> _lootsIDs;
 public:
     Estructura( sf::Texture& texturaBloques, float posX, float posY, int id);

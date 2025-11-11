@@ -75,6 +75,8 @@
 		<Unit filename="ItemDescripcion.h" />
 		<Unit filename="Loot.cpp" />
 		<Unit filename="Loot.h" />
+		<Unit filename="MesaCrafteo.cpp" />
+		<Unit filename="MesaCrafteo.h" />
 		<Unit filename="Mob.cpp" />
 		<Unit filename="Mob.h" />
 		<Unit filename="Mob_Hostil.cpp" />

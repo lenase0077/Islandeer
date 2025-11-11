@@ -26,7 +26,6 @@ InventarioInterfaz::InventarioInterfaz(sf::Texture& texturaItems, std::string no
     }
 }
 //}
-
 ///GETTERS
 //{
 float InventarioInterfaz::getPosX()
