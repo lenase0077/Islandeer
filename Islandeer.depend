@@ -1344,10 +1344,12 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1762876519 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1762948147 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
+	<fstream>
 	"Game.h"
 	"FabricaEstructuras.h"
+	"json.hpp"
 
 1762454957 c:\users\sebas\onedrive\documentos\github\islandeer\game.h
 	<SFML/Graphics.hpp>
@@ -1693,10 +1695,10 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\seleccionrectangulo.h
 	<SFML/Graphics.hpp>
 
-1762454352 c:\users\sebas\onedrive\documentos\github\islandeer\item.h
+1762948408 c:\users\sebas\onedrive\documentos\github\islandeer\item.h
 	<SFML/Graphics.hpp>
-	<string>
 	"json.hpp"
+	<string>
 
 1761749986 c:\users\sebas\onedrive\documentos\github\islandeer\itemdescripcion.h
 	<cstring>
@@ -1716,7 +1718,7 @@
 	"InventarioResumidoInterfaz.h"
 	<iostream>
 
-1762454352 source:c:\users\sebas\onedrive\documentos\github\islandeer\item.cpp
+1762947326 source:c:\users\sebas\onedrive\documentos\github\islandeer\item.cpp
 	"Item.h"
 	<iostream>
 	"json.hpp"
@@ -1824,4 +1826,14 @@
 	"Estructura.h"
 	"SeleccionRectangulo.h"
 	"InventarioIntefaz.h"
+
+1762948147 source:c:\users\sebas\onedrive\documentos\github\islandeer\fabricaitems.cpp
+	"FabricaItems.h"
+
+1762948147 c:\users\sebas\onedrive\documentos\github\islandeer\fabricaitems.h
+	<SFML/Graphics.hpp>
+	"json.hpp"
+	"Item.h"
+	<memory>
+	<string>
 

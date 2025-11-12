@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <string>
 #include "json.hpp"
+#include <string>
 
 /***
 Notas:
@@ -30,8 +30,8 @@ private:
     std::string _descripcion;
     std::string _titulo;
 
-    nlohmann::json ConfiguracionItems;
-    std::string _contenidoParaJson;
+    nlohmann::json ConfiguracionItems; ///NO HACE FALTA CON FABRICA
+    std::string _contenidoParaJson; ///NO HACE FALTA CON FABRICA
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 public:
 
@@ -58,7 +58,7 @@ public:
     void actualizarSprite(); //acomoda la parte de la textura que debe verse segun el sprite que le indiquemos
 
     /// Otros Metodos
-    void actualizarPropiedades(); //Actualiza las propiedades Titulo, Descripcion y cantidad maxima basandose en los datos del json de configuraqciones Items
-    void setTexture(sf::Texture& texturaItems); //Se usa para setear la textura, Importatisimo si se trabaja con el constructor Item();
+    ///void actualizarPropiedades(); ///NO HACE FALTA CON FABRICA
+    ///void setTexture(sf::Texture& texturaItems); ///NO HACE FALTA CON FABRICA
 
 };

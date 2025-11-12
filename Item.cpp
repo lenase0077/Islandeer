@@ -25,17 +25,7 @@ Item::Item(sf::Texture& texturaItems, int id){
     sf::Texture& texture = const_cast<sf::Texture&>(_fuenteTextoCantidad.getTexture(8));
     texture.setSmooth(false);
 
-
-    std::ifstream archivo("ItemsConfiguraciones.json");
-
-    // Convertir ifstream a string
-    std::stringstream buffer;
-    buffer << archivo.rdbuf();
-    std::string _contenidoParaJson = buffer.str();
-    archivo.close();
-    ConfiguracionItems = nlohmann::json::parse(_contenidoParaJson);
-
-    setID(id);
+    _id = id;
 }
 
 Item::Item(){
@@ -55,16 +45,7 @@ Item::Item(){
     sf::Texture& texture = const_cast<sf::Texture&>(_fuenteTextoCantidad.getTexture(8));
     texture.setSmooth(false);
 
-
-    std::ifstream archivo("ItemsConfiguraciones.json");
-    // Convertir ifstream a string
-    std::stringstream buffer;
-    buffer << archivo.rdbuf();
-    std::string _contenidoParaJson = buffer.str();
-    archivo.close();
-    ConfiguracionItems = nlohmann::json::parse(_contenidoParaJson);
-
-    setID(0);
+    _id = 1;
 }
 
 void Item::setTexture(sf::Texture& texturaItems){
@@ -93,10 +74,11 @@ std::string Item::getDescripcion(){
 }
 
 /// Setters
+/*
 void Item::setID(int id){
     _id = id;
     actualizarPropiedades();
-}
+}*/
 
 void Item::setEscala(sf::Vector2f nuevaEscala){
     sprItem.setScale(nuevaEscala);
@@ -145,7 +127,7 @@ void Item::draw(sf::RenderTarget& target, sf::RenderStates states) const{
         target.draw(_textoCantidad,states);
     }
 }
-
+/*
 void Item::actualizarPropiedades(){
     if (getID() != -1){
         setTitulo(ConfiguracionItems[getID()]["titulo"].get<string>());
@@ -153,3 +135,4 @@ void Item::actualizarPropiedades(){
         setCantidadMax(ConfiguracionItems[getID()]["cantidad_maxima"].get<int>());
     }
 }
+*/

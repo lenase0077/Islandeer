@@ -1,7 +1,9 @@
 #include <iostream>
-using namespace std;
+#include <fstream>
 #include "Game.h"
 #include "FabricaEstructuras.h"
+#include "json.hpp"
+using namespace std;
 
 
 Game::Game()
@@ -11,11 +13,19 @@ Game::Game()
 
 
 void Game::run() {
-    ///     TEXTURAS    ////
 
-    FabricaEstructuras fabE;
+    ///     CARGA DE ARCHIVOS    ////
 
-    sf::Keyboard tecladoEntrada;
+    ///CARGA DE JSON DE ITEMS ===========================================
+    nlohmann::json ConfiguracionItems;
+    std::ifstream archivo("ItemsConfiguraciones.json");
+    // Convertir ifstream a string
+    std::stringstream buffer;
+    buffer << archivo.rdbuf();
+    std::string contenidoParaJson = buffer.str();
+    archivo.close();
+    ConfiguracionItems = nlohmann::json::parse(contenidoParaJson);
+
 
     sf::Texture texturaFantasma;
     if(!texturaFantasma.loadFromFile("GatoFantasma-Sheet.png")) {
@@ -40,7 +50,9 @@ void Game::run() {
         cout << "ERROR AL CARGAR InventarioResumido.png" << endl;
     }
 
+    FabricaEstructuras fabE;
 
+    sf::Keyboard tecladoEntrada;
 
 ///RELOJ INTERNO/////
 
@@ -90,13 +102,13 @@ void Game::run() {
     Murcielago miMurcielago (texturaMurcielago , {50 , 50});
 
     ///MUSICA
-    sf::SoundBuffer buffer;
+    sf::SoundBuffer bufferSonido;
     sf::Sound sonido;
-    if (!buffer.loadFromFile("music.wav")) {
+    if (!bufferSonido.loadFromFile("music.wav")) {
         return;
     }
 
-    sonido.setBuffer(buffer);
+    sonido.setBuffer(bufferSonido);
     sonido.play();
     sonido.setVolume(5.0);
     sonido.setLoop(true);
@@ -308,7 +320,7 @@ terminar:
 
     --> Modificar inventario para que funcione con PUNTEROS DE ITEMS
 
-    -> crear mesa de craftea ####
+    -> crear mesa de craftea #### CANCELADO TEMPORALMENTE PARA CAMBIAR MANEJO DE ITEMS
       -> Detecta jugador a cierta distancia ####
       -> Mostrar UI cuando este cerca
       -> Poner Botones y navegar entre la UI
