@@ -6,6 +6,8 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <list>
+#include "FabricaItems.h"
+#include "json.hpp"
 
 /***
 NOTAS PARA EL CORRECTO MANEJO DEL OBJETO:
@@ -37,8 +39,9 @@ private:
     sf::Vector2f _posicionEscondite;
     sf::Vector2f _posicionAbierto;
     ItemDescripcion _descripcion;
-    Item _inventarioItems[30];
-    Item _itemEnMano;
+    std::unique_ptr<Item> _inventarioItems[30];
+    std::unique_ptr<Item> _itemEnMano;
+    FabricaItems* _fabItems;
     SeleccionRectangulo _areasSeleccion[30];
     std::string _nombreDireccionTextura;
     sf::Texture _texturaFondo;
@@ -47,12 +50,12 @@ private:
 
     ///Metodos privados
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-    bool sumarItems(Item& ItemIncrementador, Item& ItemIncrementado);
+    bool sumarItems(std::unique_ptr<Item>& ItemIncrementador, std::unique_ptr<Item>& ItemIncrementado);
     void ajustarEscalaAutomaticamente(const sf::View& vista, const float& relacionAspecto);
 
 public:
     /// Constructores
-    InventarioInterfaz(sf::Texture& texturaItems,std::string nombreDireccionTextura = "Inventario.png");
+    InventarioInterfaz(FabricaItems& fabItems,std::string nombreDireccionTextura = "Inventario.png");
 
     /// Getters
     float getPosX();
@@ -83,9 +86,10 @@ public:
     int buscarItems(int ID, int cantidad = 1);
     void copiarVectorDeCantidades(int vectorAlmacen[30]);
     void cargarVectorCantidades(int vectorCantidades[30]);
-    Item* obtenerPunteroInventario();
+    //std::unique_ptr<Item> obtenerPunteroInventario();
+    Item* obtenerPunteroCrudoItem(size_t i);
 
     void controlDeEventos(sf::Event& evento);
 
-    void soltarLoot(Item& itemQueTirar, std::list<Loot>& listaLoots, bool tirarCompleto = false);
+    void soltarLoot(std::unique_ptr<Item>& itemQueTirar, std::list<Loot>& listaLoots, bool tirarCompleto = false);
 };

@@ -2,6 +2,7 @@
 #include <fstream>
 #include "Game.h"
 #include "FabricaEstructuras.h"
+#include "FabricaItems.h"
 #include "json.hpp"
 using namespace std;
 
@@ -16,17 +17,6 @@ void Game::run() {
 
     ///     CARGA DE ARCHIVOS    ////
 
-    ///CARGA DE JSON DE ITEMS ===========================================
-    nlohmann::json ConfiguracionItems;
-    std::ifstream archivo("ItemsConfiguraciones.json");
-    // Convertir ifstream a string
-    std::stringstream buffer;
-    buffer << archivo.rdbuf();
-    std::string contenidoParaJson = buffer.str();
-    archivo.close();
-    ConfiguracionItems = nlohmann::json::parse(contenidoParaJson);
-
-
     sf::Texture texturaFantasma;
     if(!texturaFantasma.loadFromFile("GatoFantasma-Sheet.png")) {
         std::cout << "Error cargando GatoFantasma-Sheet.png" << endl;
@@ -40,10 +30,6 @@ void Game::run() {
     list <std::unique_ptr<Estructura>> listaEstructuras;
     list <Loot> listaLoots;
 
-    sf::Texture texturaItems;
-    if (!texturaItems.loadFromFile("ItemsSprites.png")){
-        cout << "Error al cargar ItemsSprites.png" << endl;
-    }
 
     sf::Texture texturaInventarioResumido;
     if(!texturaInventarioResumido.loadFromFile("InventarioResumido.png")){
@@ -64,7 +50,10 @@ void Game::run() {
 ///         inventario  ////
 
 
-    InventarioInterfaz inv(texturaItems);
+
+    FabricaItems fabItems;
+
+    InventarioInterfaz inv(fabItems);
     inv.agregarItem(44,30);
     inv.agregarItem(15,3);
 
@@ -220,7 +209,7 @@ void Game::run() {
             }
             else
             {
-                (*estructura)->liberarLoot(texturaItems,listaLoots);
+                (*estructura)->liberarLoot(fabItems,listaLoots);
                 estructura = listaEstructuras.erase(estructura);
             }
             estructura++;
@@ -264,7 +253,7 @@ void Game::run() {
             guardar(character);
             cout << "Guardado Exitosamente!!" << endl;
         }
-        invR.setItems(inv.obtenerPunteroInventario());
+        invR.setItems(inv.obtenerPunteroCrudoItem(0));
         invR.update(Camara, relacion);
         window.draw(invR);
         window.display();

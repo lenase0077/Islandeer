@@ -8,9 +8,10 @@
 class FabricaItems
 {
 private:
-    sf::Texture* _texturaItems;
-    nlohmann::json* _ConfiguracionItems;
+    sf::Texture _texturaItems;
+    nlohmann::json _ConfiguracionItems;
 public:
     std::unique_ptr<Item> crearItem(int id);
-    FabricaItems(sf::Texture& texturaItems, nlohmann::json& ConfiguracionItems);
+    FabricaItems( sf::Texture& texturaItems,  nlohmann::json& ConfiguracionItems);
+    FabricaItems();
 };

@@ -6,16 +6,13 @@
 
 using namespace std;
 
-Loot::Loot(sf::Texture& texturaItems,const sf::Vector2f& posicion, const int& id)
+Loot::Loot( FabricaItems& fabItems, const sf::Vector2f& posicion, const int& id)
 {
     setPosicion(posicion);
-    _item.setTexture(texturaItems);
-    _item.setID(id);
-    _item.actualizarSprite();
-    _item.setCantidad(1);//Hacemos esto para que no sea visible el numero cantidad.
+    //FabricaItems fabItems(texturaItems, ConfiguracionItems);
+    _item = fabItems.crearItem(id);
+    _item->setCantidad(1);//Hacemos esto para que no sea visible el numero cantidad.
     setScale(1.0,1.0);
-    /*setScale(1.0,1.0);
-    _item.setEscala(getScale());*/
 }
 
 ///HACER GET y SET de _cantidad
@@ -28,7 +25,7 @@ void Loot::setPosicion(sf::Vector2f posicion)
 void Loot::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
-    target.draw(_item,states);
+    target.draw(*_item,states);
 }
 
 void Loot::update(const sf::Vector2f posicionJugador, InventarioInterfaz& inventario)
@@ -53,7 +50,7 @@ void Loot::update(const sf::Vector2f posicionJugador, InventarioInterfaz& invent
                 ///chocar con jugador
                 if (distancia < 10)
                 {
-                    if (inventario.agregarItem(_item.getID(),1)) _looted = true;
+                    if (inventario.agregarItem(_item->getID(),1)) _looted = true;
                 }
             }
         }

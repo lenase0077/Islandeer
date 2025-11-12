@@ -4,6 +4,7 @@
 #include <list>
 #include <vector>
 #include "Loot.h"
+#include "FabricaItems.h"
 
 class Estructura : public sf::Transformable, public sf::Drawable
 {
@@ -25,5 +26,5 @@ public:
     Colisionador &getColisionador() {return _colision;};
     bool estaDestruido() const;
     ~Estructura(){};
-    void liberarLoot(sf::Texture& texturaItems,std::list<Loot>& listaLoot);
+    void liberarLoot(FabricaItems& fabItems,std::list<Loot>& listaLoot);
 };

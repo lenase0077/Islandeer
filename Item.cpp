@@ -48,9 +48,9 @@ Item::Item(){
     _id = 1;
 }
 
-void Item::setTexture(sf::Texture& texturaItems){
+/*void Item::setTexture(sf::Texture& texturaItems){
     sprItem.setTexture(texturaItems);
-}
+}*/
 
 /// Getters
 int Item::getID() const{

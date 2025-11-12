@@ -1,6 +1,7 @@
 #include "Estructura.h"
 #include <iostream>
 #include <cmath>
+
 using namespace std;
 
 
@@ -48,7 +49,7 @@ void Estructura::setVida(float nuevaVida){
 }
 
 ///Esto hay que cambiarlo por un creador de loot para darle un control mas optimo.
-void Estructura::liberarLoot(sf::Texture& texturaItems,list<Loot>& listaLoot){
+void Estructura::liberarLoot(FabricaItems& fabItems,list<Loot>& listaLoot){
     int distanciaLoots = 8;
     const float PI = 3.1415926535f;
     float lootPosX, lootPosY;
@@ -59,7 +60,7 @@ void Estructura::liberarLoot(sf::Texture& texturaItems,list<Loot>& listaLoot){
 
         lootPosX = getPosition().x + 16 +(cos(anguloRadianes)* distanciaLoots);
         lootPosY = getPosition().y + 16 +(sin(anguloRadianes)* distanciaLoots);
-        listaLoot.emplace_back(texturaItems,sf::Vector2f(lootPosX,lootPosY), p);
+        listaLoot.emplace_back(fabItems,sf::Vector2f(lootPosX,lootPosY), p);
         iterador++;
     }
 }
