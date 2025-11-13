@@ -2,9 +2,9 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="Personaje.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+	<File name="TileMap.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="122" topLine="0" />
+			<Cursor1 position="2629" topLine="72" />
 		</Cursor>
 	</File>
 	<File name="Personaje.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -12,14 +12,9 @@
 			<Cursor1 position="3399" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Murcielago.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+	<File name="Murcielago.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="143" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Murcielago.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="624" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Movimiento_IA.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -27,9 +22,9 @@
 			<Cursor1 position="198" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Mob_Hostil.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Minimap.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2" topLine="0" />
+			<Cursor1 position="465" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="FabricaMobs.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
@@ -37,19 +32,9 @@
 			<Cursor1 position="330" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="FabricaMobs.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
+	<File name="Mob_Hostil.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="714" topLine="18" />
-		</Cursor>
-	</File>
-	<File name="Estructura.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="534" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Menu_Principal.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="608" topLine="4" />
+			<Cursor1 position="2" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Comando.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -57,29 +42,24 @@
 			<Cursor1 position="610" topLine="3" />
 		</Cursor>
 	</File>
-	<File name="TileMap.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Mob.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2629" topLine="72" />
+			<Cursor1 position="967" topLine="1" />
 		</Cursor>
 	</File>
-	<File name="Mob.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
+	<File name="Animal.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="402" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Mob.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="775" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Menu_Principal.cpp" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+	<File name="InventarioIntefaz.cpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1246" topLine="35" />
-		</Cursor>
-	</File>
-	<File name="Fantasma.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="7" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="719" topLine="8" />
-		</Cursor>
-	</File>
-	<File name="Minimap.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="465" topLine="0" />
+			<Cursor1 position="18453" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="BarraDeVida.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -87,19 +67,49 @@
 			<Cursor1 position="2024" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Animal.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
+	<File name="Fantasma.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="7" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="402" topLine="0" />
+			<Cursor1 position="719" topLine="8" />
 		</Cursor>
 	</File>
-	<File name="Animal.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+	<File name="Animal.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1294" topLine="19" />
 		</Cursor>
 	</File>
+	<File name="Game.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="279" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Personaje.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="122" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Fantasma.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="7" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="345" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="Game.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="399" topLine="20" />
+			<Cursor1 position="886" topLine="20" />
+		</Cursor>
+	</File>
+	<File name="Estructura.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="534" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Murcielago.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="624" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="FabricaMobs.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="714" topLine="18" />
 		</Cursor>
 	</File>
 	<File name="TileMap.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -107,24 +117,19 @@
 			<Cursor1 position="1155" topLine="3" />
 		</Cursor>
 	</File>
+	<File name="Menu_Principal.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1603" topLine="56" />
+		</Cursor>
+	</File>
 	<File name="Comando.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="908" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Fantasma.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="7" zoom_2="0">
+	<File name="Menu_Principal.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="345" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Game.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2266" topLine="84" />
-		</Cursor>
-	</File>
-	<File name="InventarioIntefaz.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="18453" topLine="0" />
+			<Cursor1 position="608" topLine="4" />
 		</Cursor>
 	</File>
 	<File name="Minimap.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -132,24 +137,19 @@
 			<Cursor1 position="1076" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Mob.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="967" topLine="1" />
-		</Cursor>
-	</File>
 	<Target name="Debug" top="Game.cpp">
+		<File name="Animal.cpp" />
 		<File name="Animal.h" />
-		<File name="Fantasma.h" />
 		<File name="FabricaMobs.cpp" />
 		<File name="FabricaMobs.h" />
-		<File name="Animal.cpp" />
-		<File name="Game.cpp" />
 		<File name="Fantasma.cpp" />
-		<File name="Mob.cpp" />
-		<File name="Murcielago.h" />
-		<File name="Personaje.h" />
+		<File name="Fantasma.h" />
 		<File name="Murcielago.cpp" />
-		<File name="Mob.h" />
+		<File name="Personaje.h" />
+		<File name="Murcielago.h" />
 		<File name="InventarioIntefaz.cpp" />
+		<File name="Game.cpp" />
+		<File name="Mob.cpp" />
+		<File name="Mob.h" />
 	</Target>
 </CodeBlocks_layout_file>

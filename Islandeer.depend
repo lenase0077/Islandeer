@@ -721,7 +721,7 @@
 	<SFML/Graphics.hpp>
 	<SFML/Graphics.hpp>
 
-1762549655 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1762987237 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	"Game.h"
 
@@ -3419,7 +3419,7 @@
 	<SFML/Audio.hpp>
 	"EstadodeJuego.h"
 
-1762549837 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.cpp
+1762549989 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.cpp
 	"Menu_Principal.h"
 	<iostream>
 

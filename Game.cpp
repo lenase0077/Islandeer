@@ -87,9 +87,9 @@ void Game::run()
         _posicionAleatoria.x = (float)(rand()%400);
         _posicionAleatoria.y = (float)(rand()%400);
 
-        animales.push_back(_FabricaMobs.crearMobs("Vaca", {1001,1000}));
-        animales.push_back(_FabricaMobs.crearMobs("Oveja", {1001,1000}));
-        animales.push_back(_FabricaMobs.crearMobs("Cerdo", {1001,1000}));
+        animales.push_back(_FabricaMobs.crearMobs("Vaca", {400,400}));
+        animales.push_back(_FabricaMobs.crearMobs("Oveja", {400,400}));
+        animales.push_back(_FabricaMobs.crearMobs("Cerdo", {400,400}));
     }
 
     ///MUSICA
@@ -118,8 +118,10 @@ void Game::run()
     listaLoots.emplace_back(texturaItems,sf::Vector2f(125,200),11);
     listaLoots.emplace_back(texturaItems,sf::Vector2f(150,100),12);
 
+
     //Se suele usar List no vector
     //Convendria que la textura fuera puntero + llamar a dispose antes de erase()
+
 
     for(auto& p:listaEstructuras)
     {
