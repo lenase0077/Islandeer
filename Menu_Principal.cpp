@@ -53,7 +53,7 @@ MenuPrincipal::MenuPrincipal()
     _spriteLogo.setScale(0.5,0.5);
     _spriteBotonJugar.setScale(0.1,0.1);
     _spriteBotonSalir.setScale(0.1,0.1);
-    _spriteBackground.setScale(0.9,0.9);
+    _spriteBackground.setScale(1,1);
 
     _spriteLogo.setPosition(centroVentanaX - _spriteLogo.getGlobalBounds().width / 2, 100.f);
 

@@ -5,7 +5,8 @@
 
 enum class EstadoAnimal{
     Divagando,
-    EsReposo
+    EsReposo,
+    Huyendo
 };
 
 class Animal : public Mob
@@ -16,6 +17,7 @@ class Animal : public Mob
         void update(sf::Vector2f& Posicionpersonaje, float deltatime);
         void AnimalUpdate(sf::Vector2f& Posicionpersonaje, float deltatime);
         void enReposo (float deltaTime);
+        void recibirAtaqueDeEspada();
 
     private:
         EstadoAnimal _estadoActual;
@@ -23,4 +25,7 @@ class Animal : public Mob
         float _tiempoEnReposo;
         float _tiempoDivagacion;
         void actualizarSpriteAnimacion (float deltaTime);
+        bool _golpeadoPorEspada = false;
+        void huir(sf::Vector2f& Posicionpersonaje, float aceleracion);
+        void actualizarDireccion();
 };
