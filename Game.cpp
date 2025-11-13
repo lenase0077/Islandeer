@@ -134,13 +134,14 @@ void Game::run()
             Comandos::getInstancia().actualizar();
             sf::Vector2f posMouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
+            _menuPrincipal.ajustarEscalaAutomaticamente(window.getDefaultView());
+
             OpcionMenu opcion = _menuPrincipal.actualizar(posMouse);
 
             if (opcion == OpcionMenu::Jugar)
             {
                 _estadoActual = EstadoJuego::Jugando;
-                _menuPrincipal.actualizar(posMouse);
-
+//                _menuPrincipal.actualizar(posMouse);
 
             }
             else if (opcion == OpcionMenu::Salir)
@@ -169,19 +170,8 @@ void Game::run()
                 inv.controlAbrirCerrarInventario(event);
             }
 
-
-
-
             Comandos::getInstancia().actualizar();
             sf::Vector2f posMouseAux = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-
-
-
-
-
-
-
-
 
             ///DRAWABLES
 
@@ -191,14 +181,7 @@ void Game::run()
             window.draw(mapa);
             window.draw(character);
 
-
-
-
-
-
             character.getColisionador().draw(window);
-
-
 
             for(auto& enemigo : enemigos)
             {

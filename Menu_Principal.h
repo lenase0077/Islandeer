@@ -3,9 +3,7 @@
 #include "Comando.h"
 #include <SFML/Audio.hpp>
 #include "EstadodeJuego.h"
-
-
-
+#include "funcionesInterpolacion.h"
 
 enum class OpcionMenu {
     Ninguna,
@@ -13,7 +11,7 @@ enum class OpcionMenu {
     Salir
 };
 
-class MenuPrincipal : public sf::Drawable {
+class MenuPrincipal : public sf::Drawable, sf::Transformable{
 private:
     sf::Texture _texturaLogo;
     sf::Texture _texturaBotonJugar;
@@ -32,14 +30,18 @@ private:
     sf::SoundBuffer bufferStardew;
     sf::Sound sonidoStardew;
 
+    float _escalaBotonJugar = 1.0f;
+    float _escalaBotonSalir = 1.0f;
+
+    float _rotacionBotonJugar = 0.0f;
+    float _rotacionBotonSalir = 0.0f;
+
 
 public:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     MenuPrincipal();
-
     OpcionMenu actualizar(sf::Vector2f mousePos);
-
     bool clickEnPixel(sf::Vector2f posClick,  sf::Sprite& sprite, const sf::Image& imagen) const;
-
+    void ajustarEscalaAutomaticamente(const sf::View& vista);
 
 };
