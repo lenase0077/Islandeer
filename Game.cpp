@@ -107,8 +107,10 @@ void Game::run()
     listaLoots.emplace_back(texturaItems,sf::Vector2f(125,200),11);
     listaLoots.emplace_back(texturaItems,sf::Vector2f(150,100),12);
 
+
     //Se suele usar List no vector
     //Convendria que la textura fuera puntero + llamar a dispose antes de erase()
+
 
     for(auto& p:listaEstructuras)
     {
@@ -120,8 +122,8 @@ void Game::run()
     nightOverlay.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
     nightOverlay.setPosition(0.f, 0.f);
     sf::Color nightColor(0, 0, 30); // Un azul oscuro para la noche
-    float cicloCompletoSegundos = 30.0f; // Un ciclo de 2 minutos para probar. ¡Puedes cambiar esto!
-    sf::Uint8 maxOpacidad = 210; // Qué tan oscura será la noche (0-255)
+    float cicloCompletoSegundos = 30.0f; // Un ciclo de 2 minutos para probar. ï¿½Puedes cambiar esto!
+    sf::Uint8 maxOpacidad = 210; // Quï¿½ tan oscura serï¿½ la noche (0-255)
 
 
 /// ======================== Fuente y Display Reloj =========================///
