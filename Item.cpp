@@ -54,7 +54,9 @@ Item::Item(){
 
 /// Getters
 int Item::getID() const{
-    return _id;
+
+
+return _id;
 }
 
 sf::Vector2f Item::getEscala(){

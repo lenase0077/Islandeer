@@ -209,7 +209,7 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
                 }
             }
 
-        ///POR AHORA EJECUTE
+            ///POR AHORA EJECUTE
             if (mouse.isButtonPressed(sf::Mouse::Right) && i != _indiceUltimoItemAnalizado)
             {
                 if(_hayItemEnMano)
@@ -234,23 +234,23 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
                     }
                     else
                     {
-                        if (_inventarioItems[i] = nullptr){
-                            _indiceUltimoItemAnalizado = i;
-                            if (_itemEnMano -> getCantidad() > 1)
+                        _indiceUltimoItemAnalizado = i;
+                        if (_itemEnMano != nullptr)
+                        {
+                            if (_hayItemEnMano && _itemEnMano -> getCantidad() > 1)
                             {
                                 _itemEnMano -> setEscala(sf::Vector2f(1.3,1.3));
+                                _itemEnMano -> setCantidad(_itemEnMano -> getCantidad()-1);
                                 _inventarioItems[i] = std::move(_itemEnMano);
                                 _inventarioItems[i] -> setCantidad(1);
-                                _itemEnMano -> setCantidad(_itemEnMano -> getCantidad()-1);
                             }
-                            else
-                            {
-                                _hayItemEnMano = false;
-                                _itemEnMano -> setEscala(sf::Vector2f(1.3,1.3));
-                                _inventarioItems[i] = std::move(_itemEnMano);
-                                _itemEnMano = nullptr;
-                            }
-
+                        }
+                        else
+                        {
+                            _hayItemEnMano = false;
+//                            _itemEnMano -> setEscala(sf::Vector2f(1.3,1.3));
+                            _inventarioItems[i] = std::move(_itemEnMano);
+                            _itemEnMano = nullptr;
                         }
                     }
                 }
@@ -274,23 +274,26 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
                     }
                     else     //SI HAY ITEM EN MANO
                     {
+                        if (_inventarioItems[i] != nullptr)
+                        {
                             if (_inventarioItems[i] -> getID() == _itemEnMano -> getID())
                             {
                                 _hayItemEnMano = !sumarItems(_itemEnMano,_inventarioItems[i]);
                             }
-                            else if (_inventarioItems[i]  != nullptr)
-                            {
-                                _contadorClicksIzquierdo = 0;
-                                _hayItemEnMano = true;
-                                _itemEnMano -> setEscala(sf::Vector2f(1.3,1.3));
-                                swap(_itemEnMano,_inventarioItems[i]);
-                            }
-                            else
-                            {
-                                _hayItemEnMano = false;
-                                _inventarioItems[i] = std::move(_itemEnMano);
-                                _itemEnMano = nullptr;
-                            }
+                        }
+                        else if (_inventarioItems[i]  != nullptr)
+                        {
+                            _contadorClicksIzquierdo = 0;
+                            _hayItemEnMano = true;
+                            _itemEnMano -> setEscala(sf::Vector2f(1.3,1.3));
+                            swap(_itemEnMano,_inventarioItems[i]);
+                        }
+                        else
+                        {
+                            _hayItemEnMano = false;
+                            _inventarioItems[i] = std::move(_itemEnMano);
+                            _itemEnMano = nullptr;
+                        }
                     }
 
                     if (_contadorClicksIzquierdo >= 2)
@@ -305,10 +308,16 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
 
                                 for (int x = 0; x < 30; x++)
                                 {
-                                    if (_inventarioItems[x] -> getID() == _itemEnMano -> getID())
+                                    if (_itemEnMano)
                                     {
-                                        indices_slots_con_item.push_back(x); ///Empujamos al vector las cosas
-                                        if (_itemEnMano -> getCantidad() == _itemEnMano -> getCantidadMax()) break;
+                                        if (_inventarioItems[x] != nullptr)
+                                        {
+                                            if (_inventarioItems[x] -> getID() == _itemEnMano -> getID())
+                                            {
+                                                indices_slots_con_item.push_back(x); ///Empujamos al vector las cosas
+                                                if (_itemEnMano -> getCantidad() == _itemEnMano -> getCantidadMax()) break;
+                                            }
+                                        }
                                     }
                                 }
                                 ///aca trabajamos con el vector                                                         ///si ta vacio we es empty
@@ -379,10 +388,12 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
 
     if (_hayItemEnMano)
     {
-        _itemEnMano -> setPosition(posGlobalDelMouse.x,posGlobalDelMouse.y);
-        _itemEnMano -> setEscala(sf::Vector2f(1.3*getScale().x,1.3*getScale().y));
-        _itemEnMano -> actualizarSprite();
-
+        if ( _itemEnMano != nullptr)
+        {
+            _itemEnMano -> setPosition(posGlobalDelMouse.x,posGlobalDelMouse.y);
+            _itemEnMano -> setEscala(sf::Vector2f(1.3*getScale().x,1.3*getScale().y));
+            _itemEnMano -> actualizarSprite();
+        }
         if (!mouseInteractuo)
         {
             if (izquierdoRecienPresionado)
@@ -443,7 +454,8 @@ bool InventarioInterfaz::agregarItem(int ID, int cantidad)
     ///RECORRIDO PARA BUSCAR ID
     for(int i = 0; i < 30; i++)
     {
-        if (_inventarioItems[i] != nullptr){
+        if (_inventarioItems[i] != nullptr)
+        {
             if (_inventarioItems[i] -> getID() == ID)
             {
                 int sumaCantidades = _inventarioItems[i] -> getCantidad() + cantidad;
@@ -520,7 +532,11 @@ void InventarioInterfaz::draw(sf::RenderTarget& target, sf::RenderStates states)
     }
     if (_hayItemEnMano)
     {
-        target.draw(*_itemEnMano);
+        if (_itemEnMano != nullptr)
+        {
+
+            target.draw(*_itemEnMano);
+        }
     }
     ///Afectamos la escala del state para achicar la escala de descripcion
     states.transform.scale(0.5,0.5);
