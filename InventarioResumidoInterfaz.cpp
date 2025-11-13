@@ -142,6 +142,7 @@ void InventarioResumido::update(const sf::View& vista, const float& relacionAspe
 }
 
 void InventarioResumido::draw(sf::RenderTarget& target, sf::RenderStates states) const{
+
     states.transform *= getTransform();
     target.draw(_sprFondo,states);
 

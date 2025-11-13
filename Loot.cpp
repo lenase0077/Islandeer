@@ -2,6 +2,7 @@
 #include <cmath>
 #include "funcionesInterpolacion.h"
 #include "InventarioIntefaz.h"
+#include <iostream>
 
 
 using namespace std;
@@ -9,10 +10,12 @@ using namespace std;
 Loot::Loot( FabricaItems& fabItems, const sf::Vector2f& posicion, const int& id)
 {
     setPosicion(posicion);
-    //FabricaItems fabItems(texturaItems, ConfiguracionItems);
-    _item = fabItems.crearItem(id);
-    _item->setCantidad(1);//Hacemos esto para que no sea visible el numero cantidad.
+    _item = std::move(fabItems.crearItem(id));
+    if (_item != nullptr){
+       _item->setCantidad(1);//Hacemos esto para que no sea visible el numero cantidad.
+    }
     setScale(1.0,1.0);
+    cout << "Update de inventario" <<endl;
 }
 
 ///HACER GET y SET de _cantidad
@@ -25,11 +28,12 @@ void Loot::setPosicion(sf::Vector2f posicion)
 void Loot::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
-    target.draw(*_item,states);
+    if (_item != nullptr) target.draw(*_item,states);
 }
 
 void Loot::update(const sf::Vector2f posicionJugador, InventarioInterfaz& inventario)
 {
+
     if (!_looted)
     {
         ///Efecto animacion
@@ -50,7 +54,9 @@ void Loot::update(const sf::Vector2f posicionJugador, InventarioInterfaz& invent
                 ///chocar con jugador
                 if (distancia < 10)
                 {
-                    if (inventario.agregarItem(_item->getID(),1)) _looted = true;
+                    if (_item != nullptr){
+                      if (inventario.agregarItem(_item->getID(),1)) _looted = true;
+                    }
                 }
             }
         }

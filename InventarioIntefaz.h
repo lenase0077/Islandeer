@@ -39,6 +39,7 @@ private:
     sf::Vector2f _posicionEscondite;
     sf::Vector2f _posicionAbierto;
     ItemDescripcion _descripcion;
+
     std::unique_ptr<Item> _inventarioItems[30];
     std::unique_ptr<Item> _itemEnMano;
     FabricaItems* _fabItems;

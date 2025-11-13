@@ -18,13 +18,8 @@ FabricaItems::FabricaItems(){
     }
 }
 
-/*FabricaItems::FabricaItems( sf::Texture& texturaItems, nlohmann::json& ConfiguracionItems){
-    _texturaItems = &texturaItems;
-    _ConfiguracionItems = &ConfiguracionItems;
-}*/
-
 std::unique_ptr<Item> FabricaItems::crearItem(int id){
-    if (id == -1) return nullptr;
+    //if (id == -1) return nullptr;
     auto nuevoItem = std::make_unique<Item>(_texturaItems, id);
     nuevoItem -> setTitulo(_ConfiguracionItems[id]["titulo"].get<std::string>());
     nuevoItem -> setDescripcion(_ConfiguracionItems[id]["descripcion"].get<std::string>());

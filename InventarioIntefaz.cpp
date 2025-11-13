@@ -1,13 +1,15 @@
 #include "InventarioIntefaz.h"
 #include "funcionesInterpolacion.h"
 #include "cmath"
+#include <iostream>
 
 
 using namespace std;
 
 ///CONSTRUCTORES
 //{
-InventarioInterfaz::InventarioInterfaz(FabricaItems& fabItems,std::string nombreDireccionTextura){
+InventarioInterfaz::InventarioInterfaz(FabricaItems& fabItems,std::string nombreDireccionTextura)
+{
     setNombreDireccionTextura("Inventario.png");
 
     _texturaFondo.loadFromFile(getNombreDireccionTextura());
@@ -20,6 +22,7 @@ InventarioInterfaz::InventarioInterfaz(FabricaItems& fabItems,std::string nombre
     {
         _inventarioItems[i] = nullptr;
     }
+    cout << "creacion de inventario" <<endl;
 }
 //}
 
@@ -105,6 +108,7 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
     ///LOGRAR LEER LOS MALDITOS SELECTORES
     for(int i = 0; i<30; i++)
     {
+
         int cantidadColumnas = 10;
         int columna = i % cantidadColumnas;
         int fila = i / cantidadColumnas;
@@ -120,28 +124,34 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
                 _descripcion.setVisible(true);
                 _descripcion.setTitulo(_inventarioItems[i] -> getTitulo());
                 _descripcion.setDescripcion(_inventarioItems[i] -> getDescripcion());
-                if  (i % 10 >= 5){
+                if  (i % 10 >= 5)
+                {
                     _descripcion.EstablecerPosicion((posGlobalDelMouse.x-getPosition().x-(150 * getScale().x))/getScale().x*2,(posGlobalDelMouse.y-getPosition().y)/getScale().y*2);
                 }
-                else{
+                else
+                {
                     _descripcion.EstablecerPosicion((posGlobalDelMouse.x-getPosition().x)/getScale().x*2,(posGlobalDelMouse.y-getPosition().y)/getScale().y*2);
                 }
                 _descripcion.ActualizarDimensiones();
             }
-
             ///Efecto Seleccion Suave
-            sf::Vector2f escalaActual(_inventarioItems[i] -> getEscala());
-            sf::Vector2f escalaObjetivo(1.25,1.25);
-            lerp(escalaActual,escalaObjetivo,0.2);
-            _inventarioItems[i]->setEscala(escalaActual);
+            if (_inventarioItems[i] != nullptr)
+            {
+                sf::Vector2f escalaActual(_inventarioItems[i] -> getEscala());
+                sf::Vector2f escalaObjetivo(1.25,1.25);
+                lerp(escalaActual,escalaObjetivo,0.2);
+                _inventarioItems[i]->setEscala(escalaActual);
+            }
 
             ///==============================================================================
             ///==============================================================================
             ///                         CONTROL SOLTAR ITEMS CON LA Q
-            if (!tecladoEntrada.isKeyPressed(sf::Keyboard::Q)){
+            if (!tecladoEntrada.isKeyPressed(sf::Keyboard::Q))
+            {
                 _frameActualQprecionada = false;
             }
-            if (tecladoEntrada.isKeyPressed(sf::Keyboard::Q) && !_frameActualQprecionada){
+            if (tecladoEntrada.isKeyPressed(sf::Keyboard::Q) && !_frameActualQprecionada)
+            {
                 _frameActualQprecionada = true;
                 soltarLoot(_inventarioItems[i], listaLoots);
             }
@@ -162,25 +172,28 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
                 _clickDerechoDisponible = false;
                 if (!_hayItemEnMano)   //Si no hay item en mano
                 {
-                    if (_inventarioItems[i]  != nullptr && _inventarioItems[i] -> getCantidad() > 1)   //si hay un item en la celda seleccionada
+                    if (_inventarioItems[i]  != nullptr)
                     {
-                        _hayItemEnMano = true;
-                        _itemEnMano = std::move(_inventarioItems[i]);
-
-                        int divicion = _inventarioItems[i] -> getCantidad()/2;
-                        int resto = _inventarioItems[i] -> getCantidad()%2;
-
-                        if (_inventarioItems[i] -> getCantidad()%2 != 0)
+                        if  (_inventarioItems[i] -> getCantidad() > 1)   //si hay un item en la celda seleccionada
                         {
-                            _itemEnMano -> setCantidad(divicion);
-                            _inventarioItems[i] -> setCantidad(divicion + resto);
+                            _hayItemEnMano = true;
+                            _itemEnMano = std::move(_inventarioItems[i]);
+
+                            int divicion = _inventarioItems[i] -> getCantidad()/2;
+                            int resto = _inventarioItems[i] -> getCantidad()%2;
+
+                            if (_inventarioItems[i] -> getCantidad()%2 != 0)
+                            {
+                                _itemEnMano -> setCantidad(divicion);
+                                _inventarioItems[i] -> setCantidad(divicion + resto);
+                            }
+                            else
+                            {
+                                _itemEnMano -> setCantidad(divicion);
+                                _inventarioItems[i] -> setCantidad(divicion);
+                            }
+                            _indiceUltimoItemAnalizado = i;
                         }
-                        else
-                        {
-                            _itemEnMano -> setCantidad(divicion);
-                            _inventarioItems[i] -> setCantidad(divicion);
-                        }
-                        _indiceUltimoItemAnalizado = i;
                     }
                 }
                 else     //Si hay Item en mano
@@ -196,6 +209,7 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
                 }
             }
 
+        ///POR AHORA EJECUTE
             if (mouse.isButtonPressed(sf::Mouse::Right) && i != _indiceUltimoItemAnalizado)
             {
                 if(_hayItemEnMano)
@@ -220,31 +234,30 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
                     }
                     else
                     {
-                        _indiceUltimoItemAnalizado = i;
-                        if (_itemEnMano -> getCantidad() > 1)
-                        {
-                            _itemEnMano -> setEscala(sf::Vector2f(1.3,1.3));
-                            _inventarioItems[i] = std::move(_itemEnMano);
-                            _inventarioItems[i] -> setCantidad(1);
-                            _itemEnMano -> setCantidad(_itemEnMano -> getCantidad()-1);
-                        }
-                        else
-                        {
-                            _hayItemEnMano = false;
-                            _itemEnMano -> setEscala(sf::Vector2f(1.3,1.3));
-                            _inventarioItems[i] = std::move(_itemEnMano);
-                            _itemEnMano = nullptr;
+                        if (_inventarioItems[i] = nullptr){
+                            _indiceUltimoItemAnalizado = i;
+                            if (_itemEnMano -> getCantidad() > 1)
+                            {
+                                _itemEnMano -> setEscala(sf::Vector2f(1.3,1.3));
+                                _inventarioItems[i] = std::move(_itemEnMano);
+                                _inventarioItems[i] -> setCantidad(1);
+                                _itemEnMano -> setCantidad(_itemEnMano -> getCantidad()-1);
+                            }
+                            else
+                            {
+                                _hayItemEnMano = false;
+                                _itemEnMano -> setEscala(sf::Vector2f(1.3,1.3));
+                                _inventarioItems[i] = std::move(_itemEnMano);
+                                _itemEnMano = nullptr;
+                            }
+
                         }
                     }
                 }
             }
 
-
-
             if (izquierdoRecienPresionado)
             {
-
-
                 if (_inventarioItems[i]  != nullptr || _hayItemEnMano)
                 {
                     _timerDobleClick2.restart();
@@ -261,24 +274,23 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
                     }
                     else     //SI HAY ITEM EN MANO
                     {
-
-                        if (_inventarioItems[i] -> getID() == _itemEnMano -> getID())
-                        {
-                            _hayItemEnMano = !sumarItems(_itemEnMano,_inventarioItems[i]);
-                        }
-                        else if (_inventarioItems[i]  != nullptr)
-                        {
-                            _contadorClicksIzquierdo = 0;
-                            _hayItemEnMano = true;
-                            _itemEnMano -> setEscala(sf::Vector2f(1.3,1.3));
-                            swap(_itemEnMano,_inventarioItems[i]);
-                        }
-                        else
-                        {
-                            _hayItemEnMano = false;
-                            _inventarioItems[i] = std::move(_itemEnMano);
-                            _itemEnMano = nullptr;
-                        }
+                            if (_inventarioItems[i] -> getID() == _itemEnMano -> getID())
+                            {
+                                _hayItemEnMano = !sumarItems(_itemEnMano,_inventarioItems[i]);
+                            }
+                            else if (_inventarioItems[i]  != nullptr)
+                            {
+                                _contadorClicksIzquierdo = 0;
+                                _hayItemEnMano = true;
+                                _itemEnMano -> setEscala(sf::Vector2f(1.3,1.3));
+                                swap(_itemEnMano,_inventarioItems[i]);
+                            }
+                            else
+                            {
+                                _hayItemEnMano = false;
+                                _inventarioItems[i] = std::move(_itemEnMano);
+                                _itemEnMano = nullptr;
+                            }
                     }
 
                     if (_contadorClicksIzquierdo >= 2)
@@ -348,15 +360,17 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
         }
         else
         {
-            ///Efecto Deseleccion Suave
-            sf::Vector2f escalaActual(_inventarioItems[i] -> getEscala());
-            sf::Vector2f escalaObjetivo(1,1);
-            lerp(escalaActual,escalaObjetivo,0.2);
-            _inventarioItems[i]->setEscala(escalaActual);
+            if (_inventarioItems[i] != nullptr)
+            {
+                ///Efecto Deseleccion Suave
+                sf::Vector2f escalaActual(_inventarioItems[i] -> getEscala());
+                sf::Vector2f escalaObjetivo(1,1);
+                lerp(escalaActual,escalaObjetivo,0.2);
+                _inventarioItems[i]->setEscala(escalaActual);
+                _inventarioItems[i] -> setPosition(16 + columna * 32, 16 + fila * 32);
+                _inventarioItems[i] -> actualizarSprite();
+            }
         }
-        _inventarioItems[i] -> setPosition(16 + columna * 32, 16 + fila * 32);
-        _inventarioItems[i] -> actualizarSprite();
-
     }
 
     _izquierdoPresionadoAnterior = izquierdoPresionadoActual;
@@ -369,32 +383,24 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
         _itemEnMano -> setEscala(sf::Vector2f(1.3*getScale().x,1.3*getScale().y));
         _itemEnMano -> actualizarSprite();
 
-        if (!mouseInteractuo){
-            if (izquierdoRecienPresionado){
+        if (!mouseInteractuo)
+        {
+            if (izquierdoRecienPresionado)
+            {
                 _hayItemEnMano = false;
                 soltarLoot(_itemEnMano,listaLoots,true);
             }
         }
-
     }
 
     if(!mouseInteractuo || _hayItemEnMano)
     {
         _descripcion.setVisible(false);
     }
-
 }
-/*
-Item* InventarioInterfaz::obtenerPunteroInventario()
-{
-    Item* punterosItems[30];
-    for(int i = 0; i < 30, i++){
-        punterosItems[0] = _inventarioItems[i].get()
-    }
-    return Item
-}*/
 
-Item* InventarioInterfaz::obtenerPunteroCrudoItem(size_t i) {
+Item* InventarioInterfaz::obtenerPunteroCrudoItem(size_t i)
+{
     return _inventarioItems[i].get();
 }
 
@@ -402,7 +408,8 @@ void InventarioInterfaz::copiarVectorDeIDs(int vectorAlmacen[30])
 {
     for (int i = 0; i < 30; i++)
     {
-        vectorAlmacen[i] = _inventarioItems[i] -> getID();
+        if (_inventarioItems[i] != nullptr) vectorAlmacen[i] = _inventarioItems[i] -> getID();
+        else vectorAlmacen[i] = -1;
     }
 }
 
@@ -410,7 +417,8 @@ void InventarioInterfaz::cargarVectorIDs(int vectorIDs[30])
 {
     for (int i = 0; i < 30; i++)
     {
-        _inventarioItems[i] = _fabItems->crearItem(vectorIDs[i]);
+        if (vectorIDs[i] != -1) _inventarioItems[i] = _fabItems->crearItem(vectorIDs[i]);
+        else _inventarioItems[i] = nullptr;
     }
 }
 
@@ -435,18 +443,20 @@ bool InventarioInterfaz::agregarItem(int ID, int cantidad)
     ///RECORRIDO PARA BUSCAR ID
     for(int i = 0; i < 30; i++)
     {
-        if (_inventarioItems[i] -> getID() == ID)
-        {
-            int sumaCantidades = _inventarioItems[i] -> getCantidad() + cantidad;
-            if (sumaCantidades > _inventarioItems[i] -> getCantidadMax())
+        if (_inventarioItems[i] != nullptr){
+            if (_inventarioItems[i] -> getID() == ID)
             {
-                _inventarioItems[i] -> setCantidad(_inventarioItems[i] -> getCantidadMax());
-                cantidad = sumaCantidades - _inventarioItems[i] -> getCantidadMax();
-            }
-            else
-            {
-                _inventarioItems[i] -> setCantidad(sumaCantidades);
-                return true;
+                int sumaCantidades = _inventarioItems[i] -> getCantidad() + cantidad;
+                if (sumaCantidades > _inventarioItems[i] -> getCantidadMax())
+                {
+                    _inventarioItems[i] -> setCantidad(_inventarioItems[i] -> getCantidadMax());
+                    cantidad = sumaCantidades - _inventarioItems[i] -> getCantidadMax();
+                }
+                else
+                {
+                    _inventarioItems[i] -> setCantidad(sumaCantidades);
+                    return true;
+                }
             }
         }
     }
@@ -545,13 +555,15 @@ void InventarioInterfaz::controlDeEventos(sf::Event& evento)
             setAbierto(!getAbierto());
         }
     }
-    if (evento.type == sf::Event::KeyReleased){
-            if (evento.key.code == sf::Keyboard::E) _botonAbrirInventarioDisponible = true;
+    if (evento.type == sf::Event::KeyReleased)
+    {
+        if (evento.key.code == sf::Keyboard::E) _botonAbrirInventarioDisponible = true;
     }
 }
 
 ///Metodos privados
-void InventarioInterfaz::ajustarEscalaAutomaticamente(const sf::View& vista, const float& relacionAspecto){
+void InventarioInterfaz::ajustarEscalaAutomaticamente(const sf::View& vista, const float& relacionAspecto)
+{
     ///Calculamos la escala X y Y
     setScale(sf::Vector2f( vista.getSize().x/512,  vista.getSize().y/512* relacionAspecto));
 
@@ -560,7 +572,8 @@ void InventarioInterfaz::ajustarEscalaAutomaticamente(const sf::View& vista, con
     setPosicionAbierto(vista.getCenter().x-centroX, vista.getCenter().y-vista.getSize().y/4);
     setPosicionEscondite(vista.getCenter().x-centroX, vista.getCenter().y+vista.getSize().y);
 
-    if (!_primerVuelta){
+    if (!_primerVuelta)
+    {
         _primerVuelta = true;
         _posX = getPosicionEscondite().x;
         _posY = getPosicionEscondite().y;
@@ -580,14 +593,18 @@ void InventarioInterfaz::ajustarEscalaAutomaticamente(const sf::View& vista, con
     }
 }
 
-void InventarioInterfaz::soltarLoot(std::unique_ptr<Item>& itemQueTirar, std::list<Loot>& listaLoots, bool tirarCompleto){
+void InventarioInterfaz::soltarLoot(std::unique_ptr<Item>& itemQueTirar, std::list<Loot>& listaLoots, bool tirarCompleto)
+{
     sf::Vector2f posicionLoot;
 
-    if (itemQueTirar != nullptr){
-         if (tirarCompleto){
+    if (itemQueTirar != nullptr)
+    {
+        if (tirarCompleto)
+        {
             int distanciaLoots = 4;
             const float PI = 3.1415926535f;
-            for (int i = 0; i < itemQueTirar->getCantidad(); i++){
+            for (int i = 0; i < itemQueTirar->getCantidad(); i++)
+            {
 
                 posicionLoot = getPosicionAbierto();
 
@@ -603,7 +620,8 @@ void InventarioInterfaz::soltarLoot(std::unique_ptr<Item>& itemQueTirar, std::li
             }
             itemQueTirar = nullptr;
         }
-        else{
+        else
+        {
             posicionLoot = getPosicionAbierto();
 
             posicionLoot.x += (_sprFondoInventario.getGlobalBounds().width / 2) * getScale().x;
@@ -612,7 +630,8 @@ void InventarioInterfaz::soltarLoot(std::unique_ptr<Item>& itemQueTirar, std::li
             listaLoots.emplace_back(*_fabItems, posicionLoot, itemQueTirar->getID());
             int cantidadItem = itemQueTirar -> getCantidad();
             if (cantidadItem > 1) itemQueTirar -> setCantidad(cantidadItem - 1);
-            else{
+            else
+            {
                 itemQueTirar = nullptr;
             }
         }

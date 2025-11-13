@@ -14,8 +14,7 @@ Game::Game()
 
 
 void Game::run() {
-
-    ///     CARGA DE ARCHIVOS    ////
+///     CARGA DE ARCHIVOS    ////
 
     sf::Texture texturaFantasma;
     if(!texturaFantasma.loadFromFile("GatoFantasma-Sheet.png")) {
@@ -40,13 +39,9 @@ void Game::run() {
 
     sf::Keyboard tecladoEntrada;
 
-///RELOJ INTERNO/////
+    //RELOJ INTERNO/////
 
     float deltatime;
-
-
-
-
 ///         inventario  ////
 
 
@@ -54,11 +49,12 @@ void Game::run() {
     FabricaItems fabItems;
 
     InventarioInterfaz inv(fabItems);
+
     inv.agregarItem(44,30);
-    inv.agregarItem(15,3);
+    inv.agregarItem(15,3);  //<<<=== falla
+
 
     InventarioResumido invR(texturaInventarioResumido);
-
 
 
 ///      MAPA TEST ///
@@ -102,8 +98,8 @@ void Game::run() {
     sonido.setVolume(5.0);
     sonido.setLoop(true);
 
-/// ESTRUCTURA TEST
 
+/// ESTRUCTURA TEST
     listaEstructuras.push_back(fabE.crearEstructura(100,132,0));
     listaEstructuras.push_back(fabE.crearEstructura(132,132,1));
     listaEstructuras.push_back(fabE.crearEstructura(164,132,2));
@@ -113,7 +109,10 @@ void Game::run() {
     listaEstructuras.push_back(fabE.crearEstructura(300,132,6));
     listaEstructuras.push_back(fabE.crearEstructura(332,132,7));
 
+
     while (window.isOpen()) {
+
+        cout << "se abrio ventana" << endl;
 
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -131,8 +130,6 @@ void Game::run() {
 
         deltatime = _relojInterno.restart().asMilliseconds();
 
-
-
         ///
         mouse.update(window);
 
@@ -142,34 +139,6 @@ void Game::run() {
 
 
         sf::Vector2f PosicionJugador = character.getPosition();
-
-        ///Mostramos la vida del jugador
-
-//        cout << character.getVida() << endl;
-
-
-/////////
-//        for (int i = 0 ; i < 3 ; i++) {
-//
-//            VectEnemy[i].Update(PosicionJugador);
-//
-//            character.chocar(VectEnemy[i].getColisionador());
-//
-//            float empujeX = 0.f;
-//            float empujeY = 0.f;
-//            float fuerzaEmpuje = 5.f;
-//
-//            if (character.getColisionador().detectorDeColision(VectEnemy[i].getColisionador(), empujeX, empujeY)) {
-//
-////                if (VectEnemy[i].getColisionador().getID()== "Enemy") {
-////                    character.move(empujeX * fuerzaEmpuje, empujeY * fuerzaEmpuje);
-////                }
-//            }
-//
-//            VectEnemy[i].getColisionador().draw(window);
-//            window.draw(VectEnemy[i]);
-//        }
-
 
 /////// COLISIONES
 
@@ -205,7 +174,6 @@ void Game::run() {
                 }
                 window.draw(**estructura);
                 (*estructura)->update( PosicionJugador, mouse.getPosicion(), mause, Camara, relacion, inv);
-                //virtual void update(posicionJugador, posGlobalDelMouse, mouse, vista, relacionAspecto, inventario);
             }
             else
             {
@@ -237,9 +205,8 @@ void Game::run() {
         window.draw(character);
         window.draw(miFantasma);
         window.draw(miMurcielago);
-
         window.draw(inv);
-        inv.update( mouse.getPosicion(), mause, Camara, relacion, listaLoots, tecladoEntrada);
+        inv.update( mouse.getPosicion(), mause, Camara, relacion, listaLoots, tecladoEntrada); ///FALLAA
 
         camaraPosicion.x = camaraPosicion.x + ((character.getPosition().x - camaraPosicion.x) * 0.1f );
         camaraPosicion.y = camaraPosicion.y + ((character.getPosition().y- camaraPosicion.y) * 0.1f );
@@ -253,10 +220,12 @@ void Game::run() {
             guardar(character);
             cout << "Guardado Exitosamente!!" << endl;
         }
-        invR.setItems(inv.obtenerPunteroCrudoItem(0));
+        //invR.setItems(inv.obtenerPunteroCrudoItem(0)); <<<FALLAA
         invR.update(Camara, relacion);
         window.draw(invR);
         window.display();
+
+    ////COMPILAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     }
 }
 
