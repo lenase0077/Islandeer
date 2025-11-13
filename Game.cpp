@@ -2,7 +2,6 @@
 using namespace std;
 #include "Game.h"
 
-
 Game::Game()
     : window(sf::VideoMode(1024, 768), "SFML works!"), personaTest(300,300), _minimap({150.f, 150.f},
 {
@@ -13,11 +12,9 @@ Game::Game()
     srand(time(NULL));
 }
 
-
 void Game::run()
 {
     ///     TEXTURAS    ////
-
 
     // vector<Estructura> vectorEstructuras;
     list <Estructura> listaEstructuras;
@@ -30,7 +27,6 @@ void Game::run()
         cout << "Error al cargar ItemsSprites.png" << endl;
     }
 
-
 ///RELOJ INTERNO/////
 
     float deltatime;
@@ -42,13 +38,10 @@ void Game::run()
     inv.agregarItem(44,30);
     inv.agregarItem(15,3);
 
-
 ///      MAPA TEST ///
 
     mapa.loadFromJSON("mapa.json", "Sprite-0003.png", "UtilidadMapa.png");
     _minimap.build(mapa);
-
-
 
     /// MOUSE
     Raton mouse;
@@ -302,7 +295,6 @@ void Game::run()
                 }
                 it++;
             }
-
 
             for (auto it = listaLoots.begin(); it != listaLoots.end(); )
             {

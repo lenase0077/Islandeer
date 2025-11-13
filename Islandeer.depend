@@ -3413,11 +3413,11 @@
 
 1762548437 c:\users\leand\onedrive\documentos\repositorio\islandeer\estadodejuego.h
 
-1763036630 source:d:\alejo\alemart\documents\github\islander\animal.cpp
+1763039229 source:d:\alejo\alemart\documents\github\islander\animal.cpp
 	"Animal.h"
 	<iostream>
 
-1763038715 d:\alejo\alemart\documents\github\islander\animal.h
+1763044835 d:\alejo\alemart\documents\github\islander\animal.h
 	<SFML/Graphics.hpp>
 	"Mob.h"
 	<ctime>
@@ -4139,7 +4139,7 @@
 1761750014 d:\alejo\alemart\documents\github\islander\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1763037377 source:d:\alejo\alemart\documents\github\islander\game.cpp
+1763042841 source:d:\alejo\alemart\documents\github\islander\game.cpp
 	<iostream>
 	"Game.h"
 
