@@ -14,7 +14,7 @@ Game::Game()
 
 void Game::run()
 {
-    ///     TEXTURAS    ////
+/// ======================== Texturas =========================///
 
     // vector<Estructura> vectorEstructuras;
     list <Estructura> listaEstructuras;
@@ -27,36 +27,36 @@ void Game::run()
         cout << "Error al cargar ItemsSprites.png" << endl;
     }
 
-///RELOJ INTERNO/////
+/// ======================== Reloj Externo =========================///
 
     float deltatime;
 
-///         inventario  ////
+/// ======================== Inventario =========================///
 
 
     InventarioInterfaz inv(texturaItems);
     inv.agregarItem(44,30);
     inv.agregarItem(15,3);
 
-///      MAPA TEST ///
+/// ======================== Mapa =========================///
 
     mapa.loadFromJSON("mapa.json", "Sprite-0003.png", "UtilidadMapa.png");
     _minimap.build(mapa);
 
-    /// MOUSE
+/// ======================== Mouse =========================///
     Raton mouse;
     sf::Mouse mause;
 
-    ///CAMARA
+/// ======================== Camara =========================///
     sf::View Camara;
     Camara.setSize({300.f, 300.f});
     sf::Vector2f camaraPosicion = {640, 1120};
 
-    ///PERSONAJE
+/// ======================== Personaje =========================///
     Personaje character;
     cargar(character);
 
-    ///ENEMIGO
+/// ======================== Enemigo =========================///
     sf::Vector2f empuje;
     empuje.x = 0.f;
     empuje.y = 0.f;
@@ -68,7 +68,7 @@ void Game::run()
 //    enemigos.push_back(_FabricaMobs.crearMobs("Fantasma", {100 , 100}));
 //    enemigos.push_back(_FabricaMobs.crearMobs("Murcielago", {50 , 50}));
 
-    ///ANIMALES
+/// ======================== Aniamles =========================///
     sf::Vector2f _posicionAleatoria;
 
     for (int i = 0 ; i < 5 ; i++)
@@ -81,7 +81,7 @@ void Game::run()
         animales.push_back(_FabricaMobs.crearMobs("Cerdo", {90*32,85*32}));
     }
 
-    ///MUSICA
+/// ======================== Musica =========================///
     sf::SoundBuffer buffer;
     sf::Sound sonido;
     if (!buffer.loadFromFile("music.wav"))
@@ -94,7 +94,7 @@ void Game::run()
     sonido.setVolume(100.0);
     sonido.setLoop(true);
 
-/// ESTRUCTURA TEST
+/// ======================== Estructura =========================///
 
     listaEstructuras.emplace_back(70,50);
     listaEstructuras.emplace_back(80,60);
@@ -124,6 +124,20 @@ void Game::run()
     sf::Uint8 maxOpacidad = 210; // Qué tan oscura será la noche (0-255)
 
 
+/// ======================== Fuente y Display Reloj =========================///
+
+        if (!fontReloj.loadFromFile("PIXEARG_.TTF"))
+        {
+            cout << "Error al cargar la fuente" << endl;
+        }
+
+        textReloj.setFont(fontReloj);
+        textReloj.setCharacterSize(14);
+        textReloj.setFillColor(sf::Color::White);
+
+        textReloj.setPosition(864, 162);
+
+
 /// ======================== INICIO GAME LOOP =========================///
     while (window.isOpen())
     {
@@ -151,6 +165,7 @@ void Game::run()
             {
                 _estadoActual = EstadoJuego::Jugando;
                 _menuPrincipal.actualizar(posMouse);
+                relojDiaNoche.restart();
 
 
             }
@@ -195,7 +210,7 @@ void Game::run()
 
 
 
-            ///DRAWABLES
+/// ======================== Primeros drawables =========================///
 
             window.clear(sf::Color::Black);
 
@@ -233,6 +248,26 @@ void Game::run()
 
             mouse.update(window);
 
+/// ======================== Update del Ciclo dia y noche =========================///
+
+            float tiempoActualSegundos = relojDiaNoche.getElapsedTime().asSeconds();
+            float tiempoEnCiclo = fmod(tiempoActualSegundos, cicloCompletoSegundos);
+
+            float fraccionCiclo = (tiempoEnCiclo / cicloCompletoSegundos) * 2.0f * 3.14159265f;
+            float opacidad_normalizada = (cos(fraccionCiclo) + 1.0f) / 2.0f;
+
+            sf::Uint8 opacidadActual = static_cast<sf::Uint8>(opacidad_normalizada * maxOpacidad);
+            nightOverlay.setFillColor(sf::Color(nightColor.r, nightColor.g, nightColor.b, opacidadActual));
+
+            float fraccionDia = tiempoEnCiclo / cicloCompletoSegundos;
+            int totalMinutosJuego = static_cast<int>(fraccionDia * 1440);
+            int hora = totalMinutosJuego / 60;
+            int minuto = totalMinutosJuego % 60;
+
+            std::stringstream ss;
+            ss << std::setw(2) << std::setfill('0') << hora << ":"
+               << std::setw(2) << std::setfill('0') << minuto;
+            textReloj.setString(ss.str());
 
 /// ======================== COMANDOS =========================///
 
@@ -329,14 +364,6 @@ void Game::run()
             _minimap.update(character.getPosition());
 
 
-            float tiempoActualSegundos = relojDiaNoche.getElapsedTime().asSeconds();
-            float tiempoEnCiclo = fmod(tiempoActualSegundos, cicloCompletoSegundos);
-
-            float fraccionCiclo = (tiempoEnCiclo / cicloCompletoSegundos) * 2.0f * 3.14159265f;
-            float opacidad_normalizada = (cos(fraccionCiclo) + 1.0f) / 2.0f;
-
-            sf::Uint8 opacidadActual = static_cast<sf::Uint8>(opacidad_normalizada * maxOpacidad);
-            nightOverlay.setFillColor(sf::Color(nightColor.r, nightColor.g, nightColor.b, opacidadActual));
 
 
 
@@ -351,6 +378,8 @@ void Game::run()
             window.draw(nightOverlay);
 
             window.draw(_minimap);
+
+            window.draw(textReloj);
 
 
 

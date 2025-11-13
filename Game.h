@@ -50,6 +50,9 @@ class Game
         float cicloCompletoSegundos;
         sf::Uint8 maxOpacidad;
 
+        sf::Font fontReloj;
+        sf::Text textReloj;
+
 
 
         EstadoJuego _estadoActual = EstadoJuego::MenuPrincipal;
