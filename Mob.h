@@ -21,6 +21,8 @@ private:
 
 public:
         Mob();
+        void chocar (Colisionador& colision);
+        sf::FloatRect getColisionBounds() const;
         DireccionMob _direccionActual;
         Colisionador _colision;
         sf::Vector2f getVelocidad();

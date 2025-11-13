@@ -31,13 +31,9 @@ void Game::run()
     }
 
 
-
 ///RELOJ INTERNO/////
 
     float deltatime;
-
-
-
 
 ///         inventario  ////
 
@@ -259,6 +255,8 @@ void Game::run()
                 }
             }
 
+            //========
+
             for (auto& animal: animales)
             {
 
@@ -266,12 +264,20 @@ void Game::run()
 
                 character.chocar(animal->_colision);
 
+                for (auto& colisionadorMapa : mapa._colisiones)
+                {
+                    animal->chocar(colisionadorMapa);
+                }
+
                 if(character.getColisionador().detectorDeColision(animal->_colision, empuje.x, empuje.y))
                 {
                     animal->move(-empuje.x * fuerzaEmpuje, -empuje.y * fuerzaEmpuje);
                     character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
                 }
+
+                animal->move(animal->getVelocidad());
             }
+            //==========
 
             for (auto& colisionador : mapa._colisiones)
             {
@@ -305,8 +311,6 @@ void Game::run()
                 if (it->getLooted()) it = listaLoots.erase(it);
                 it++;
             }
-
-
 
 /////////// UPDATE
             character.update();

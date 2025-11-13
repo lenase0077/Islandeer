@@ -71,6 +71,23 @@ bool Mob::divagar(sf::Vector2f Posicionpersonaje, float aceleracion, float delta
     return true;
 }
 
+sf::FloatRect Mob::getColisionBounds() const
+{
+    return getTransform().transformRect(getLocalBounds());
+}
+
+void Mob::chocar (Colisionador& colision)
+{
+    sf::FloatRect rectanguloColision = getColisionBounds();
+    rectanguloColision.left += _velocidad.x;
+    rectanguloColision.top += _velocidad.y;
+
+    if (rectanguloColision.intersects(colision.getColision()))
+    {
+        _velocidad = {0.f , 0.f};
+    }
+
+}
 
 
 void Mob::update(sf::Vector2f& Posicionpersonaje, float deltatime)

@@ -78,68 +78,11 @@ void Animal::enReposo (float deltaTime)
 
 }
 
-//void Animal::AnimalUpdate(sf::Vector2f& Posicionpersonaje, float deltatime)
-//{
-//    updateColision();
-//    _tiempoEnEstado += deltatime;
-//
-//    if (_estadoActual == EstadoAnimal::Divagando)
-//    {
-//        if (divagar(Posicionpersonaje , 0.5 , deltatime))
-//        {
-//            if (abs(getVelocidad().x) > abs(getVelocidad().y))
-//            {
-//                if (getVelocidad().x > 0)
-//                {
-//                    _direccionActual = DireccionMob::Derecha;
-//                }
-//                else
-//                {
-//                    _direccionActual = DireccionMob::Izquierda;
-//                }
-//            }
-//
-//            else
-//            {
-//                if (getVelocidad().y > 0)
-//                {
-//                    _direccionActual = DireccionMob::Abajo;
-//                }
-//                else
-//                {
-//                    _direccionActual = DireccionMob::Arriba;
-//                }
-//            }
-//
-//            if (_tiempoEnEstado >= _tiempoDivagar)
-//            {
-//                _estadoActual = EstadoAnimal::EsReposo;
-//                _tiempoEnEstado = 0.f;
-//                _frameActual = 1;
-//            }
-//
-//            actualizarSpriteAnimacion(deltatime);
-//
-//        }
-//
-//        move(getVelocidad());
-//    }
-//
-//    else if (_estadoActual == EstadoAnimal::EsReposo)
-//    {
-//        enReposo(deltatime);
-//    }
-//}
-
-
 void Animal::recibirAtaqueDeEspada()
 {
     _estadoActual = EstadoAnimal::Huyendo;
     _tiempoEnEstado = 0.f;
     _golpeadoPorEspada = true;
-
-
-
 
 }
 
@@ -193,7 +136,7 @@ void Animal::update(sf::Vector2f& Posicionpersonaje, float deltatime)
     // --- LÓGICA DE DETECCIÓN Y CAMBIO DE ESTADO (PRIORIDAD) ---
 
     // 1. Detección por Proximidad
-    if (DistanciaJugador < 60)
+    if (DistanciaJugador < 40)
     {
         _estadoActual = EstadoAnimal::Huyendo;
         _tiempoEnEstado = 0.f;
@@ -212,8 +155,7 @@ void Animal::update(sf::Vector2f& Posicionpersonaje, float deltatime)
         _tiempoEnEstado = 0.f;
     }
 
-
-    // --- EJECUCIÓN DEL ESTADO ACTUAL ---
+    // --- EJECUCION DEL ESTADO ACTUAL ---
 
     if (_estadoActual == EstadoAnimal::Huyendo)
     {
@@ -259,7 +201,7 @@ void Animal::update(sf::Vector2f& Posicionpersonaje, float deltatime)
     }
 
     // Finalmente, movemos el sprite
-    move(getVelocidad());
+//    move(getVelocidad());
 }
 
 void Animal::actualizarDireccion()
