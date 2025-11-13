@@ -159,6 +159,9 @@ void Game::run()
             Comandos::getInstancia().actualizar();
             sf::Vector2f posMouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
+            _menuPrincipal.ajustarEscalaAutomaticamente(window.getDefaultView());
+
+
             OpcionMenu opcion = _menuPrincipal.actualizar(posMouse);
 
             if (opcion == OpcionMenu::Jugar)
