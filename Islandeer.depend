@@ -4082,7 +4082,7 @@
 1761750014 d:\alejo\alemart\documents\github\islander\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1763042841 source:d:\alejo\alemart\documents\github\islander\game.cpp
+1763073458 source:d:\alejo\alemart\documents\github\islander\game.cpp
 	<iostream>
 	"Game.h"
 
@@ -4243,15 +4243,16 @@
 	<list>
 	<memory>
 
-1763035476 d:\alejo\alemart\documents\github\islander\menu_principal.h
+1763072894 d:\alejo\alemart\documents\github\islander\menu_principal.h
 	<SFML/Graphics.hpp>
 	"Comando.h"
 	<SFML/Audio.hpp>
 	"EstadodeJuego.h"
+	"funcionesInterpolacion.h"
 
 1762988359 d:\alejo\alemart\documents\github\islander\estadodejuego.h
 
-1762988359 source:d:\alejo\alemart\documents\github\islander\inventariointefaz.cpp
+1763073409 source:d:\alejo\alemart\documents\github\islander\inventariointefaz.cpp
 	"InventarioIntefaz.h"
 	"funcionesInterpolacion.h"
 
@@ -4279,7 +4280,7 @@
 	<iostream>
 	<ctime>
 
-1763035478 source:d:\alejo\alemart\documents\github\islander\menu_principal.cpp
+1763073352 source:d:\alejo\alemart\documents\github\islander\menu_principal.cpp
 	"Menu_Principal.h"
 	<iostream>
 
