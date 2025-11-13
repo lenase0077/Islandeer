@@ -115,8 +115,19 @@ void Game::run()
         p.actualizarTextura();
     }
 
+
+/// ======================== CICLO DIA Y NOCHE =========================///
+    nightOverlay.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
+    nightOverlay.setPosition(0.f, 0.f);
+    sf::Color nightColor(0, 0, 30); // Un azul oscuro para la noche
+    float cicloCompletoSegundos = 30.0f; // Un ciclo de 2 minutos para probar. ¡Puedes cambiar esto!
+    sf::Uint8 maxOpacidad = 210; // Qué tan oscura será la noche (0-255)
+
+
+/// ======================== INICIO GAME LOOP =========================///
     while (window.isOpen())
     {
+/// ======================== INICIO MENU PRINCIPAL =========================///
 
         switch(_estadoActual)
         {
@@ -157,6 +168,7 @@ void Game::run()
 
         case EstadoJuego::Jugando:
         {
+/// ======================== INICIO JUEGO =========================///
 
             sf::Event event;
             while (window.pollEvent(event))
@@ -214,7 +226,7 @@ void Game::run()
 
 
 
-            /// RELOJ
+/// ======================== RELOJ =========================///
 
             deltatime = _relojInterno.restart().asMilliseconds();
 
@@ -222,7 +234,7 @@ void Game::run()
             mouse.update(window);
 
 
-/// CHARACTER COMANDOS
+/// ======================== COMANDOS =========================///
 
             character.cmd();
             sf::Vector2f PosicionJugador = character.getPosition();
@@ -233,7 +245,7 @@ void Game::run()
 
 
 
-/////// COLISIONES
+/// ======================== COLISION ENEMIGOS =========================///
 
             for (auto& enemigo: enemigos)
             {
@@ -248,7 +260,7 @@ void Game::run()
                 }
             }
 
-            //========
+/// ======================== COLISIONES ANIMAL =========================///
 
             for (auto& animal: animales)
             {
@@ -270,12 +282,18 @@ void Game::run()
 
                 animal->move(animal->getVelocidad());
             }
-            //==========
+/// ======================== COLISION MAPA =========================///
+
+
 
             for (auto& colisionador : mapa._colisiones)
             {
                 character.chocar(colisionador);
             }
+
+
+
+/// ======================== COLISION ESTRUCTURA =========================///
 
             for (auto it = listaEstructuras.begin(); it != listaEstructuras.end(); )
             {
@@ -304,22 +322,41 @@ void Game::run()
                 it++;
             }
 
-/////////// UPDATE
+/// ======================== INICIO UPDATE =========================///
+
             character.update();
             character.updateEspada(mouse);
-
             _minimap.update(character.getPosition());
 
-/// MINIMAPA UPDATE
+
+            float tiempoActualSegundos = relojDiaNoche.getElapsedTime().asSeconds();
+            float tiempoEnCiclo = fmod(tiempoActualSegundos, cicloCompletoSegundos);
+
+            float fraccionCiclo = (tiempoEnCiclo / cicloCompletoSegundos) * 2.0f * 3.14159265f;
+            float opacidad_normalizada = (cos(fraccionCiclo) + 1.0f) / 2.0f;
+
+            sf::Uint8 opacidadActual = static_cast<sf::Uint8>(opacidad_normalizada * maxOpacidad);
+            nightOverlay.setFillColor(sf::Color(nightColor.r, nightColor.g, nightColor.b, opacidadActual));
 
 
-/// DRAW
+
+
+
+
+
+
+/// ======================== INICIO DRAWABLES =========================///
             window.setView(window.getDefaultView());
+
+            window.draw(nightOverlay);
+
             window.draw(_minimap);
 
 
 
 
+
+/// ======================== CAMARA EFECTO Y CENTRADO =========================///
 
             float relacion = (float)window.getSize().x/(float)window.getSize().y;
             inv.update(mouse.getPosicion(),mause,Camara,relacion);

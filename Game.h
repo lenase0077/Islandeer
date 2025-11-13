@@ -17,6 +17,7 @@
 #include "Minimap.h"
 #include "Menu_Principal.h"
 #include "EstadodeJuego.h"
+#include <cmath>
 
 
 
@@ -41,6 +42,14 @@ class Game
         FabricaMobs _FabricaMobs;
         Minimap _minimap;
         TileMap mapa;
+
+
+        //==== DIA Y NOCHE===//
+        sf::Clock relojDiaNoche;
+        sf::RectangleShape nightOverlay;
+        float cicloCompletoSegundos;
+        sf::Uint8 maxOpacidad;
+
 
 
         EstadoJuego _estadoActual = EstadoJuego::MenuPrincipal;
