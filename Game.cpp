@@ -87,9 +87,9 @@ void Game::run()
         _posicionAleatoria.x = (float)(rand()%400);
         _posicionAleatoria.y = (float)(rand()%400);
 
-        animales.push_back(_FabricaMobs.crearMobs("Vaca", {1001,1000}));
-        animales.push_back(_FabricaMobs.crearMobs("Oveja", {1001,1000}));
-        animales.push_back(_FabricaMobs.crearMobs("Cerdo", {1001,1000}));
+        animales.push_back(_FabricaMobs.crearMobs("Vaca", {84*32,90*32}));
+        animales.push_back(_FabricaMobs.crearMobs("Oveja", {80*32,95*32}));
+        animales.push_back(_FabricaMobs.crearMobs("Cerdo", {90*32,85*32}));
     }
 
     ///MUSICA

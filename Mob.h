@@ -15,15 +15,16 @@ enum class DireccionMob {
 class Mob: public sf::Sprite
 {
 private:
-        sf::Vector2f _velocidad;
         float _vida;
         sf::Vector2f _posicionObjetivoDivagar;
+        sf::Vector2f _velocidad;
 
 public:
         Mob();
         DireccionMob _direccionActual;
         Colisionador _colision;
         sf::Vector2f getVelocidad();
+        sf::Vector2f setVelocidad(sf::Vector2f velocidad);
         bool perseguir(sf::Vector2f Posicionpersonaje, float aceleracion);
         bool divagar(sf::Vector2f Posicionpersonaje, float aceleracion, float deltaTime);
         float getVida() const;

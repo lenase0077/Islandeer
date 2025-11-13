@@ -721,7 +721,7 @@
 	<SFML/Graphics.hpp>
 	<SFML/Graphics.hpp>
 
-1762549655 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1762990265 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	"Game.h"
 
@@ -1339,9 +1339,7 @@
 	<iostream>
 	<ctime>
 
-1762451205 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.cpp
-	"Mob.h"
-	<iostream>
+1762992425 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.cpp
 	"Mob.h"
 	<iostream>
 
@@ -2371,12 +2369,7 @@
 	<fstream>
 	<iostream>
 
-1762451205 c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.h
-	"SFML/Graphics.hpp"
-	"Colisionador.h"
-	<string>
-	<cmath>
-	<ctime>
+1762989963 c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<string>
@@ -3355,16 +3348,11 @@
 	"Animal.h"
 	<iostream>
 
-1762451205 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\animal.cpp
-	"Animal.h"
-	<iostream>
+1762992121 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\animal.cpp
 	"Animal.h"
 	<iostream>
 
-1762451205 c:\users\leand\onedrive\documentos\repositorio\islandeer\animal.h
-	<SFML/Graphics.hpp>
-	"Mob.h"
-	<ctime>
+1762990745 c:\users\leand\onedrive\documentos\repositorio\islandeer\animal.h
 	<SFML/Graphics.hpp>
 	"Mob.h"
 	<ctime>
@@ -3419,7 +3407,7 @@
 	<SFML/Audio.hpp>
 	"EstadodeJuego.h"
 
-1762549837 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.cpp
+1762988693 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.cpp
 	"Menu_Principal.h"
 	<iostream>
 

@@ -43,9 +43,12 @@ bool Mob::divagar(sf::Vector2f Posicionpersonaje, float aceleracion, float delta
 
     _tiempoDivagar += deltaTime;
 
-    if (_tiempoDivagar > 3000.0f || DistanciaAObjetivo <= 5.0f) {
-        float PosX = (rand() % 101) - 50.f;
-        float PosY = (rand() % 101) - 50.f;
+    if (_tiempoDivagar > 10000.0f || DistanciaAObjetivo <= 5.0f) {
+
+        float rango = 400.0f;
+
+        float PosX = (float)(rand() % (int)rango) - (rango / 2.0f);
+        float PosY = (float)(rand() % (int)rango) - (rango / 2.0f);
 
         _posicionObjetivoDivagar.x = PosicionEnemigo.x + PosX;
         _posicionObjetivoDivagar.y = PosicionEnemigo.y + PosY;
@@ -68,6 +71,8 @@ bool Mob::divagar(sf::Vector2f Posicionpersonaje, float aceleracion, float delta
     return true;
 }
 
+
+
 void Mob::update(sf::Vector2f& Posicionpersonaje, float deltatime)
 {
 
@@ -88,6 +93,10 @@ float Mob::getVida() const {
 
 sf::Vector2f Mob::getVelocidad() {
     return _velocidad;
+}
+
+sf::Vector2f Mob::setVelocidad(sf::Vector2f velocidad) {
+    _velocidad = velocidad;
 }
 
 
