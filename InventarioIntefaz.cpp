@@ -1,8 +1,7 @@
 #include "InventarioIntefaz.h"
 #include "funcionesInterpolacion.h"
-#include "cmath"
+#include <cmath>       // CORREGIDO: usar <cmath>
 #include <iostream>
-
 
 using namespace std;
 
@@ -10,9 +9,9 @@ using namespace std;
 //{
 InventarioInterfaz::InventarioInterfaz(FabricaItems& fabItems,std::string nombreDireccionTextura)
 {
-    setNombreDireccionTextura("Inventario.png");
+//    setNombreDireccionTextura("Inventario.png");
 
-    _texturaFondo.loadFromFile(getNombreDireccionTextura());
+    _texturaFondo.loadFromFile(nombreDireccionTextura);
     _sprFondoInventario.setTexture(_texturaFondo);
     _sprFondoInventario.setOrigin(sf::Vector2f(0,0));
 
@@ -26,7 +25,10 @@ InventarioInterfaz::InventarioInterfaz(FabricaItems& fabItems,std::string nombre
 }
 //}
 
-///GETTERS
+ // mantuve el resto de getters/setters sin cambiar
+
+
+ ///GETTERS
 //{
 float InventarioInterfaz::getPosX()
 {
@@ -89,12 +91,10 @@ void InventarioInterfaz::setPosicionAbierto(float X, float Y)
 }
 //}
 
-
 void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf::Mouse& mouse, const sf::View& vista, const float& relacionAspecto, std::list<Loot>& listaLoots, sf::Keyboard& tecladoEntrada)
 {
     ajustarEscalaAutomaticamente(vista,relacionAspecto);
 
-    ///habria que mover esto pa no generar todo el rato en actualizar (mover a atributos)
     bool izquierdoPresionadoActual = mouse.isButtonPressed(sf::Mouse::Left);
     bool izquierdoRecienPresionado = izquierdoPresionadoActual && !_izquierdoPresionadoAnterior;
 
@@ -105,7 +105,6 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
 
     bool mouseInteractuo = false;
 
-    ///LOGRAR LEER LOS MALDITOS SELECTORES
     for(int i = 0; i<30; i++)
     {
 
@@ -143,27 +142,26 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
                 _inventarioItems[i]->setEscala(escalaActual);
             }
 
-            ///==============================================================================
-            ///==============================================================================
-            ///                         CONTROL SOLTAR ITEMS CON LA Q
-            if (!tecladoEntrada.isKeyPressed(sf::Keyboard::Q))
+            /// CONTROL SOLTAR ITEMS CON LA Q
+            // Usar llamada estatica, evita depender de una instancia de sf::Keyboard
+            if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
             {
                 _frameActualQprecionada = false;
             }
-            if (tecladoEntrada.isKeyPressed(sf::Keyboard::Q) && !_frameActualQprecionada)
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !_frameActualQprecionada)
             {
                 _frameActualQprecionada = true;
                 soltarLoot(_inventarioItems[i], listaLoots);
             }
             ///
-            ///==============================================================================
-            ///==============================================================================
+            /// FIN CONTROL Q
+            ///
+
             if (!_clickDerechoDisponible && (!mouse.isButtonPressed(sf::Mouse::Right)))
             {
                 _clickDerechoDisponible = true;
                 _indiceUltimoItemAnalizado = 100;
             }
-
 
             if (mouse.isButtonPressed(sf::Mouse::Right) && _clickDerechoDisponible)
             {
@@ -179,10 +177,10 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
                             _hayItemEnMano = true;
                             _itemEnMano = std::move(_inventarioItems[i]);
 
-                            int divicion = _inventarioItems[i] -> getCantidad()/2;
-                            int resto = _inventarioItems[i] -> getCantidad()%2;
+                            int divicion = _itemEnMano->getCantidad()/2;
+                            int resto = _itemEnMano->getCantidad()%2;
 
-                            if (_inventarioItems[i] -> getCantidad()%2 != 0)
+                            if (resto != 0)
                             {
                                 _itemEnMano -> setCantidad(divicion);
                                 _inventarioItems[i] -> setCantidad(divicion + resto);
@@ -209,7 +207,6 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
                 }
             }
 
-            ///POR AHORA EJECUTE
             if (mouse.isButtonPressed(sf::Mouse::Right) && i != _indiceUltimoItemAnalizado)
             {
                 if(_hayItemEnMano)
@@ -248,7 +245,6 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
                         else
                         {
                             _hayItemEnMano = false;
-//                            _itemEnMano -> setEscala(sf::Vector2f(1.3,1.3));
                             _inventarioItems[i] = std::move(_itemEnMano);
                             _itemEnMano = nullptr;
                         }
@@ -283,6 +279,7 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
                         }
                         else if (_inventarioItems[i]  != nullptr)
                         {
+                            // Este else es redundante: si inventario[i] != nullptr ya fue tratado, dejamos por seguridad
                             _contadorClicksIzquierdo = 0;
                             _hayItemEnMano = true;
                             _itemEnMano -> setEscala(sf::Vector2f(1.3,1.3));
@@ -324,23 +321,22 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
                                 while (_itemEnMano -> getCantidad() < _itemEnMano -> getCantidadMax() && !indices_slots_con_item.empty())
                                 {
 
-                                    ///tendria que mover esto a atributos pa no generarlas en el actualizar
                                     int indice_mas_chico = -1;
                                     int cantidad_minima = -1;
                                     int indice_en_vector = -1;
-                                    ///quiza sea mas legible no usar uwu
+
                                     for (size_t uwu = 0; uwu < indices_slots_con_item.size(); ++uwu)
                                     {
 
                                         int indice_actual = indices_slots_con_item[uwu]; ///en donde estamos en el vector
+                                        if (_inventarioItems[indice_actual] == nullptr) continue;
                                         int cantidad_actual = _inventarioItems[indice_actual] -> getCantidad(); /// cuanto tiene en donde estamos
 
-                                        // Si es el primero que encontramos o si es menor que el mínimo actual
                                         if (cantidad_actual > 0 && (cantidad_minima == -1 || cantidad_actual < cantidad_minima))
                                         {
                                             cantidad_minima = cantidad_actual;
                                             indice_mas_chico = indice_actual;
-                                            indice_en_vector = uwu;// Guardamos la posición en el vector `indices_slots_con_item`
+                                            indice_en_vector = uwu;
                                         }
                                     }
 
@@ -352,10 +348,11 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
                                     ///sumamos por indice
 
                                     sumarItems(_inventarioItems[indice_mas_chico], _itemEnMano);
-                                    if (_inventarioItems[indice_mas_chico] -> getID() == -1)
+                                    if (_inventarioItems[indice_mas_chico] == nullptr)
                                     {
-                                        ///borramo      ///esto borra                   ///primera posicion
-                                        indices_slots_con_item.erase(indices_slots_con_item.begin() + indice_en_vector);
+                                        // si el slot quedó vacío, lo quitamos del vector
+                                        if (indice_en_vector >= 0 && indice_en_vector < (int)indices_slots_con_item.size())
+                                            indices_slots_con_item.erase(indices_slots_con_item.begin() + indice_en_vector);
                                     }
 
                                 }
@@ -412,6 +409,7 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
 
 Item* InventarioInterfaz::obtenerPunteroCrudoItem(size_t i)
 {
+    if (i >= 30) return nullptr;
     return _inventarioItems[i].get();
 }
 
@@ -437,7 +435,8 @@ void InventarioInterfaz::copiarVectorDeCantidades(int vectorAlmacen[30])
 {
     for (int i = 0; i < 30; i++)
     {
-        vectorAlmacen[i] = _inventarioItems[i] -> getCantidad();
+        if (_inventarioItems[i] != nullptr) vectorAlmacen[i] = _inventarioItems[i] -> getCantidad();
+        else vectorAlmacen[i] = 0; // seguridad si slot vacio
     }
 }
 
@@ -445,7 +444,9 @@ void InventarioInterfaz::cargarVectorCantidades(int vectorCantidades[30])
 {
     for (int i = 0; i < 30; i++)
     {
-        _inventarioItems[i] -> setCantidad(vectorCantidades[i]);
+        if (_inventarioItems[i] != nullptr)
+            _inventarioItems[i] -> setCantidad(vectorCantidades[i]);
+        // si es nullptr, ignoramos
     }
 }
 
@@ -480,6 +481,10 @@ bool InventarioInterfaz::agregarItem(int ID, int cantidad)
             if (_inventarioItems[i] == nullptr)
             {
                 _inventarioItems[i] = _fabItems->crearItem(ID);
+                if (_inventarioItems[i] == nullptr) {
+                    // Si la fabrica no pudo crear el item, devolvemos false
+                    return false;
+                }
                 if (cantidad > _inventarioItems[i] -> getCantidadMax())
                 {
                     _inventarioItems[i] -> setCantidad(_inventarioItems[i] -> getCantidadMax());
@@ -501,8 +506,12 @@ bool InventarioInterfaz::quitarItem(int ID, int cantidad)
     int itemEncontrado = buscarItems(ID,cantidad);
     if (itemEncontrado != -1)   ///Si se encontro el item
     {
-        _inventarioItems[itemEncontrado]->setCantidad(_inventarioItems[itemEncontrado]->getCantidad() - cantidad);
-        return true;
+        if (_inventarioItems[itemEncontrado] != nullptr) {
+            int nueva = _inventarioItems[itemEncontrado]->getCantidad() - cantidad;
+            if (nueva > 0) _inventarioItems[itemEncontrado]->setCantidad(nueva);
+            else _inventarioItems[itemEncontrado] = nullptr;
+            return true;
+        }
     }
     return false;
 }
@@ -512,11 +521,14 @@ int InventarioInterfaz::buscarItems(int ID, int cantidad)
     int cantidadEncontrados = 0;
     for(int i = 0; i < 30; i++)
     {
-        if (_inventarioItems[i] -> getID() == ID)
+        if (_inventarioItems[i] != nullptr)
         {
-            cantidadEncontrados += _inventarioItems[i] -> getCantidad();
+            if (_inventarioItems[i] -> getID() == ID)
+            {
+                cantidadEncontrados += _inventarioItems[i] -> getCantidad();
+            }
+            if (cantidadEncontrados >= cantidad) return i;
         }
-        if (cantidadEncontrados >= cantidad) return i;
     }
     return -1;
 }
@@ -545,6 +557,8 @@ void InventarioInterfaz::draw(sf::RenderTarget& target, sf::RenderStates states)
 
 bool InventarioInterfaz::sumarItems(std::unique_ptr<Item>& ItemIncrementador, std::unique_ptr<Item>& ItemIncrementado)
 {
+    if (!ItemIncrementador || !ItemIncrementado) return false;
+
     int sumaCantidades = ItemIncrementado -> getCantidad()+ItemIncrementador->getCantidad();
     if (sumaCantidades > ItemIncrementado -> getCantidadMax())
     {
@@ -577,7 +591,6 @@ void InventarioInterfaz::controlDeEventos(sf::Event& evento)
     }
 }
 
-///Metodos privados
 void InventarioInterfaz::ajustarEscalaAutomaticamente(const sf::View& vista, const float& relacionAspecto)
 {
     ///Calculamos la escala X y Y

@@ -8,6 +8,8 @@
 #include <list>
 #include "FabricaItems.h"
 #include "json.hpp"
+#include <memory> // añadido: std::unique_ptr
+#include <utility>
 
 /***
 NOTAS PARA EL CORRECTO MANEJO DEL OBJETO:
@@ -16,8 +18,8 @@ Importante:
 - Para la deteccion del mouse dentro de las celdas se usa un vector de
 ObjetoSeleccion;
 - Para la representacion de los items se utiliza un vector de Item.
-- Los ESPACIOS VACIOS DEL INVENTARIO, a nivel codigo, son objetos de tipo
-Item con una ID == -1;
+- Los ESPACIOS VACIOS DEL INVENTARIO, a nivel codigo, se representan con
+  punteros nulos (nullptr) en el array de std::unique_ptr<Item>.
 */
 
 class InventarioInterfaz : public sf::Drawable, sf::Transformable

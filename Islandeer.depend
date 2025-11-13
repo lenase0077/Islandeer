@@ -820,13 +820,13 @@
 1761599952 c:\users\leand\onedrive\documentos\repositorio\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1763044506 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\inventariointefaz.cpp
+1763045926 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\inventariointefaz.cpp
 	"InventarioIntefaz.h"
 	"funcionesInterpolacion.h"
-	"cmath"
+	<cmath>
 	<iostream>
 
-1763042881 c:\users\leand\onedrive\documentos\repositorio\islandeer\inventariointefaz.h
+1763046183 c:\users\leand\onedrive\documentos\repositorio\islandeer\inventariointefaz.h
 	"SeleccionRectangulo.h"
 	"Item.h"
 	"ItemDescripcion.h"
@@ -836,11 +836,13 @@
 	<list>
 	"FabricaItems.h"
 	"json.hpp"
+	<memory>
+	<utility>
 
 1758551821 c:\users\leand\onedrive\documentos\repositorio\islandeer\seleccionrectangulo.h
 	<SFML/Graphics.hpp>
 
-1763042881 c:\users\leand\onedrive\documentos\repositorio\islandeer\item.h
+1763045542 c:\users\leand\onedrive\documentos\repositorio\islandeer\item.h
 	<SFML/Graphics.hpp>
 	"json.hpp"
 	<string>
@@ -858,7 +860,7 @@
 	"SeleccionRectangulo.h"
 	<SFML/Graphics.hpp>
 
-1763044267 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\item.cpp
+1763045542 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\item.cpp
 	"Item.h"
 	<iostream>
 	"json.hpp"

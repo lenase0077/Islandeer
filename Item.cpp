@@ -9,23 +9,31 @@ using namespace std;
 /// Constructores
 Item::Item(sf::Texture& texturaItems, int id){
     setCantidad(1);
-       if (!_fuenteTextoCantidad.loadFromFile("PIXEARG_.TTF")){
+    if (!_fuenteTextoCantidad.loadFromFile("PIXEARG_.TTF")){
         cout << "Error al cargar PIXEARG_.TTF" << endl;
     }
     sprItem.setTexture(texturaItems);
 
     _textoCantidad.setFont(_fuenteTextoCantidad);
-    _textoCantidad.setOrigin(0.5,0.5);
     _textoCantidad.setFillColor(sf::Color::White);
     _textoCantidad.setCharacterSize(8);
     _textoCantidad.setOutlineThickness(0.8);
     _textoCantidad.setOutlineColor(sf::Color::Black);
     _textoCantidad.setStyle(sf::Text::Regular);
 
+    _id = id;
+
+    // Ajustamos smoothing del atlas de la fuente (si aplica)
     sf::Texture& texture = const_cast<sf::Texture&>(_fuenteTextoCantidad.getTexture(8));
     texture.setSmooth(false);
 
-    _id = id;
+    // Actualizamos string y origen correctamente
+    _textoCantidad.setString(to_string(_cantidad));
+    sf::FloatRect tb = _textoCantidad.getLocalBounds();
+    _textoCantidad.setOrigin(tb.left + tb.width/2.0f, tb.top + tb.height/2.0f);
+
+    // Actualizo rect del sprite en base al id
+    actualizarSprite();
 }
 
 Item::Item(){
@@ -34,18 +42,22 @@ Item::Item(){
     }
 
     _textoCantidad.setFont(_fuenteTextoCantidad);
-    _textoCantidad.setOrigin(0.5,0.5);
     _textoCantidad.setFillColor(sf::Color::White);
     _textoCantidad.setCharacterSize(8);
     _textoCantidad.setOutlineThickness(0.8);
     _textoCantidad.setOutlineColor(sf::Color::Black);
     _textoCantidad.setStyle(sf::Text::Regular);
 
-    ///Extraer la textura de la fuente y forsarla a no suavisarse
+    ///Extraer la textura de la fuente y forsarla a no suavizarse
     sf::Texture& texture = const_cast<sf::Texture&>(_fuenteTextoCantidad.getTexture(8));
     texture.setSmooth(false);
 
     _id = 1;
+    setCantidad(1);
+
+    _textoCantidad.setString(to_string(_cantidad));
+    sf::FloatRect tb = _textoCantidad.getLocalBounds();
+    _textoCantidad.setOrigin(tb.left + tb.width/2.0f, tb.top + tb.height/2.0f);
 }
 
 /*void Item::setTexture(sf::Texture& texturaItems){
@@ -54,9 +66,7 @@ Item::Item(){
 
 /// Getters
 int Item::getID() const{
-
-
-return _id;
+    return _id;
 }
 
 sf::Vector2f Item::getEscala(){
@@ -76,11 +86,11 @@ std::string Item::getDescripcion(){
 }
 
 /// Setters
-/*
 void Item::setID(int id){
     _id = id;
-    actualizarPropiedades();
-}*/
+    // Si el sprite tiene textura, actualizo su rect según el id
+    actualizarSprite();
+}
 
 void Item::setEscala(sf::Vector2f nuevaEscala){
     sprItem.setScale(nuevaEscala);
@@ -91,6 +101,9 @@ void Item::setCantidad( int cantidad){
     if (cantidad < 1) _cantidad = 1;
     else _cantidad = cantidad;
     _textoCantidad.setString(to_string(getCantidad()));
+    // re-centro el texto después de cambiar el string
+    sf::FloatRect tb = _textoCantidad.getLocalBounds();
+    _textoCantidad.setOrigin(tb.left + tb.width/2.0f, tb.top + tb.height/2.0f);
 }
 
 void Item::setCantidadMax( int cantidadMax){
@@ -108,6 +121,9 @@ void Item::setDescripcion( string descripcion){
 /// Otros Metodos
 void Item::actualizarSprite(){
 
+    // Asegurarse de que la textura esté definida antes de usarla
+    if (!sprItem.getTexture()) return;
+
     int columnasTextura = 9;
     int alturaFrame = 32;
     int anchuraFrame = 32;
@@ -119,6 +135,8 @@ void Item::actualizarSprite(){
     sprItem.setOrigin(16,16);
 
     sprItem.setPosition(0, 0);
+
+    // Coloco el contador debajo del centro
     _textoCantidad.setPosition(0, 5);
 }
 
@@ -129,12 +147,3 @@ void Item::draw(sf::RenderTarget& target, sf::RenderStates states) const{
         target.draw(_textoCantidad,states);
     }
 }
-/*
-void Item::actualizarPropiedades(){
-    if (getID() != -1){
-        setTitulo(ConfiguracionItems[getID()]["titulo"].get<string>());
-        setDescripcion(ConfiguracionItems[getID()]["descripcion"].get<string>());
-        setCantidadMax(ConfiguracionItems[getID()]["cantidad_maxima"].get<int>());
-    }
-}
-*/
