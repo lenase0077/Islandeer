@@ -468,3 +468,17 @@ terminar:
     -> loot
 
 */
+
+
+void Game::procesarZonasCueva()
+{
+
+    sf::FloatRect zonaEntradaCueva(84*32,90*32,60,60);
+//    sf::FloatRect zonaSalida
+//    sf::Vector2f DestinoInterior
+//    sf::Vector2f DestinoExterior
+
+
+
+
+}

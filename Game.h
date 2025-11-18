@@ -32,6 +32,7 @@ class Game
         void guardar(Personaje &character);
         void cargar (Personaje &character);
         sf::Clock getRelojInterno();
+        void procesarZonasCueva();
 
     private:
         Personaje _personaje;

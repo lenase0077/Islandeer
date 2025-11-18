@@ -1,15 +1,8 @@
-#include "tilemap.h"
+#include "TileMap.h" // Asegurate que coincida con tu nombre de archivo (tilemap.h vs TileMap.h)
 #include <fstream>
-using json = nlohmann::json;
-
-
 #include <iostream>
 
-
-
-
-
-
+using json = nlohmann::json;
 
 bool TileMap::loadFromJSON(const std::string& filename,
                            const std::string& tilesetSuelo,
@@ -36,19 +29,22 @@ bool TileMap::loadFromJSON(const std::string& filename,
     _verticesSuelo.resize(_width * _height * 4);
     _verticesObjetos.resize(_width * _height * 4);
 
+    // --- CORRECCIÓN 1: Inicializar todo como transparente ---
+    // Esto evita que los tiles vacíos se dibujen en (0,0)
+    for (size_t i = 0; i < _verticesSuelo.getVertexCount(); ++i) {
+        _verticesSuelo[i].color = sf::Color::Transparent;
+        _verticesObjetos[i].color = sf::Color::Transparent;
+    }
+    // -------------------------------------------------------
+
     // 🔹 OBTENER FIRSTGID DE LOS TILESETS
     std::vector<int> firstGIDs;
     for (const auto& tileset : j["tilesets"]) {
         firstGIDs.push_back(tileset["firstgid"]);
     }
 
-    // Primer tileset: firstGID = 1 (suelo)
-    // Segundo tileset: firstGID = 33 (objetos)
-
     auto& capas = j["layers"];
     int capaIndex = 0;
-
-
 
     for (auto& capa : capas) {
         if (capa["type"] != "tilelayer") continue;
@@ -57,19 +53,20 @@ bool TileMap::loadFromJSON(const std::string& filename,
         sf::VertexArray* vertices = (capaIndex == 0) ? &_verticesSuelo : &_verticesObjetos;
         const sf::Texture* textura = (capaIndex == 0) ? &_texturaSuelo : &_texturaObjetos;
 
-        int firstGID = (capaIndex == 0) ? firstGIDs[0] : firstGIDs[1]; // Suelo usa tileset 0, objetos usa tileset 1
+        int firstGID = (capaIndex == 0) ? firstGIDs[0] : firstGIDs[1];
 
         int tilesPerRow = textura->getSize().x / _tileWidth;
 
         for (int y = 0; y < _height; ++y) {
             for (int x = 0; x < _width; ++x) {
                 int gid = data[y * _width + x];
+
+                // Si es 0, ya es transparente por la inicialización, así que 'continue' está bien ahora
                 if (gid == 0) continue;
 
                 // 🔹 CALCULAR LOCALID CORRECTAMENTE
                 int localID = gid - firstGID;
                 if (localID < 0) {
-                    // El tile no pertenece a este tileset, saltar
                     continue;
                 }
 
@@ -77,6 +74,14 @@ bool TileMap::loadFromJSON(const std::string& filename,
                 int tv = localID / tilesPerRow;
 
                 sf::Vertex* quad = &(*vertices)[(x + y * _width) * 4];
+
+                // --- CORRECCIÓN 2: Hacer visible el tile válido ---
+                // Como los inicializamos transparentes, ahora hay que ponerlos blancos (visibles)
+                for (int i = 0; i < 4; i++) {
+                    quad[i].color = sf::Color::White;
+                }
+                // -------------------------------------------------
+
                 quad[0].position = sf::Vector2f(x * _tileWidth, y * _tileHeight);
                 quad[1].position = sf::Vector2f((x + 1) * _tileWidth, y * _tileHeight);
                 quad[2].position = sf::Vector2f((x + 1) * _tileWidth, (y + 1) * _tileHeight);
@@ -87,8 +92,9 @@ bool TileMap::loadFromJSON(const std::string& filename,
                 quad[2].texCoords = sf::Vector2f((tu + 1) * _tileWidth, (tv + 1) * _tileHeight);
                 quad[3].texCoords = sf::Vector2f(tu * _tileWidth, (tv + 1) * _tileHeight);
 
-                // 🔹 COLISIONES - Solo en segunda capa
+                // 🔹 COLISIONES
                 if (capaIndex == 1 && localID >= 0) {
+                    // Nota: Cuidado con hardcodear IDs como 1154, pueden cambiar si editas el tileset
                     switch(gid) {
                     case 1154: {
                         Colisionador colision;
@@ -104,7 +110,7 @@ bool TileMap::loadFromJSON(const std::string& filename,
         }
 
         capaIndex++;
-        if (capaIndex > 1) break; // sólo suelo y objetos
+        if (capaIndex > 1) break;
     }
 
     return true;
