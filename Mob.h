@@ -32,6 +32,8 @@ public:
         float getVida() const;
         void setVida(float vida);
         virtual void update(sf::Vector2f& Posicionpersonaje, float deltatime);
+        virtual void recibirDanio() {};
+        void bajarVida(float danio);
         void updateColision();
         void setFrame(int fila , int columna);
         sf::Clock& getRelojMob();

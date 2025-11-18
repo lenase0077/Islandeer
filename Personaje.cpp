@@ -3,7 +3,6 @@
 #include "Funciones.h"
 #include "Comando.h"
 #include <cmath>
-
 using namespace std;
 
 bool Personaje::getEstaCorriendo() const {
@@ -289,4 +288,21 @@ void Personaje::updateEspada(const Raton& mouse) {
     _espada.update(mouse.getPosicion(), getPosition());
 }
 
+bool Personaje::atacar(Mob& enemigo, float fuerzaEmpuje, float deltatime)
+{
+    chocar(enemigo._colision);
 
+    sf::Vector2f empuje (0.f , 0.f);
+
+    if (getColisionador().detectorDeColision(enemigo._colision , empuje.x , empuje.y))
+    {
+        enemigo.move(-empuje.x * fuerzaEmpuje, -empuje.y * fuerzaEmpuje);
+        move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
+
+        float danio = 50;
+        enemigo.bajarVida(danio);
+    }
+
+    return (enemigo.getVida() <= 0);
+
+}

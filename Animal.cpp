@@ -136,7 +136,7 @@ void Animal::update(sf::Vector2f& Posicionpersonaje, float deltatime)
     // --- LÓGICA DE DETECCIÓN Y CAMBIO DE ESTADO (PRIORIDAD) ---
 
     // 1. Detección por Proximidad
-    if (DistanciaJugador < 60)
+    if (DistanciaJugador < 30)
     {
         _estadoActual = EstadoAnimal::Huyendo;
         _tiempoEnEstado = 0.f;
@@ -253,3 +253,9 @@ void Animal::huir(sf::Vector2f& Posicionpersonaje, float aceleracion)
         setVelocidad({aceleracion, 0.f});
     }
 }
+
+void Animal::recibirDanio()
+{
+    recibirAtaqueDeEspada();
+}
+

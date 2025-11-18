@@ -3357,11 +3357,11 @@
 
 1763070350 c:\users\leand\onedrive\documentos\repositorio\islandeer\estadodejuego.h
 
-1763039229 source:d:\alejo\alemart\documents\github\islander\animal.cpp
+1763505021 source:d:\alejo\alemart\documents\github\islander\animal.cpp
 	"Animal.h"
 	<iostream>
 
-1763044835 d:\alejo\alemart\documents\github\islander\animal.h
+1763504012 d:\alejo\alemart\documents\github\islander\animal.h
 	<SFML/Graphics.hpp>
 	"Mob.h"
 	<ctime>
@@ -3775,7 +3775,7 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1763036630 d:\alejo\alemart\documents\github\islander\mob.h
+1763504432 d:\alejo\alemart\documents\github\islander\mob.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<string>
@@ -4083,11 +4083,11 @@
 1761750014 d:\alejo\alemart\documents\github\islander\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1763073458 source:d:\alejo\alemart\documents\github\islander\game.cpp
+1763504858 source:d:\alejo\alemart\documents\github\islander\game.cpp
 	<iostream>
 	"Game.h"
 
-1763035476 d:\alejo\alemart\documents\github\islander\game.h
+1763502942 d:\alejo\alemart\documents\github\islander\game.h
 	<SFML/Graphics.hpp>
 	"Personaje.h"
 	"TileMap.h"
@@ -4106,8 +4106,9 @@
 	"Minimap.h"
 	"Menu_Principal.h"
 	"EstadodeJuego.h"
+	<cmath>
 
-1761750013 d:\alejo\alemart\documents\github\islander\personaje.h
+1763504023 d:\alejo\alemart\documents\github\islander\personaje.h
 	"Colisionador.h"
 	<SFML/Graphics.hpp>
 	"Funciones.h"
@@ -4116,6 +4117,7 @@
 	"Raton.h"
 	"TileMap.h"
 	"BarraDeVida.h"
+	"Mob.h"
 
 1761750013 d:\alejo\alemart\documents\github\islander\sfml\include\sfml\audio.hpp
 	<SFML/System.hpp>
@@ -4289,7 +4291,7 @@
 	"Minimap.h"
 	<iostream>
 
-1763036644 source:d:\alejo\alemart\documents\github\islander\mob.cpp
+1763504012 source:d:\alejo\alemart\documents\github\islander\mob.cpp
 	"Mob.h"
 	<iostream>
 
@@ -4300,7 +4302,7 @@
 1762988359 source:d:\alejo\alemart\documents\github\islander\murcielago.cpp
 	"Murcielago.h"
 
-1762988359 source:d:\alejo\alemart\documents\github\islander\personaje.cpp
+1763505060 source:d:\alejo\alemart\documents\github\islander\personaje.cpp
 	<iostream>
 	"Personaje.h"
 	"Funciones.h"
@@ -4316,7 +4318,7 @@
 	<SFML/Graphics.hpp>
 	<iostream>
 
-1762988359 source:d:\alejo\alemart\documents\github\islander\tilemap.cpp
+1763502942 source:d:\alejo\alemart\documents\github\islander\tilemap.cpp
 	"tilemap.h"
 	<fstream>
 	<iostream>
