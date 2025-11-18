@@ -7,6 +7,7 @@
 #include "Raton.h"
 #include "TileMap.h"
 #include "BarraDeVida.h"
+#include "Mob.h"
 
 
 class Personaje: public sf::Drawable , public sf::Transformable
@@ -34,7 +35,7 @@ class Personaje: public sf::Drawable , public sf::Transformable
         float getVida();
         void actuarEnBaseALaColision (std::string IDColision);
         void verificarColisiones(const TileMap& mapa);
-
+        bool atacar(Mob& enemigo, float fuerzaEmpuje, float deltatime);
 
         ///Espada
         void updateEspada(const Raton& mouse);

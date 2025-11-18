@@ -120,3 +120,14 @@ sf::Vector2f Mob::setVelocidad(sf::Vector2f velocidad) {
 void Mob::setVida(float vida) {
     _vida = vida;
 }
+
+void Mob::bajarVida(float danio)
+{
+    _vida -= danio;
+
+    if (_vida < 0)
+    {
+        _vida = 0;
+        recibirDanio();
+    }
+}

@@ -300,25 +300,30 @@ void Game::run()
 
 /// ======================== COLISIONES ANIMAL =========================///
 
-            for (auto& animal: animales)
+            for (auto it = animales.begin(); it != animales.end();)
             {
+                Mob* animal = it->get();
 
                 animal->update(PosicionJugador, deltatime);
-
-                character.chocar(animal->_colision);
 
                 for (auto& colisionadorMapa : mapa._colisiones)
                 {
                     animal->chocar(colisionadorMapa);
                 }
 
-                if(character.getColisionador().detectorDeColision(animal->_colision, empuje.x, empuje.y))
+                bool murio = character.atacar(*animal, fuerzaEmpuje , deltatime);
+
+                if (murio)
                 {
-                    animal->move(-empuje.x * fuerzaEmpuje, -empuje.y * fuerzaEmpuje);
-                    character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
+                    it = animales.erase(it);
                 }
 
-                animal->move(animal->getVelocidad());
+                else
+                {
+                    animal->move(animal->getVelocidad());
+                    ++it;
+                }
+
             }
 /// ======================== COLISION MAPA =========================///
 

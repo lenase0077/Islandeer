@@ -28,4 +28,5 @@ class Animal : public Mob
         bool _golpeadoPorEspada = false;
         void huir(sf::Vector2f& Posicionpersonaje, float aceleracion);
         void actualizarDireccion();
+        void recibirDanio();
 };
