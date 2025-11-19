@@ -26,7 +26,7 @@ InventarioInterfaz::InventarioInterfaz(FabricaItems& fabItems, std::string nombr
     cout << "creacion de inventario" << endl;
 }
 
-/// MÉTODOS AUXILIARES PRIVADOS
+/// Mï¿½TODOS AUXILIARES PRIVADOS
 
 // Crea una copia exacta de un item usando el patron prototype
 std::unique_ptr<Item> InventarioInterfaz::clonarItem(const Item* item) const
@@ -61,7 +61,7 @@ bool InventarioInterfaz::sumarItems(std::unique_ptr<Item>& ItemIncrementador, st
         // Si cabe todo, suma y elimina el item sobrante
         ItemIncrementado->setCantidad(sumaCantidades);
         ItemIncrementador = nullptr;
-        return true; // Indica éxito en la suma
+        return true; // Indica ï¿½xito en la suma
     }
 }
 
@@ -521,7 +521,7 @@ void InventarioInterfaz::cargarVectorCantidades(int vectorCantidades[30])
     }
 }
 
-/// MÉTODOS DE GESTION DE ITEMS
+/// Mï¿½TODOS DE GESTION DE ITEMS
 
 // Agrega un item al inventario (busca slots existentes primero, luego vacios)
 bool InventarioInterfaz::agregarItem(int ID, int cantidad)
@@ -591,7 +591,7 @@ int InventarioInterfaz::buscarItems(int ID, int cantidad)
             {
                 cantidadEncontrados += _inventarioItems[i]->getCantidad();
             }
-            if (cantidadEncontrados >= cantidad) return i; // Devuelve índice cuando encuentra suficiente
+            if (cantidadEncontrados >= cantidad) return i; // Devuelve ï¿½ndice cuando encuentra suficiente
         }
     }
     return -1; // No se encontro suficiente cantidad
@@ -685,7 +685,7 @@ void InventarioInterfaz::soltarLoot(std::unique_ptr<Item>& itemQueTirar, std::li
     {
         if (tirarCompleto)
         {
-            // Tirar todo el stack - crea loots individuales en círculo
+            // Tirar todo el stack - crea loots individuales en cï¿½rculo
             int distanciaLoots = 4;
             const float PI = 3.1415926535f;
             for (int i = 0; i < itemQueTirar->getCantidad(); i++)
@@ -694,7 +694,7 @@ void InventarioInterfaz::soltarLoot(std::unique_ptr<Item>& itemQueTirar, std::li
                 posicionLoot.x += (_sprFondoInventario.getGlobalBounds().width / 2) * getScale().x;
                 posicionLoot.y += (_sprFondoInventario.getGlobalBounds().height + 48) * getScale().y;
 
-                // Distribuye en círculo
+                // Distribuye en cï¿½rculo
                 float anguloGrados = (360.0f / itemQueTirar->getCantidad()) * i;
                 float anguloRadianes = anguloGrados * (PI / 180.0f);
 

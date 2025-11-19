@@ -4,13 +4,20 @@
 #include "TileMap.h"
 #include "Enemigo.h"
 #include "InventarioIntefaz.h"
+#include "Comando.h"
 #include "InventarioResumidoInterfaz.h"
 #include "Estructura.h"
 #include "Loot.h"
 #include "Fantasma.h"
 #include "Murcielago.h"
 #include <list>
-
+#include "FabricaMobs.h"
+#include <memory>
+#include <ctime>
+#include "Minimap.h"
+#include "Menu_Principal.h"
+#include "EstadodeJuego.h"
+#include <cmath>
 
 class Game
 {
@@ -22,9 +29,32 @@ class Game
         sf::Clock getRelojInterno();
 
     private:
+        sf::Texture _texturaPersonaje;
         Personaje _personaje;
         Personaje personaTest;
         sf::RenderWindow window;
         sf::Vector2f _posicionPersonaje;
         sf::Clock _relojInterno;
+        FabricaMobs _FabricaMobs;
+        Minimap _minimap;
+        TileMap mapa;
+
+
+        //==== DIA Y NOCHE===//
+        sf::Clock relojDiaNoche;
+        sf::RectangleShape nightOverlay;
+        float cicloCompletoSegundos;
+        sf::Uint8 maxOpacidad;
+
+        sf::Font fontReloj;
+        sf::Text textReloj;
+
+
+
+        EstadoJuego _estadoActual = EstadoJuego::MenuPrincipal;
+        MenuPrincipal _menuPrincipal;
+
+
+
+
 };

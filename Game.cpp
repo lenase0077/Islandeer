@@ -8,23 +8,21 @@ using namespace std;
 
 
 Game::Game()
-    : window(sf::VideoMode(1024, 768), "SFML works!"), personaTest(300,300) {
+    : window(sf::VideoMode(1024, 768), "SFML works!"),
+    _personaje(_texturaPersonaje),
+    personaTest(_texturaPersonaje, 300,300),
+    _minimap({150.f, 150.f},
+{
+    1024.f - 160.f, 10.f
+})
+{
     window.setFramerateLimit(75);
+    srand(time(NULL));
 }
 
-
-void Game::run() {
-///     CARGA DE ARCHIVOS    ////
-
-    sf::Texture texturaFantasma;
-    if(!texturaFantasma.loadFromFile("GatoFantasma-Sheet.png")) {
-        std::cout << "Error cargando GatoFantasma-Sheet.png" << endl;
-    }
-
-    sf::Texture texturaMurcielago;
-    if(!texturaMurcielago.loadFromFile("murcielago.png")) {
-        std::cout << "Error cargando murcielago.png" << endl;
-    }
+void Game::run()
+{
+/// ======================== Texturas =========================///
 
     list <std::unique_ptr<Estructura>> listaEstructuras;
     list <Loot> listaLoots;
@@ -35,6 +33,11 @@ void Game::run() {
         cout << "ERROR AL CARGAR InventarioResumido.png" << endl;
     }
 
+    if (!_texturaPersonaje.loadFromFile("Basic Charakter Spritesheet.png")) {
+        std::cout << "Error cargando textura" << std::endl;
+    }
+
+/// ======================== Reloj Externo =========================///
     FabricaEstructuras fabE;
 
     sf::Keyboard tecladoEntrada;
@@ -42,8 +45,8 @@ void Game::run() {
     //RELOJ INTERNO/////
 
     float deltatime;
-///         inventario  ////
 
+/// ======================== Inventario =========================///
 
 
     FabricaItems fabItems;
@@ -56,46 +59,63 @@ void Game::run() {
 
     InventarioResumido invR(texturaInventarioResumido);
 
+/// ======================== Mapa =========================///
 
-///      MAPA TEST ///
+    mapa.loadFromJSON("mapa.json", "Sprite-0003.png", "UtilidadMapa.png");
+    _minimap.build(mapa);
 
-    TileMap mapa;
-    mapa.loadFromJSON("mapa.json", "Sprite-0003.png", "Items.png");
-
-
-    /// MOUSE
+/// ======================== Mouse =========================///
     Raton mouse;
     sf::Mouse mause;
 
-    ///CAMARA
+/// ======================== Camara =========================///
     sf::View Camara;
     Camara.setSize({300.f, 300.f});
     sf::Vector2f camaraPosicion = {640, 1120};
 
-    ///PERSONAJE
-    Personaje character;
+/// ======================== Personaje =========================///
+    Personaje character (_texturaPersonaje);
     cargar(character);
 
-    ///ENEMIGO
-
+/// ======================== Enemigo =========================///
     sf::Vector2f empuje;
     empuje.x = 0.f;
     empuje.y = 0.f;
     float fuerzaEmpuje = 50.f;
 
-    Fantasma miFantasma(texturaFantasma , {100 , 100});
-    Murcielago miMurcielago (texturaMurcielago , {50 , 50});
+    std::list<std::unique_ptr<Mob>> enemigos;
+    std::list<std::unique_ptr<Mob>> animales;
 
-    ///MUSICA
-    sf::SoundBuffer bufferSonido;
+//    enemigos.push_back(_FabricaMobs.crearMobs("Fantasma", {100 , 100}));
+//    enemigos.push_back(_FabricaMobs.crearMobs("Murcielago", {50 , 50}));
+
+/// ======================== Aniamles =========================///
+
+    float spawnX = 82*32;
+    float spawnY = 90*32;
+
+    sf::Vector2f _posicionAleatoria;
+
+    for (int i = 0 ; i < 5 ; i++)
+    {
+        _posicionAleatoria.x = spawnX + (rand()%400 - 200);
+        _posicionAleatoria.y = spawnY + (rand()%400 - 200);
+
+        animales.push_back(_FabricaMobs.crearMobs("Vaca", {_posicionAleatoria.x , _posicionAleatoria.y}));
+        animales.push_back(_FabricaMobs.crearMobs("Oveja",{_posicionAleatoria.x + 50 ,_posicionAleatoria.y}));
+        animales.push_back(_FabricaMobs.crearMobs("Cerdo",{_posicionAleatoria.x - 50 ,_posicionAleatoria.y + 50}));
+    }
+
+/// ======================== Musica =========================///
+    sf::SoundBuffer buffer;
     sf::Sound sonido;
-    if (!bufferSonido.loadFromFile("music.wav")) {
+    if (!buffer.loadFromFile("music.wav"))
+    {
         return;
     }
 
-    sonido.setBuffer(bufferSonido);
-    sonido.play();
-    sonido.setVolume(5.0);
+    sonido.setBuffer(buffer);
+    sonido.setVolume(_menuPrincipal.getVolumen());
     sonido.setLoop(true);
 
 
@@ -110,59 +130,210 @@ void Game::run() {
     listaEstructuras.push_back(fabE.crearEstructura(332,132,7));
 
 
-    while (window.isOpen()) {
 
-        cout << "se abrio ventana" << endl;
+/// ======================== CICLO DIA Y NOCHE =========================///
+    nightOverlay.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
+    nightOverlay.setPosition(0.f, 0.f);
+    sf::Color nightColor(0, 0, 30); // Un azul oscuro para la noche
+    float cicloCompletoSegundos = 30.0f; // Un ciclo de 2 minutos para probar. �Puedes cambiar esto!
+    sf::Uint8 maxOpacidad = 210; // Qu� tan oscura ser� la noche (0-255)
 
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
+
+/// ======================== Fuente y Display Reloj =========================///
+
+        if (!fontReloj.loadFromFile("PIXEARG_.TTF"))
+        {
+            cout << "Error al cargar la fuente" << endl;
+        }
+
+        textReloj.setFont(fontReloj);
+        textReloj.setCharacterSize(14);
+        textReloj.setFillColor(sf::Color::White);
+
+        textReloj.setPosition(864, 162);
+
+
+/// ======================== INICIO GAME LOOP =========================///
+    while (window.isOpen())
+    {
+        cout << "Energia = " << character.getEnergia() << endl;
+/// ======================== INICIO MENU PRINCIPAL =========================///
+
+        switch(_estadoActual)
+        {
+
+        case EstadoJuego::MenuPrincipal:
+        {
+
+            sf::Event event;
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                    window.close();
+            }
+
+            Comandos::getInstancia().actualizar();
+            sf::Vector2f posMouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+
+            _menuPrincipal.ajustarEscalaAutomaticamente(window.getDefaultView());
+
+
+            OpcionMenu opcion = _menuPrincipal.actualizar(posMouse);
+
+            if (opcion == OpcionMenu::Jugar)
+            {
+                _estadoActual = EstadoJuego::Jugando;
+                sonido.setVolume(_menuPrincipal.getVolumen());
+                sonido.play();
+                _menuPrincipal.actualizar(posMouse);
+                relojDiaNoche.restart();
+            }
+            else if (opcion == OpcionMenu::Salir)
+            {
                 window.close();
             }
-            inv.controlDeEventos(event);
+
+            window.clear(sf::Color::Black);
+            window.setView(window.getDefaultView());
+            window.draw(_menuPrincipal);
+            window.display();
+            break;
+        }
+
+        case EstadoJuego::Jugando:
+        {
+/// ======================== INICIO JUEGO =========================///
+
+            sf::Event event;
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                {
+                    window.close();
+                }
+
+                inv.controlDeEventos(event);
             invR.cambiarSlotsConEventos(event);
-        }
-
-        window.clear(sf::Color::Black);
-        window.draw(mapa);
-
-        /// RELOJ
-
-        deltatime = _relojInterno.restart().asMilliseconds();
-
-        ///
-        mouse.update(window);
-
-        window.setView(Camara);
-
-        character.cmd();
-
-
-        sf::Vector2f PosicionJugador = character.getPosition();
-
-/////// COLISIONES
-
-        character.chocar(miFantasma._colision);
-
-        if (character.getColisionador().detectorDeColision(miFantasma._colision , empuje.x , empuje.y)) {
-
-            if (miFantasma._colision.getID()== "Fantasma") {
-                character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
             }
-        }
 
-        character.chocar(miMurcielago._colision);
 
-        if (character.getColisionador().detectorDeColision(miMurcielago._colision , empuje.x , empuje.y)) {
+            Comandos::getInstancia().actualizar();
+            sf::Vector2f posMouseAux = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
-            if (miMurcielago._colision.getID()== "Murcielago") {
-                character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
+/// ======================== Primeros drawables =========================///
+
+            window.clear(sf::Color::Black);
+
+            window.setView(Camara);
+            window.draw(mapa);
+            window.draw(character);
+
+            character.getColisionador().draw(window);
+
+            for(auto& enemigo : enemigos)
+            {
+                window.draw(*enemigo);
             }
-        }
 
-        for (auto& colisionador : mapa._colisiones) {
-            character.chocar(colisionador);
-        }
+            for(auto& animal : animales)
+            {
+                window.draw(*animal);
+            }
+
+            window.draw(inv);
+
+
+
+/// ======================== RELOJ =========================///
+
+            deltatime = _relojInterno.restart().asMilliseconds();
+
+
+            mouse.update(window);
+
+/// ======================== Update del Ciclo dia y noche =========================///
+
+            float tiempoActualSegundos = relojDiaNoche.getElapsedTime().asSeconds();
+            float tiempoEnCiclo = fmod(tiempoActualSegundos, cicloCompletoSegundos);
+
+            float fraccionCiclo = (tiempoEnCiclo / cicloCompletoSegundos) * 2.0f * 3.14159265f;
+            float opacidad_normalizada = (cos(fraccionCiclo) + 1.0f) / 2.0f;
+
+            sf::Uint8 opacidadActual = static_cast<sf::Uint8>(opacidad_normalizada * maxOpacidad);
+            nightOverlay.setFillColor(sf::Color(nightColor.r, nightColor.g, nightColor.b, opacidadActual));
+
+            float fraccionDia = tiempoEnCiclo / cicloCompletoSegundos;
+            int totalMinutosJuego = static_cast<int>(fraccionDia * 1440);
+            int hora = totalMinutosJuego / 60;
+            int minuto = totalMinutosJuego % 60;
+
+            std::stringstream ss;
+            ss << std::setw(2) << std::setfill('0') << hora << ":"
+               << std::setw(2) << std::setfill('0') << minuto;
+            textReloj.setString(ss.str());
+
+/// ======================== COMANDOS =========================///
+
+            character.cmd(deltatime);
+            sf::Vector2f PosicionJugador = character.getPosition();
+
+            ///Mostramos la vida del jugador
+
+//        cout << character.getVida() << endl;
+
+
+
+/// ======================== COLISION ENEMIGOS =========================///
+
+            for (auto& enemigo: enemigos)
+            {
+
+                enemigo->update(PosicionJugador, deltatime);
+
+                character.chocar(enemigo->_colision);
+
+                if(character.getColisionador().detectorDeColision(enemigo->_colision, empuje.x, empuje.y))
+                {
+                    character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
+                }
+            }
+
+/// ======================== COLISIONES ANIMAL =========================///
+
+            for (auto it = animales.begin(); it != animales.end();)
+            {
+                Mob* animal = it->get();
+
+                animal->update(PosicionJugador, deltatime);
+
+                for (auto& colisionadorMapa : mapa._colisiones)
+                {
+                    animal->chocar(colisionadorMapa);
+                }
+
+                bool murio = character.atacar(*animal, fuerzaEmpuje , deltatime);
+
+                if (murio)
+                {
+                    it = animales.erase(it);
+                }
+
+                else
+                {
+                    animal->move(animal->getVelocidad());
+                    ++it;
+                }
+
+            }
+/// ======================== COLISION MAPA =========================///
+
+
+
+            for (auto& colisionador : mapa._colisiones)
+            {
+                character.chocar(colisionador);
+            }
+/// ======================== COLISION ESTRUCTURA =========================///
 
         float relacion = (float)window.getSize().x/(float)window.getSize().y;
 
@@ -191,30 +362,31 @@ void Game::run() {
             else it++;
 
         }
+/// ======================== INICIO UPDATE =========================///
 
-/////////// UPDATE
-        character.update();
-        character.updateEspada(mouse);
-        miFantasma.fantasmaUpdate(PosicionJugador, deltatime);
-        miMurcielago.murcielagoUpdate(PosicionJugador, deltatime);
+            character.update();
+            character.updateEspada(mouse);
+            _minimap.update(character.getPosition());
 
-/// DRAW
+/// ======================== INICIO DRAWABLES =========================///
+            window.setView(window.getDefaultView());
 
-        character.getColisionador().draw(window);
+            window.draw(nightOverlay);
 
-        window.draw(character);
-        window.draw(miFantasma);
-        window.draw(miMurcielago);
-        window.draw(inv);
-        inv.update( mouse.getPosicion(), mause, Camara, relacion, listaLoots, tecladoEntrada); ///FALLAA
+            window.draw(_minimap);
 
-        camaraPosicion.x = camaraPosicion.x + ((character.getPosition().x - camaraPosicion.x) * 0.1f );
-        camaraPosicion.y = camaraPosicion.y + ((character.getPosition().y- camaraPosicion.y) * 0.1f );
+            window.draw(textReloj);
+/// ======================== CAMARA EFECTO Y CENTRADO =========================///
 
-        if (character.getEstaCorriendo()) Camara.setSize(Camara.getSize().x + (350 - Camara.getSize().x)*0.05, Camara.getSize().y + (350 - Camara.getSize().y)*0.05);
-        else Camara.setSize(Camara.getSize().x + (300 - Camara.getSize().x)*0.05, Camara.getSize().y + (300 - Camara.getSize().y)*0.05);
+                inv.update( mouse.getPosicion(), mause, Camara, relacion, listaLoots, tecladoEntrada); ///FALLAA
 
-        Camara.setCenter(camaraPosicion);
+            camaraPosicion.x = camaraPosicion.x + ((character.getPosition().x - camaraPosicion.x) * 0.1f );
+            camaraPosicion.y = camaraPosicion.y + ((character.getPosition().y- camaraPosicion.y) * 0.1f );
+
+            if (character.getEstaCorriendo()) Camara.setSize(Camara.getSize().x + (350 - Camara.getSize().x)*0.05, Camara.getSize().y + (350 - Camara.getSize().y)*0.05);
+            else Camara.setSize(Camara.getSize().x + (300 - Camara.getSize().x)*0.05, Camara.getSize().y + (300 - Camara.getSize().y)*0.05);
+
+            Camara.setCenter(camaraPosicion);
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
             guardar(character);
@@ -231,9 +403,11 @@ void Game::run() {
     }
 }
 
-void Game::guardar(Personaje &character) {
+void Game::guardar(Personaje &character)
+{
     FILE *Puntero = fopen("ultimoGuardado", "wb");
-    if (Puntero== nullptr) {
+    if (Puntero== nullptr)
+    {
         cout << "ERROR 404" << endl;
     }
 
@@ -244,10 +418,12 @@ void Game::guardar(Personaje &character) {
     fclose(Puntero);
 }
 
-void Game::cargar(Personaje &character) {
+void Game::cargar(Personaje &character)
+{
 
     FILE *Puntero = fopen("ultimoGuardado", "rb");
-    if (Puntero== nullptr) {
+    if (Puntero== nullptr)
+    {
         cout << "ERROR 404" << endl;
     }
 

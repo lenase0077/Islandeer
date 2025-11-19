@@ -14,7 +14,6 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add directory="include" />
-					<Add directory="tmxlite/include" />
 					<Add directory="SFML/include" />
 				</Compiler>
 				<Linker>
@@ -46,20 +45,23 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 		</UnitsGlob>
+		<Unit filename="Animal.cpp" />
+		<Unit filename="Animal.h" />
 		<Unit filename="BarraDeVida.cpp" />
 		<Unit filename="BarraDeVida.h" />
 		<Unit filename="Colisionador.cpp" />
 		<Unit filename="Colisionador.h" />
+		<Unit filename="Comando.cpp" />
+		<Unit filename="Comando.h" />
 		<Unit filename="Enemigo.cpp" />
 		<Unit filename="Enemigo.h" />
 		<Unit filename="Espada.cpp" />
 		<Unit filename="Espada.h" />
+		<Unit filename="EstadodeJuego.h" />
 		<Unit filename="Estructura.cpp" />
 		<Unit filename="Estructura.h" />
-		<Unit filename="FabricaEstructuras.cpp" />
-		<Unit filename="FabricaEstructuras.h" />
-		<Unit filename="FabricaItems.cpp" />
-		<Unit filename="FabricaItems.h" />
+		<Unit filename="FabricaMobs.cpp" />
+		<Unit filename="FabricaMobs.h" />
 		<Unit filename="Fantasma.cpp" />
 		<Unit filename="Fantasma.h" />
 		<Unit filename="Funcion.h" />
@@ -77,8 +79,10 @@
 		<Unit filename="ItemDescripcion.h" />
 		<Unit filename="Loot.cpp" />
 		<Unit filename="Loot.h" />
-		<Unit filename="MesaDeCrafteo.cpp" />
-		<Unit filename="MesaDeCrafteo.h" />
+		<Unit filename="Menu_Principal.cpp" />
+		<Unit filename="Menu_Principal.h" />
+		<Unit filename="Minimap.cpp" />
+		<Unit filename="Minimap.h" />
 		<Unit filename="Mob.cpp" />
 		<Unit filename="Mob.h" />
 		<Unit filename="Mob_Hostil.cpp" />
@@ -102,22 +106,8 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="tmxlite/include/tmxlite/detail/Android.hpp" />
 		<Unit filename="tmxlite/include/tmxlite/detail/Log.hpp" />
-		<Unit filename="tmxlite/src/FreeFuncs.cpp" />
-		<Unit filename="tmxlite/src/ImageLayer.cpp" />
-		<Unit filename="tmxlite/src/LayerGroup.cpp" />
-		<Unit filename="tmxlite/src/Map.cpp" />
-		<Unit filename="tmxlite/src/Object.cpp" />
-		<Unit filename="tmxlite/src/ObjectGroup.cpp" />
-		<Unit filename="tmxlite/src/ObjectTypes.cpp" />
-		<Unit filename="tmxlite/src/Property.cpp" />
-		<Unit filename="tmxlite/src/TileLayer.cpp" />
-		<Unit filename="tmxlite/src/Tileset.cpp" />
 		<Unit filename="tmxlite/src/detail/pugiconfig.hpp" />
-		<Unit filename="tmxlite/src/detail/pugixml.cpp" />
 		<Unit filename="tmxlite/src/detail/pugixml.hpp" />
-		<Unit filename="tmxlite/src/miniz.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="tmxlite/src/miniz.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
