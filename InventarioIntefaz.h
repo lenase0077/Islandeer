@@ -41,7 +41,6 @@ private:
     ///Metodos privados
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     std::unique_ptr<Item> clonarItem(const Item* item) const;
-    bool sonMismoTipo(const Item* a, const Item* b) const;
     bool sumarItems(std::unique_ptr<Item>& ItemIncrementador, std::unique_ptr<Item>& ItemIncrementado);
     void ajustarEscalaAutomaticamente(const sf::View& vista, const float& relacionAspecto);
     void soltarLoot(std::unique_ptr<Item>& itemQueTirar, std::list<Loot>& listaLoots, bool tirarCompleto = false);

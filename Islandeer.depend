@@ -1707,7 +1707,7 @@
 
 1761749986 c:\users\sebas\onedrive\documentos\github\islandeer\enemigo.h
 
-1763566506 c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.h
+1763587797 c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.h
 	"SeleccionRectangulo.h"
 	"Item.h"
 	"ItemDescripcion.h"
@@ -1724,7 +1724,7 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\seleccionrectangulo.h
 	<SFML/Graphics.hpp>
 
-1763502409 c:\users\sebas\onedrive\documentos\github\islandeer\item.h
+1763587797 c:\users\sebas\onedrive\documentos\github\islandeer\item.h
 	<SFML/Graphics.hpp>
 	"json.hpp"
 	<string>
@@ -1739,7 +1739,7 @@
 	"SeleccionRectangulo.h"
 	<SFML/Graphics.hpp>
 
-1763566813 source:c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.cpp
+1763588781 source:c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.cpp
 	"InventarioIntefaz.h"
 	"funcionesInterpolacion.h"
 	<cmath>
@@ -1750,7 +1750,7 @@
 	"InventarioResumidoInterfaz.h"
 	<iostream>
 
-1763555635 source:c:\users\sebas\onedrive\documentos\github\islandeer\item.cpp
+1763588416 source:c:\users\sebas\onedrive\documentos\github\islandeer\item.cpp
 	"Item.h"
 	<iostream>
 	"json.hpp"

@@ -29,9 +29,6 @@ public:
     // Destructor virtual
     virtual ~Item() = default;
 
-    /// Método clone CONCRETO
-    virtual std::unique_ptr<Item> clone() const;
-
     /// Getters
     int getID() const;
     sf::Vector2f getEscala() const;

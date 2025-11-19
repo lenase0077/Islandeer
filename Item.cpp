@@ -67,33 +67,6 @@ Item::Item(){
     _textoCantidad.setOrigin(tb.left + tb.width/2.0f, tb.top + tb.height/2.0f); // Centra texto
 }
 
-/// METODO CLONE - Implementacion del patron Prototype
-std::unique_ptr<Item> Item::clone() const {
-    // Crear un nuevo Item usando el constructor de copia por defecto
-    auto nuevoItem = std::make_unique<Item>();
-
-    // Copiar manualmente todos los atributos (copia profunda)
-    nuevoItem->_id = _id;
-    nuevoItem->_cantidad = _cantidad;
-    nuevoItem->_cantidadMax = _cantidadMax;
-    nuevoItem->_descripcion = _descripcion;
-    nuevoItem->_titulo = _titulo;
-
-    // Copiar el sprite (si tiene textura)
-    if (sprItem.getTexture()) {
-        nuevoItem->sprItem.setTexture(*sprItem.getTexture());
-        nuevoItem->sprItem.setTextureRect(sprItem.getTextureRect()); // Mismo frame
-    }
-    nuevoItem->sprItem.setScale(sprItem.getScale());
-    nuevoItem->sprItem.setOrigin(sprItem.getOrigin());
-
-    // Copiar el texto
-    nuevoItem->_textoCantidad = _textoCantidad;
-    nuevoItem->_fuenteTextoCantidad = _fuenteTextoCantidad;
-
-    return nuevoItem; // Devuelve copia exacta
-}
-
 /// Getters
 int Item::getID() const{
     return _id;
@@ -135,8 +108,8 @@ void Item::setCantidad(int cantidad){
     if (cantidad < 1) _cantidad = 1;
     else _cantidad = cantidad;
     _textoCantidad.setString(to_string(getCantidad())); // Actualiza texto
-    /*sf::FloatRect tb = _textoCantidad.getLocalBounds();
-    _textoCantidad.setOrigin(tb.left + tb.width/2.0f, tb.top + tb.height/2.0f); // Re-centra*/
+    sf::FloatRect tb = _textoCantidad.getLocalBounds();
+    _textoCantidad.setOrigin(tb.left + tb.width/2.0f, tb.top + tb.height/2.0f); // Re-centra
 }
 
 void Item::setCantidadMax(int cantidadMax){
