@@ -48,7 +48,6 @@ void Game::run()
     sf::Mouse mause;
 
 /// ======================== Camara =========================///
-    sf::View Camara;
     Camara.setSize({300.f, 300.f});
     sf::Vector2f camaraPosicion = {640, 1120};
 
@@ -126,16 +125,16 @@ void Game::run()
 
 /// ======================== Fuente y Display Reloj =========================///
 
-        if (!fontReloj.loadFromFile("PIXEARG_.TTF"))
-        {
-            cout << "Error al cargar la fuente" << endl;
-        }
+    if (!fontReloj.loadFromFile("PIXEARG_.TTF"))
+    {
+        cout << "Error al cargar la fuente" << endl;
+    }
 
-        textReloj.setFont(fontReloj);
-        textReloj.setCharacterSize(14);
-        textReloj.setFillColor(sf::Color::White);
+    textReloj.setFont(fontReloj);
+    textReloj.setCharacterSize(14);
+    textReloj.setFillColor(sf::Color::White);
 
-        textReloj.setPosition(864, 162);
+    textReloj.setPosition(864, 162);
 
 
 /// ======================== INICIO GAME LOOP =========================///
@@ -364,6 +363,8 @@ void Game::run()
 
             character.update();
             character.updateEspada(mouse);
+            procesarZonasCueva();
+
             _minimap.update(character.getPosition());
 
 
@@ -376,6 +377,8 @@ void Game::run()
 
 
 /// ======================== INICIO DRAWABLES =========================///
+
+
             window.setView(window.getDefaultView());
 
             window.draw(nightOverlay);
@@ -473,12 +476,36 @@ terminar:
 void Game::procesarZonasCueva()
 {
 
-    sf::FloatRect zonaEntradaCueva(84*32,90*32,60,60);
-//    sf::FloatRect zonaSalida
-//    sf::Vector2f DestinoInterior
-//    sf::Vector2f DestinoExterior
+    float entradaX = 84 * 32.f;
+    float entradaY = 90 * 32.f;
+
+    sf::FloatRect zonaEntrada(entradaX, entradaY, 180.f, 180.f);
+    sf::Vector2f destinoInterior(5000.f, 5000.f);
+    sf::FloatRect zonaSalida(5000.f, 5080.f, 60.f, 60.f);
+    sf::Vector2f destinoExterior(entradaX, entradaY + 50.f);
 
 
+    // --- LÓGICA DE ENTRADA ---
+    if (_personaje.getColisionBounds().intersects(zonaEntrada))
+    {
+        cout << "Entrando a la cueva..." << endl;
 
+        // 1. Mover Personaje
+        _personaje.setPosicion(destinoInterior.x, destinoInterior.y);
 
+        // 2. Mover Cámara (Ahora sí funciona porque es miembro de clase)
+        Camara.setCenter(destinoInterior);
+    }
+
+    // --- LÓGICA DE SALIDA ---
+    else if (_personaje.getColisionBounds().intersects(zonaSalida))
+    {
+        cout << "Saliendo de la cueva..." << endl;
+
+        // 1. Mover Personaje
+        _personaje.setPosicion(destinoExterior.x, destinoExterior.y);
+
+        // 2. Mover Cámara (¡IMPORTANTE! Faltaba esto en tu código)
+        Camara.setCenter(destinoExterior);
+    }
 }

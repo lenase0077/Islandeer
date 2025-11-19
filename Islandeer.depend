@@ -721,11 +721,11 @@
 	<SFML/Graphics.hpp>
 	<SFML/Graphics.hpp>
 
-1763500949 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1763504579 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	"Game.h"
 
-1763499939 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
+1763504238 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
 	<SFML/Graphics.hpp>
 	"Personaje.h"
 	"TileMap.h"
@@ -1357,8 +1357,8 @@
 	<iostream>
 	"Raton.h"
 
-1763501990 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.cpp
-	"TileMap.h"
+1763504635 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.cpp
+	"tilemap.h"
 	<fstream>
 	<iostream>
 
