@@ -1,37 +1,35 @@
 #include "Estructura.h"
 #include <iostream>
 #include <cmath>
+
 using namespace std;
 
 
-Estructura::Estructura( float posX, float posY)
-    : _vida(100.f) {
+Estructura::Estructura(sf::Texture& texturaBloques, float posX, float posY, int id)
+{
+    _sprite.setTexture(texturaBloques);
 
-    actualizarTextura();
+    ///Acomodamos su sprite en base a su ID
+    int columnasTextura = 7;
+    int alturaFrame = 32;
+    int anchuraFrame = 32;
 
-    _sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+    int frameX = anchuraFrame * (id % columnasTextura);
+    int frameY = alturaFrame * (id / columnasTextura);
+
+    _sprite.setTextureRect(sf::IntRect(frameX,frameY,anchuraFrame,alturaFrame));
+
     setPosition(posX,posY);
 
     sf::FloatRect colisionadorDimenciones(posX + 8,posY + 8,16,16);
 
     _colision.setColision(colisionadorDimenciones);
     _colision.setID("Estructura");
-
 }
 
 void Estructura::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform();
     target.draw(_sprite, states);
-}
-
-
-
-void Estructura::actualizarTextura() {
-    if (!_textura.loadFromFile("Bloques.png")) {
-        std::cout << "Error cargando textura" << std::endl;
-    }
-    _sprite.setTexture(_textura);
-
 }
 
 
@@ -46,17 +44,33 @@ bool Estructura::estaDestruido() const {
     return _vida <= 0.0f;
 }
 
+void Estructura::setVida(float nuevaVida){
+    _vida = nuevaVida;
+}
+
 ///Esto hay que cambiarlo por un creador de loot para darle un control mas optimo.
-void Estructura::liberarLoot(sf::Texture& texturaItems,list<Loot>& listaLoot){
-    int ID = 10;
-    int cantidadLoots = 180;
+void Estructura::liberarLoot(FabricaItems& fabItems,list<Loot>& listaLoot){
     int distanciaLoots = 8;
+    const float PI = 3.1415926535f;
     float lootPosX, lootPosY;
-    for (int n = 0; n < cantidadLoots; n++){
-        lootPosX = getPosition().x + 16 +(cos((360/cantidadLoots)*n) * distanciaLoots);
-        lootPosY = getPosition().y + 16 +(sin((360/cantidadLoots)*n) * distanciaLoots);
-        listaLoot.emplace_front(texturaItems,sf::Vector2f(lootPosX,lootPosY), ID);
+    int iterador = 0;
+    for (auto& p : _lootsIDs ) {
+        float anguloGrados = (360.0f / _lootsIDs.size()) * iterador;
+        float anguloRadianes = anguloGrados * (PI / 180.0f);
+
+        lootPosX = getPosition().x + 16 +(cos(anguloRadianes)* distanciaLoots);
+        lootPosY = getPosition().y + 16 +(sin(anguloRadianes)* distanciaLoots);
+        listaLoot.emplace_back(fabItems,sf::Vector2f(lootPosX,lootPosY), p);
+        iterador++;
     }
+}
+
+void Estructura::setLootsIDs(const std::vector<int>& nuevoLootsIDs){
+    _lootsIDs = nuevoLootsIDs;
+}
+
+void Estructura::update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::Mouse& mouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario){
+
 }
 
 

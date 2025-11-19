@@ -60,6 +60,10 @@
 		<Unit filename="EstadodeJuego.h" />
 		<Unit filename="Estructura.cpp" />
 		<Unit filename="Estructura.h" />
+		<Unit filename="FabricaEstructuras.cpp" />
+		<Unit filename="FabricaEstructuras.h" />
+		<Unit filename="FabricaItems.cpp" />
+		<Unit filename="FabricaItems.h" />
 		<Unit filename="FabricaMobs.cpp" />
 		<Unit filename="FabricaMobs.h" />
 		<Unit filename="Fantasma.cpp" />
@@ -81,6 +85,8 @@
 		<Unit filename="Loot.h" />
 		<Unit filename="Menu_Principal.cpp" />
 		<Unit filename="Menu_Principal.h" />
+		<Unit filename="MesaDeCrafteo.cpp" />
+		<Unit filename="MesaDeCrafteo.h" />
 		<Unit filename="Minimap.cpp" />
 		<Unit filename="Minimap.h" />
 		<Unit filename="Mob.cpp" />
