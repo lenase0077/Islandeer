@@ -320,5 +320,9 @@ bool Personaje::atacar(Mob& enemigo, float fuerzaEmpuje, float deltatime)
     }
 
     return (enemigo.getVida() <= 0);
+}
 
+void Personaje::setVolumen (float Volumen)
+{
+    _footprints.setVolume(Volumen);
 }

@@ -38,7 +38,7 @@ class Personaje: public sf::Drawable , public sf::Transformable
         float getEnergia();
         ///Espada
         void updateEspada(const Raton& mouse);
-
+        void setVolumen (float Volumen);
 
     private:
         float _acumuladorEnergia = 0;
