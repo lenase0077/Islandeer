@@ -143,9 +143,7 @@ void Game::run()
         textReloj.setFont(fontReloj);
         textReloj.setCharacterSize(14);
         textReloj.setFillColor(sf::Color::White);
-
         textReloj.setPosition(864, 162);
-
 
 /// ======================== INICIO GAME LOOP =========================///
     while (window.isOpen())
@@ -198,6 +196,10 @@ void Game::run()
         {
 /// ======================== INICIO JUEGO =========================///
 
+            float volumenActual = _menuPrincipal.getVolumen();
+            sonido.setVolume(volumenActual);
+            character.setVolumen(volumenActual);
+
             sf::Event event;
             while (window.pollEvent(event))
             {
@@ -208,7 +210,6 @@ void Game::run()
 
                 inv.controlAbrirCerrarInventario(event);
             }
-
 
             Comandos::getInstancia().actualizar();
             sf::Vector2f posMouseAux = window.mapPixelToCoords(sf::Mouse::getPosition(window));

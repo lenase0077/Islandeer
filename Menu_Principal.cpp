@@ -16,7 +16,6 @@ void MenuPrincipal::configurarTexto (sf::Text& texto, std::string nombre, int ta
     texto.setPosition(posX , posY);
 }
 
-
 MenuPrincipal::MenuPrincipal()
 {
     if (!_imagenLogo.loadFromFile("Logo.png")) {

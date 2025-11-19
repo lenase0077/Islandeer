@@ -13,12 +13,19 @@ enum class OpcionMenu {
     Salir
 };
 
+enum class SubMenu{
+    Principal,
+    SeleccionOpciones,
+    ModificadorVolumen
+};
+
 class MenuPrincipal : public sf::Drawable, sf::Transformable{
 private:
     sf::Texture _texturaLogo;
     sf::Texture _texturaBotonJugar;
     sf::Texture _texturaBotonOpciones;
     sf::Texture _texturaBotonSalir;
+    sf::Texture _texturaBotonVolumenGeneral;
     sf::Texture _background;
 
     sf::Image _imagenLogo;
