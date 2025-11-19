@@ -9,9 +9,9 @@ using namespace std;
 
 Game::Game()
     : window(sf::VideoMode(1024, 768), "SFML works!"),
-    _personaje(_texturaPersonaje),
-    personaTest(_texturaPersonaje, 300,300),
-    _minimap({150.f, 150.f},
+      _personaje(_texturaPersonaje),
+      personaTest(_texturaPersonaje, 300,300),
+      _minimap({150.f, 150.f},
 {
     1024.f - 160.f, 10.f
 })
@@ -29,11 +29,13 @@ void Game::run()
 
 
     sf::Texture texturaInventarioResumido;
-    if(!texturaInventarioResumido.loadFromFile("InventarioResumido.png")){
+    if(!texturaInventarioResumido.loadFromFile("InventarioResumido.png"))
+    {
         cout << "ERROR AL CARGAR InventarioResumido.png" << endl;
     }
 
-    if (!_texturaPersonaje.loadFromFile("Basic Charakter Spritesheet.png")) {
+    if (!_texturaPersonaje.loadFromFile("Basic Charakter Spritesheet.png"))
+    {
         std::cout << "Error cargando textura" << std::endl;
     }
 
@@ -58,6 +60,9 @@ void Game::run()
 
 
     InventarioResumido invR(texturaInventarioResumido);
+
+    Item* vectorCarga[30];
+
 
 /// ======================== Mapa =========================///
 
@@ -101,9 +106,9 @@ void Game::run()
         _posicionAleatoria.x = spawnX + (rand()%400 - 200);
         _posicionAleatoria.y = spawnY + (rand()%400 - 200);
 
-        animales.push_back(_FabricaMobs.crearMobs("Vaca", {_posicionAleatoria.x , _posicionAleatoria.y}));
-        animales.push_back(_FabricaMobs.crearMobs("Oveja",{_posicionAleatoria.x + 50 ,_posicionAleatoria.y}));
-        animales.push_back(_FabricaMobs.crearMobs("Cerdo",{_posicionAleatoria.x - 50 ,_posicionAleatoria.y + 50}));
+        animales.push_back(_FabricaMobs.crearMobs("Vaca", {_posicionAleatoria.x, _posicionAleatoria.y}));
+        animales.push_back(_FabricaMobs.crearMobs("Oveja", {_posicionAleatoria.x + 50,_posicionAleatoria.y}));
+        animales.push_back(_FabricaMobs.crearMobs("Cerdo", {_posicionAleatoria.x - 50,_posicionAleatoria.y + 50}));
     }
 
 /// ======================== Musica =========================///
@@ -141,15 +146,15 @@ void Game::run()
 
 /// ======================== Fuente y Display Reloj =========================///
 
-        if (!fontReloj.loadFromFile("PIXEARG_.TTF"))
-        {
-            cout << "Error al cargar la fuente" << endl;
-        }
+    if (!fontReloj.loadFromFile("PIXEARG_.TTF"))
+    {
+        cout << "Error al cargar la fuente" << endl;
+    }
 
-        textReloj.setFont(fontReloj);
-        textReloj.setCharacterSize(14);
-        textReloj.setFillColor(sf::Color::White);
-        textReloj.setPosition(864, 162);
+    textReloj.setFont(fontReloj);
+    textReloj.setCharacterSize(14);
+    textReloj.setFillColor(sf::Color::White);
+    textReloj.setPosition(864, 162);
 
 /// ======================== INICIO GAME LOOP =========================///
     while (window.isOpen())
@@ -215,7 +220,7 @@ void Game::run()
                 }
 
                 inv.controlDeEventos(event);
-            invR.cambiarSlotsConEventos(event);
+                invR.cambiarSlotsConEventos(event);
             }
 
             Comandos::getInstancia().actualizar();
@@ -312,7 +317,7 @@ void Game::run()
                     animal->chocar(colisionadorMapa);
                 }
 
-                bool murio = character.atacar(*animal, fuerzaEmpuje , deltatime);
+                bool murio = character.atacar(*animal, fuerzaEmpuje, deltatime);
 
                 if (murio)
                 {
@@ -336,38 +341,48 @@ void Game::run()
             }
 /// ======================== COLISION ESTRUCTURA =========================///
 
-        float relacion = (float)window.getSize().x/(float)window.getSize().y;
+            float relacion = (float)window.getSize().x/(float)window.getSize().y;
 
-        for (auto estructura = listaEstructuras.begin(); estructura != listaEstructuras.end(); ) {
-            if ((*estructura)->estaDestruido() == false) {
-                if(character.getColisionador().detectorDeColision((*estructura)->getColisionador())) { ///EJEMPLO
-                    character.chocar((*estructura)->getColisionador());
-                    (*estructura)->recibirGolpe(5);
-                }
-                window.draw(**estructura);
-                (*estructura)->update( PosicionJugador, mouse.getPosicion(), mause, Camara, relacion, inv);
-            }
-            else
+            for (auto estructura = listaEstructuras.begin(); estructura != listaEstructuras.end(); )
             {
-                (*estructura)->liberarLoot(fabItems,listaLoots);
-                estructura = listaEstructuras.erase(estructura);
+                if ((*estructura)->estaDestruido() == false)
+                {
+                    if(character.getColisionador().detectorDeColision((*estructura)->getColisionador()))   ///EJEMPLO
+                    {
+                        character.chocar((*estructura)->getColisionador());
+                        (*estructura)->recibirGolpe(5);
+                    }
+                    window.draw(**estructura);
+                    (*estructura)->update( PosicionJugador, mouse.getPosicion(), mause, Camara, relacion, inv);
+                }
+                else
+                {
+                    (*estructura)->liberarLoot(fabItems,listaLoots);
+                    estructura = listaEstructuras.erase(estructura);
+                }
+                estructura++;
             }
-            estructura++;
-        }
 
 
-        for (auto it = listaLoots.begin(); it != listaLoots.end();){
-            it->update(character.getPosition(),inv);
-            window.draw(*it);
-            if (it->getLooted()) it = listaLoots.erase(it);
-            else it++;
+            for (auto it = listaLoots.begin(); it != listaLoots.end();)
+            {
+                it->update(character.getPosition(),inv);
+                window.draw(*it);
+                if (it->getLooted()) it = listaLoots.erase(it);
+                else it++;
 
-        }
+            }
 /// ======================== INICIO UPDATE =========================///
 
             character.update();
             character.updateEspada(mouse);
             _minimap.update(character.getPosition());
+
+            inv.update( mouse.getPosicion(), mause, Camara, relacion, listaLoots, tecladoEntrada); ///FALLAA
+
+            inv.copiarItemsEnVector(vectorCarga);
+            invR.setItems(vectorCarga);
+
 
 /// ======================== INICIO DRAWABLES =========================///
             window.setView(window.getDefaultView());
@@ -377,9 +392,12 @@ void Game::run()
             window.draw(_minimap);
 
             window.draw(textReloj);
+
+            invR.update(Camara, relacion);
+            window.draw(invR);
+
 /// ======================== CAMARA EFECTO Y CENTRADO =========================///
 
-                inv.update( mouse.getPosicion(), mause, Camara, relacion, listaLoots, tecladoEntrada); ///FALLAA
 
             camaraPosicion.x = camaraPosicion.x + ((character.getPosition().x - camaraPosicion.x) * 0.1f );
             camaraPosicion.y = camaraPosicion.y + ((character.getPosition().y- camaraPosicion.y) * 0.1f );
@@ -389,21 +407,19 @@ void Game::run()
 
             Camara.setCenter(camaraPosicion);
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
-            guardar(character);
-            cout << "Guardado Exitosamente!!" << endl;
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+            {
+                guardar(character);
+                cout << "Guardado Exitosamente!!" << endl;
+            }
+             //<<<FALLAA
+
+            window.display();
+
         }
-        Item* vectorCarga[30];
-        inv.copiarItemsEnVector(vectorCarga);
-        invR.setItems(vectorCarga); //<<<FALLAA
-
-        invR.update(Camara, relacion);
-        window.draw(invR);
-        window.display();
-
+        }
     }
 }
-
 void Game::guardar(Personaje &character)
 {
     FILE *Puntero = fopen("ultimoGuardado", "wb");
