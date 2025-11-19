@@ -19,11 +19,6 @@
 #include "EstadodeJuego.h"
 #include <cmath>
 
-
-
-
-
-
 class Game
 {
     public:
@@ -34,6 +29,7 @@ class Game
         sf::Clock getRelojInterno();
 
     private:
+        sf::Texture _texturaPersonaje;
         Personaje _personaje;
         Personaje personaTest;
         sf::RenderWindow window;

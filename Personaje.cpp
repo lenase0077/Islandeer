@@ -13,7 +13,7 @@ void Personaje::setEstaCorriendo(bool EstaCorriendo) {
     _estaCorriendo = EstaCorriendo;
 }
 
-Personaje::Personaje()
+Personaje::Personaje(sf::Texture& _textura)
     :
     _velocidad(0,0),
     _movimiento(1),
@@ -22,10 +22,6 @@ Personaje::Personaje()
     _vidaMaxima(100),
     _energia(100),
     _barraVida(_vida, _vidaMaxima) {
-
-    if (!_textura.loadFromFile("Basic Charakter Spritesheet.png")) {
-        std::cout << "Error cargando textura" << std::endl;
-    }
 
     _sprite.setTexture(_textura);
     setPosition(10, 10);
@@ -45,12 +41,8 @@ Personaje::Personaje()
 
 }
 
-Personaje::Personaje(int alto, int ancho)
+Personaje::Personaje(sf::Texture& _textura , int alto, int ancho)
     : _velocidad(0,0), _movimiento(1), _frameActual(0) {
-
-    if (!_textura.loadFromFile("Basic Charakter Spritesheet.png")) {
-        std::cout << "Error cargando textura" << std::endl;
-    }
 
     _sprite.setOrigin(0,0);
     _sprite.setTexture(_textura);
@@ -68,7 +60,6 @@ void Personaje::setVida(float vida) {
 float Personaje::getVida() {
     return _vida;
 }
-
 
 void Personaje::animar() {
     ///Verificamos si hay movimiento
@@ -117,7 +108,7 @@ void Personaje::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(_barraVida);
 }
 
-void Personaje::cmd() {
+void Personaje::cmd(float deltatime) {
 
     _velocidad = sf::Vector2f(0.f,0.f);
     Comandos& input = Comandos::getInstancia();
@@ -146,7 +137,7 @@ void Personaje::cmd() {
         _velocidad /= sqrt(2.f);
     }
 
-    Correr(_velocidad);
+    Correr(_velocidad , deltatime);
 }
 
 void Personaje::actuarEnBaseALaColision (string IDColision) {
@@ -228,27 +219,52 @@ void Personaje::setVelocidad(float vx, float vy) {
     _velocidad.y = vy;
 }
 
-void Personaje::Correr(sf::Vector2f& velocidad) {
+float Personaje::getEnergia()
+{
+    return _energia;
+}
+
+void Personaje::Correr(sf::Vector2f& velocidad , float deltatime) {
     Comandos& input = Comandos::getInstancia();
-    if (input.teclaCorrer) {
-        if (!_energia == 0) {
-            velocidad *= 1.5f;
-            setEstaCorriendo(true);
-            if ((_animacion.getElapsedTime().asMilliseconds() > 100)) {
-                _energia -= 10.f;
+
+    bool hayMovimiento = (abs(_velocidad.x) > 0.f || abs(_velocidad.y) > 0.f);
+    bool estacorriendo = input.teclaCorrer && _energia > 0 && hayMovimiento;
+
+    if (estacorriendo)
+    {
+        velocidad *= 1.5f;
+        setEstaCorriendo(true);
+    }
+    else
+    {
+        setEstaCorriendo(false);
+    }
+
+    _acumuladorEnergia += deltatime;
+
+    if (_acumuladorEnergia >= 500)
+    {
+        if (getEstaCorriendo())
+        {
+            _energia -= 10.f;
+
+            if (_energia < 0)
+            {
+                _energia = 0;
             }
         }
 
-    } else {
-
-        setEstaCorriendo(false);
-        if ((_animacion.getElapsedTime().asMilliseconds() > 100))
+        else
         {
-            _energia += 10;
+            _energia += 10.f;
+
+            if (_energia > 100)
+            {
+                _energia = 100;
+            }
         }
-
-
-        };
+        _acumuladorEnergia = 0;
+    }
 }
 
 void Personaje::manejarPasos() {

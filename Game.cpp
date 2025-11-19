@@ -3,7 +3,10 @@ using namespace std;
 #include "Game.h"
 
 Game::Game()
-    : window(sf::VideoMode(1024, 768), "SFML works!"), personaTest(300,300), _minimap({150.f, 150.f},
+    : window(sf::VideoMode(1024, 768), "SFML works!"),
+    _personaje(_texturaPersonaje),
+    personaTest(_texturaPersonaje, 300,300),
+    _minimap({150.f, 150.f},
 {
     1024.f - 160.f, 10.f
 })
@@ -27,12 +30,15 @@ void Game::run()
         cout << "Error al cargar ItemsSprites.png" << endl;
     }
 
+    if (!_texturaPersonaje.loadFromFile("Basic Charakter Spritesheet.png")) {
+        std::cout << "Error cargando textura" << std::endl;
+    }
+
 /// ======================== Reloj Externo =========================///
 
     float deltatime;
 
 /// ======================== Inventario =========================///
-
 
     InventarioInterfaz inv(texturaItems);
     inv.agregarItem(44,30);
@@ -53,7 +59,7 @@ void Game::run()
     sf::Vector2f camaraPosicion = {640, 1120};
 
 /// ======================== Personaje =========================///
-    Personaje character;
+    Personaje character (_texturaPersonaje);
     cargar(character);
 
 /// ======================== Enemigo =========================///
@@ -69,16 +75,20 @@ void Game::run()
 //    enemigos.push_back(_FabricaMobs.crearMobs("Murcielago", {50 , 50}));
 
 /// ======================== Aniamles =========================///
+
+    float spawnX = 82*32;
+    float spawnY = 90*32;
+
     sf::Vector2f _posicionAleatoria;
 
     for (int i = 0 ; i < 5 ; i++)
     {
-        _posicionAleatoria.x = (float)(rand()%400);
-        _posicionAleatoria.y = (float)(rand()%400);
+        _posicionAleatoria.x = spawnX + (rand()%400 - 200);
+        _posicionAleatoria.y = spawnY + (rand()%400 - 200);
 
-        animales.push_back(_FabricaMobs.crearMobs("Vaca", {84*32,90*32}));
-        animales.push_back(_FabricaMobs.crearMobs("Oveja", {80*32,95*32}));
-        animales.push_back(_FabricaMobs.crearMobs("Cerdo", {90*32,85*32}));
+        animales.push_back(_FabricaMobs.crearMobs("Vaca", {_posicionAleatoria.x , _posicionAleatoria.y}));
+        animales.push_back(_FabricaMobs.crearMobs("Oveja",{_posicionAleatoria.x + 50 ,_posicionAleatoria.y}));
+        animales.push_back(_FabricaMobs.crearMobs("Cerdo",{_posicionAleatoria.x - 50 ,_posicionAleatoria.y + 50}));
     }
 
 /// ======================== Musica =========================///
@@ -90,22 +100,21 @@ void Game::run()
     }
 
     sonido.setBuffer(buffer);
-    sonido.play();
-    sonido.setVolume(100.0);
+    sonido.setVolume(_menuPrincipal.getVolumen());
     sonido.setLoop(true);
 
 /// ======================== Estructura =========================///
 
-    listaEstructuras.emplace_back(70,50);
-    listaEstructuras.emplace_back(80,60);
-    listaEstructuras.emplace_back(10,50);
+    listaEstructuras.emplace_back(spawnX + 100, spawnY - 100);
+    listaEstructuras.emplace_back(spawnX + 200, spawnY - 50);
+    listaEstructuras.emplace_back(spawnX - 100, spawnY - 100);
 
-    listaLoots.emplace_back(texturaItems,sf::Vector2f(99,105),7);
-    listaLoots.emplace_back(texturaItems,sf::Vector2f(105,105),8);
-    listaLoots.emplace_back(texturaItems,sf::Vector2f(120,100),9);
-    listaLoots.emplace_back(texturaItems,sf::Vector2f(150,50),10);
-    listaLoots.emplace_back(texturaItems,sf::Vector2f(125,200),11);
-    listaLoots.emplace_back(texturaItems,sf::Vector2f(150,100),12);
+    listaLoots.emplace_back(texturaItems,sf::Vector2f(spawnX + 99,spawnY - 105),7);
+    listaLoots.emplace_back(texturaItems,sf::Vector2f(spawnX + 105,spawnY - 105),8);
+    listaLoots.emplace_back(texturaItems,sf::Vector2f(spawnX + 120,spawnY - 100),9);
+    listaLoots.emplace_back(texturaItems,sf::Vector2f(spawnX + 150,spawnY - 50),10);
+    listaLoots.emplace_back(texturaItems,sf::Vector2f(spawnX + 125,spawnY - 200),11);
+    listaLoots.emplace_back(texturaItems,sf::Vector2f(spawnX + 150,spawnY - 100),12);
 
     //Se suele usar List no vector
     //Convendria que la textura fuera puntero + llamar a dispose antes de erase()
@@ -141,6 +150,7 @@ void Game::run()
 /// ======================== INICIO GAME LOOP =========================///
     while (window.isOpen())
     {
+        cout << "Energia = " << character.getEnergia() << endl;
 /// ======================== INICIO MENU PRINCIPAL =========================///
 
         switch(_estadoActual)
@@ -167,10 +177,10 @@ void Game::run()
             if (opcion == OpcionMenu::Jugar)
             {
                 _estadoActual = EstadoJuego::Jugando;
+                sonido.setVolume(_menuPrincipal.getVolumen());
+                sonido.play();
                 _menuPrincipal.actualizar(posMouse);
                 relojDiaNoche.restart();
-
-
             }
             else if (opcion == OpcionMenu::Salir)
             {
@@ -200,18 +210,8 @@ void Game::run()
             }
 
 
-
-
             Comandos::getInstancia().actualizar();
             sf::Vector2f posMouseAux = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-
-
-
-
-
-
-
-
 
 /// ======================== Primeros drawables =========================///
 
@@ -221,14 +221,7 @@ void Game::run()
             window.draw(mapa);
             window.draw(character);
 
-
-
-
-
-
             character.getColisionador().draw(window);
-
-
 
             for(auto& enemigo : enemigos)
             {
@@ -274,7 +267,7 @@ void Game::run()
 
 /// ======================== COMANDOS =========================///
 
-            character.cmd();
+            character.cmd(deltatime);
             sf::Vector2f PosicionJugador = character.getPosition();
 
             ///Mostramos la vida del jugador
@@ -348,21 +341,29 @@ void Game::run()
                         it->recibirGolpe(5);
                     }
                     window.draw(*it);
+                    it++;
                 }
                 else
                 {
                     it->liberarLoot(texturaItems,listaLoots);
                     it = listaEstructuras.erase(it);
                 }
-                it++;
             }
 
             for (auto it = listaLoots.begin(); it != listaLoots.end(); )
             {
                 it->update(character.getPosition(),inv);
                 window.draw(*it);
-                if (it->getLooted()) it = listaLoots.erase(it);
-                it++;
+
+                if (it->getLooted())
+                {
+                    it = listaLoots.erase(it);
+                }
+
+                else
+                {
+                    it++;
+                }
             }
 
 /// ======================== INICIO UPDATE =========================///
@@ -370,15 +371,6 @@ void Game::run()
             character.update();
             character.updateEspada(mouse);
             _minimap.update(character.getPosition());
-
-
-
-
-
-
-
-
-
 
 /// ======================== INICIO DRAWABLES =========================///
             window.setView(window.getDefaultView());
@@ -388,10 +380,6 @@ void Game::run()
             window.draw(_minimap);
 
             window.draw(textReloj);
-
-
-
-
 
 /// ======================== CAMARA EFECTO Y CENTRADO =========================///
 
