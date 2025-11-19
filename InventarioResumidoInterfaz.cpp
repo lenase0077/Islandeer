@@ -34,9 +34,11 @@ InventarioResumido::InventarioResumido(sf::Texture& textura) ///Este Setter se u
 }
 
 ///SETTERS
-void InventarioResumido::setItems( Item vectorItems[]) ///Este Setter se usara principalmente por el InventarioInterfaz
+void InventarioResumido::setItems(Item* vectorItems[30])
 {
     for (int i = 0; i < 10; i++){
+        // Ahora copiamos la direcci¢n de memoria, no el objeto.
+        // Si vectorItems[i] es nullptr, _items[i] tambi‚n lo ser .
         _items[i] = vectorItems[i];
     }
 }
@@ -62,7 +64,7 @@ int InventarioResumido::getSlotSeleccionado()
 {
     return _slotSeleccionado;
 }
-Item InventarioResumido::getItem(int slot)
+Item* InventarioResumido::getItem(int slot)
 {
     return _items[slot];
 }
@@ -127,16 +129,22 @@ void InventarioResumido::update(const sf::View& vista, const float& relacionAspe
 
     _rectanguloSlotSeleccionado.setPosition(_slotSeleccionado*32,0);
 
+    // Actualizar posiciones SOLO si el item existe
     for (int i = 0; i < 10; i++){
-        _items[i].setPosition(16 + i*32,16);
+        if (_items[i] != nullptr) {
+             _items[i]->setPosition(16 + i*32, 16); // Usamos -> en vez de .
+        }
     }
 
-    if (_items[getSlotSeleccionado()].getID() != -1){
-        _textoTitulo.setString(_items[getSlotSeleccionado()].getTitulo());
+    // Actualizar titulo
+    // Verificar que el item seleccionado existe antes de pedir el titulo
+    if (_items[getSlotSeleccionado()] != nullptr){
+        _textoTitulo.setString(_items[getSlotSeleccionado()]->getTitulo()); // Usamos ->
     }
     else{
         _textoTitulo.setString("");
     }
+
     _textoTitulo.setOrigin(_textoTitulo.getGlobalBounds().width/2,_textoTitulo.getGlobalBounds().height/2);
     _textoTitulo.setPosition(_sprFondo.getGlobalBounds().width/2,-16);
 }
@@ -147,8 +155,12 @@ void InventarioResumido::draw(sf::RenderTarget& target, sf::RenderStates states)
     target.draw(_sprFondo,states);
 
     target.draw(_rectanguloSlotSeleccionado,states);
+
     for (int i = 0; i < 10; i++){
-        if (_items[i].getID() != -1) target.draw(_items[i],states);
+        // SOLO DIBUJAR SI EXISTE (NO ES NULL)
+        if (_items[i] != nullptr) {
+            target.draw(*_items[i], states); // Dereferenciar el puntero (*) para dibujarlo
+        }
     }
     target.draw(_textoTitulo,states);
 }

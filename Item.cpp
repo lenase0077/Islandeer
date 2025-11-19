@@ -7,7 +7,7 @@ using namespace std;
 
 /// Constructores
 
-// Constructor principal - crea item con textura e ID específico
+// Constructor principal - crea item con textura e ID especifico
 Item::Item(sf::Texture& texturaItems, int id){
     setCantidad(1); // Inicializa con cantidad 1
 
@@ -67,7 +67,7 @@ Item::Item(){
     _textoCantidad.setOrigin(tb.left + tb.width/2.0f, tb.top + tb.height/2.0f); // Centra texto
 }
 
-/// MÉTODO CLONE - Implementación del patrón Prototype
+/// METODO CLONE - Implementacion del patron Prototype
 std::unique_ptr<Item> Item::clone() const {
     // Crear un nuevo Item usando el constructor de copia por defecto
     auto nuevoItem = std::make_unique<Item>();
@@ -94,7 +94,7 @@ std::unique_ptr<Item> Item::clone() const {
     return nuevoItem; // Devuelve copia exacta
 }
 
-/// Getters - Métodos de acceso a atributos privados
+/// Getters
 int Item::getID() const{
     return _id;
 }
@@ -119,7 +119,7 @@ std::string Item::getDescripcion() const{
     return _descripcion;
 }
 
-/// Setters - Métodos para modificar atributos
+/// Setters
 
 void Item::setID(int id){
     _id = id;
@@ -132,11 +132,11 @@ void Item::setEscala(sf::Vector2f nuevaEscala){
 }
 
 void Item::setCantidad(int cantidad){
-    if (cantidad < 1) _cantidad = 1; // Mínimo 1
+    if (cantidad < 1) _cantidad = 1;
     else _cantidad = cantidad;
     _textoCantidad.setString(to_string(getCantidad())); // Actualiza texto
-    sf::FloatRect tb = _textoCantidad.getLocalBounds();
-    _textoCantidad.setOrigin(tb.left + tb.width/2.0f, tb.top + tb.height/2.0f); // Re-centra
+    /*sf::FloatRect tb = _textoCantidad.getLocalBounds();
+    _textoCantidad.setOrigin(tb.left + tb.width/2.0f, tb.top + tb.height/2.0f); // Re-centra*/
 }
 
 void Item::setCantidadMax(int cantidadMax){
@@ -169,10 +169,10 @@ void Item::actualizarSprite(){
     sprItem.setOrigin(16,16); // Centro del sprite
     sprItem.setPosition(0, 0);
 
-    _textoCantidad.setPosition(0, 5); // Posición del texto (abajo del item)
+    _textoCantidad.setPosition(0, 5); // Posicion del texto (abajo del item)
 }
 
-// Método de dibujo requerido por SFML
+// Metodo de dibujo requerido por SFML
 void Item::draw(sf::RenderTarget& target, sf::RenderStates states) const{
     states.transform *= getTransform(); // Aplica transformaciones
     target.draw(sprItem,states); // Dibuja sprite del item

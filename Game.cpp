@@ -220,12 +220,14 @@ void Game::run() {
             guardar(character);
             cout << "Guardado Exitosamente!!" << endl;
         }
-        //invR.setItems(inv.obtenerPunteroCrudoItem(0)); <<<FALLAA
+        Item* vectorCarga[30];
+        inv.copiarItemsEnVector(vectorCarga);
+        invR.setItems(vectorCarga); //<<<FALLAA
+
         invR.update(Camara, relacion);
         window.draw(invR);
         window.display();
 
-    ////COMPILAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     }
 }
 

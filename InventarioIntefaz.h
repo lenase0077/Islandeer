@@ -19,7 +19,7 @@ private:
     bool _abierto = false;
     bool _clickDerechoDisponible = true;
     bool _botonAbrirInventarioDisponible = true;
-    bool _hayItemEnMano = false;
+    //bool _hayItemEnMano = false;
     bool _izquierdoPresionadoAnterior = false;
     bool _frameActualQprecionada = false;
     int _indiceUltimoItemAnalizado = 100;
@@ -57,7 +57,6 @@ public:
     std::string getNombreDireccionTextura();
     sf::Vector2f getPosicionEscondite();
     sf::Vector2f getPosicionAbierto();
-    Item* obtenerPunteroCrudoItem(size_t i);
 
     /// Setters
     void setPosX(float X);
@@ -77,4 +76,6 @@ public:
     int buscarItems(int ID, int cantidad = 1);
     void copiarVectorDeCantidades(int vectorAlmacen[30]);
     void cargarVectorCantidades(int vectorCantidades[30]);
+
+    void copiarItemsEnVector(Item* vectorDestino[30]);
 };
