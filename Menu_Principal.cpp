@@ -1,6 +1,22 @@
 #include "Menu_Principal.h"
 #include <iostream>
 
+void MenuPrincipal::configurarTexto (sf::Text& texto, std::string nombre, int tamanio, float posX, float posY)
+{
+    texto.setFont(_fuente);
+    texto.setString(nombre);
+    texto.setCharacterSize(tamanio);
+    texto.setFillColor(sf::Color::White);
+    texto.setOutlineColor(sf::Color::Black);
+    texto.setOutlineThickness(2);
+
+    sf::FloatRect bounds = texto.getLocalBounds();
+    texto.setOrigin(bounds.width / 2 , bounds.height / 2);
+
+    texto.setPosition(posX , posY);
+}
+
+
 MenuPrincipal::MenuPrincipal()
 {
     if (!_imagenLogo.loadFromFile("Logo.png")) {
@@ -8,6 +24,9 @@ MenuPrincipal::MenuPrincipal()
     }
     if (!_imagenJugar.loadFromFile("Jugar.png")) {
         std::cout << "Error al cargar Jugar.png" << std::endl;
+    }
+    if (!_imagenOpciones.loadFromFile("Opciones.png")) {
+        std::cout << "Error al cargar Opciones.png" << std::endl;
     }
     if (!_imagenSalir.loadFromFile("Salir.png")) {
         std::cout << "Error al cargar Salir.png" << std::endl;
@@ -18,27 +37,36 @@ MenuPrincipal::MenuPrincipal()
     }
 
 
-    if (!bufferStardew.loadFromFile("01.-Stardew-Valley-Overture.wav"))
+    ///==========AUDIO===========
+
+    if (bufferStardew.loadFromFile("01.-Stardew-Valley-Overture.wav"))
     {
-        return;
+        sonidoStardew.setBuffer(bufferStardew);
+        sonidoStardew.setVolume(_volumenGeneral);
+        sonidoStardew.play();
+        sonidoStardew.setLoop(true);
     }
 
-    sonidoStardew.setBuffer(bufferStardew);
-    sonidoStardew.play();
-    sonidoStardew.setVolume(50.0);
-//    sonido.setLoop(true);
+    ///======TEXTURAS======
 
     _texturaLogo.loadFromImage(_imagenLogo);
     _texturaBotonJugar.loadFromImage(_imagenJugar);
+    _texturaBotonOpciones.loadFromImage(_imagenOpciones);
     _texturaBotonSalir.loadFromImage(_imagenSalir);
+
+    ///=====SPRITES=====
 
     _spriteLogo.setTexture(_texturaLogo);
     _spriteBotonJugar.setTexture(_texturaBotonJugar);
+    _spriteBotonOpciones.setTexture(_texturaBotonOpciones);
     _spriteBotonSalir.setTexture(_texturaBotonSalir);
     _spriteBackground.setTexture(_background);
 
+    ///======ORIGENES=====
+
     _spriteLogo.setOrigin(_spriteLogo.getLocalBounds().width / 2 , _spriteLogo.getLocalBounds().height / 2);
     _spriteBotonJugar.setOrigin(_spriteBotonJugar.getLocalBounds().width / 2 , _spriteBotonJugar.getLocalBounds().height / 2);
+    _spriteBotonOpciones.setOrigin(_spriteBotonOpciones.getLocalBounds().width / 2 , _spriteBotonOpciones.getLocalBounds().height / 2);
     _spriteBotonSalir.setOrigin(_spriteBotonSalir.getLocalBounds().width / 2 , _spriteBotonSalir.getLocalBounds().height / 2);
 
     // ---Posicionar Sprites (Centrados) ---
@@ -47,20 +75,99 @@ MenuPrincipal::MenuPrincipal()
     _spriteLogo.setScale(0.5,0.5);
 
     _spriteBotonJugar.setScale(1,1);
+    _spriteBotonOpciones.setScale(1,1);
     _spriteBotonSalir.setScale(1,1);
     _spriteBackground.setScale(1,1);
 
     _spriteLogo.setPosition(centroVentanaX, 100 + _spriteLogo.getGlobalBounds().height / 2);
 
-    _spriteBotonJugar.setPosition(centroVentanaX, 350 + _spriteBotonJugar.getGlobalBounds().height / 2);
+    _spriteBotonJugar.setPosition(centroVentanaX, 420);
 
-    _spriteBotonSalir.setPosition(centroVentanaX, 480 + _spriteBotonJugar.getGlobalBounds().height / 2);
+    _spriteBotonOpciones.setPosition(centroVentanaX, 620);
 
+    _spriteBotonSalir.setPosition(centroVentanaX, 720);
+
+    if (!_fuente.loadFromFile("PIXEARG_.TTF")) {
+        std::cout << "Error cargando fuente PIXEARG_.TTF" << std::endl;
+    }
+
+    configurarTexto(_textoTituloVolumen , "VOLUMEN MUSICA" , 40 , centroVentanaX , 300);
+    configurarTexto(_botonMenos , "-" , 60 , centroVentanaX - 100 , 400);
+    configurarTexto(_botonMas , "+" , 40 , centroVentanaX + 100, 400);
+    configurarTexto(_textoValorVolumen , "50" , 50 , centroVentanaX , 400);
+    configurarTexto(_botonVolver , "VOLVER" , 40 , centroVentanaX , 550);
 }
 
 OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
 {
     Comandos& input = Comandos::getInstancia();
+    bool hoverJugar = clickEnPixel(mousePos, _spriteBotonJugar , _imagenJugar);
+    bool hoverOpciones = clickEnPixel(mousePos, _spriteBotonOpciones , _imagenOpciones);
+    bool hoverSalir = clickEnPixel(mousePos, _spriteBotonSalir , _imagenSalir);
+
+    if (_mostrarOpciones)
+    {
+        _textoValorVolumen.setString(std::to_string((int)_volumenGeneral));
+        sf::Color colorHover = sf::Color::Yellow;
+        sf::Color colorNormal = sf::Color::White;
+
+        bool click = input.mouseIzqRecienPresionado;
+
+        ///BOTON MENOS
+        if (_botonMenos.getGlobalBounds().contains(mousePos))
+        {
+            _botonMenos.setFillColor(colorHover);
+            if (click)
+            {
+                _volumenGeneral -= 10.f;
+                if (_volumenGeneral < 0)
+                {
+                    _volumenGeneral = 0;
+                }
+                sonidoStardew.setVolume(_volumenGeneral);
+            }
+        }
+        else
+        {
+            _botonMenos.setFillColor(colorNormal);
+        }
+
+        ///BOTON MAS
+        if (_botonMas.getGlobalBounds().contains(mousePos))
+        {
+            _botonMas.setFillColor(colorHover);
+            if (click)
+            {
+                _volumenGeneral += 10.f;
+                if (_volumenGeneral > 100)
+                {
+                    _volumenGeneral = 100;
+                }
+                sonidoStardew.setVolume(_volumenGeneral);
+            }
+        }
+        else
+        {
+            _botonMas.setFillColor(colorNormal);
+        }
+
+        ///BOTON VOLVER
+
+        if (_botonVolver.getGlobalBounds().contains(mousePos))
+        {
+            _botonVolver.setFillColor(colorHover);
+            if (click)
+            {
+                _mostrarOpciones = false;
+            }
+        }
+        else
+        {
+            _botonVolver.setFillColor(colorNormal);
+        }
+
+        return OpcionMenu::Ninguna;
+    }
 
     float const escalaObjetivoGrande = 1.1f;
     float const escalaObjetivoNormal = 1.0f;
@@ -69,9 +176,6 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
     float const rotacionObjetivoNormal = 0.0f;
 
     float const suavizado = 0.1f;
-
-    bool hoverJugar = clickEnPixel(mousePos, _spriteBotonJugar , _imagenJugar);
-    bool hoverSalir = clickEnPixel(mousePos, _spriteBotonSalir , _imagenSalir);
 
     if (hoverJugar)
     {
@@ -82,6 +186,17 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
     {
         lerp(_escalaBotonJugar , escalaObjetivoNormal , suavizado);
         lerp (_rotacionBotonJugar , rotacionObjetivoNormal , suavizado);
+    }
+
+    if (hoverOpciones)
+    {
+        lerp(_escalaBotonOpciones , escalaObjetivoGrande , suavizado);
+        lerp (_rotacionBotonOpciones , rotacionObjetivo , suavizado);
+    }
+    else
+    {
+        lerp(_escalaBotonOpciones , escalaObjetivoNormal , suavizado);
+        lerp (_rotacionBotonOpciones , rotacionObjetivoNormal , suavizado);
     }
 
     if (hoverSalir)
@@ -100,6 +215,9 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
     _spriteBotonJugar.setScale(_escalaBotonJugar , _escalaBotonJugar);
     _spriteBotonJugar.setRotation(_rotacionBotonJugar);
 
+    _spriteBotonOpciones.setScale(_escalaBotonOpciones , _escalaBotonOpciones);
+    _spriteBotonOpciones.setRotation(_rotacionBotonOpciones);
+
     _spriteBotonSalir.setScale(_escalaBotonSalir , _escalaBotonSalir);
     _spriteBotonSalir.setRotation(_rotacionBotonSalir);
 
@@ -109,6 +227,12 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
         {
             sonidoStardew.stop();
             return OpcionMenu::Jugar;
+        }
+
+        if (hoverOpciones)
+        {
+            _mostrarOpciones = true;
+            return OpcionMenu::Opciones;
         }
 
         if (hoverSalir)
@@ -149,8 +273,22 @@ void MenuPrincipal::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 
     target.draw(_spriteBackground, states);
     target.draw(_spriteLogo, states);
-    target.draw(_spriteBotonJugar, states);
-    target.draw(_spriteBotonSalir, states);
+
+    if (_mostrarOpciones)
+    {
+        target.draw(_textoTituloVolumen , states);
+        target.draw(_textoValorVolumen , states);
+        target.draw(_botonMas , states);
+        target.draw(_botonMenos , states);
+        target.draw(_botonVolver , states);
+    }
+
+    else
+    {
+        target.draw(_spriteBotonJugar, states);
+        target.draw(_spriteBotonOpciones, states);
+        target.draw(_spriteBotonSalir, states);
+    }
 }
 
 void MenuPrincipal::ajustarEscalaAutomaticamente(const sf::View& vista)
@@ -167,4 +305,9 @@ void MenuPrincipal::ajustarEscalaAutomaticamente(const sf::View& vista)
 
     this -> setScale(escalaX , escalaY);
     this -> setPosition(viewTopLeft);
+}
+
+float MenuPrincipal::getVolumen ()
+{
+    return _volumenGeneral;
 }

@@ -13,11 +13,10 @@
 class Personaje: public sf::Drawable , public sf::Transformable
 {
     public:
-        Personaje();
-        Personaje(int alto, int ancho);
-
+        Personaje(sf::Texture& _textura);
+        Personaje(sf::Texture& _textura , int alto, int ancho);
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-        void cmd();
+        void cmd(float deltatime);
         void update();
         void limite();
         void setVelocidad(float vx = 0.f, float vy = 0.f);
@@ -25,7 +24,7 @@ class Personaje: public sf::Drawable , public sf::Transformable
         void animar();
         void chocar(Colisionador& colision);
         sf::Vector2f getPosition() const;
-        void Correr(sf::Vector2f& velocidad);
+        void Correr(sf::Vector2f& velocidad , float deltatime);
         bool getEstaCorriendo() const;
         void setEstaCorriendo(bool EstaCorriendo);
         void manejarPasos();
@@ -36,12 +35,13 @@ class Personaje: public sf::Drawable , public sf::Transformable
         void actuarEnBaseALaColision (std::string IDColision);
         void verificarColisiones(const TileMap& mapa);
         bool atacar(Mob& enemigo, float fuerzaEmpuje, float deltatime);
-
+        float getEnergia();
         ///Espada
         void updateEspada(const Raton& mouse);
 
 
     private:
+        float _acumuladorEnergia = 0;
         bool _tocoEnemigo = false;
         float _vida;
         float _vidaMaxima;
@@ -49,7 +49,6 @@ class Personaje: public sf::Drawable , public sf::Transformable
         Colisionador _colision;
         sf::FloatRect tamanio;
         sf::Vector2f _velocidad;
-        sf::Texture _textura;
         sf::Sprite _sprite;
         Espada _espada;
         BarraDeVida _barraVida;

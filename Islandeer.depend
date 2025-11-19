@@ -4083,11 +4083,11 @@
 1761750014 d:\alejo\alemart\documents\github\islander\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1763504858 source:d:\alejo\alemart\documents\github\islander\game.cpp
+1763563577 source:d:\alejo\alemart\documents\github\islander\game.cpp
 	<iostream>
 	"Game.h"
 
-1763502942 d:\alejo\alemart\documents\github\islander\game.h
+1763557679 d:\alejo\alemart\documents\github\islander\game.h
 	<SFML/Graphics.hpp>
 	"Personaje.h"
 	"TileMap.h"
@@ -4108,7 +4108,7 @@
 	"EstadodeJuego.h"
 	<cmath>
 
-1763504023 d:\alejo\alemart\documents\github\islander\personaje.h
+1763557679 d:\alejo\alemart\documents\github\islander\personaje.h
 	"Colisionador.h"
 	<SFML/Graphics.hpp>
 	"Funciones.h"
@@ -4246,12 +4246,13 @@
 	<list>
 	<memory>
 
-1763072894 d:\alejo\alemart\documents\github\islander\menu_principal.h
+1763563755 d:\alejo\alemart\documents\github\islander\menu_principal.h
 	<SFML/Graphics.hpp>
 	"Comando.h"
 	<SFML/Audio.hpp>
 	"EstadodeJuego.h"
 	"funcionesInterpolacion.h"
+	<string>
 
 1762988359 d:\alejo\alemart\documents\github\islander\estadodejuego.h
 
@@ -4283,7 +4284,7 @@
 	<iostream>
 	<ctime>
 
-1763073352 source:d:\alejo\alemart\documents\github\islander\menu_principal.cpp
+1763563830 source:d:\alejo\alemart\documents\github\islander\menu_principal.cpp
 	"Menu_Principal.h"
 	<iostream>
 
@@ -4291,7 +4292,7 @@
 	"Minimap.h"
 	<iostream>
 
-1763504012 source:d:\alejo\alemart\documents\github\islander\mob.cpp
+1763505251 source:d:\alejo\alemart\documents\github\islander\mob.cpp
 	"Mob.h"
 	<iostream>
 
@@ -4302,7 +4303,7 @@
 1762988359 source:d:\alejo\alemart\documents\github\islander\murcielago.cpp
 	"Murcielago.h"
 
-1763505060 source:d:\alejo\alemart\documents\github\islander\personaje.cpp
+1763557679 source:d:\alejo\alemart\documents\github\islander\personaje.cpp
 	<iostream>
 	"Personaje.h"
 	"Funciones.h"
