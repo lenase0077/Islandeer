@@ -1,17 +1,21 @@
 #include "Loot.h"
-#include "cmath"
+#include <cmath>
 #include "funcionesInterpolacion.h"
+#include "InventarioIntefaz.h"
+#include <iostream>
 
 
 using namespace std;
 
-Loot::Loot(sf::Texture& texturaItems,const sf::Vector2f& posicion, const int& id)
+Loot::Loot( FabricaItems& fabItems, const sf::Vector2f& posicion, const int& id)
 {
     setPosicion(posicion);
-    _item.setID(id);
-    _item.setTexture(texturaItems);
-    _item.actualizarSprite();
-    _item.setCantidad(1);//Hacemos esto para que no sea visible el numero cantidad.
+    _item = std::move(fabItems.crearItem(id));
+    if (_item != nullptr){
+       _item->setCantidad(1);//Hacemos esto para que no sea visible el numero cantidad.
+    }
+    setScale(1.0,1.0);
+    cout << "Update de inventario" <<endl;
 }
 
 ///HACER GET y SET de _cantidad
@@ -24,29 +28,36 @@ void Loot::setPosicion(sf::Vector2f posicion)
 void Loot::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
-    target.draw(_item,states);
+    if (_item != nullptr) target.draw(*_item,states);
 }
 
 void Loot::update(const sf::Vector2f posicionJugador, InventarioInterfaz& inventario)
 {
+
     if (!_looted)
     {
         ///Efecto animacion
         _incrementoSeno += 0.05;
         setPosition(getPosition().x, getPosition().y + (sin(_incrementoSeno))* 0.1);
-        setScale(sin(_incrementoSeno) * 1, getScale().y);
+        //setScale(sin(_incrementoSeno) * 1, getScale().y);
 
-        float distancia = sqrt(pow(posicionJugador.x - getPosition().x,2) + pow(posicionJugador.y - getPosition().y,2));
-        if (distancia < 32)///Acercarse a jugador
+        if (_timerReposo < 75) _timerReposo++;
+        else //Una vez pasado el tiempo de reposo
         {
-            sf::Vector2f posicionActual = getPosition();
-            float nuevaPosX = getPosition().x + ((posicionJugador.x - getPosition().x)*0.05);
-            float nuevaPosY = getPosition().y + ((posicionJugador.y - getPosition().y)*0.05);
-            setPosition( nuevaPosX, nuevaPosY);
-            ///chocar con jugador
-            if (distancia < 8)
+            float distancia = sqrt(pow(posicionJugador.x - getPosition().x,2) + pow(posicionJugador.y - getPosition().y,2));
+            if (distancia < 32)///Acercarse a jugador
             {
-                if (inventario.agregarItem(_item.getID(),1)) _looted = true;
+                sf::Vector2f posicionActual = getPosition();
+                float nuevaPosX = getPosition().x + ((posicionJugador.x - getPosition().x)*0.05);
+                float nuevaPosY = getPosition().y + ((posicionJugador.y - getPosition().y)*0.05);
+                setPosition( nuevaPosX, nuevaPosY);
+                ///chocar con jugador
+                if (distancia < 10)
+                {
+                    if (_item != nullptr){
+                      if (inventario.agregarItem(_item->getID(),1)) _looted = true;
+                    }
+                }
             }
         }
     }
@@ -55,3 +66,6 @@ void Loot::update(const sf::Vector2f posicionJugador, InventarioInterfaz& invent
 bool Loot::getLooted(){
     return _looted;
 }
+
+///ESTADO DE MOBS:
+

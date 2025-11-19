@@ -1,6 +1,11 @@
 #include <iostream>
-using namespace std;
+#include <fstream>
 #include "Game.h"
+#include "FabricaEstructuras.h"
+#include "FabricaItems.h"
+#include "json.hpp"
+using namespace std;
+
 
 Game::Game()
     : window(sf::VideoMode(1024, 768), "SFML works!"),
@@ -19,15 +24,13 @@ void Game::run()
 {
 /// ======================== Texturas =========================///
 
-    // vector<Estructura> vectorEstructuras;
-    list <Estructura> listaEstructuras;
-
+    list <std::unique_ptr<Estructura>> listaEstructuras;
     list <Loot> listaLoots;
 
-    sf::Texture texturaItems;
-    if (!texturaItems.loadFromFile("ItemsSprites.png"))
-    {
-        cout << "Error al cargar ItemsSprites.png" << endl;
+
+    sf::Texture texturaInventarioResumido;
+    if(!texturaInventarioResumido.loadFromFile("InventarioResumido.png")){
+        cout << "ERROR AL CARGAR InventarioResumido.png" << endl;
     }
 
     if (!_texturaPersonaje.loadFromFile("Basic Charakter Spritesheet.png")) {
@@ -35,14 +38,26 @@ void Game::run()
     }
 
 /// ======================== Reloj Externo =========================///
+    FabricaEstructuras fabE;
+
+    sf::Keyboard tecladoEntrada;
+
+    //RELOJ INTERNO/////
 
     float deltatime;
 
 /// ======================== Inventario =========================///
 
-    InventarioInterfaz inv(texturaItems);
+
+    FabricaItems fabItems;
+
+    InventarioInterfaz inv(fabItems);
+
     inv.agregarItem(44,30);
-    inv.agregarItem(15,3);
+    inv.agregarItem(15,3);  //<<<=== falla
+
+
+    InventarioResumido invR(texturaInventarioResumido);
 
 /// ======================== Mapa =========================///
 
@@ -103,34 +118,25 @@ void Game::run()
     sonido.setVolume(_menuPrincipal.getVolumen());
     sonido.setLoop(true);
 
-/// ======================== Estructura =========================///
 
-    listaEstructuras.emplace_back(spawnX + 100, spawnY - 100);
-    listaEstructuras.emplace_back(spawnX + 200, spawnY - 50);
-    listaEstructuras.emplace_back(spawnX - 100, spawnY - 100);
+/// ESTRUCTURA TEST
+    listaEstructuras.push_back(fabE.crearEstructura(100,132,0));
+    listaEstructuras.push_back(fabE.crearEstructura(132,132,1));
+    listaEstructuras.push_back(fabE.crearEstructura(164,132,2));
+    listaEstructuras.push_back(fabE.crearEstructura(200,132,3));
+    listaEstructuras.push_back(fabE.crearEstructura(232,132,4));
+    listaEstructuras.push_back(fabE.crearEstructura(264,132,5));
+    listaEstructuras.push_back(fabE.crearEstructura(300,132,6));
+    listaEstructuras.push_back(fabE.crearEstructura(332,132,7));
 
-    listaLoots.emplace_back(texturaItems,sf::Vector2f(spawnX + 99,spawnY - 105),7);
-    listaLoots.emplace_back(texturaItems,sf::Vector2f(spawnX + 105,spawnY - 105),8);
-    listaLoots.emplace_back(texturaItems,sf::Vector2f(spawnX + 120,spawnY - 100),9);
-    listaLoots.emplace_back(texturaItems,sf::Vector2f(spawnX + 150,spawnY - 50),10);
-    listaLoots.emplace_back(texturaItems,sf::Vector2f(spawnX + 125,spawnY - 200),11);
-    listaLoots.emplace_back(texturaItems,sf::Vector2f(spawnX + 150,spawnY - 100),12);
-
-    //Se suele usar List no vector
-    //Convendria que la textura fuera puntero + llamar a dispose antes de erase()
-
-    for(auto& p:listaEstructuras)
-    {
-        p.actualizarTextura();
-    }
 
 
 /// ======================== CICLO DIA Y NOCHE =========================///
     nightOverlay.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
     nightOverlay.setPosition(0.f, 0.f);
     sf::Color nightColor(0, 0, 30); // Un azul oscuro para la noche
-    float cicloCompletoSegundos = 30.0f; // Un ciclo de 2 minutos para probar. ¡Puedes cambiar esto!
-    sf::Uint8 maxOpacidad = 210; // Qué tan oscura será la noche (0-255)
+    float cicloCompletoSegundos = 30.0f; // Un ciclo de 2 minutos para probar. ï¿½Puedes cambiar esto!
+    sf::Uint8 maxOpacidad = 210; // Quï¿½ tan oscura serï¿½ la noche (0-255)
 
 
 /// ======================== Fuente y Display Reloj =========================///
@@ -208,7 +214,8 @@ void Game::run()
                     window.close();
                 }
 
-                inv.controlAbrirCerrarInventario(event);
+                inv.controlDeEventos(event);
+            invR.cambiarSlotsConEventos(event);
             }
 
             Comandos::getInstancia().actualizar();
@@ -327,46 +334,35 @@ void Game::run()
             {
                 character.chocar(colisionador);
             }
-
-
-
 /// ======================== COLISION ESTRUCTURA =========================///
 
-            for (auto it = listaEstructuras.begin(); it != listaEstructuras.end(); )
-            {
-                if (!it->estaDestruido())
-                {
-                    if(character.getColisionador().detectorDeColision(it->getColisionador()))   ///EJEMPLO
-                    {
-                        character.chocar(it->getColisionador());
-                        it->recibirGolpe(5);
-                    }
-                    window.draw(*it);
-                    it++;
+        float relacion = (float)window.getSize().x/(float)window.getSize().y;
+
+        for (auto estructura = listaEstructuras.begin(); estructura != listaEstructuras.end(); ) {
+            if ((*estructura)->estaDestruido() == false) {
+                if(character.getColisionador().detectorDeColision((*estructura)->getColisionador())) { ///EJEMPLO
+                    character.chocar((*estructura)->getColisionador());
+                    (*estructura)->recibirGolpe(5);
                 }
-                else
-                {
-                    it->liberarLoot(texturaItems,listaLoots);
-                    it = listaEstructuras.erase(it);
-                }
+                window.draw(**estructura);
+                (*estructura)->update( PosicionJugador, mouse.getPosicion(), mause, Camara, relacion, inv);
             }
-
-            for (auto it = listaLoots.begin(); it != listaLoots.end(); )
+            else
             {
-                it->update(character.getPosition(),inv);
-                window.draw(*it);
-
-                if (it->getLooted())
-                {
-                    it = listaLoots.erase(it);
-                }
-
-                else
-                {
-                    it++;
-                }
+                (*estructura)->liberarLoot(fabItems,listaLoots);
+                estructura = listaEstructuras.erase(estructura);
             }
+            estructura++;
+        }
 
+
+        for (auto it = listaLoots.begin(); it != listaLoots.end();){
+            it->update(character.getPosition(),inv);
+            window.draw(*it);
+            if (it->getLooted()) it = listaLoots.erase(it);
+            else it++;
+
+        }
 /// ======================== INICIO UPDATE =========================///
 
             character.update();
@@ -381,11 +377,9 @@ void Game::run()
             window.draw(_minimap);
 
             window.draw(textReloj);
-
 /// ======================== CAMARA EFECTO Y CENTRADO =========================///
 
-            float relacion = (float)window.getSize().x/(float)window.getSize().y;
-            inv.update(mouse.getPosicion(),mause,Camara,relacion);
+                inv.update( mouse.getPosicion(), mause, Camara, relacion, listaLoots, tecladoEntrada); ///FALLAA
 
             camaraPosicion.x = camaraPosicion.x + ((character.getPosition().x - camaraPosicion.x) * 0.1f );
             camaraPosicion.y = camaraPosicion.y + ((character.getPosition().y- camaraPosicion.y) * 0.1f );
@@ -395,19 +389,17 @@ void Game::run()
 
             Camara.setCenter(camaraPosicion);
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
-            {
-                guardar(character);
-                cout << "Guardado Exitosamente!!" << endl;
-            }
-
-            window.display();
-
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
+            guardar(character);
+            cout << "Guardado Exitosamente!!" << endl;
         }
+        Item* vectorCarga[30];
+        inv.copiarItemsEnVector(vectorCarga);
+        invR.setItems(vectorCarga); //<<<FALLAA
 
-
-        }
-
+        invR.update(Camara, relacion);
+        window.draw(invR);
+        window.display();
 
     }
 }
@@ -448,17 +440,53 @@ sf::Clock Game::getRelojInterno()
     return _relojInterno;
 }
 
+
 /*
 
 input
 
 terminar:
--objeto loot
--hacer los mobs
+-objeto loot ######
+-hacer los mobs ######
+    -mejorar estados de mobs
 
 -relacion
-    -> inventario
-    -> estructura
-    -> loot
+    -> inventario ########
+    -> estructura ########
+    -> loot       ########
+
+    --> Modificar inventario para que funcione con PUNTEROS DE ITEMS
+
+    -> crear mesa de craftea #### CANCELADO TEMPORALMENTE PARA CAMBIAR MANEJO DE ITEMS
+      -> Detecta jugador a cierta distancia ####
+      -> Mostrar UI cuando este cerca
+      -> Poner Botones y navegar entre la UI
+
+
+    Fabrica items:
+        Comida
+            Usar();
+        Herramienta
+            Usar();
+        Estructura
+            Usar();
+
+    Buscar item en mano
+        Items
+            Usar();
+
+    clase comportamiento item:
+        Alimento
+        Ataque
+        Estructura
+
+    Herramienta
+        Herramienta(setID) tiene metodo usar();
+            Decide que hijo ser:
+                    Comida
+
+                    Estructura
+
+                    Ataque
 
 */

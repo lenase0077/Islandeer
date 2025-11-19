@@ -5,7 +5,7 @@
 
 class InventarioResumido : public sf::Drawable, sf::Transformable{
 private:
-    Item _items[10];
+    Item* _items[10];
     SeleccionRectangulo _selectores[10];
     int _slotSeleccionado;
     sf::Texture _texturaFondo;
@@ -15,20 +15,18 @@ private:
     sf::Text _textoTitulo;
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 public:
-    InventarioResumido();
+    InventarioResumido(sf::Texture& textura);
     ///SETTERS
-    void setItems( Item vectorItems[]); ///Este Setter se usara principalmente por el InventarioInterfaz
+    void setItems( Item* vectorItems[30]); ///Este Setter se usara principalmente por el InventarioInterfaz
     void setSlotSeleccionado(int slot);
     void setPosicion(float x, float y);
     void setEscala(float escalaX, float escalaY);
 
     ///GETTERS
     int getSlotSeleccionado();
-    Item getItem(int slot);
+    Item* getItem(int slot);
 
     ///OTROS METODOS
     void update(const sf::View& vista, const float& relacionAspecto);
     void cambiarSlotsConEventos(sf::Event& evento);
-
-
 };
