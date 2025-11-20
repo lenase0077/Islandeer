@@ -518,7 +518,6 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
 
     cout << "Isla Reset" << endl;
 
-    std::set<int> idsPasto = {28, 29, 36, 37};
 
     int ancho = mapa.getMapWidth();
     int alto = mapa.getMapHeight();
@@ -531,11 +530,13 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
         {
 
             int idTile = mapa.getTileID(x, y);
+            bool esPasto = (idTile == 28 || idTile == 29 || idTile == 36 || idTile == 37);
+
 
             float posX = x * tileW;
             float posY = y * tileH;
 
-            if (idsPasto.count(idTile))
+            if (esPasto)
             {
 
                 int probabilidad = rand() % 100;
