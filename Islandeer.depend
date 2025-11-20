@@ -4119,13 +4119,13 @@
 1761750014 d:\alejo\alemart\documents\github\islander\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1763645743 source:d:\alejo\alemart\documents\github\islander\game.cpp
+1763647207 source:d:\alejo\alemart\documents\github\islander\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1763642420 d:\alejo\alemart\documents\github\islander\game.h
+1763647207 d:\alejo\alemart\documents\github\islander\game.h
 	<iostream>
 	<SFML/Graphics.hpp>
 	"Personaje.h"
@@ -4300,7 +4300,7 @@
 
 1763638803 d:\alejo\alemart\documents\github\islander\estadodejuego.h
 
-1763644011 source:d:\alejo\alemart\documents\github\islander\inventariointefaz.cpp
+1763646708 source:d:\alejo\alemart\documents\github\islander\inventariointefaz.cpp
 	"InventarioIntefaz.h"
 	"funcionesInterpolacion.h"
 	<cmath>
@@ -4311,7 +4311,7 @@
 	"InventarioResumidoInterfaz.h"
 	<iostream>
 
-1763638803 source:d:\alejo\alemart\documents\github\islander\item.cpp
+1763646708 source:d:\alejo\alemart\documents\github\islander\item.cpp
 	"Item.h"
 	<iostream>
 	"json.hpp"
@@ -4435,7 +4435,7 @@
 	"MesaDeCrafteo.h"
 	<cmath>
 
-1763642420 source:d:\alejo\alemart\documents\github\islander\cofre.cpp
+1763646048 source:d:\alejo\alemart\documents\github\islander\cofre.cpp
 	<iostream>
 	"Cofre.h"
 
@@ -4443,7 +4443,7 @@
 	"Estructura.h"
 	"Item.h"
 
-1763640497 source:d:\alejo\alemart\documents\github\islander\fabricaestructuras.cpp
+1763646206 source:d:\alejo\alemart\documents\github\islander\fabricaestructuras.cpp
 	"FabricaEstructuras.h"
 	<iostream>
 	<memory>

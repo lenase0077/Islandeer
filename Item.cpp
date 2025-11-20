@@ -59,7 +59,8 @@ Item::Item(){
     sf::Texture& texture = const_cast<sf::Texture&>(_fuenteTextoCantidad.getTexture(8));
     texture.setSmooth(false); // Textura pixelada
 
-    _id = 1; // ID por defecto
+    _cantidad = 0;
+    _id = -1; // ID por defecto
     setCantidad(1); // Cantidad por defecto
 
     _textoCantidad.setString(to_string(_cantidad));

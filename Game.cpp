@@ -421,7 +421,6 @@ void Game::run()
 
                             inventarioCofre.setAbierto(true);
                             inv.setAbierto(true);
-
                         }
                         else
                         {
@@ -589,13 +588,12 @@ sf::Clock Game::getRelojInterno()
     return _relojInterno;
 }
 
-void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstructuras)
+void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstructurasAleatorias)
 {
 
-    listaEstructuras.clear();
+    listaEstructurasAleatorias.clear();
 
     cout << "Isla Reset" << endl;
-
 
     int ancho = mapa.getMapWidth();
     int alto = mapa.getMapHeight();
@@ -629,20 +627,17 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
 
                 if (probabilidad < 15)
                 {
-                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 0));
+                    listaEstructurasAleatorias.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 0));
                 }
 
                 // 5% de chance (más raro que los árboles)
                 else if (probabilidad >= 95)
                 {
-                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 1)); ///PIEDRA
+                    listaEstructurasAleatorias.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 1)); ///PIEDRA
                 }
             }
-
         }
     }
-
-
 }
 
 

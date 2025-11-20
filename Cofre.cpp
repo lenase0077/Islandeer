@@ -5,8 +5,6 @@ using namespace std;
 Cofre::Cofre(sf::Texture& texturaBloques, float posX, float posY, int id)
 : Estructura (texturaBloques,posX,posY,id)
 {
-    setVida(1000);
-
     for (int i = 0; i < 30; i++)
     {
         _contenido[i].setID(-1);

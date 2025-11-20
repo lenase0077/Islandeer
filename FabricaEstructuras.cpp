@@ -73,7 +73,7 @@ std::unique_ptr<Estructura> FabricaEstructuras::crearEstructura(float x, float y
         break;
     case 8:///Cofre
         estructuraCreada=std::make_unique<Cofre>(_texturaEstructuras, x, y, ID);
-        estructuraCreada -> setVida(150);
+        estructuraCreada -> setVida(1000000);
         vectorLootIDs.push_back(53);
         estructuraCreada -> setLootsIDs(vectorLootIDs);
         break;

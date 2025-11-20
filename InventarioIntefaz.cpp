@@ -723,40 +723,35 @@ void InventarioInterfaz::soltarLoot(std::unique_ptr<Item>& itemQueTirar, std::li
 
 void InventarioInterfaz::cargarDesdePuntero(Item* itemsExternos)
 {
-    // Copiamos lo que hay en el cofre hacia la interfaz visual
     for (int i = 0; i < 30; i++)
     {
-        if (itemsExternos[i].getID() != -1)
+        if (itemsExternos[i].getCantidad() > 0)
         {
-            // Creamos el item en la interfaz visual
-            _inventarioItems[i] = _fabItems->crearItem(itemsExternos[i].getID());
+            _inventarioItems[i] = std::make_unique<Item>(itemsExternos[i]);
 
             if (_inventarioItems[i] != nullptr) {
-                _inventarioItems[i]->setCantidad(itemsExternos[i].getCantidad());
                 _inventarioItems[i]->actualizarSprite();
             }
         }
         else
         {
-            _inventarioItems[i] = nullptr; // Slot vac¡o
+            _inventarioItems[i] = nullptr;
         }
     }
 }
 
 void InventarioInterfaz::guardarEnPuntero(Item* itemsExternos)
 {
-    // Copiamos lo que modificamos en la interfaz visual DE VUELTA al cofre
     for (int i = 0; i < 30; i++)
     {
         if (_inventarioItems[i] != nullptr)
         {
-            itemsExternos[i].setID(_inventarioItems[i]->getID());
-            itemsExternos[i].setCantidad(_inventarioItems[i]->getCantidad());
+            itemsExternos[i] = *(_inventarioItems[i]);
         }
         else
         {
-            itemsExternos[i].setID(-1);
-            itemsExternos[i].setCantidad(0);
+            Item itemVacio;
+            itemsExternos[i] = itemVacio;
         }
     }
 }
