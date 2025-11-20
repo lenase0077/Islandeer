@@ -721,13 +721,13 @@
 	<SFML/Graphics.hpp>
 	<SFML/Graphics.hpp>
 
-1763598708 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1763600116 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1763599559 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
+1763600116 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
 	<iostream>
 	<SFML/Graphics.hpp>
 	"Personaje.h"
@@ -942,7 +942,7 @@
 	<SFML/Graphics.hpp>
 	<SFML/Graphics.hpp>
 
-1763596671 c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.h
+1763600116 c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.h
 	<SFML/Graphics.hpp>
 	<vector>
 	"json.hpp"
@@ -1365,7 +1365,7 @@
 	<iostream>
 	"Raton.h"
 
-1763597158 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.cpp
+1763600116 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.cpp
 	"tilemap.h"
 	<fstream>
 	<iostream>
@@ -3351,24 +3351,24 @@
 	"Animal.h"
 	<memory>
 
-1763590397 c:\users\leand\onedrive\documentos\repositorio\islandeer\minimap.h
+1763642698 c:\users\leand\onedrive\documentos\repositorio\islandeer\minimap.h
 	<SFML/Graphics.hpp>
 	"TileMap.h"
 	"Mob.h"
 	<list>
 	<memory>
 
-1763590397 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\minimap.cpp
+1763644118 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\minimap.cpp
 	"Minimap.h"
 	<iostream>
 
 1763590396 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\comando.cpp
 	"Comando.h"
 
-1763590396 c:\users\leand\onedrive\documentos\repositorio\islandeer\comando.h
+1763641242 c:\users\leand\onedrive\documentos\repositorio\islandeer\comando.h
 	<SFML/Graphics.hpp>
 
-1763592888 c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.h
+1763600110 c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.h
 	<SFML/Graphics.hpp>
 	"Comando.h"
 	<SFML/Audio.hpp>
@@ -3376,7 +3376,7 @@
 	"funcionesInterpolacion.h"
 	<string>
 
-1763592888 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.cpp
+1763600110 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.cpp
 	"Menu_Principal.h"
 	<iostream>
 

@@ -4,44 +4,52 @@
 Minimap::Minimap(sf::Vector2f displaySize, sf::Vector2f screenPosition)
 {
     _position = screenPosition;
-
     _displaySize = displaySize;
-
     _sprite.setPosition(_position);
 
+    _playerIcon.setRadius(3.f);
+    _playerIcon.setFillColor(sf::Color::White); // Rojo resalta mejor sobre verde/azul
+    _playerIcon.setOrigin(3.f, 3.f);
 
-    _playerIcon.setRadius(3.f); // Radio de 3 píxeles
-    _playerIcon.setFillColor(sf::Color::White);
-    _playerIcon.setOrigin(3.f, 3.f); // Centramos el círculo para que la posición sea el centro
-
-
-
-    // Inicializamos las variables de tamaño y escala
-    _worldWidth = 0.f;
-    _worldHeight = 0.f;
-    _scale = 1.f; // Escala por defecto
+    _scale = 1.f;
+    _mapWidthInTiles = 0;
+    _mapHeightInTiles = 0;
+    _tilePixelSize = 32; // Escala por defecto
 }
 
 void Minimap::build(const TileMap& map)
 {
-    _worldWidth = map.getMapWidth() * map.getTileWidth();
-    _worldHeight = map.getMapHeight() * map.getTileHeight();
+    _mapWidthInTiles = map.getMapWidth();
+    _mapHeightInTiles = map.getMapHeight();
+    _tilePixelSize = map.getTileWidth();
 
-    if (!_texture.create(_worldWidth, _worldHeight)) {
-        std::cout << "Error al crear la RenderTexture del minimapa" << std::endl;
-        return;
+    sf::Image minimapImage;
+    minimapImage.create(_mapWidthInTiles, _mapHeightInTiles, sf::Color::Black);
+
+    for (int y = 0; y < _mapHeightInTiles; ++y)
+    {
+        for (int x = 0; x < _mapWidthInTiles; ++x)
+        {
+            int id = map.getTileID(x, y);
+
+            sf::Color color = getColorForID(id);
+
+            minimapImage.setPixel(x, y, color);
+        }
     }
 
-    _texture.clear(sf::Color::Transparent);
-    _texture.draw(map);
-    _texture.display();
+    if (!_texture.loadFromImage(minimapImage)) {
+        std::cout << "Error cargando textura del minimapa" << std::endl;
+    }
+
     _texture.setSmooth(false);
+    _sprite.setTexture(_texture);
+
+    float scaleX = _displaySize.x / (float)_mapWidthInTiles;
+    float scaleY = _displaySize.y / (float)_mapHeightInTiles;
 
 
-    _sprite.setTexture(_texture.getTexture());
-
-
-    _scale = _displaySize.x / _worldWidth;
+    _scale = std::min(scaleX, scaleY);
 
     _sprite.setScale(_scale, _scale);
 }
@@ -49,8 +57,39 @@ void Minimap::build(const TileMap& map)
 void Minimap::update(sf::Vector2f playerPosition)
 {
 
-    _playerMapPos = playerPosition * _scale;
+    float gridX = playerPosition.x / _tilePixelSize;
+    float gridY = playerPosition.y / _tilePixelSize;
 
+    _playerMapPos.x = gridX * _scale;
+    _playerMapPos.y = gridY * _scale;
+}
+
+
+sf::Color Minimap::getColorForID(int id) const
+{
+
+    // CASO AGUA
+    if (id == 93 || id == 94 || id == 95  || id == 96
+         || id == 102 || id == 103 || id == 104
+          || id == 109 || id == 110 || id == 111 || id == 112) return sf::Color(0, 105, 148);
+
+    // CASO AGUA CLARA
+    if (id == 22 || id == 23 || id == 24
+        || id == 30 || id == 31 || id == 32
+        || id == 38 || id == 39 || id == 40) return sf::Color(142, 199, 232);
+
+    // CASO PASTO
+    if (id == 28 || id == 29 || id == 36 || id == 37) {
+        return sf::Color(34, 139, 34);
+    }
+
+    // CASO ARENA
+    if (id <= 68 ||id == 69 || id == 70 || id == 71 ||
+        id == 77 || id == 78 || id == 79 ||id == 80 ||id == 85 ||
+        id == 86|| id == 87|| id == 88 || id == 89 ) return sf::Color(238, 214, 175);
+
+    // DEFAULT (desconocido)
+    return sf::Color(139, 69, 19); // Saddle Brown
 }
 
 void Minimap::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -59,6 +98,7 @@ void Minimap::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
     sf::CircleShape playerIcon = _playerIcon;
     playerIcon.setPosition(_position + _playerMapPos);
+
     target.draw(playerIcon, states);
 
 }

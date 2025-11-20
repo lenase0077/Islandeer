@@ -18,15 +18,24 @@ protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
-    sf::RenderTexture _texture;
+
+    sf::Color getColorForID(int id) const;
+
+
+    sf::Texture _texture;
     sf::Sprite        _sprite;
     sf::CircleShape   _playerIcon;
 
     sf::Vector2f      _position;
     sf::Vector2f _displaySize;
     float             _scale;
-    float             _worldWidth;
-    float             _worldHeight;
+
+
+
+
+    int               _mapWidthInTiles;
+    int               _mapHeightInTiles;
+    int               _tilePixelSize;
 
     sf::Vector2f _playerMapPos;
 };
