@@ -17,6 +17,8 @@ private:
     int _tileWidth, _tileHeight;
     int _width, _height;
 
+    std::vector<int> _idsSuelo;
+
 
 public:
 
@@ -33,6 +35,8 @@ public:
         states.texture = &_texturaObjetos;
         target.draw(_verticesObjetos, states);
     }
+
+    int getTileID(int x, int y) const;
 
 
     int getMapWidth() const { return _width; }

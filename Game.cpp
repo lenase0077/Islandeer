@@ -1,8 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include "Game.h"
-#include "FabricaEstructuras.h"
-#include "FabricaItems.h"
 #include "json.hpp"
 using namespace std;
 
@@ -26,6 +24,7 @@ void Game::run()
 
     list <std::unique_ptr<Estructura>> listaEstructuras;
     list <Loot> listaLoots;
+    list <std::unique_ptr<Estructura>> listaEstructuraRandom;
 
 
     sf::Texture texturaInventarioResumido;
@@ -38,6 +37,8 @@ void Game::run()
     {
         std::cout << "Error cargando textura" << std::endl;
     }
+
+
 
 /// ======================== Reloj Externo =========================///
     FabricaEstructuras fabE;
@@ -156,10 +157,15 @@ void Game::run()
     textReloj.setFillColor(sf::Color::White);
     textReloj.setPosition(864, 162);
 
+    /// ======================== Inicio estructura Random =========================///
+
+    regenerarRecursos(listaEstructuraRandom);
+
 /// ======================== INICIO GAME LOOP =========================///
     while (window.isOpen())
     {
         cout << "Energia = " << character.getEnergia() << endl;
+
 /// ======================== INICIO MENU PRINCIPAL =========================///
 
         switch(_estadoActual)
@@ -225,6 +231,12 @@ void Game::run()
 
             Comandos::getInstancia().actualizar();
             sf::Vector2f posMouseAux = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+/// ======================== Test spawn =========================///
+
+//        regenerarRecursos(listaEstructuraRandom);
+
+
+
 
 /// ======================== Primeros drawables =========================///
 
@@ -246,7 +258,6 @@ void Game::run()
                 window.draw(*animal);
             }
 
-            window.draw(inv);
 
 
 
@@ -278,6 +289,22 @@ void Game::run()
                << std::setw(2) << std::setfill('0') << minuto;
             textReloj.setString(ss.str());
 
+
+            static bool diaReseteado = false;
+
+            if (hora == 6 && !diaReseteado)
+            {
+                regenerarRecursos(listaEstructuraRandom);
+                cout << "¡Un nuevo dia comienza! La isla se ha regenerado." << endl;
+                diaReseteado = true; // Marcamos que ya reseteamos hoy
+            }
+
+            if (hora == 7)
+            {
+                diaReseteado = false; // Preparamos el flag para el siguiente dia
+            }
+
+
 /// ======================== COMANDOS =========================///
 
             character.cmd(deltatime);
@@ -285,7 +312,7 @@ void Game::run()
 
             ///Mostramos la vida del jugador
 
-//        cout << character.getVida() << endl;
+//    cout << character.getVida() << endl;
 
 
 
@@ -362,6 +389,29 @@ void Game::run()
                 }
                 estructura++;
             }
+/// ======================== Estructura RANDOM =========================///
+
+            for (auto estructura = listaEstructuraRandom.begin(); estructura != listaEstructuraRandom.end(); )
+            {
+                if ((*estructura)->estaDestruido() == false)
+                {
+                    if(character.getColisionador().detectorDeColision((*estructura)->getColisionador()))   ///EJEMPLO
+                    {
+                        character.chocar((*estructura)->getColisionador());
+                        (*estructura)->recibirGolpe(5);
+                    }
+                    window.draw(**estructura);
+                    (*estructura)->update( PosicionJugador, mouse.getPosicion(), mause, Camara, relacion, inv);
+                }
+                else
+                {
+                    (*estructura)->liberarLoot(fabItems,listaLoots);
+                    estructura = listaEstructuraRandom.erase(estructura);
+                }
+                estructura++;
+            }
+
+/// ======================== INICIO LOOT =========================///
 
 
             for (auto it = listaLoots.begin(); it != listaLoots.end();)
@@ -385,6 +435,9 @@ void Game::run()
 
 
 /// ======================== INICIO DRAWABLES =========================///
+
+            window.draw(inv);
+
             window.setView(window.getDefaultView());
 
             window.draw(nightOverlay);
@@ -394,7 +447,9 @@ void Game::run()
             window.draw(textReloj);
 
             invR.update(Camara, relacion);
+
             window.draw(invR);
+
 
 /// ======================== CAMARA EFECTO Y CENTRADO =========================///
 
@@ -412,7 +467,7 @@ void Game::run()
                 guardar(character);
                 cout << "Guardado Exitosamente!!" << endl;
             }
-             //<<<FALLAA
+            //<<<FALLAA
 
             window.display();
 
@@ -454,6 +509,75 @@ void Game::cargar(Personaje &character)
 sf::Clock Game::getRelojInterno()
 {
     return _relojInterno;
+}
+
+void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstructuras)
+{
+
+    listaEstructuras.clear();
+
+    cout << "Isla Reset" << endl;
+
+    std::set<int> idsPasto = {28, 29, 36, 37};
+
+    int ancho = mapa.getMapWidth();
+    int alto = mapa.getMapHeight();
+    int tileW = mapa.getTileWidth();
+    int tileH = mapa.getTileHeight();
+
+    for (int y = 0; y < alto; y++)
+    {
+        for (int x = 0; x < ancho; x++)
+        {
+
+            int idTile = mapa.getTileID(x, y);
+
+            float posX = x * tileW;
+            float posY = y * tileH;
+
+            if (idsPasto.count(idTile))
+            {
+
+                int probabilidad = rand() % 100;
+
+                if (idTile == 103)
+                {
+                    continue;
+                }
+
+
+                // Digamos que hay un 15% de chance de que aparezca un árbol
+
+                if (probabilidad < 15)
+                {
+                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 0));
+                }
+
+                // 5% de chance (más raro que los árboles)
+                else if (probabilidad >= 95)
+                {
+                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 1)); ///PIEDRA
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            }
+
+        }
+    }
+
+
 }
 
 
