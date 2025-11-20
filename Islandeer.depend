@@ -721,15 +721,14 @@
 	<SFML/Graphics.hpp>
 	<SFML/Graphics.hpp>
 
-1763593210 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1763598708 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
-	"FabricaEstructuras.h"
-	"FabricaItems.h"
 	"json.hpp"
 
-1763590396 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
+1763599559 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
+	<iostream>
 	<SFML/Graphics.hpp>
 	"Personaje.h"
 	"TileMap.h"
@@ -748,6 +747,10 @@
 	"Minimap.h"
 	"Menu_Principal.h"
 	"EstadodeJuego.h"
+	"FabricaEstructuras.h"
+	"FabricaItems.h"
+	<fstream>
+	<set>
 	<cmath>
 
 1763592888 c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.h
@@ -939,7 +942,7 @@
 	<SFML/Graphics.hpp>
 	<SFML/Graphics.hpp>
 
-1763590397 c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.h
+1763596671 c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.h
 	<SFML/Graphics.hpp>
 	<vector>
 	"json.hpp"
@@ -1362,7 +1365,7 @@
 	<iostream>
 	"Raton.h"
 
-1763590397 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.cpp
+1763597158 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.cpp
 	"tilemap.h"
 	<fstream>
 	<iostream>

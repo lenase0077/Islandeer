@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Personaje.h"
 #include "TileMap.h"
@@ -17,6 +18,10 @@
 #include "Minimap.h"
 #include "Menu_Principal.h"
 #include "EstadodeJuego.h"
+#include "FabricaEstructuras.h"
+#include "FabricaItems.h"
+#include <fstream>
+#include <set>
 #include <cmath>
 
 class Game
@@ -36,6 +41,7 @@ class Game
         sf::Vector2f _posicionPersonaje;
         sf::Clock _relojInterno;
         FabricaMobs _FabricaMobs;
+        FabricaEstructuras _FabricaEstructuras;
         Minimap _minimap;
         TileMap mapa;
 
@@ -53,6 +59,8 @@ class Game
 
         EstadoJuego _estadoActual = EstadoJuego::MenuPrincipal;
         MenuPrincipal _menuPrincipal;
+
+        void regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstructuras);
 
 
 

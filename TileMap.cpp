@@ -54,12 +54,19 @@ bool TileMap::loadFromJSON(const std::string& filename,
         if (capa["type"] != "tilelayer") continue;
 
         const std::vector<int> data = capa["data"];
+
+        if (capaIndex == 0) {
+            _idsSuelo = data; // Guardamos todo el array de IDs
+        }
+
         sf::VertexArray* vertices = (capaIndex == 0) ? &_verticesSuelo : &_verticesObjetos;
         const sf::Texture* textura = (capaIndex == 0) ? &_texturaSuelo : &_texturaObjetos;
 
         int firstGID = (capaIndex == 0) ? firstGIDs[0] : firstGIDs[1]; // Suelo usa tileset 0, objetos usa tileset 1
 
         int tilesPerRow = textura->getSize().x / _tileWidth;
+
+
 
         for (int y = 0; y < _height; ++y) {
             for (int x = 0; x < _width; ++x) {
@@ -108,4 +115,14 @@ bool TileMap::loadFromJSON(const std::string& filename,
     }
 
     return true;
+}
+
+
+int TileMap::getTileID(int x, int y) const
+{
+
+    if (x >= 0 && x < _width && y >= 0 && y < _height) {
+            return _idsSuelo[y * _width + x];
+        }
+        return 0;
 }
