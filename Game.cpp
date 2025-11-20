@@ -532,14 +532,16 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
             int idTile = mapa.getTileID(x, y);
             bool esPasto = (idTile == 28 || idTile == 29 || idTile == 36 || idTile == 37);
 
+            bool esArena = (idTile == 35 || idTile == 79);
+
 
             float posX = x * tileW;
             float posY = y * tileH;
+            int probabilidad = rand() % 100;
 
             if (esPasto)
             {
 
-                int probabilidad = rand() % 100;
 
                 if (idTile == 103)
                 {
@@ -559,20 +561,14 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
                 {
                     listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 1)); ///PIEDRA
                 }
+            }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+            else if (esArena)
+            {
+                if (probabilidad < 10) {
+                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 10));
+                }
             }
 
         }

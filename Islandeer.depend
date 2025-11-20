@@ -721,13 +721,13 @@
 	<SFML/Graphics.hpp>
 	<SFML/Graphics.hpp>
 
-1763600116 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1763677675 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1763600116 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
+1763647741 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
 	<iostream>
 	<SFML/Graphics.hpp>
 	"Personaje.h"
@@ -1380,14 +1380,14 @@
 	<SFML/Graphics.hpp>
 	<SFML/Graphics.hpp>
 
-1763592925 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\inventariointefaz.cpp
+1763647741 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\inventariointefaz.cpp
 	"InventarioIntefaz.h"
 	"funcionesInterpolacion.h"
 	<cmath>
 	<iostream>
 	<algorithm>
 
-1763592925 c:\users\leand\onedrive\documentos\repositorio\islandeer\inventariointefaz.h
+1763647741 c:\users\leand\onedrive\documentos\repositorio\islandeer\inventariointefaz.h
 	"SeleccionRectangulo.h"
 	"Item.h"
 	"ItemDescripcion.h"
@@ -1426,7 +1426,7 @@
 	"SeleccionRectangulo.h"
 	<SFML/Graphics.hpp>
 
-1763592925 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\item.cpp
+1763647741 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\item.cpp
 	"Item.h"
 	<iostream>
 	"json.hpp"
@@ -1460,12 +1460,12 @@
 	<SFML/Graphics.hpp>
 	<iostream>
 
-1763592925 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\estructura.cpp
+1763678190 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\estructura.cpp
 	"Estructura.h"
 	<iostream>
 	<cmath>
 
-1763592925 c:\users\leand\onedrive\documentos\repositorio\islandeer\estructura.h
+1763677675 c:\users\leand\onedrive\documentos\repositorio\islandeer\estructura.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<list>
@@ -3351,14 +3351,14 @@
 	"Animal.h"
 	<memory>
 
-1763642698 c:\users\leand\onedrive\documentos\repositorio\islandeer\minimap.h
+1763647741 c:\users\leand\onedrive\documentos\repositorio\islandeer\minimap.h
 	<SFML/Graphics.hpp>
 	"TileMap.h"
 	"Mob.h"
 	<list>
 	<memory>
 
-1763644118 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\minimap.cpp
+1763647741 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\minimap.cpp
 	"Minimap.h"
 	<iostream>
 
@@ -3376,7 +3376,7 @@
 	"funcionesInterpolacion.h"
 	<string>
 
-1763600110 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.cpp
+1763647741 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.cpp
 	"Menu_Principal.h"
 	<iostream>
 
@@ -4356,18 +4356,19 @@
 	<memory>
 	<string>
 
-1763592925 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricaestructuras.cpp
+1763677981 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricaestructuras.cpp
 	"FabricaEstructuras.h"
 	<iostream>
 	<memory>
 
-1763592925 c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricaestructuras.h
+1763676419 c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricaestructuras.h
 	"SFML/Graphics.hpp"
 	<list>
 	"Estructura.h"
 	"MesaDeCrafteo.h"
+	"Arboles.h"
 
-1763592925 c:\users\leand\onedrive\documentos\repositorio\islandeer\mesadecrafteo.h
+1763647741 c:\users\leand\onedrive\documentos\repositorio\islandeer\mesadecrafteo.h
 	"Estructura.h"
 	"SeleccionRectangulo.h"
 	"InventarioIntefaz.h"
@@ -4381,4 +4382,11 @@
 1763592925 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\mesadecrafteo.cpp
 	"MesaDeCrafteo.h"
 	<cmath>
+
+1763677663 c:\users\leand\onedrive\documentos\repositorio\islandeer\arboles.h
+	"Estructura.h"
+	<cmath>
+
+1763679108 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\arboles.cpp
+	"Arboles.h"
 
