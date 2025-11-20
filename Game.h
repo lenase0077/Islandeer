@@ -45,7 +45,7 @@ class Game
         FabricaEstructuras _FabricaEstructuras;
         Minimap _minimap;
         TileMap mapa;
-
+        float _tiempoJuegoAcumulado;
 
         //==== DIA Y NOCHE===//
         sf::Clock relojDiaNoche;

@@ -68,6 +68,7 @@ private:
     sf::Text _botonMas;
 
 public:
+    void reiniciarMusica();
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     MenuPrincipal();
     OpcionMenu actualizar(sf::Vector2f mousePos);

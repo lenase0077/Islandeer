@@ -3382,7 +3382,7 @@
 
 1763590396 c:\users\leand\onedrive\documentos\repositorio\islandeer\estadodejuego.h
 
-1763638803 source:d:\alejo\alemart\documents\github\islander\animal.cpp
+1763650475 source:d:\alejo\alemart\documents\github\islander\animal.cpp
 	"Animal.h"
 	<iostream>
 
@@ -4119,13 +4119,13 @@
 1761750014 d:\alejo\alemart\documents\github\islander\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1763647207 source:d:\alejo\alemart\documents\github\islander\game.cpp
+1763650380 source:d:\alejo\alemart\documents\github\islander\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1763647207 d:\alejo\alemart\documents\github\islander\game.h
+1763649484 d:\alejo\alemart\documents\github\islander\game.h
 	<iostream>
 	<SFML/Graphics.hpp>
 	"Personaje.h"
@@ -4290,7 +4290,7 @@
 	<list>
 	<memory>
 
-1763638803 d:\alejo\alemart\documents\github\islander\menu_principal.h
+1763648626 d:\alejo\alemart\documents\github\islander\menu_principal.h
 	<SFML/Graphics.hpp>
 	"Comando.h"
 	<SFML/Audio.hpp>
@@ -4333,7 +4333,7 @@
 	<iostream>
 	<ctime>
 
-1763640856 source:d:\alejo\alemart\documents\github\islander\menu_principal.cpp
+1763648626 source:d:\alejo\alemart\documents\github\islander\menu_principal.cpp
 	"Menu_Principal.h"
 	<iostream>
 

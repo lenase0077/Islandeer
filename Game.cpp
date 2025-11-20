@@ -16,6 +16,7 @@ Game::Game()
 {
     window.setFramerateLimit(75);
     srand(time(NULL));
+    _tiempoJuegoAcumulado = 0;
 }
 
 void Game::run()
@@ -152,7 +153,7 @@ void Game::run()
     /// ======================== Inicio estructura Random =========================///
 
     regenerarRecursos(listaEstructuraRandom);
-    listaEstructuraRandom.push_back(fabE.crearEstructura(spawnX +10,spawnY +32,8));
+    listaEstructuras.push_back(fabE.crearEstructura(spawnX +10,spawnY +32,8));
 
 /// ======================== INICIO GAME LOOP =========================///
     while (window.isOpen())
@@ -187,8 +188,8 @@ void Game::run()
                 _estadoActual = EstadoJuego::Jugando;
                 sonido.setVolume(_menuPrincipal.getVolumen());
                 sonido.play();
+                _relojInterno.restart();
                 _menuPrincipal.actualizar(posMouse);
-                relojDiaNoche.restart();
             }
             else if (opcion == OpcionMenu::Salir)
             {
@@ -218,18 +219,31 @@ void Game::run()
                     window.close();
                 }
 
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+                {
+                    _estadoActual = EstadoJuego::MenuPrincipal;
+                    sonido.stop();
+                    window.setView(window.getDefaultView());
+                    _menuPrincipal.reiniciarMusica();
+                    break;
+                }
+
                 inv.controlDeEventos(event);
                 invR.cambiarSlotsConEventos(event);
             }
+
+            if (_estadoActual == EstadoJuego::MenuPrincipal) break;
+            deltatime = _relojInterno.restart().asMilliseconds();
+            _tiempoJuegoAcumulado += (deltatime / 1000.0f);
+            float tiempoActualSegundos = _tiempoJuegoAcumulado;
+            float tiempoEnCiclo = fmod(tiempoActualSegundos, cicloCompletoSegundos);
+            character.cmd(deltatime);
 
             Comandos::getInstancia().actualizar();
             sf::Vector2f posMouseAux = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 /// ======================== Test spawn =========================///
 
 //        regenerarRecursos(listaEstructuraRandom);
-
-
-
 
 /// ======================== Primeros drawables =========================///
 
@@ -262,9 +276,6 @@ void Game::run()
             mouse.update(window);
 
 /// ======================== Update del Ciclo dia y noche =========================///
-
-            float tiempoActualSegundos = relojDiaNoche.getElapsedTime().asSeconds();
-            float tiempoEnCiclo = fmod(tiempoActualSegundos, cicloCompletoSegundos);
 
             float fraccionCiclo = (tiempoEnCiclo / cicloCompletoSegundos) * 2.0f * 3.14159265f;
             float opacidad_normalizada = (cos(fraccionCiclo) + 1.0f) / 2.0f;
@@ -349,7 +360,6 @@ void Game::run()
                     animal->move(animal->getVelocidad());
                     ++it;
                 }
-
             }
 /// ======================== COLISION MAPA =========================///
 
@@ -365,6 +375,73 @@ void Game::run()
 
             for (auto estructura = listaEstructuras.begin(); estructura != listaEstructuras.end(); )
             {
+                Estructura* estructuraActual = (*estructura).get();
+
+                if (estructuraActual->getBloqueID() == 8)
+                {
+                    Cofre* ptrCofre = static_cast<Cofre*>(estructuraActual);
+
+                    // 1. CALCULAR DISTANCIA
+                    sf::Vector2f posJugador = character.getPosition();
+                    sf::Vector2f posCofre = ptrCofre->getPosition();
+
+                    float dx = posCofre.x - posJugador.x;
+                    float dy = posCofre.y - posJugador.y;
+                    float distancia = std::sqrt(dx * dx + dy * dy);
+
+                    if (distancia < 100.0f)
+                    {
+                        static sf::Clock relojInteraccion;
+
+                        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && relojInteraccion.getElapsedTime().asSeconds() > 0.3f)
+                        {
+                            relojInteraccion.restart();
+
+                            if (!inventarioCofre.getAbierto())
+                            {
+                                // --- ABRIR ---
+                                cofreAbierto = ptrCofre;
+                                cofreAbierto->setAbierto(true);
+                                cout << "COFRE ABIERTO!!" << endl;
+
+                                inventarioCofre.cargarDesdePuntero(cofreAbierto->getContenido());
+
+                                inventarioCofre.setAbierto(true);
+                                inv.setAbierto(true);
+                            }
+                            else
+                            {
+                                // --- CERRAR ---
+                                if (cofreAbierto) {
+                                    inventarioCofre.guardarEnPuntero(cofreAbierto->getContenido());
+                                    cofreAbierto->setAbierto(false);
+                                }
+                                inventarioCofre.setAbierto(false);
+                                inv.setAbierto(false);
+                                cofreAbierto = nullptr;
+                            }
+                        }
+                    }
+                    // Cierre autom tico por distancia
+                    else if (cofreAbierto == ptrCofre && distancia > 150.0f)
+                    {
+                         inventarioCofre.guardarEnPuntero(cofreAbierto->getContenido());
+                         cofreAbierto->setAbierto(false);
+                         cofreAbierto = nullptr;
+                         inventarioCofre.setAbierto(false);
+                         inv.setAbierto(false);
+                    }
+
+                    if (character.getColisionador().detectorDeColision(ptrCofre->getColisionador()))
+                    {
+                        character.chocar(ptrCofre->getColisionador());
+                    }
+
+                    window.draw(*ptrCofre);
+                    estructura++;
+                    continue;
+                }
+
                 if ((*estructura)->estaDestruido() == false)
                 {
                     if(character.getColisionador().detectorDeColision((*estructura)->getColisionador()))   ///EJEMPLO
@@ -382,77 +459,11 @@ void Game::run()
                 }
                 estructura++;
             }
+
 /// ======================== Estructura RANDOM =========================///
 
             for (auto estructura = listaEstructuraRandom.begin(); estructura != listaEstructuraRandom.end(); )
             {
-
-            Estructura* estructuraActual = (*estructura).get();
-
-            if (estructuraActual->getBloqueID() == 8)
-            {
-                Cofre* ptrCofre = static_cast<Cofre*>(estructuraActual);
-
-                // 1. CALCULAR DISTANCIA
-                sf::Vector2f posJugador = character.getPosition();
-                sf::Vector2f posCofre = ptrCofre->getPosition();
-
-                float dx = posCofre.x - posJugador.x;
-                float dy = posCofre.y - posJugador.y;
-
-                float distancia = std::sqrt(dx * dx + dy * dy);
-
-                if (distancia < 100.0f)
-                {
-                    static sf::Clock relojInteraccion;
-
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && relojInteraccion.getElapsedTime().asSeconds() > 0.3f)
-                    {
-                        relojInteraccion.restart();
-
-                        if (!inventarioCofre.getAbierto())
-                        {
-                            // --- ABRIR ---
-                            cofreAbierto = ptrCofre;
-                            cofreAbierto->setAbierto(true);
-                            cout << "COFRE ABIERTO!!" << endl;
-
-                            inventarioCofre.cargarDesdePuntero(cofreAbierto->getContenido());
-
-                            inventarioCofre.setAbierto(true);
-                            inv.setAbierto(true);
-                        }
-                        else
-                        {
-                            if (cofreAbierto) {
-                                inventarioCofre.guardarEnPuntero(cofreAbierto->getContenido());
-                                cofreAbierto->setAbierto(false);
-                            }
-
-                            inventarioCofre.setAbierto(false);
-                            inv.setAbierto(false); // Opcional: cerrar tambi‚n el del jugador
-                            cofreAbierto = nullptr;
-                        }
-                    }
-                }
-                else if (cofreAbierto == ptrCofre && distancia > 150.0f)
-                {
-                     inventarioCofre.guardarEnPuntero(cofreAbierto->getContenido());
-                     cofreAbierto->setAbierto(false);
-                     cofreAbierto = nullptr;
-                     inventarioCofre.setAbierto(false);
-                     inv.setAbierto(false);
-                }
-
-                if (character.getColisionador().detectorDeColision(ptrCofre->getColisionador()))
-                {
-                    character.chocar(ptrCofre->getColisionador());
-                }
-
-                window.draw(*ptrCofre);
-                estructura++;
-                continue;
-            }
 
             if ((*estructura)->estaDestruido() == false)
             {

@@ -377,3 +377,11 @@ float MenuPrincipal::getVolumen ()
 {
     return _volumenGeneral;
 }
+
+void MenuPrincipal::reiniciarMusica()
+{
+    if (sonidoStardew.getStatus() != sf::Sound::Playing)
+    {
+        sonidoStardew.play();
+    }
+}
