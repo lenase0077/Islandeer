@@ -12,7 +12,7 @@
 #include <utility>
 #include <array>
 
-class InventarioInterfaz : public sf::Drawable, sf::Transformable
+class InventarioInterfaz : public sf::Drawable, public sf::Transformable
 {
 private:
     bool _primerVuelta = false;
@@ -29,6 +29,7 @@ private:
     sf::Vector2f _posicionEscondite;
     sf::Vector2f _posicionAbierto;
     ItemDescripcion _descripcion;
+    Item _inventarioItem[30];
 
     std::array<std::unique_ptr<Item>, 30> _inventarioItems;
     std::unique_ptr<Item> _itemEnMano;
@@ -75,6 +76,8 @@ public:
     int buscarItems(int ID, int cantidad = 1);
     void copiarVectorDeCantidades(int vectorAlmacen[30]);
     void cargarVectorCantidades(int vectorCantidades[30]);
+    void cargarDesdePuntero (Item* items);
+    void guardarEnPuntero (Item* items);
 
     void copiarItemsEnVector(Item* vectorDestino[30]);
 };

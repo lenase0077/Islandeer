@@ -20,6 +20,7 @@
 #include "EstadodeJuego.h"
 #include "FabricaEstructuras.h"
 #include "FabricaItems.h"
+#include "Cofre.h"
 #include <fstream>
 #include <set>
 #include <cmath>
@@ -61,8 +62,4 @@ class Game
         MenuPrincipal _menuPrincipal;
 
         void regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstructuras);
-
-
-
-
 };

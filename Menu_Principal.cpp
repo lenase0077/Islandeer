@@ -93,9 +93,9 @@ MenuPrincipal::MenuPrincipal()
     ///======POSICIONES=====
     _spriteLogo.setPosition(centroVentanaX, 100 + _spriteLogo.getGlobalBounds().height / 2);
     _spriteBotonJugar.setPosition(centroVentanaX, 420);
-    _spriteBotonOpciones.setPosition(centroVentanaX, 560);
+    _spriteBotonOpciones.setPosition(centroVentanaX, 550);
     _spriteBotonSalir.setPosition(centroVentanaX, 680);
-    _spriteBotonVolumenGeneral.setPosition(centroVentanaX, 400);
+    _spriteBotonVolumenGeneral.setPosition(centroVentanaX, 500);
     _spriteBotonVolver.setPosition(centroVentanaX, 650);
 
     if (!_fuente.loadFromFile("PIXEARG_.TTF")) {

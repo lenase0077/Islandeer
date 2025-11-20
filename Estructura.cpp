@@ -9,6 +9,8 @@ Estructura::Estructura(sf::Texture& texturaBloques, float posX, float posY, int 
 {
     _sprite.setTexture(texturaBloques);
 
+    _bloqueID = id;
+
     ///Acomodamos su sprite en base a su ID
     int columnasTextura = 7;
     int alturaFrame = 32;
@@ -73,5 +75,9 @@ void Estructura::update(const sf::Vector2f& posicionJugador, const sf::Vector2f&
 
 }
 
+int Estructura::getBloqueID() const
+{
+    return _bloqueID;
+}
 
 

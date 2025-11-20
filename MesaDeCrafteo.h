@@ -13,6 +13,6 @@ private:
     //virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 public:
     virtual void update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::Mouse& mouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario);
-    MesaDeCrafteo( sf::Texture& texturaBloques, float posX, float posY, int id);
+    MesaDeCrafteo(sf::Texture& texturaBloques, float posX, float posY, int id);
 };
 

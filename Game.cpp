@@ -6,9 +6,9 @@ using namespace std;
 
 
 Game::Game()
-    : window(sf::VideoMode(1024, 768), "SFML works!"),
-      _personaje(_texturaPersonaje),
+    : _personaje(_texturaPersonaje),
       personaTest(_texturaPersonaje, 300,300),
+      window(sf::VideoMode(1024, 768), "SFML works!"),
       _minimap({150.f, 150.f},
 {
     1024.f - 160.f, 10.f
@@ -25,7 +25,6 @@ void Game::run()
     list <std::unique_ptr<Estructura>> listaEstructuras;
     list <Loot> listaLoots;
     list <std::unique_ptr<Estructura>> listaEstructuraRandom;
-
 
     sf::Texture texturaInventarioResumido;
     if(!texturaInventarioResumido.loadFromFile("InventarioResumido.png"))
@@ -55,6 +54,9 @@ void Game::run()
     FabricaItems fabItems;
 
     InventarioInterfaz inv(fabItems);
+
+    InventarioInterfaz inventarioCofre(fabItems, "Inventario.png");
+    Cofre* cofreAbierto = nullptr;
 
     inv.agregarItem(44,30);
     inv.agregarItem(15,3);  //<<<=== falla
@@ -124,18 +126,8 @@ void Game::run()
     sonido.setVolume(_menuPrincipal.getVolumen());
     sonido.setLoop(true);
 
-
 /// ESTRUCTURA TEST
-    listaEstructuras.push_back(fabE.crearEstructura(100,132,0));
-    listaEstructuras.push_back(fabE.crearEstructura(132,132,1));
-    listaEstructuras.push_back(fabE.crearEstructura(164,132,2));
-    listaEstructuras.push_back(fabE.crearEstructura(200,132,3));
-    listaEstructuras.push_back(fabE.crearEstructura(232,132,4));
-    listaEstructuras.push_back(fabE.crearEstructura(264,132,5));
-    listaEstructuras.push_back(fabE.crearEstructura(300,132,6));
-    listaEstructuras.push_back(fabE.crearEstructura(332,132,7));
-
-
+    listaEstructuraRandom.push_back(fabE.crearEstructura(spawnX +10,spawnY +32,8));
 
 /// ======================== CICLO DIA Y NOCHE =========================///
     nightOverlay.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
@@ -160,6 +152,7 @@ void Game::run()
     /// ======================== Inicio estructura Random =========================///
 
     regenerarRecursos(listaEstructuraRandom);
+    listaEstructuraRandom.push_back(fabE.crearEstructura(spawnX +10,spawnY +32,8));
 
 /// ======================== INICIO GAME LOOP =========================///
     while (window.isOpen())
@@ -393,26 +386,94 @@ void Game::run()
 
             for (auto estructura = listaEstructuraRandom.begin(); estructura != listaEstructuraRandom.end(); )
             {
-                if ((*estructura)->estaDestruido() == false)
+
+            Estructura* estructuraActual = (*estructura).get();
+
+            if (estructuraActual->getBloqueID() == 8)
+            {
+                Cofre* ptrCofre = static_cast<Cofre*>(estructuraActual);
+
+                // 1. CALCULAR DISTANCIA
+                sf::Vector2f posJugador = character.getPosition();
+                sf::Vector2f posCofre = ptrCofre->getPosition();
+
+                float dx = posCofre.x - posJugador.x;
+                float dy = posCofre.y - posJugador.y;
+
+                float distancia = std::sqrt(dx * dx + dy * dy);
+
+                if (distancia < 100.0f)
                 {
-                    if(character.getColisionador().detectorDeColision((*estructura)->getColisionador()))   ///EJEMPLO
+                    static sf::Clock relojInteraccion;
+
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && relojInteraccion.getElapsedTime().asSeconds() > 0.3f)
                     {
-                        character.chocar((*estructura)->getColisionador());
-                        (*estructura)->recibirGolpe(5);
+                        relojInteraccion.restart();
+
+                        if (!inventarioCofre.getAbierto())
+                        {
+                            // --- ABRIR ---
+                            cofreAbierto = ptrCofre;
+                            cofreAbierto->setAbierto(true);
+                            cout << "COFRE ABIERTO!!" << endl;
+
+                            inventarioCofre.cargarDesdePuntero(cofreAbierto->getContenido());
+
+                            inventarioCofre.setAbierto(true);
+                            inv.setAbierto(true);
+
+                        }
+                        else
+                        {
+                            if (cofreAbierto) {
+                                inventarioCofre.guardarEnPuntero(cofreAbierto->getContenido());
+                                cofreAbierto->setAbierto(false);
+                            }
+
+                            inventarioCofre.setAbierto(false);
+                            inv.setAbierto(false); // Opcional: cerrar tambi‚n el del jugador
+                            cofreAbierto = nullptr;
+                        }
                     }
-                    window.draw(**estructura);
-                    (*estructura)->update( PosicionJugador, mouse.getPosicion(), mause, Camara, relacion, inv);
                 }
-                else
+                else if (cofreAbierto == ptrCofre && distancia > 150.0f)
                 {
-                    (*estructura)->liberarLoot(fabItems,listaLoots);
-                    estructura = listaEstructuraRandom.erase(estructura);
+                     inventarioCofre.guardarEnPuntero(cofreAbierto->getContenido());
+                     cofreAbierto->setAbierto(false);
+                     cofreAbierto = nullptr;
+                     inventarioCofre.setAbierto(false);
+                     inv.setAbierto(false);
                 }
+
+                if (character.getColisionador().detectorDeColision(ptrCofre->getColisionador()))
+                {
+                    character.chocar(ptrCofre->getColisionador());
+                }
+
+                window.draw(*ptrCofre);
                 estructura++;
+                continue;
             }
 
-/// ======================== INICIO LOOT =========================///
+            if ((*estructura)->estaDestruido() == false)
+            {
+                if(character.getColisionador().detectorDeColision((*estructura)->getColisionador()))   ///EJEMPLO
+                {
+                    character.chocar((*estructura)->getColisionador());
+                    (*estructura)->recibirGolpe(5);
+                }
+                window.draw(**estructura);
+                (*estructura)->update( PosicionJugador, mouse.getPosicion(), mause, Camara, relacion, inv);
+            }
+            else
+            {
+                (*estructura)->liberarLoot(fabItems,listaLoots);
+                estructura = listaEstructuraRandom.erase(estructura);
+            }
+            estructura++;
+        }
 
+/// ======================== INICIO LOOT =========================///
 
             for (auto it = listaLoots.begin(); it != listaLoots.end();)
             {
@@ -430,6 +491,16 @@ void Game::run()
 
             inv.update( mouse.getPosicion(), mause, Camara, relacion, listaLoots, tecladoEntrada); ///FALLAA
 
+            if (inventarioCofre.getAbierto())
+            {
+                inventarioCofre.update(mouse.getPosicion(), mause, Camara, relacion, listaLoots, tecladoEntrada);
+
+                if (cofreAbierto != nullptr)
+                {
+                    inventarioCofre.guardarEnPuntero(cofreAbierto->getContenido());
+                }
+            }
+
             inv.copiarItemsEnVector(vectorCarga);
             invR.setItems(vectorCarga);
 
@@ -437,6 +508,13 @@ void Game::run()
 /// ======================== INICIO DRAWABLES =========================///
 
             window.draw(inv);
+
+            if (inventarioCofre.getAbierto())
+            {
+                sf::Vector2f posJugadorInventario = inv.getPosicionAbierto();
+                inventarioCofre.setPosition(posJugadorInventario.x , posJugadorInventario.y - 250 * relacion);
+                window.draw(inventarioCofre);
+            }
 
             window.setView(window.getDefaultView());
 
@@ -559,20 +637,6 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
                 {
                     listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 1)); ///PIEDRA
                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             }
 
         }
