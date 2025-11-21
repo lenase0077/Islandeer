@@ -79,6 +79,7 @@ std::unique_ptr<Estructura> FabricaEstructuras::crearEstructura(float x, float y
 
         estructuraCreada = std::make_unique<Arbol>(_texturaEstructuras, _texturaCopas, x, y, ID, 0);
         estructuraCreada->setVida(100);
+//        estructuraCreada->setScale(1.3,1.3);
 
         insertarLootEntre(36,vectorLootIDs,2,5);
         estructuraCreada -> setLootsIDs(vectorLootIDs);
@@ -88,8 +89,10 @@ std::unique_ptr<Estructura> FabricaEstructuras::crearEstructura(float x, float y
 
         estructuraCreada = std::make_unique<Arbol>(_texturaEstructuras, _texturaCopas, x, y, ID, 1);
         estructuraCreada->setVida(100);
+//        estructuraCreada->setScale(1.3,1.3);
 
         insertarLootEntre(36,vectorLootIDs,2,5);
+
         estructuraCreada -> setLootsIDs(vectorLootIDs);
 
         break;
@@ -97,6 +100,7 @@ std::unique_ptr<Estructura> FabricaEstructuras::crearEstructura(float x, float y
 
         estructuraCreada = std::make_unique<Arbol>(_texturaEstructuras, _texturaCopas, x, y, ID, 2);
         estructuraCreada->setVida(100);
+//        estructuraCreada->setScale(1.3,1.3);
 
         insertarLootEntre(34,vectorLootIDs,2,5);
         estructuraCreada -> setLootsIDs(vectorLootIDs);
