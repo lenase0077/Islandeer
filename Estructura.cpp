@@ -9,7 +9,6 @@ Estructura::Estructura(sf::Texture& texturaBloques, float posX, float posY, int 
 {
     _sprite.setTexture(texturaBloques);
 
-    ///Acomodamos su sprite en base a su ID
     int columnasTextura = 7;
     int alturaFrame = 32;
     int anchuraFrame = 32;

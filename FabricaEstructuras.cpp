@@ -84,6 +84,24 @@ std::unique_ptr<Estructura> FabricaEstructuras::crearEstructura(float x, float y
         estructuraCreada -> setLootsIDs(vectorLootIDs);
 
         break;
+    case 11:///Pino
+
+        estructuraCreada = std::make_unique<Arbol>(_texturaEstructuras, _texturaCopas, x, y, ID, 1);
+        estructuraCreada->setVida(100);
+
+        insertarLootEntre(36,vectorLootIDs,2,5);
+        estructuraCreada -> setLootsIDs(vectorLootIDs);
+
+        break;
+    case 12:///Manzano
+
+        estructuraCreada = std::make_unique<Arbol>(_texturaEstructuras, _texturaCopas, x, y, ID, 2);
+        estructuraCreada->setVida(100);
+
+        insertarLootEntre(34,vectorLootIDs,2,5);
+        estructuraCreada -> setLootsIDs(vectorLootIDs);
+
+        break;
     }
     return estructuraCreada;
 }

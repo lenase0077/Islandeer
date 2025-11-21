@@ -8,7 +8,10 @@ Arbol::Arbol(sf::Texture& texturaTronco, sf::Texture& texturaCopa, float x, floa
     int anchoCopa = 32;
     int altoCopa = 64;
 
-    _spriteCopa.setTextureRect(sf::IntRect(0, 0, anchoCopa, altoCopa));
+    int coordX = idCopa * anchoCopa;
+    int coordY = 0;
+
+    _spriteCopa.setTextureRect(sf::IntRect(coordX, coordY, anchoCopa, altoCopa));
 
     _spriteCopa.setOrigin(anchoCopa / 2.0f, altoCopa - 10.0f);
 
@@ -31,8 +34,8 @@ void Arbol::update(const sf::Vector2f& posJugador, const sf::Vector2f& posMouse,
 
 void Arbol::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     Estructura::draw(target, states);
-    states.transform *= getTransform();
 
+    states.transform *= getTransform();
 
     target.draw(_spriteCopa, states);
 }
