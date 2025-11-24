@@ -8,6 +8,7 @@ class FabricaEstructuras
 {
 private:
     sf::Texture _texturaEstructuras;
+    sf::Texture _texturaUIMesa;
     std::list<Estructura> _listaEstructuras;
 public:
     FabricaEstructuras();
