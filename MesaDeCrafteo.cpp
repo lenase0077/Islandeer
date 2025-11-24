@@ -29,23 +29,7 @@ MesaDeCrafteo::MesaDeCrafteo( sf::Texture& texturaBloques, sf::Texture& texturaU
         _items[17] = _fabItems.crearItem(51);//Valla
         _items[18] = _fabItems.crearItem(16);//Antorcha
         _items[19] = _fabItems.crearItem(53);//Mate
-/*
-Herramientas:
-		Balde,
-		Soga
-	Combate:
-		Espada x3,
-		Arco,
-		Flecha
-	Estructuras:
-		Mesa de crafteo,
-		Horno,
-		Cofre,
-		Cerco
-	Supervivencia:
-		Antorcha,
-		Mate.
-*/
+
         _sprFondoMesa.setTexture(texturaUI);
         _sprFondoMesa.setOrigin(0,0);
 }
@@ -85,13 +69,14 @@ void MesaDeCrafteo::draw(sf::RenderTarget& target, sf::RenderStates states) cons
     target.draw(_sprite, states);
     if (_enUso){
         target.draw(_sprFondoMesa);
+        for(int i = 0; i < 20; i++){
+            ///DEBUG
+            //target.draw(_selectoresDibujo[i]);
+
+            target.draw(*_items[i]);
+        }
     }
 
-    ///DEBUG
-    for(int i = 0; i < 20; i++){
-        target.draw(_selectoresDibujo[i]);
-        target.draw(*_items[i]);
-    }
 }
 
 // Ajusta escala y posicion del inventario segun la vista de camara
@@ -151,6 +136,16 @@ void MesaDeCrafteo::controlDeItems(const sf::Vector2f& posGlobalDelMouse, Invent
             if (_selectores[i].estaDentro(posGlobalDelMouse.x,posGlobalDelMouse.y,true)){
                 cout << "ESTAS DENTRO DE " << i << endl;
                 ///Modificar la escala del item seleccionado
+
+
+                ///Verificar si el inventario posee los items (recursos) para craftear ese item
+                //ejemplo:
+                if (inventario.buscarItems(19,3) != -1) //si la busqueda de esos items fue exitosa. ej 3 carbones
+                {
+                    _items[i] -> setScale(_items[i] -> getScale().x  * 1.2, _items[i] -> getScale().y * 1.2);
+                }
+                ///si no es asi podriamos
+
             }
     }
 }
