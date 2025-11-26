@@ -94,9 +94,13 @@ std::string Item::getDescripcion() const{
 
 /// Setters
 
-void Item::setID(int id){
+void Item::setID(int id){///VA A SER ELIMINADO DE LA EXISTENCIAAAAAAAA
     _id = id;
     actualizarSprite(); // Actualiza frame del sprite cuando cambia ID
+}
+
+void Item::setColor(sf::Color color){
+    sprItem.setColor(color);
 }
 
 void Item::setEscala(sf::Vector2f nuevaEscala){
