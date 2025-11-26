@@ -57,7 +57,8 @@ void Game::run()
     InventarioInterfaz inv(fabItems);
 
     inv.agregarItem(44,30);
-    inv.agregarItem(15,3);  //<<<=== falla
+    inv.agregarItem(15,3);
+    inv.agregarItem(14,10);
 
 
     InventarioResumido invR(texturaInventarioResumido);
@@ -441,7 +442,7 @@ void Game::run()
 
             window.setView(window.getDefaultView());
 
-            window.draw(nightOverlay);
+            //window.draw(nightOverlay);
 
             window.draw(_minimap);
 

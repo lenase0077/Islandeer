@@ -1938,7 +1938,7 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1763648592 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1764169264 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
@@ -2307,7 +2307,7 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\seleccionrectangulo.h
 	<SFML/Graphics.hpp>
 
-1763587797 c:\users\sebas\onedrive\documentos\github\islandeer\item.h
+1764169712 c:\users\sebas\onedrive\documentos\github\islandeer\item.h
 	<SFML/Graphics.hpp>
 	"json.hpp"
 	<string>
@@ -2333,7 +2333,7 @@
 	"InventarioResumidoInterfaz.h"
 	<iostream>
 
-1763588416 source:c:\users\sebas\onedrive\documentos\github\islandeer\item.cpp
+1764169705 source:c:\users\sebas\onedrive\documentos\github\islandeer\item.cpp
 	"Item.h"
 	<iostream>
 	"json.hpp"
@@ -4459,13 +4459,14 @@
 	"Estructura.h"
 	"MesaDeCrafteo.h"
 
-1763995284 c:\users\sebas\onedrive\documentos\github\islandeer\mesadecrafteo.h
+1764170356 c:\users\sebas\onedrive\documentos\github\islandeer\mesadecrafteo.h
 	"Estructura.h"
 	"SeleccionRectangulo.h"
 	"InventarioIntefaz.h"
 	<memory>
 	"Item.h"
 	"FabricaItems.h"
+	<vector>
 
 1763502409 source:c:\users\sebas\onedrive\documentos\github\islandeer\fabricaitems.cpp
 	"FabricaItems.h"
@@ -4516,7 +4517,7 @@
 	"Menu_Principal.h"
 	<iostream>
 
-1764025182 source:c:\users\sebas\onedrive\documentos\github\islandeer\mesadecrafteo.cpp
+1764170510 source:c:\users\sebas\onedrive\documentos\github\islandeer\mesadecrafteo.cpp
 	"MesaDeCrafteo.h"
 	"Comando.h"
 	<cmath>
