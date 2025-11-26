@@ -57,8 +57,7 @@ void Game::run()
     InventarioInterfaz inv(fabItems);
 
     inv.agregarItem(44,30);
-    inv.agregarItem(15,3);
-    inv.agregarItem(14,10);
+    inv.agregarItem(15,3);  //<<<=== falla
 
 
     InventarioResumido invR(texturaInventarioResumido);
@@ -127,14 +126,16 @@ void Game::run()
 
 
 /// ESTRUCTURA TEST
-    listaEstructuras.push_back(fabE.crearEstructura(82*32,85*32,0));
-    listaEstructuras.push_back(fabE.crearEstructura(83*32,85*32,1));
-    listaEstructuras.push_back(fabE.crearEstructura(84*32,85*32,2));
-    listaEstructuras.push_back(fabE.crearEstructura(85*32,85*32,3));
-    listaEstructuras.push_back(fabE.crearEstructura(86*32,85*32,4));
-    listaEstructuras.push_back(fabE.crearEstructura(87*32,85*32,5));
-    listaEstructuras.push_back(fabE.crearEstructura(88*32,85*32,6));
-    listaEstructuras.push_back(fabE.crearEstructura(89*32,85*32,7));
+    listaEstructuras.push_back(fabE.crearEstructura(100,132,0));
+    listaEstructuras.push_back(fabE.crearEstructura(132,132,1));
+    listaEstructuras.push_back(fabE.crearEstructura(164,132,2));
+    listaEstructuras.push_back(fabE.crearEstructura(200,132,3));
+    listaEstructuras.push_back(fabE.crearEstructura(232,132,4));
+    listaEstructuras.push_back(fabE.crearEstructura(264,132,5));
+    listaEstructuras.push_back(fabE.crearEstructura(300,132,6));
+    listaEstructuras.push_back(fabE.crearEstructura(332,132,7));
+
+
 
 /// ======================== CICLO DIA Y NOCHE =========================///
     nightOverlay.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
@@ -434,20 +435,20 @@ void Game::run()
 
 
 /// ======================== INICIO DRAWABLES =========================///
-            invR.update(Camara, relacion);
-
-            window.draw(invR);
 
             window.draw(inv);
 
             window.setView(window.getDefaultView());
 
-            //window.draw(nightOverlay);
+            window.draw(nightOverlay);
 
             window.draw(_minimap);
 
             window.draw(textReloj);
 
+            invR.update(Camara, relacion);
+
+            window.draw(invR);
 
 
 /// ======================== CAMARA EFECTO Y CENTRADO =========================///
@@ -466,6 +467,7 @@ void Game::run()
                 guardar(character);
                 cout << "Guardado Exitosamente!!" << endl;
             }
+            //<<<FALLAA
 
             window.display();
 
@@ -509,10 +511,10 @@ sf::Clock Game::getRelojInterno()
     return _relojInterno;
 }
 
-void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstructurasAleatorias)
+void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstructuras)
 {
 
-    listaEstructurasAleatorias.clear();
+    listaEstructuras.clear();
 
     cout << "Isla Reset" << endl;
 
@@ -551,13 +553,13 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
 
                 if (probabilidad < 50)
                 {
-                    listaEstructurasAleatorias.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 0));
+                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 0));
                 }
 
                 // 5% de chance (más raro que los árboles)
                 else if (probabilidad >= 50 && probabilidad <= 100)
                 {
-                    listaEstructurasAleatorias.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 1)); ///PIEDRA
+                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 1)); ///PIEDRA
                 }
                 else if (probabilidad >= 150 && probabilidad <= 200){
                     listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 11));

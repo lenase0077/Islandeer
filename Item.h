@@ -38,7 +38,6 @@ public:
     std::string getDescripcion() const;
 
     /// Setters
-    void setColor(sf::Color color);
     void setID(int id);
     void setEscala(sf::Vector2f nuevaEscala);
     void setCantidad(int cantidad);
