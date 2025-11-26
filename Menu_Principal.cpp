@@ -174,7 +174,6 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
         {
             if (hoverJugar)
             {
-                sonidoStardew.stop();
                 return OpcionMenu::Jugar;
             }
 
@@ -376,4 +375,17 @@ void MenuPrincipal::ajustarEscalaAutomaticamente(const sf::View& vista)
 float MenuPrincipal::getVolumen ()
 {
     return _volumenGeneral;
+}
+
+void MenuPrincipal::iniciarMusica()
+{
+    if (sonidoStardew.getStatus() != sf::Sound::Playing)
+    {
+        sonidoStardew.play();
+    }
+}
+
+void MenuPrincipal::detenerMusica()
+{
+    sonidoStardew.stop();
 }

@@ -75,4 +75,7 @@ public:
     void ajustarEscalaAutomaticamente(const sf::View& vista);
     float getVolumen ();
     void configurarTexto (sf::Text& texto, std::string nombre, int tamanio, float posX, float posY);
+
+    void iniciarMusica();
+    void detenerMusica();
 };

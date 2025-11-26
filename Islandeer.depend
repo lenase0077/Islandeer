@@ -3419,7 +3419,7 @@
 
 1763590396 c:\users\leand\onedrive\documentos\repositorio\islandeer\estadodejuego.h
 
-1764027773 source:d:\alejo\alemart\documents\github\islander\animal.cpp
+1764121810 source:d:\alejo\alemart\documents\github\islander\animal.cpp
 	"Animal.h"
 	<iostream>
 
@@ -3879,12 +3879,12 @@
 	<SFML/Graphics.hpp>
 	<cmath>
 
-1764107381 source:d:\alejo\alemart\documents\github\islander\estructura.cpp
+1764116878 source:d:\alejo\alemart\documents\github\islander\estructura.cpp
 	"Estructura.h"
 	<iostream>
 	<cmath>
 
-1764107369 d:\alejo\alemart\documents\github\islander\estructura.h
+1764116878 d:\alejo\alemart\documents\github\islander\estructura.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<list>
@@ -4099,7 +4099,7 @@
 	<any>
 	<string_view>
 
-1764114709 d:\alejo\alemart\documents\github\islander\inventariointefaz.h
+1764116878 d:\alejo\alemart\documents\github\islander\inventariointefaz.h
 	"SeleccionRectangulo.h"
 	"Item.h"
 	"ItemDescripcion.h"
@@ -4156,13 +4156,13 @@
 1761750014 d:\alejo\alemart\documents\github\islander\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1764114709 source:d:\alejo\alemart\documents\github\islander\game.cpp
+1764121425 source:d:\alejo\alemart\documents\github\islander\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1764104928 d:\alejo\alemart\documents\github\islander\game.h
+1764121425 d:\alejo\alemart\documents\github\islander\game.h
 	<iostream>
 	<SFML/Graphics.hpp>
 	"Personaje.h"
@@ -4319,14 +4319,14 @@
 	"SeleccionRectangulo.h"
 	<SFML/Graphics.hpp>
 
-1764104928 d:\alejo\alemart\documents\github\islander\minimap.h
+1764116878 d:\alejo\alemart\documents\github\islander\minimap.h
 	<SFML/Graphics.hpp>
 	"TileMap.h"
 	"Mob.h"
 	<list>
 	<memory>
 
-1764027773 d:\alejo\alemart\documents\github\islander\menu_principal.h
+1764120229 d:\alejo\alemart\documents\github\islander\menu_principal.h
 	<SFML/Graphics.hpp>
 	"Comando.h"
 	<SFML/Audio.hpp>
@@ -4336,7 +4336,7 @@
 
 1763638803 d:\alejo\alemart\documents\github\islander\estadodejuego.h
 
-1764115929 source:d:\alejo\alemart\documents\github\islander\inventariointefaz.cpp
+1764116878 source:d:\alejo\alemart\documents\github\islander\inventariointefaz.cpp
 	"InventarioIntefaz.h"
 	"funcionesInterpolacion.h"
 	<cmath>
@@ -4348,7 +4348,7 @@
 	"InventarioResumidoInterfaz.h"
 	<iostream>
 
-1764027773 source:d:\alejo\alemart\documents\github\islander\item.cpp
+1764116802 source:d:\alejo\alemart\documents\github\islander\item.cpp
 	"Item.h"
 	<iostream>
 	"json.hpp"
@@ -4370,11 +4370,11 @@
 	<iostream>
 	<ctime>
 
-1764027773 source:d:\alejo\alemart\documents\github\islander\menu_principal.cpp
+1764120229 source:d:\alejo\alemart\documents\github\islander\menu_principal.cpp
 	"Menu_Principal.h"
 	<iostream>
 
-1764104928 source:d:\alejo\alemart\documents\github\islander\minimap.cpp
+1764116878 source:d:\alejo\alemart\documents\github\islander\minimap.cpp
 	"Minimap.h"
 	<iostream>
 
@@ -4560,19 +4560,19 @@
 	<memory>
 	<string>
 
-1764112344 source:d:\alejo\alemart\documents\github\islander\fabricaestructuras.cpp
+1764116878 source:d:\alejo\alemart\documents\github\islander\fabricaestructuras.cpp
 	"FabricaEstructuras.h"
 	<iostream>
 	<memory>
 
-1764112157 d:\alejo\alemart\documents\github\islander\fabricaestructuras.h
+1764116878 d:\alejo\alemart\documents\github\islander\fabricaestructuras.h
 	"SFML/Graphics.hpp"
 	<list>
 	"Estructura.h"
 	"MesaDeCrafteo.h"
 	"Horno.h"
 
-1764109365 d:\alejo\alemart\documents\github\islander\mesadecrafteo.h
+1764116878 d:\alejo\alemart\documents\github\islander\mesadecrafteo.h
 	"Estructura.h"
 	"SeleccionRectangulo.h"
 	"InventarioIntefaz.h"
@@ -4586,18 +4586,18 @@
 	<iostream>
 	<sstream>
 
-1764104928 source:d:\alejo\alemart\documents\github\islander\mesadecrafteo.cpp
+1764116878 source:d:\alejo\alemart\documents\github\islander\mesadecrafteo.cpp
 	"MesaDeCrafteo.h"
 	"Comando.h"
 	<cmath>
 	<iostream>
 
-1764114709 source:d:\alejo\alemart\documents\github\islander\horno.cpp
+1764116878 source:d:\alejo\alemart\documents\github\islander\horno.cpp
 	<iostream>
 	"Horno.h"
 	<cmath>
 
-1764111488 d:\alejo\alemart\documents\github\islander\horno.h
+1764116878 d:\alejo\alemart\documents\github\islander\horno.h
 	"Estructura.h"
 	"InventarioIntefaz.h"
 	"InventarioResumidoInterfaz.h"

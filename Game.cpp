@@ -148,7 +148,6 @@ void Game::run()
     float cicloCompletoSegundos = 30.0f; // Un ciclo de 2 minutos para probar. �Puedes cambiar esto!
     sf::Uint8 maxOpacidad = 210; // Qu� tan oscura ser� la noche (0-255)
 
-
 /// ======================== Fuente y Display Reloj =========================///
 
     if (!fontReloj.loadFromFile("PIXEARG_.TTF"))
@@ -177,6 +176,7 @@ void Game::run()
 
         case EstadoJuego::MenuPrincipal:
         {
+            _menuPrincipal.iniciarMusica();
 
             sf::Event event;
             while (window.pollEvent(event))
@@ -195,11 +195,13 @@ void Game::run()
             if (opcion == OpcionMenu::Jugar)
             {
                 _estadoActual = EstadoJuego::Jugando;
+                _menuPrincipal.detenerMusica();
                 sonido.setVolume(_menuPrincipal.getVolumen());
                 sonido.play();
                 _menuPrincipal.actualizar(posMouse);
-                relojDiaNoche.restart();
+                _relojInterno.restart();
             }
+
             else if (opcion == OpcionMenu::Salir)
             {
                 window.close();
@@ -219,8 +221,11 @@ void Game::run()
             float volumenActual = _menuPrincipal.getVolumen();
             sonido.setVolume(volumenActual);
             character.setVolumen(volumenActual);
+            deltatime = _relojInterno.restart().asMilliseconds();
 
             sf::Event event;
+            bool cambioDeEstado = false;
+
             while (window.pollEvent(event))
             {
                 if (event.type == sf::Event::Closed)
@@ -228,17 +233,25 @@ void Game::run()
                     window.close();
                 }
 
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+                {
+                    _estadoActual = EstadoJuego::MenuPrincipal;
+                    sonido.stop();
+                    _menuPrincipal.iniciarMusica();
+                    cambioDeEstado = true;
+                    break;
+                }
+
                 inv.controlDeEventos(event);
                 invR.cambiarSlotsConEventos(event);
             }
+
+            if (cambioDeEstado) break;
 
             Comandos::getInstancia().actualizar();
             sf::Vector2f posMouseWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window), Camara);/// ======================== Test spawn =========================///
 
 //        regenerarRecursos(listaEstructuraRandom);
-
-
-
 
 /// ======================== Primeros drawables =========================///
 
@@ -260,19 +273,14 @@ void Game::run()
                 window.draw(*animal);
             }
 
-
-
-
 /// ======================== RELOJ =========================///
-
-            deltatime = _relojInterno.restart().asMilliseconds();
-
 
             mouse.update(window);
 
 /// ======================== Update del Ciclo dia y noche =========================///
 
-            float tiempoActualSegundos = relojDiaNoche.getElapsedTime().asSeconds();
+            _tiempoDiaAcumulado += deltatime / 1000.0f;
+            float tiempoActualSegundos = _tiempoDiaAcumulado;
             float tiempoEnCiclo = fmod(tiempoActualSegundos, cicloCompletoSegundos);
 
             float fraccionCiclo = (tiempoEnCiclo / cicloCompletoSegundos) * 2.0f * 3.14159265f;
@@ -411,7 +419,7 @@ void Game::run()
                         (*estructura)->recibirGolpe(5);
                     }
                     window.draw(**estructura);
-                    (*estructura)->update( PosicionJugador, mouse.getPosicion(), mause, Camara, relacion, inv, deltatime);
+                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime);
                 }
                 else
                 {
@@ -422,7 +430,6 @@ void Game::run()
             }
 
 /// ======================== INICIO LOOT =========================///
-
 
             for (auto it = listaLoots.begin(); it != listaLoots.end();)
             {
@@ -443,7 +450,6 @@ void Game::run()
             inv.copiarItemsEnVector(vectorCarga);
             invR.setItems(vectorCarga);
 
-
 /// ======================== INICIO DRAWABLES =========================///
             invR.update(Camara, relacion);
 
@@ -453,13 +459,11 @@ void Game::run()
 
             window.setView(window.getDefaultView());
 
-            window.draw(nightOverlay);
+//            window.draw(nightOverlay);
 
             window.draw(_minimap);
 
             window.draw(textReloj);
-
-
 
 /// ======================== CAMARA EFECTO Y CENTRADO =========================///
 

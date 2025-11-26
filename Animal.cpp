@@ -132,11 +132,10 @@ void Animal::update(sf::Vector2f& Posicionpersonaje, float deltatime)
     sf::Vector2f DireccionAlJugador = Posicionpersonaje - PosicionAnimal;
     float DistanciaJugador = std::sqrt(DireccionAlJugador.x * DireccionAlJugador.x + DireccionAlJugador.y * DireccionAlJugador.y);
 
-
     // --- LÓGICA DE DETECCIÓN Y CAMBIO DE ESTADO (PRIORIDAD) ---
 
     // 1. Detección por Proximidad
-    if (DistanciaJugador < 30)
+    if (DistanciaJugador < 50)
     {
         _estadoActual = EstadoAnimal::Huyendo;
         _tiempoEnEstado = 0.f;
