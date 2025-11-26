@@ -3,6 +3,7 @@
 #include <list>
 #include "Estructura.h"
 #include "MesaDeCrafteo.h"
+#include "Horno.h"
 
 class FabricaEstructuras
 {

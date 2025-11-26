@@ -51,16 +51,21 @@ void Game::run()
 
 /// ======================== Inventario =========================///
 
-
     FabricaItems fabItems;
 
     InventarioInterfaz inv(fabItems);
 
     inv.agregarItem(44,30);
-    inv.agregarItem(15,3);  //<<<=== falla
-
+    inv.agregarItem(15,3);
+    inv.agregarItem(19,20);
+    inv.agregarItem(11,1);
+    inv.agregarItem(12,1);
+    inv.agregarItem(45,1);
+    inv.agregarItem(47,1);
 
     InventarioResumido invR(texturaInventarioResumido);
+
+    inv.setInventarioResumido(&invR);
 
     Item* vectorCarga[30];
 
@@ -134,6 +139,7 @@ void Game::run()
     listaEstructuras.push_back(fabE.crearEstructura(87*32,85*32,5));
     listaEstructuras.push_back(fabE.crearEstructura(88*32,85*32,6));
     listaEstructuras.push_back(fabE.crearEstructura(89*32,85*32,7));
+    listaEstructuras.push_back(fabE.crearEstructura(90*32,85*32,9));
 
 /// ======================== CICLO DIA Y NOCHE =========================///
     nightOverlay.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
@@ -184,7 +190,6 @@ void Game::run()
 
             _menuPrincipal.ajustarEscalaAutomaticamente(window.getDefaultView());
 
-
             OpcionMenu opcion = _menuPrincipal.actualizar(posMouse);
 
             if (opcion == OpcionMenu::Jugar)
@@ -228,8 +233,7 @@ void Game::run()
             }
 
             Comandos::getInstancia().actualizar();
-            sf::Vector2f posMouseAux = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-/// ======================== Test spawn =========================///
+            sf::Vector2f posMouseWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window), Camara);/// ======================== Test spawn =========================///
 
 //        regenerarRecursos(listaEstructuraRandom);
 
@@ -358,8 +362,6 @@ void Game::run()
             }
 /// ======================== COLISION MAPA =========================///
 
-
-
             for (auto& colisionador : mapa._colisiones)
             {
                 character.chocar(colisionador);
@@ -378,7 +380,17 @@ void Game::run()
                         (*estructura)->recibirGolpe(5);
                     }
                     window.draw(**estructura);
-                    (*estructura)->update( PosicionJugador, mouse.getPosicion(), mause, Camara, relacion, inv);
+                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime);
+
+                    Horno* horno = dynamic_cast<Horno*>((*estructura).get());
+
+                    if (horno != nullptr)
+                    {
+                        if (horno->terminarDeCocinar())
+                        {
+                            horno->soltarLoot(fabItems, listaLoots);
+                        }
+                    }
                 }
                 else
                 {
@@ -399,7 +411,7 @@ void Game::run()
                         (*estructura)->recibirGolpe(5);
                     }
                     window.draw(**estructura);
-                    (*estructura)->update( PosicionJugador, mouse.getPosicion(), mause, Camara, relacion, inv);
+                    (*estructura)->update( PosicionJugador, mouse.getPosicion(), mause, Camara, relacion, inv, deltatime);
                 }
                 else
                 {

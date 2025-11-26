@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iostream>
 #include <algorithm>
-
+#include "InventarioResumidoInterfaz.h"
 using namespace std;
 
 /// CONSTRUCTOR - Inicializa el inventario con textura y fabrica de items
@@ -563,20 +563,37 @@ bool InventarioInterfaz::agregarItem(int ID, int cantidad)
 // Quita una cantidad especifica de un tipo de item
 bool InventarioInterfaz::quitarItem(int ID, int cantidad)
 {
-    int itemEncontrado = buscarItems(ID, cantidad);
-    if (itemEncontrado != -1)
+    if (buscarItems(ID, cantidad) == -1)
     {
-        if (_inventarioItems[itemEncontrado] != nullptr)
+        return false;
+    }
+
+    for(int i = 0; i < 30 && cantidad > 0; i++)
+    {
+        // Si el slot tiene el ¡tem que buscamos
+        if (_inventarioItems[i] != nullptr && _inventarioItems[i]->getID() == ID)
         {
-            int nueva = _inventarioItems[itemEncontrado]->getCantidad() - cantidad;
-            if (nueva > 0)
-                _inventarioItems[itemEncontrado]->setCantidad(nueva); // Reduce cantidad
+            int cantidadEnEsteSlot = _inventarioItems[i]->getCantidad();
+
+            if (cantidadEnEsteSlot > cantidad)
+            {
+                // CASO A: El slot tiene de sobra.
+                // Le restamos lo que falta y terminamos.
+                _inventarioItems[i]->setCantidad(cantidadEnEsteSlot - cantidad);
+                cantidad = 0; // Deuda saldada
+            }
             else
-                _inventarioItems[itemEncontrado] = nullptr; // Elimina si llega a 0
-            return true;
+            {
+                // CASO B: El slot tiene justo o menos de lo que necesitamos.
+                // Lo vaciamos entero y seguimos buscando en el siguiente slot.
+                cantidad -= cantidadEnEsteSlot; // Restamos lo que pudimos sacar de ac 
+
+                _inventarioItems[i] = nullptr; // ELIMINAMOS EL OBJETO (Slot vac¡o)
+            }
         }
     }
-    return false; // No se encontraron suficientes items
+
+    return true; // Operaci¢n exitosa
 }
 
 // Busca si hay suficiente cantidad de un tipo de item
@@ -717,6 +734,34 @@ void InventarioInterfaz::soltarLoot(std::unique_ptr<Item>& itemQueTirar, std::li
                 itemQueTirar->setCantidad(cantidadItem - 1); // Reduce cantidad
             else
                 itemQueTirar = nullptr; // Elimina si era el ultimo
+        }
+    }
+}
+
+void InventarioInterfaz::setInventarioResumido(InventarioResumido* InvR) {
+    _inventarioResumido = InvR;
+}
+
+InventarioResumido* InventarioInterfaz::getInventarioResumido() {
+    return _inventarioResumido;
+}
+
+void InventarioInterfaz::consumirItemEnSlot(int slot, int cantidad)
+{
+    if (slot >= 0 && slot < 30)
+    {
+        if (_inventarioItems[slot] != nullptr)
+        {
+            int nuevaCantidad = _inventarioItems[slot]->getCantidad() - cantidad;
+
+            if (nuevaCantidad <= 0)
+            {
+                _inventarioItems[slot] = nullptr;
+            }
+            else
+            {
+                _inventarioItems[slot]->setCantidad(nuevaCantidad);
+            }
         }
     }
 }

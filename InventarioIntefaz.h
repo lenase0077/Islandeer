@@ -12,6 +12,8 @@
 #include <utility>
 #include <array>
 
+class InventarioResumido;
+
 class InventarioInterfaz : public sf::Drawable, sf::Transformable
 {
 private:
@@ -37,6 +39,8 @@ private:
     std::string _nombreDireccionTextura;
     sf::Texture _texturaFondo;
     sf::Sprite _sprFondoInventario;
+
+    InventarioResumido* _inventarioResumido = nullptr;
 
     ///Metodos privados
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -77,4 +81,8 @@ public:
     void cargarVectorCantidades(int vectorCantidades[30]);
 
     void copiarItemsEnVector(Item* vectorDestino[30]);
+
+    void setInventarioResumido(InventarioResumido* InvR);
+    InventarioResumido* getInventarioResumido();
+    void consumirItemEnSlot(int slot, int cantidad);
 };
