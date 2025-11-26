@@ -39,17 +39,23 @@ std::unique_ptr<Mob> FabricaMobs::crearMobs(const std::string& tipo, sf::Vector2
 
     if (tipo == "Vaca")
     {
-        return std::make_unique<Animal>(_vacaTexture, posicion);
+        auto vaca = std::make_unique<Animal>(_vacaTexture, posicion);
+        vaca->caracteristicasDelAnimal(47 , true);
+        return vaca;
     }
 
     if (tipo == "Oveja")
     {
-        return std::make_unique<Animal>(_ovejaTexture, posicion);
+        auto oveja = std::make_unique<Animal>(_ovejaTexture, posicion);
+        oveja->caracteristicasDelAnimal(-1 , false);
+        return oveja;
     }
 
     if (tipo == "Cerdo")
     {
-        return std::make_unique<Animal>(_cerdoTexture, posicion);
+        auto cerdo = std::make_unique<Animal>(_cerdoTexture, posicion);
+        cerdo->caracteristicasDelAnimal(45 , false);
+        return cerdo;
     }
 
     std::cout << "Tipo de enemigo desconocido" << std::endl;

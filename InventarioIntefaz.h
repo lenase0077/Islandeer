@@ -85,4 +85,5 @@ public:
     void setInventarioResumido(InventarioResumido* InvR);
     InventarioResumido* getInventarioResumido();
     void consumirItemEnSlot(int slot, int cantidad);
+    Item* getItemEnMano();
 };

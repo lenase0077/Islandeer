@@ -60,8 +60,9 @@ void Game::run()
     inv.agregarItem(19,20);
     inv.agregarItem(11,1);
     inv.agregarItem(12,1);
-    inv.agregarItem(45,1);
-    inv.agregarItem(47,1);
+//    inv.agregarItem(45,1);
+//    inv.agregarItem(47,1);
+    inv.agregarItem(28,16);
 
     InventarioResumido invR(texturaInventarioResumido);
 
@@ -345,28 +346,49 @@ void Game::run()
 
             for (auto it = animales.begin(); it != animales.end();)
             {
-                Mob* animal = it->get();
+                // Obtenemos el puntero base Mob
+                Mob* mobBase = it->get();
 
-                animal->update(PosicionJugador, deltatime);
+                // Intentamos tratarlo como un ANIMAL (Casteo din mico)
+                Animal* animal = dynamic_cast<Animal*>(mobBase);
+
+                // Update general (movimiento)
+                mobBase->update(PosicionJugador, deltatime);
 
                 for (auto& colisionadorMapa : mapa._colisiones)
                 {
                     animal->chocar(colisionadorMapa);
                 }
 
+                if (animal != nullptr && sf::Mouse::isButtonPressed(sf::Mouse::Right))
+                {
+                    if (animal->getGlobalBounds().contains(posMouseWorld))
+                    {
+                        Item* itemEnMano = inv.getItemEnMano();
+
+                        if (animal->intentarOrdeniar(itemEnMano,fabItems, inv))
+                        {
+                            cout << "Ordeniada!!" << endl;
+                        }
+                    }
+                }
+
                 bool murio = character.atacar(*animal, fuerzaEmpuje, deltatime);
 
                 if (murio)
                 {
+                    if (animal != nullptr)
+                    {
+                        animal->soltarLoot(fabItems, listaLoots);
+                    }
+
                     it = animales.erase(it);
                 }
-
                 else
                 {
-                    animal->move(animal->getVelocidad());
+                    mobBase->move(mobBase->getVelocidad());
                     ++it;
                 }
-
             }
 /// ======================== COLISION MAPA =========================///
 

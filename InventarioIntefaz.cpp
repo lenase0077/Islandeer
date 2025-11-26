@@ -765,3 +765,12 @@ void InventarioInterfaz::consumirItemEnSlot(int slot, int cantidad)
         }
     }
 }
+
+Item* InventarioInterfaz::getItemEnMano()
+{
+    if (_inventarioResumido != nullptr)
+    {
+        return _inventarioResumido->getItem(_inventarioResumido->getSlotSeleccionado());
+    }
+    return nullptr;
+}
