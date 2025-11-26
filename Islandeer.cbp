@@ -47,6 +47,8 @@
 		</UnitsGlob>
 		<Unit filename="Animal.cpp" />
 		<Unit filename="Animal.h" />
+		<Unit filename="Arboles.cpp" />
+		<Unit filename="Arboles.h" />
 		<Unit filename="BarraDeVida.cpp" />
 		<Unit filename="BarraDeVida.h" />
 		<Unit filename="Colisionador.cpp" />

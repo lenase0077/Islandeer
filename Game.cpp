@@ -530,14 +530,16 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
             int idTile = mapa.getTileID(x, y);
             bool esPasto = (idTile == 28 || idTile == 29 || idTile == 36 || idTile == 37);
 
+            bool esArena = (idTile == 35 || idTile == 79);
+
 
             float posX = x * tileW;
             float posY = y * tileH;
+            int probabilidad = rand() % 1000;
 
             if (esPasto)
             {
 
-                int probabilidad = rand() % 100;
 
                 if (idTile == 103)
                 {
@@ -547,30 +549,32 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
 
                 // Digamos que hay un 15% de chance de que aparezca un árbol
 
-                if (probabilidad < 15)
+                if (probabilidad < 50)
                 {
                     listaEstructurasAleatorias.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 0));
                 }
 
                 // 5% de chance (más raro que los árboles)
-                else if (probabilidad >= 95)
+                else if (probabilidad >= 50 && probabilidad <= 100)
                 {
                     listaEstructurasAleatorias.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 1)); ///PIEDRA
                 }
+                else if (probabilidad >= 150 && probabilidad <= 200){
+                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 11));
+
+                }
+                else if (probabilidad >= 250 && probabilidad <= 300){
+                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 12));
+
+                }
+            }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+            else if (esArena)
+            {
+                if (probabilidad < 100) {
+                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 10));
+                }
             }
 
         }

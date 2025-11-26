@@ -3,12 +3,14 @@
 #include <list>
 #include "Estructura.h"
 #include "MesaDeCrafteo.h"
+#include "Arboles.h"
 
 class FabricaEstructuras
 {
 private:
     sf::Texture _texturaEstructuras;
     sf::Texture _texturaUIMesa;
+    sf::Texture _texturaCopas;
     std::list<Estructura> _listaEstructuras;
 public:
     FabricaEstructuras();
