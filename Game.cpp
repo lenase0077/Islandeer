@@ -402,9 +402,32 @@ void Game::run()
             {
                 character.chocar(colisionador);
             }
-/// ======================== COLISION ESTRUCTURA =========================///
+
 
             float relacion = (float)window.getSize().x/(float)window.getSize().y;
+/// ======================== Estructura RANDOM =========================///
+
+            for (auto estructura = listaEstructuraRandom.begin(); estructura != listaEstructuraRandom.end(); )
+            {
+                if ((*estructura)->estaDestruido() == false)
+                {
+                    if(character.getColisionador().detectorDeColision((*estructura)->getColisionador()))   ///EJEMPLO
+                    {
+                        character.chocar((*estructura)->getColisionador());
+                        (*estructura)->recibirGolpe(5);
+                    }
+                    window.draw(**estructura);
+                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime);
+                }
+                else
+                {
+                    (*estructura)->liberarLoot(fabItems,listaLoots);
+                    estructura = listaEstructuraRandom.erase(estructura);
+                }
+                estructura++;
+            }
+/// ======================== COLISION ESTRUCTURA =========================///
+
 
             for (auto estructura = listaEstructuras.begin(); estructura != listaEstructuras.end(); )
             {
@@ -431,27 +454,6 @@ void Game::run()
                     (*estructura)->liberarLoot(fabItems,listaLoots);
                     estructura = listaEstructuras.erase(estructura);
                 }
-            }
-/// ======================== Estructura RANDOM =========================///
-
-            for (auto estructura = listaEstructuraRandom.begin(); estructura != listaEstructuraRandom.end(); )
-            {
-                if ((*estructura)->estaDestruido() == false)
-                {
-                    if(character.getColisionador().detectorDeColision((*estructura)->getColisionador()))   ///EJEMPLO
-                    {
-                        character.chocar((*estructura)->getColisionador());
-                        (*estructura)->recibirGolpe(5);
-                    }
-                    window.draw(**estructura);
-                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime);
-                }
-                else
-                {
-                    (*estructura)->liberarLoot(fabItems,listaLoots);
-                    estructura = listaEstructuraRandom.erase(estructura);
-                }
-                estructura++;
             }
 
 /// ======================== INICIO LOOT =========================///

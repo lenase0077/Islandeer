@@ -21,7 +21,7 @@ Estructura::Estructura(sf::Texture& texturaBloques, float posX, float posY, int 
 
     setPosition(posX,posY);
 
-    sf::FloatRect colisionadorDimenciones(posX + 8,posY + 8,16,16);
+    sf::FloatRect colisionadorDimenciones(posX + 8,posY + 8,20,20);
 
     _colision.setColision(colisionadorDimenciones);
     _colision.setID("Estructura");

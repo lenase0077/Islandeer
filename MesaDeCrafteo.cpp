@@ -176,7 +176,7 @@ void MesaDeCrafteo::ajustarEscalaAutomaticamente(const sf::View& vista, const fl
     float centroX = ((_sprFondoMesa.getGlobalBounds().width/ 2) +66) * escalaCartel.x;
 
     // Calcula posiciones
-    sf::Vector2f posicionCartel(vista.getCenter().x - centroX, vista.getCenter().y - vista.getSize().y/2);
+    sf::Vector2f posicionCartel(vista.getCenter().x - centroX, vista.getCenter().y - vista.getSize().y/2.5);
     _sprFondoMesa.setPosition(posicionCartel);
     _sprFondoMesa.setScale(escalaCartel);
 
