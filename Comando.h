@@ -29,6 +29,7 @@ public:
     bool teclaIzquierda = false;
     bool teclaDerecha   = false;
     bool teclaCorrer    = false;
+    bool teclaTomarTodo = false;
 
 
     bool mouseIzqPresionado = false;

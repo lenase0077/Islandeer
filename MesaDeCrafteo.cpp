@@ -222,7 +222,7 @@ void MesaDeCrafteo::controlDeItems(const sf::Vector2f& posGlobalDelMouse, Invent
     Comandos& input = Comandos::getInstancia();
 
 
-    for(int i = 0; i < 20; i++)
+    for(int i = 0; i < 20; i    ++)
     {
         if(!recursosExistentes( i, inventario))
         {
@@ -237,8 +237,16 @@ void MesaDeCrafteo::controlDeItems(const sf::Vector2f& posGlobalDelMouse, Invent
                 ///Modificar la escala del item seleccionado
                 _items[i] -> setScale(_items[i] -> getScale().x  * 1.2, _items[i] -> getScale().y * 1.2);
                 if(input.mouseIzqRecienPresionado){
-                    quitarRecursosNecesarios( i, inventario);
-                    inventario.agregarItem(_items[i] -> getID(), 1);
+                    if (input.teclaTomarTodo){
+                        while (recursosExistentes(i,inventario)){
+                            quitarRecursosNecesarios( i, inventario);
+                            inventario.agregarItem(_items[i] -> getID(), 1);
+                        }
+                    }
+                    else{
+                     quitarRecursosNecesarios( i, inventario);
+                     inventario.agregarItem(_items[i] -> getID(), 1);
+                    }
                 }
             }
         }

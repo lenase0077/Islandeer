@@ -2852,7 +2852,7 @@
 1764170642 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\comando.cpp
 	"Comando.h"
 
-1764170642 c:\users\leand\onedrive\documentos\repositorio\islandeer\comando.h
+1764254254 c:\users\leand\onedrive\documentos\repositorio\islandeer\comando.h
 	<SFML/Graphics.hpp>
 
 1764202643 c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.h
@@ -3885,7 +3885,7 @@
 	"Horno.h"
 	"Arboles.h"
 
-1764202643 c:\users\leand\onedrive\documentos\repositorio\islandeer\mesadecrafteo.h
+1764252900 c:\users\leand\onedrive\documentos\repositorio\islandeer\mesadecrafteo.h
 	"Estructura.h"
 	"SeleccionRectangulo.h"
 	"InventarioIntefaz.h"
@@ -3900,7 +3900,7 @@
 	<iostream>
 	<sstream>
 
-1764202300 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\mesadecrafteo.cpp
+1764252900 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\mesadecrafteo.cpp
 	"MesaDeCrafteo.h"
 	"Comando.h"
 	<cmath>

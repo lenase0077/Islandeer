@@ -9,6 +9,7 @@ void Comandos::actualizar()
         teclaIzquierda = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
         teclaDerecha   = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
         teclaCorrer    = sf::Keyboard::isKeyPressed(sf::Keyboard::LShift);
+        teclaTomarTodo    = sf::Keyboard::isKeyPressed(sf::Keyboard::LShift);
 
         // --- 2. Lógica del Mouse ---
 
