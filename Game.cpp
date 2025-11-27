@@ -169,7 +169,7 @@ void Game::run()
 /// ======================== INICIO GAME LOOP =========================///
     while (window.isOpen())
     {
-        cout << "Energia = " << character.getEnergia() << endl;
+//        cout << "Energia = " << character.getEnergia() << endl;
 
 /// ======================== INICIO MENU PRINCIPAL =========================///
 
