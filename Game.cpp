@@ -83,7 +83,6 @@ void Game::run()
     sf::Mouse mause;
 
 /// ======================== Camara =========================///
-    sf::View Camara;
     Camara.setSize({300.f, 300.f});
     sf::Vector2f camaraPosicion = {640, 1120};
 
@@ -245,7 +244,6 @@ void Game::run()
                     break;
                 }
 
-                inv.controlDeEventos(event);
                 invR.cambiarSlotsConEventos(event);
             }
 
@@ -469,7 +467,7 @@ void Game::run()
             character.updateEspada(mouse);
             _minimap.update(character.getPosition());
 
-            inv.update( mouse.getPosicion(), mause, Camara, relacion, listaLoots, tecladoEntrada); ///FALLAA
+            inv.update( mouse.getPosicion(), Camara, relacion, listaLoots); ///FALLAA
 
             inv.copiarItemsEnVector(vectorCarga);
             invR.setItems(vectorCarga);

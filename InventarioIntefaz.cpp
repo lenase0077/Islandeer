@@ -136,20 +136,20 @@ void InventarioInterfaz::setPosicionAbierto(float X, float Y)
 }
 
 /// METODO UPDATE PRINCIPAL - Actualiza logica e interacciones del inventario
-void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf::Mouse& mouse,
+void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse,
                                 const sf::View& vista, const float& relacionAspecto,
-                                std::list<Loot>& listaLoots, sf::Keyboard& tecladoEntrada)
+                                std::list<Loot>& listaLoots)
 {
+
+    Comandos& input = Comandos::getInstancia();
+
+    if (input.teclaInventarioRecienPresionada)
+    {
+        setAbierto(!getAbierto());
+    }
+
     ajustarEscalaAutomaticamente(vista, relacionAspecto);
 
-    bool izquierdoPresionadoActual = mouse.isButtonPressed(sf::Mouse::Left);
-    bool izquierdoRecienPresionado = izquierdoPresionadoActual && !_izquierdoPresionadoAnterior;
-
-    // Control de doble click - resetea contador despues de 250ms
-    if (_timerDobleClick2.getElapsedTime().asMilliseconds() >= 250)
-    {
-        _contadorClicksIzquierdo = 0;
-    }
 
     bool mouseInteractuo = false; // Indica si el mouse interactua con algun slot
 
@@ -203,26 +203,21 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
 
 
             // Logica para boton Q (tirar item)
-            if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+
+            if (input.teclaTirarRecienPresionada)
             {
-                _frameActualQprecionada = false;
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !_frameActualQprecionada)
-            {
-                _frameActualQprecionada = true;
                 soltarLoot(_inventarioItems[i], listaLoots); // Suelta el item como loot
             }
 
 
             // Control de click derecho (dividir stacks)
-            if (!_clickDerechoDisponible && (!mouse.isButtonPressed(sf::Mouse::Right)))
+            if (input.mouseDerRecienPresionado)
             {
-                _clickDerechoDisponible = true;
                 _indiceUltimoItemAnalizado = 100; // Reset
             }
 
             // Click derecho mantenido (transferir items uno por uno)
-            if (mouse.isButtonPressed(sf::Mouse::Right) && i != _indiceUltimoItemAnalizado)
+            if (input.mouseDerPresionado && i != _indiceUltimoItemAnalizado)
             {
                 if(_itemEnMano != nullptr)
                 {
@@ -270,11 +265,8 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
             }
 
             // Click derecho
-            if (mouse.isButtonPressed(sf::Mouse::Right) && _clickDerechoDisponible)
+            if (input.mouseDerRecienPresionado)
             {
-                _contadorClicksIzquierdo = 0;
-                _timerDobleClick2.restart();
-                _clickDerechoDisponible = false;
 
                 // Si no hay item en mano, toma la mitad del stack
                 if (_itemEnMano == nullptr)
@@ -324,12 +316,10 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
             }
 
             // Logica para click izquierdo (agarrar/soltar items)
-            if (izquierdoRecienPresionado)
+            if (input.mouseIzqRecienPresionado)
             {
                 if (_inventarioItems[i] != nullptr || _itemEnMano != nullptr)
                 {
-                    _timerDobleClick2.restart();
-                    _contadorClicksIzquierdo++;
 
                     // Si no hay item en mano, agarra el del slot
                     if(_itemEnMano == nullptr)
@@ -364,7 +354,7 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
 
 
                     // Logica de doble click (auto-organizacion)
-                    if (_contadorClicksIzquierdo >= 2)
+                    if (input.mouseIzqDobleClick)
                     {
                         if(_itemEnMano != nullptr)
                         {
@@ -418,7 +408,6 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
                                     }
                                 }
                             }
-                            _contadorClicksIzquierdo = 0;
                         }
                     }
 
@@ -444,8 +433,6 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
     }
 
 
-    _izquierdoPresionadoAnterior = izquierdoPresionadoActual; // Guarda estado para siguiente frame
-
     // Maneja el item que esta siendo arrastrado con el mouse
     if (_itemEnMano != nullptr)
     {
@@ -458,7 +445,7 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
         // Si clickea fuera del inventario, suelta el item como loot
         if (!mouseInteractuo)
         {
-            if (izquierdoRecienPresionado)
+            if (input.mouseIzqRecienPresionado)
             {
 
                 soltarLoot(_itemEnMano, listaLoots, true); // Tirar todo el stack
@@ -471,6 +458,11 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
     {
         _descripcion.setVisible(false);
     }
+
+
+
+
+
 }
 
 /// METODOS DE PERSISTENCIA - Para guardar/cargar el inventario
@@ -639,22 +631,6 @@ void InventarioInterfaz::draw(sf::RenderTarget& target, sf::RenderStates states)
     target.draw(_descripcion, states);
 }
 
-/// CONTROL DE EVENTOS - Maneja entrada de teclado
-void InventarioInterfaz::controlDeEventos(sf::Event& evento)
-{
-    if (evento.type == sf::Event::KeyPressed)
-    {
-        if (evento.key.code == sf::Keyboard::E && _botonAbrirInventarioDisponible)
-        {
-            _botonAbrirInventarioDisponible = false;
-            setAbierto(!getAbierto()); // Abre/cierra inventario con tecla E
-        }
-    }
-    if (evento.type == sf::Event::KeyReleased)
-    {
-        if (evento.key.code == sf::Keyboard::E) _botonAbrirInventarioDisponible = true; // Habilita nuevamente
-    }
-}
 
 /// METODOS AUXILIARES PRIVADOS (continuacion)
 
