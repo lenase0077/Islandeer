@@ -51,7 +51,6 @@ void Game::run()
 
 /// ======================== Inventario =========================///
 
-
     FabricaItems fabItems;
 
     InventarioInterfaz inv(fabItems);
@@ -60,8 +59,16 @@ void Game::run()
     inv.agregarItem(15,3);
     inv.agregarItem(14,10);
 
+    inv.agregarItem(19,20);
+    inv.agregarItem(11,1);
+    inv.agregarItem(12,1);
+//    inv.agregarItem(45,1);
+//    inv.agregarItem(47,1);
+    inv.agregarItem(28,16);
 
     InventarioResumido invR(texturaInventarioResumido);
+
+    inv.setInventarioResumido(&invR);
 
     Item* vectorCarga[30];
 
@@ -135,6 +142,7 @@ void Game::run()
     listaEstructuras.push_back(fabE.crearEstructura(87*32,85*32,5));
     listaEstructuras.push_back(fabE.crearEstructura(88*32,85*32,6));
     listaEstructuras.push_back(fabE.crearEstructura(89*32,85*32,7));
+    listaEstructuras.push_back(fabE.crearEstructura(90*32,85*32,9));
 
 /// ======================== CICLO DIA Y NOCHE =========================///
     nightOverlay.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
@@ -142,7 +150,6 @@ void Game::run()
     sf::Color nightColor(0, 0, 30); // Un azul oscuro para la noche
     float cicloCompletoSegundos = 30.0f; // Un ciclo de 2 minutos para probar. �Puedes cambiar esto!
     sf::Uint8 maxOpacidad = 210; // Qu� tan oscura ser� la noche (0-255)
-
 
 /// ======================== Fuente y Display Reloj =========================///
 
@@ -172,6 +179,7 @@ void Game::run()
 
         case EstadoJuego::MenuPrincipal:
         {
+            _menuPrincipal.iniciarMusica();
 
             sf::Event event;
             while (window.pollEvent(event))
@@ -185,17 +193,18 @@ void Game::run()
 
             _menuPrincipal.ajustarEscalaAutomaticamente(window.getDefaultView());
 
-
             OpcionMenu opcion = _menuPrincipal.actualizar(posMouse);
 
             if (opcion == OpcionMenu::Jugar)
             {
                 _estadoActual = EstadoJuego::Jugando;
+                _menuPrincipal.detenerMusica();
                 sonido.setVolume(_menuPrincipal.getVolumen());
                 sonido.play();
                 _menuPrincipal.actualizar(posMouse);
-                relojDiaNoche.restart();
+                _relojInterno.restart();
             }
+
             else if (opcion == OpcionMenu::Salir)
             {
                 window.close();
@@ -215,8 +224,11 @@ void Game::run()
             float volumenActual = _menuPrincipal.getVolumen();
             sonido.setVolume(volumenActual);
             character.setVolumen(volumenActual);
+            deltatime = _relojInterno.restart().asMilliseconds();
 
             sf::Event event;
+            bool cambioDeEstado = false;
+
             while (window.pollEvent(event))
             {
                 if (event.type == sf::Event::Closed)
@@ -224,18 +236,25 @@ void Game::run()
                     window.close();
                 }
 
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+                {
+                    _estadoActual = EstadoJuego::MenuPrincipal;
+                    sonido.stop();
+                    _menuPrincipal.iniciarMusica();
+                    cambioDeEstado = true;
+                    break;
+                }
+
                 inv.controlDeEventos(event);
                 invR.cambiarSlotsConEventos(event);
             }
 
+            if (cambioDeEstado) break;
+
             Comandos::getInstancia().actualizar();
-            sf::Vector2f posMouseAux = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-/// ======================== Test spawn =========================///
+            sf::Vector2f posMouseWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window), Camara);/// ======================== Test spawn =========================///
 
 //        regenerarRecursos(listaEstructuraRandom);
-
-
-
 
 /// ======================== Primeros drawables =========================///
 
@@ -257,19 +276,14 @@ void Game::run()
                 window.draw(*animal);
             }
 
-
-
-
 /// ======================== RELOJ =========================///
-
-            deltatime = _relojInterno.restart().asMilliseconds();
-
 
             mouse.update(window);
 
 /// ======================== Update del Ciclo dia y noche =========================///
 
-            float tiempoActualSegundos = relojDiaNoche.getElapsedTime().asSeconds();
+            _tiempoDiaAcumulado += deltatime / 1000.0f;
+            float tiempoActualSegundos = _tiempoDiaAcumulado;
             float tiempoEnCiclo = fmod(tiempoActualSegundos, cicloCompletoSegundos);
 
             float fraccionCiclo = (tiempoEnCiclo / cicloCompletoSegundos) * 2.0f * 3.14159265f;
@@ -334,32 +348,51 @@ void Game::run()
 
             for (auto it = animales.begin(); it != animales.end();)
             {
-                Mob* animal = it->get();
+                // Obtenemos el puntero base Mob
+                Mob* mobBase = it->get();
 
-                animal->update(PosicionJugador, deltatime);
+                // Intentamos tratarlo como un ANIMAL (Casteo din�mico)
+                Animal* animal = dynamic_cast<Animal*>(mobBase);
+
+                // Update general (movimiento)
+                mobBase->update(PosicionJugador, deltatime);
 
                 for (auto& colisionadorMapa : mapa._colisiones)
                 {
                     animal->chocar(colisionadorMapa);
                 }
 
+                if (animal != nullptr && sf::Mouse::isButtonPressed(sf::Mouse::Right))
+                {
+                    if (animal->getGlobalBounds().contains(posMouseWorld))
+                    {
+                        Item* itemEnMano = inv.getItemEnMano();
+
+                        if (animal->intentarOrdeniar(itemEnMano,fabItems, inv))
+                        {
+                            cout << "Ordeniada!!" << endl;
+                        }
+                    }
+                }
+
                 bool murio = character.atacar(*animal, fuerzaEmpuje, deltatime);
 
                 if (murio)
                 {
+                    if (animal != nullptr)
+                    {
+                        animal->soltarLoot(fabItems, listaLoots);
+                    }
+
                     it = animales.erase(it);
                 }
-
                 else
                 {
-                    animal->move(animal->getVelocidad());
+                    mobBase->move(mobBase->getVelocidad());
                     ++it;
                 }
-
             }
 /// ======================== COLISION MAPA =========================///
-
-
 
             for (auto& colisionador : mapa._colisiones)
             {
@@ -379,7 +412,17 @@ void Game::run()
                         (*estructura)->recibirGolpe(5);
                     }
                     window.draw(**estructura);
-                    (*estructura)->update( PosicionJugador, mouse.getPosicion(), mause, Camara, relacion, inv);
+                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime);
+
+                    Horno* horno = dynamic_cast<Horno*>((*estructura).get());
+
+                    if (horno != nullptr)
+                    {
+                        if (horno->terminarDeCocinar())
+                        {
+                            horno->soltarLoot(fabItems, listaLoots);
+                        }
+                    }
                 }
                 else
                 {
@@ -400,7 +443,7 @@ void Game::run()
                         (*estructura)->recibirGolpe(5);
                     }
                     window.draw(**estructura);
-                    (*estructura)->update( PosicionJugador, mouse.getPosicion(), mause, Camara, relacion, inv);
+                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime);
                 }
                 else
                 {
@@ -411,7 +454,6 @@ void Game::run()
             }
 
 /// ======================== INICIO LOOT =========================///
-
 
             for (auto it = listaLoots.begin(); it != listaLoots.end();)
             {
@@ -432,7 +474,6 @@ void Game::run()
             inv.copiarItemsEnVector(vectorCarga);
             invR.setItems(vectorCarga);
 
-
 /// ======================== INICIO DRAWABLES =========================///
             invR.update(Camara, relacion);
 
@@ -442,13 +483,11 @@ void Game::run()
 
             window.setView(window.getDefaultView());
 
-            //window.draw(nightOverlay);
+//            window.draw(nightOverlay);
 
             window.draw(_minimap);
 
             window.draw(textReloj);
-
-
 
 /// ======================== CAMARA EFECTO Y CENTRADO =========================///
 

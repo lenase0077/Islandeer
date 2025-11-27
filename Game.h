@@ -44,7 +44,7 @@ class Game
         FabricaEstructuras _FabricaEstructuras;
         Minimap _minimap;
         TileMap mapa;
-
+        float _tiempoDiaAcumulado = 0;
 
         //==== DIA Y NOCHE===//
         sf::Clock relojDiaNoche;
@@ -54,8 +54,6 @@ class Game
 
         sf::Font fontReloj;
         sf::Text textReloj;
-
-
 
         EstadoJuego _estadoActual = EstadoJuego::MenuPrincipal;
         MenuPrincipal _menuPrincipal;

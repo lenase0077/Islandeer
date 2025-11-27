@@ -3,12 +3,17 @@
 using namespace std;
 
 Animal::Animal(const sf::Texture& textura)
+    : Mob()
 {
     _colision.setID("Animal");
     setTexture(textura);
     setScale(0.8, 0.8);
     setTextureRect(sf::IntRect(0,0,32,32));
     setVida(100);
+    _idLootAlMorir = -1;
+    _produceLeche = false;
+    _lecheDisponible = false;
+    _tiempoRecargaLeche = 0;
 
     _tiempoDivagar = (float)(rand() % (15 - 8 + 1) + 4) * 1000.0f;
     _tiempoEnReposo = (float)(rand() % (5 - 2 + 1) + 2) * 1000.0f;
@@ -29,12 +34,17 @@ Animal::Animal(const sf::Texture& textura)
 }
 
 Animal::Animal(const sf::Texture& textura, sf::Vector2f PosicionInicial)
+    : Mob()
 {
     _colision.setID("Animal");
     setPosition(PosicionInicial);
     setTexture(textura);
     setTextureRect(sf::IntRect(0,0,32,32));
     setVida(100);
+    _idLootAlMorir = -1;
+    _produceLeche = false;
+    _lecheDisponible = false;
+    _tiempoRecargaLeche = 0;
 
     _tiempoDivagar = clamp(rand(), 0, 100000);
     _tiempoEnReposo = clamp (rand (), 0, 5000);
@@ -53,7 +63,6 @@ Animal::Animal(const sf::Texture& textura, sf::Vector2f PosicionInicial)
         _tiempoEnEstado = clamp(rand(), 0, (int)_tiempoEnReposo);
     }
 }
-
 
 void Animal::enReposo (float deltaTime)
 {
@@ -117,11 +126,8 @@ void Animal::actualizarSpriteAnimacion (float deltaTime)
         filaSpriteY = 3;
         break;
     }
-
     setFrame(filaSpriteY, _frameActual);
-
 }
-
 
 void Animal::update(sf::Vector2f& Posicionpersonaje, float deltatime)
 {
@@ -132,11 +138,10 @@ void Animal::update(sf::Vector2f& Posicionpersonaje, float deltatime)
     sf::Vector2f DireccionAlJugador = Posicionpersonaje - PosicionAnimal;
     float DistanciaJugador = std::sqrt(DireccionAlJugador.x * DireccionAlJugador.x + DireccionAlJugador.y * DireccionAlJugador.y);
 
-
     // --- LÓGICA DE DETECCIÓN Y CAMBIO DE ESTADO (PRIORIDAD) ---
 
     // 1. Detección por Proximidad
-    if (DistanciaJugador < 30)
+    if (DistanciaJugador < 10)
     {
         _estadoActual = EstadoAnimal::Huyendo;
         _tiempoEnEstado = 0.f;
@@ -199,9 +204,16 @@ void Animal::update(sf::Vector2f& Posicionpersonaje, float deltatime)
             _frameActual = 0;
         }
     }
+    if (_produceLeche && !_lecheDisponible)
+    {
+        _tiempoRecargaLeche += deltatime;
 
-    // Finalmente, movemos el sprite
-//    move(getVelocidad());
+        if (_tiempoRecargaLeche >= 10000)
+        {
+            _lecheDisponible = true;
+            _tiempoRecargaLeche = 0;
+        }
+    }
 }
 
 void Animal::actualizarDireccion()
@@ -257,5 +269,53 @@ void Animal::huir(sf::Vector2f& Posicionpersonaje, float aceleracion)
 void Animal::recibirDanio()
 {
     recibirAtaqueDeEspada();
+}
+
+bool Animal::caracteristicasDelAnimal(int idLoot, bool produceLeche)
+{
+    _idLootAlMorir = idLoot;
+    _produceLeche = produceLeche;
+
+    if (_produceLeche)
+    {
+        _lecheDisponible = true;
+    }
+}
+
+void Animal::soltarLoot (FabricaItems& fabItems, std::list<Loot>& listaLoot)
+{
+    if (_idLootAlMorir != -1)
+    {
+        listaLoot.emplace_back(fabItems, getPosition(), _idLootAlMorir);
+    }
+}
+
+bool Animal::intentarOrdeniar (Item* itemEnMano, FabricaItems& fabItems, InventarioInterfaz& Inv)
+{
+    if (_produceLeche && _lecheDisponible)
+    {
+        if (itemEnMano != nullptr)
+        {
+            if (itemEnMano->getID() == 28)
+            {
+                if (itemEnMano->getCantidad() == 1)
+                {
+                    std::unique_ptr<Item> nuevoItem = fabItems.crearItem(30);
+                    *itemEnMano = *nuevoItem;
+                }
+                else
+                {
+                    Inv.agregarItem(30,1);
+                    Inv.quitarItem(28,1);
+                }
+
+                _lecheDisponible = false;
+                _tiempoRecargaLeche = 0;
+
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
