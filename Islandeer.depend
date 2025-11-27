@@ -3335,12 +3335,12 @@
 	<SFML/Graphics.hpp>
 	<cmath>
 
-1764202888 source:d:\alejo\alemart\documents\github\islander\estructura.cpp
+1764285557 source:d:\alejo\alemart\documents\github\islander\estructura.cpp
 	"Estructura.h"
 	<iostream>
 	<cmath>
 
-1764251236 d:\alejo\alemart\documents\github\islander\estructura.h
+1764285557 d:\alejo\alemart\documents\github\islander\estructura.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<list>
@@ -3348,7 +3348,7 @@
 	"Loot.h"
 	"FabricaItems.h"
 
-1763595889 d:\alejo\alemart\documents\github\islander\loot.h
+1764284319 d:\alejo\alemart\documents\github\islander\loot.h
 	<SFML/Graphics.hpp>
 	"Item.h"
 	"Colisionador.h"
@@ -3613,7 +3613,7 @@
 1761750014 d:\alejo\alemart\documents\github\islander\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1764255016 source:d:\alejo\alemart\documents\github\islander\game.cpp
+1764285962 source:d:\alejo\alemart\documents\github\islander\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
@@ -4054,7 +4054,7 @@
 	<memory>
 	<string>
 
-1764244523 d:\alejo\alemart\documents\github\islander\mesadecrafteo.h
+1764284183 d:\alejo\alemart\documents\github\islander\mesadecrafteo.h
 	"Estructura.h"
 	"SeleccionRectangulo.h"
 	"InventarioIntefaz.h"
@@ -4063,7 +4063,7 @@
 	"FabricaItems.h"
 	<vector>
 
-1764254484 d:\alejo\alemart\documents\github\islander\horno.h
+1764284948 d:\alejo\alemart\documents\github\islander\horno.h
 	"Estructura.h"
 	"InventarioIntefaz.h"
 	"InventarioResumidoInterfaz.h"
@@ -4089,18 +4089,18 @@
 	<iostream>
 	<sstream>
 
-1764252347 source:d:\alejo\alemart\documents\github\islander\horno.cpp
+1764285493 source:d:\alejo\alemart\documents\github\islander\horno.cpp
 	<iostream>
 	"Horno.h"
 	<cmath>
 
-1764251236 source:d:\alejo\alemart\documents\github\islander\mesadecrafteo.cpp
+1764285493 source:d:\alejo\alemart\documents\github\islander\mesadecrafteo.cpp
 	"MesaDeCrafteo.h"
 	"Comando.h"
 	<cmath>
 	<iostream>
 
-1764252650 source:d:\alejo\alemart\documents\github\islander\cofre.cpp
+1764285493 source:d:\alejo\alemart\documents\github\islander\cofre.cpp
 	<iostream>
 	"Cofre.h"
 

@@ -113,6 +113,8 @@ MesaDeCrafteo::MesaDeCrafteo( sf::Texture& texturaBloques, sf::Texture& texturaU
 
     _sprFondoMesa.setTexture(texturaUI);
     _sprFondoMesa.setOrigin(0,0);
+
+    _seRompePorColision = false;
 }
 
 

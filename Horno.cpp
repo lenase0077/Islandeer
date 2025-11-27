@@ -9,6 +9,7 @@ Horno::Horno(sf::Texture& texturaBloques, float posX, float posY, int id)
     _estaCocinando = false;
     _tiempoCoccionActual = 0;
     _tiempoParaCocinar = 5000;
+    _seRompePorColision = false;
     _idProductoCocinandose = -1;
     _sprite.setColor(sf::Color::White);
 }
@@ -137,24 +138,21 @@ bool Horno::terminarDeCocinar()
     return(_estaCocinando && _tiempoCoccionActual >= _tiempoParaCocinar);
 }
 
-void Horno::soltarLoot(FabricaItems& fabItems, std::list<Loot>& listaLoot)
+void Horno::generarLoot (std::list<Loot>& listaLoot)
 {
     if (terminarDeCocinar())
     {
-        cout << "SE COCINO EL PRODUCTO" << endl;
-
         sf::Vector2f posLootProduct = getPosition();
         posLootProduct.x += 16;
         posLootProduct.y += 32;
 
-        listaLoot.emplace_back(fabItems, posLootProduct, _idProductoCocinandose);
+        listaLoot.emplace_back(_fabItems, posLootProduct, _idProductoCocinandose);
 
         _estaCocinando = false;
         _tiempoCoccionActual = 0;
         _idProductoCocinandose = -1;
         _sprite.setColor(sf::Color::White);
     }
+
 }
-
-
 

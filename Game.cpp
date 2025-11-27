@@ -410,27 +410,24 @@ void Game::run()
                     if(character.getColisionador().detectorDeColision((*estructura)->getColisionador()))   ///EJEMPLO
                     {
                         character.chocar((*estructura)->getColisionador());
-                        (*estructura)->recibirGolpe(5);
+
+                        if ((*estructura)->getRompePorColision())
+                        {
+                            (*estructura)->recibirGolpe(5);
+                        }
                     }
                     window.draw(**estructura);
                     (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime);
 
-                    Horno* horno = dynamic_cast<Horno*>((*estructura).get());
+                    (*estructura)->generarLoot(listaLoots);
 
-                    if (horno != nullptr)
-                    {
-                        if (horno->terminarDeCocinar())
-                        {
-                            horno->soltarLoot(fabItems, listaLoots);
-                        }
-                    }
+                    estructura++;
                 }
                 else
                 {
                     (*estructura)->liberarLoot(fabItems,listaLoots);
                     estructura = listaEstructuras.erase(estructura);
                 }
-                estructura++;
             }
 /// ======================== Estructura RANDOM =========================///
 
