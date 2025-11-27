@@ -83,7 +83,6 @@ void Game::run()
     sf::Mouse mause;
 
 /// ======================== Camara =========================///
-    sf::View Camara;
     Camara.setSize({300.f, 300.f});
     sf::Vector2f camaraPosicion = {640, 1120};
 
@@ -170,7 +169,7 @@ void Game::run()
 /// ======================== INICIO GAME LOOP =========================///
     while (window.isOpen())
     {
-        cout << "Energia = " << character.getEnergia() << endl;
+//        cout << "Energia = " << character.getEnergia() << endl;
 
 /// ======================== INICIO MENU PRINCIPAL =========================///
 
@@ -226,6 +225,9 @@ void Game::run()
             character.setVolumen(volumenActual);
             deltatime = _relojInterno.restart().asMilliseconds();
 
+            Comandos::getInstancia().actualizar();
+
+
             sf::Event event;
             bool cambioDeEstado = false;
 
@@ -234,6 +236,11 @@ void Game::run()
                 if (event.type == sf::Event::Closed)
                 {
                     window.close();
+                }
+
+                if (event.type == sf::Event::MouseWheelScrolled)
+                {
+                    Comandos::getInstancia().registrarScroll(event.mouseWheelScroll.delta);
                 }
 
                 if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
@@ -245,13 +252,11 @@ void Game::run()
                     break;
                 }
 
-                inv.controlDeEventos(event);
-                invR.cambiarSlotsConEventos(event);
+//                invR.cambiarSlotsConEventos(event);
             }
 
             if (cambioDeEstado) break;
 
-            Comandos::getInstancia().actualizar();
             sf::Vector2f posMouseWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window), Camara);/// ======================== Test spawn =========================///
 
 //        regenerarRecursos(listaEstructuraRandom);
@@ -469,7 +474,7 @@ void Game::run()
             character.updateEspada(mouse);
             _minimap.update(character.getPosition());
 
-            inv.update( mouse.getPosicion(), mause, Camara, relacion, listaLoots, tecladoEntrada); ///FALLAA
+            inv.update( mouse.getPosicion(), Camara, relacion, listaLoots); ///FALLAA
 
             inv.copiarItemsEnVector(vectorCarga);
             invR.setItems(vectorCarga);

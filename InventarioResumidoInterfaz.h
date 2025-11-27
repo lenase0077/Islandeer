@@ -2,6 +2,7 @@
 #include "Item.h"
 #include "SeleccionRectangulo.h"
 #include <SFML/Graphics.hpp>
+#include "Comando.h"
 
 class InventarioResumido : public sf::Drawable, sf::Transformable{
 private:
@@ -28,5 +29,4 @@ public:
 
     ///OTROS METODOS
     void update(const sf::View& vista, const float& relacionAspecto);
-    void cambiarSlotsConEventos(sf::Event& evento);
 };

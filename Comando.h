@@ -8,6 +8,8 @@ private:
 
     sf::Clock _relojDobleClick;
     bool _mouseIzqAnterior = false;
+    bool _mouseDerAnterior = false;
+    bool _teclaTirarAnterior = false;
 
     Comandos(const Comandos&) = delete;
     void operator=(const Comandos&) = delete;
@@ -36,6 +38,22 @@ public:
     bool mouseIzqRecienPresionado = false;
     bool mouseIzqRecienSoltado = false;
     bool mouseIzqDobleClick = false;
+
+    bool mouseDerPresionado = false;
+    bool mouseDerRecienPresionado = false;
+    bool mouseDerRecienSoltado = false;
+
+    bool teclaTirar = false;
+    bool teclaTirarRecienPresionada = false;
+
+    bool _teclaInventarioAnterior = false;
+    bool teclaInventarioRecienPresionada = false;
+
+    int slotSeleccionadoTeclado = -1;
+    int sentidoScroll = 0;
+
+    void registrarScroll(float delta);
+
 
 
 
