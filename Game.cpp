@@ -224,7 +224,6 @@ void Game::run()
             sonido.setVolume(volumenActual);
             character.setVolumen(volumenActual);
             deltatime = _relojInterno.restart().asMilliseconds();
-
             Comandos::getInstancia().actualizar();
 
 
@@ -233,6 +232,7 @@ void Game::run()
 
             while (window.pollEvent(event))
             {
+///           ------------- LLAMADA DE EVENTOS -------------
                 if (event.type == sf::Event::Closed)
                 {
                     window.close();
@@ -252,14 +252,12 @@ void Game::run()
                     break;
                 }
 
-//                invR.cambiarSlotsConEventos(event);
             }
-
+/// ======================== INICIO DEL GAME LOOP  ======================== ///
             if (cambioDeEstado) break;
 
             sf::Vector2f posMouseWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window), Camara);/// ======================== Test spawn =========================///
 
-//        regenerarRecursos(listaEstructuraRandom);
 
 /// ======================== Primeros drawables =========================///
 
@@ -281,11 +279,11 @@ void Game::run()
                 window.draw(*animal);
             }
 
-/// ======================== RELOJ =========================///
+/// ========================= RELOJ ========================= ///
 
             mouse.update(window);
 
-/// ======================== Update del Ciclo dia y noche =========================///
+/// ======================== Update del Ciclo dia y noche ========================= ///
 
             _tiempoDiaAcumulado += deltatime / 1000.0f;
             float tiempoActualSegundos = _tiempoDiaAcumulado;
@@ -474,7 +472,7 @@ void Game::run()
             character.updateEspada(mouse);
             _minimap.update(character.getPosition());
 
-            inv.update( mouse.getPosicion(), Camara, relacion, listaLoots); ///FALLAA
+            inv.update(mouse.getPosicion(), Camara, relacion, listaLoots); ///FALLAA
 
             inv.copiarItemsEnVector(vectorCarga);
             invR.setItems(vectorCarga);
