@@ -497,11 +497,13 @@ void Game::run()
 /// ======================== CAMARA EFECTO Y CENTRADO =========================///
 
 
-            camaraPosicion.x = camaraPosicion.x + ((character.getPosition().x - camaraPosicion.x) * 0.1f );
-            camaraPosicion.y = camaraPosicion.y + ((character.getPosition().y- camaraPosicion.y) * 0.1f );
+            lerp(camaraPosicion, character.getPosition(), 0.1f);
 
-            if (character.getEstaCorriendo()) Camara.setSize(Camara.getSize().x + (350 - Camara.getSize().x)*0.05, Camara.getSize().y + (350 - Camara.getSize().y)*0.05);
-            else Camara.setSize(Camara.getSize().x + (300 - Camara.getSize().x)*0.05, Camara.getSize().y + (300 - Camara.getSize().y)*0.05);
+            sf::Vector2f tamanoActual = Camara.getSize();
+            sf::Vector2f tamanoObjetivo = character.getEstaCorriendo() ? sf::Vector2f(350.f, 350.f) : sf::Vector2f(300.f, 300.f);
+
+            lerp(tamanoActual, tamanoObjetivo, 0.05f);
+            Camara.setSize(tamanoActual);
 
             Camara.setCenter(camaraPosicion);
 
