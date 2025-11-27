@@ -12,6 +12,10 @@ FabricaEstructuras::FabricaEstructuras(){
     if(!_texturaUIMesa.loadFromFile("MesaCrafteo.png")) {
         cout << "Error cargando textura MesaCrafteo.png" << endl;
     }
+
+    if(!_texturaCopas.loadFromFile("Copa-arboles.png")) {
+        cout << "Error cargando textura Copas" << endl;
+    }
 }
 
 void FabricaEstructuras::update(){
@@ -81,6 +85,38 @@ std::unique_ptr<Estructura> FabricaEstructuras::crearEstructura(float x, float y
         estructuraCreada -> setVida(150);
         vectorLootIDs.push_back(50);
         estructuraCreada -> setLootsIDs(vectorLootIDs);
+        break;
+
+        case 10:///Palmera
+
+        estructuraCreada = std::make_unique<Arbol>(_texturaEstructuras, _texturaCopas, x, y, ID, 0);
+        estructuraCreada->setVida(100);
+//        estructuraCreada->setScale(1.3,1.3);
+
+        insertarLootEntre(36,vectorLootIDs,2,5);
+        estructuraCreada -> setLootsIDs(vectorLootIDs);
+
+        break;
+    case 11:///Pino
+
+        estructuraCreada = std::make_unique<Arbol>(_texturaEstructuras, _texturaCopas, x, y, ID, 1);
+        estructuraCreada->setVida(100);
+//        estructuraCreada->setScale(1.3,1.3);
+
+        insertarLootEntre(36,vectorLootIDs,2,5);
+
+        estructuraCreada -> setLootsIDs(vectorLootIDs);
+
+        break;
+    case 12:///Manzano
+
+        estructuraCreada = std::make_unique<Arbol>(_texturaEstructuras, _texturaCopas, x, y, ID, 2);
+        estructuraCreada->setVida(100);
+//        estructuraCreada->setScale(1.3,1.3);
+
+        insertarLootEntre(34,vectorLootIDs,2,5);
+        estructuraCreada -> setLootsIDs(vectorLootIDs);
+
         break;
     }
     return estructuraCreada;
