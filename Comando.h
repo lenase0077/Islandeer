@@ -49,6 +49,11 @@ public:
     bool _teclaInventarioAnterior = false;
     bool teclaInventarioRecienPresionada = false;
 
+    int slotSeleccionadoTeclado = -1;
+    int sentidoScroll = 0;
+
+    void registrarScroll(float delta);
+
 
 
 

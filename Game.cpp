@@ -225,6 +225,9 @@ void Game::run()
             character.setVolumen(volumenActual);
             deltatime = _relojInterno.restart().asMilliseconds();
 
+            Comandos::getInstancia().actualizar();
+
+
             sf::Event event;
             bool cambioDeEstado = false;
 
@@ -233,6 +236,11 @@ void Game::run()
                 if (event.type == sf::Event::Closed)
                 {
                     window.close();
+                }
+
+                if (event.type == sf::Event::MouseWheelScrolled)
+                {
+                    Comandos::getInstancia().registrarScroll(event.mouseWheelScroll.delta);
                 }
 
                 if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
@@ -244,12 +252,11 @@ void Game::run()
                     break;
                 }
 
-                invR.cambiarSlotsConEventos(event);
+//                invR.cambiarSlotsConEventos(event);
             }
 
             if (cambioDeEstado) break;
 
-            Comandos::getInstancia().actualizar();
             sf::Vector2f posMouseWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window), Camara);/// ======================== Test spawn =========================///
 
 //        regenerarRecursos(listaEstructuraRandom);

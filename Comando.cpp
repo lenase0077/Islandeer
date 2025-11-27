@@ -2,6 +2,10 @@
 
 void Comandos::actualizar()
     {
+
+
+        sentidoScroll = 0;
+
         // --- 1. Logica del Teclado ---
 
         teclaArriba    = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
@@ -59,4 +63,26 @@ void Comandos::actualizar()
 
         teclaInventarioRecienPresionada = estadoE && !_teclaInventarioAnterior;
         _teclaInventarioAnterior = estadoE;
-    }
+
+        // --- 4 Logica de tecla E (inv) ---
+
+
+        slotSeleccionadoTeclado = -1;
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) slotSeleccionadoTeclado = 0;
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) slotSeleccionadoTeclado = 1;
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) slotSeleccionadoTeclado = 2;
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) slotSeleccionadoTeclado = 3;
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5)) slotSeleccionadoTeclado = 4;
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6)) slotSeleccionadoTeclado = 5;
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num7)) slotSeleccionadoTeclado = 6;
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num8)) slotSeleccionadoTeclado = 7;
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num9)) slotSeleccionadoTeclado = 8;
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0)) slotSeleccionadoTeclado = 9;
+}
+
+void Comandos::registrarScroll(float delta)
+{
+    if (delta > 0) sentidoScroll = -1;
+    else if (delta < 0) sentidoScroll = 1;
+}

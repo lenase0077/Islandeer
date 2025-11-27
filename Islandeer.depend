@@ -832,7 +832,7 @@
 1764170642 c:\users\leand\onedrive\documentos\repositorio\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1764283863 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\inventariointefaz.cpp
+1764283959 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\inventariointefaz.cpp
 	"InventarioIntefaz.h"
 	"funcionesInterpolacion.h"
 	<cmath>
@@ -872,10 +872,11 @@
 	"InventarioResumidoInterfaz.h"
 	<iostream>
 
-1764170642 c:\users\leand\onedrive\documentos\repositorio\islandeer\inventarioresumidointerfaz.h
+1764284425 c:\users\leand\onedrive\documentos\repositorio\islandeer\inventarioresumidointerfaz.h
 	"Item.h"
 	"SeleccionRectangulo.h"
 	<SFML/Graphics.hpp>
+	"Comando.h"
 
 1764202300 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\item.cpp
 	"Item.h"
@@ -2850,10 +2851,10 @@
 	"Minimap.h"
 	<iostream>
 
-1764283567 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\comando.cpp
+1764284203 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\comando.cpp
 	"Comando.h"
 
-1764283852 c:\users\leand\onedrive\documentos\repositorio\islandeer\comando.h
+1764284114 c:\users\leand\onedrive\documentos\repositorio\islandeer\comando.h
 	<SFML/Graphics.hpp>
 
 1764202643 c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.h
