@@ -5,7 +5,7 @@
 #include "MesaDeCrafteo.h"
 #include "Horno.h"
 #include "Arboles.h"
-
+#include "Cofre.h"
 
 class FabricaEstructuras
 {

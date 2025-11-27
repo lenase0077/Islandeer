@@ -61,7 +61,7 @@ void Horno::update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posG
     }
 
     ///Click
-    if (estaCerca && sf::Mouse::isButtonPressed(sf::Mouse::Left) && !_estaCocinando)
+    if (estaCerca && sf::Mouse::isButtonPressed(sf::Mouse::Right) && !_estaCocinando)
     {
         if (fueClickeado(posGlobalDelMouse))
         {

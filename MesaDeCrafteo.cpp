@@ -121,7 +121,6 @@ void MesaDeCrafteo::update(const sf::Vector2f& posicionJugador, const sf::Vector
     ///Detectar jugador cercano
     float distanciaJugador = sqrt(pow(posicionJugador.x - getPosition().x,2) + pow(posicionJugador.y - getPosition().y,2));
 
-
     if (distanciaJugador < 40)
     {
         _sprite.setColor(sf::Color::Blue);

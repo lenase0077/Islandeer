@@ -60,7 +60,4 @@ class Game
 
         void regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstructurasAleatorias);
 
-
-
-
 };

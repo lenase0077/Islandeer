@@ -143,6 +143,7 @@ void Game::run()
     listaEstructuras.push_back(fabE.crearEstructura(88*32,85*32,6));
     listaEstructuras.push_back(fabE.crearEstructura(89*32,85*32,7));
     listaEstructuras.push_back(fabE.crearEstructura(90*32,85*32,9));
+    listaEstructuras.push_back(fabE.crearEstructura(91*32,85*32,8));
 
 /// ======================== CICLO DIA Y NOCHE =========================///
     nightOverlay.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
@@ -368,7 +369,7 @@ void Game::run()
                     {
                         Item* itemEnMano = inv.getItemEnMano();
 
-                        if (animal->intentarOrdeniar(itemEnMano,fabItems, inv))
+                        if (animal->intentarOrdeniar(character.getPosition(), itemEnMano,fabItems, inv))
                         {
                             cout << "Ordeniada!!" << endl;
                         }
