@@ -113,6 +113,8 @@ MesaDeCrafteo::MesaDeCrafteo( sf::Texture& texturaBloques, sf::Texture& texturaU
 
     _sprFondoMesa.setTexture(texturaUI);
     _sprFondoMesa.setOrigin(0,0);
+
+    _seRompePorColision = false;
 }
 
 
@@ -120,7 +122,6 @@ void MesaDeCrafteo::update(const sf::Vector2f& posicionJugador, const sf::Vector
 {
     ///Detectar jugador cercano
     float distanciaJugador = sqrt(pow(posicionJugador.x - getPosition().x,2) + pow(posicionJugador.y - getPosition().y,2));
-
 
     if (distanciaJugador < 40)
     {

@@ -7,7 +7,7 @@
 #include "InventarioIntefaz.h"
 #include <list>
 #include <ctime>
-
+#include "Comando.h"
 
 enum class EstadoAnimal{
     Divagando,
@@ -25,7 +25,7 @@ class Animal : public Mob
         void recibirAtaqueDeEspada();
         bool caracteristicasDelAnimal(int idLoot, bool produceLeche);
         void soltarLoot (FabricaItems& fabItems, std::list<Loot>& listaLoot);
-        bool intentarOrdeniar (Item* itemEnMano, FabricaItems& fabItems, InventarioInterfaz& Inv);
+        bool intentarOrdeniar (const sf::Vector2f& Posicionpersonaje, Item* itemEnMano, FabricaItems& fabItems, InventarioInterfaz& Inv);
 
     private:
         EstadoAnimal _estadoActual;

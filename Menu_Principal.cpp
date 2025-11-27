@@ -301,6 +301,7 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
 
         return OpcionMenu::Ninguna;
     }
+    return OpcionMenu::Ninguna;
 }
 
 

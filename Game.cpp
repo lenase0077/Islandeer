@@ -142,6 +142,7 @@ void Game::run()
     listaEstructuras.push_back(fabE.crearEstructura(88*32,85*32,6));
     listaEstructuras.push_back(fabE.crearEstructura(89*32,85*32,7));
     listaEstructuras.push_back(fabE.crearEstructura(90*32,85*32,9));
+    listaEstructuras.push_back(fabE.crearEstructura(91*32,85*32,8));
 
 /// ======================== CICLO DIA Y NOCHE =========================///
     nightOverlay.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
@@ -371,7 +372,7 @@ void Game::run()
                     {
                         Item* itemEnMano = inv.getItemEnMano();
 
-                        if (animal->intentarOrdeniar(itemEnMano,fabItems, inv))
+                        if (animal->intentarOrdeniar(character.getPosition(), itemEnMano,fabItems, inv))
                         {
                             cout << "Ordeniada!!" << endl;
                         }
@@ -412,27 +413,24 @@ void Game::run()
                     if(character.getColisionador().detectorDeColision((*estructura)->getColisionador()))   ///EJEMPLO
                     {
                         character.chocar((*estructura)->getColisionador());
-                        (*estructura)->recibirGolpe(5);
+
+                        if ((*estructura)->getRompePorColision())
+                        {
+                            (*estructura)->recibirGolpe(5);
+                        }
                     }
                     window.draw(**estructura);
                     (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime);
 
-                    Horno* horno = dynamic_cast<Horno*>((*estructura).get());
+                    (*estructura)->generarLoot(listaLoots);
 
-                    if (horno != nullptr)
-                    {
-                        if (horno->terminarDeCocinar())
-                        {
-                            horno->soltarLoot(fabItems, listaLoots);
-                        }
-                    }
+                    estructura++;
                 }
                 else
                 {
                     (*estructura)->liberarLoot(fabItems,listaLoots);
                     estructura = listaEstructuras.erase(estructura);
                 }
-                estructura++;
             }
 /// ======================== Estructura RANDOM =========================///
 

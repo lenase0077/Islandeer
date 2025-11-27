@@ -51,6 +51,8 @@
 		<Unit filename="Arboles.h" />
 		<Unit filename="BarraDeVida.cpp" />
 		<Unit filename="BarraDeVida.h" />
+		<Unit filename="Cofre.cpp" />
+		<Unit filename="Cofre.h" />
 		<Unit filename="Colisionador.cpp" />
 		<Unit filename="Colisionador.h" />
 		<Unit filename="Comando.cpp" />

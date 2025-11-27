@@ -15,7 +15,7 @@ private:
     std::unique_ptr<Item> _items[20];
     std::vector<int> _requisitosCrafteo[20][2];
     bool recursosExistentes(int numeroItem, InventarioInterfaz& inventario);
-    FabricaItems _fabItems; ///<---Temporal
+    FabricaItems _fabItems;
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     bool _enUso = false;
 

@@ -25,6 +25,8 @@ Estructura::Estructura(sf::Texture& texturaBloques, float posX, float posY, int 
 
     _colision.setColision(colisionadorDimenciones);
     _colision.setID("Estructura");
+
+    _seRompePorColision = true;
 }
 
 void Estructura::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -74,4 +76,11 @@ void Estructura::update(const sf::Vector2f& posicionJugador, const sf::Vector2f&
 }
 
 
+void Estructura::generarLoot (std::list<Loot>& listaLoot){
 
+}
+
+bool Estructura::getRompePorColision()
+{
+    return _seRompePorColision;
+}

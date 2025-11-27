@@ -47,7 +47,7 @@ private:
 
     sf::SoundBuffer bufferStardew;
     sf::Sound sonidoStardew;
-    float _volumenGeneral = 50.0f;
+    float _volumenGeneral = 10.0f;
 
     float _escalaBotonJugar = 1.0f;
     float _escalaBotonOpciones = 1.0f;

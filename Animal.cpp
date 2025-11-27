@@ -92,7 +92,6 @@ void Animal::recibirAtaqueDeEspada()
     _estadoActual = EstadoAnimal::Huyendo;
     _tiempoEnEstado = 0.f;
     _golpeadoPorEspada = true;
-
 }
 
 void Animal::actualizarSpriteAnimacion (float deltaTime)
@@ -134,18 +133,17 @@ void Animal::update(sf::Vector2f& Posicionpersonaje, float deltatime)
     updateColision();
     _tiempoEnEstado += deltatime;
 
-    sf::Vector2f PosicionAnimal = getPosition();
-    sf::Vector2f DireccionAlJugador = Posicionpersonaje - PosicionAnimal;
-    float DistanciaJugador = std::sqrt(DireccionAlJugador.x * DireccionAlJugador.x + DireccionAlJugador.y * DireccionAlJugador.y);
+    float DistanciaJugador = calcularDistancia(Posicionpersonaje, getPosition());
 
     // --- LÓGICA DE DETECCIÓN Y CAMBIO DE ESTADO (PRIORIDAD) ---
 
     // 1. Detección por Proximidad
-    if (DistanciaJugador < 10)
+    if (DistanciaJugador < 40)
     {
         _estadoActual = EstadoAnimal::Huyendo;
         _tiempoEnEstado = 0.f;
     }
+
     // 2. Fin de Huida por Proximidad (solo si no fue golpeado)
     else if (_estadoActual == EstadoAnimal::Huyendo && DistanciaJugador > 100 && !_golpeadoPorEspada)
     {
@@ -290,8 +288,13 @@ void Animal::soltarLoot (FabricaItems& fabItems, std::list<Loot>& listaLoot)
     }
 }
 
-bool Animal::intentarOrdeniar (Item* itemEnMano, FabricaItems& fabItems, InventarioInterfaz& Inv)
+bool Animal::intentarOrdeniar (const sf::Vector2f& Posicionpersonaje, Item* itemEnMano, FabricaItems& fabItems, InventarioInterfaz& Inv)
 {
+    if (calcularDistancia(Posicionpersonaje, getPosition()) > 50)
+    {
+        return false;
+    }
+
     if (_produceLeche && _lecheDisponible)
     {
         if (itemEnMano != nullptr)
