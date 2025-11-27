@@ -11,22 +11,20 @@
 #include <memory>
 #include <utility>
 #include <array>
+#include "Comando.h"
 
 class InventarioResumido;
 
 class InventarioInterfaz : public sf::Drawable, sf::Transformable
 {
 private:
+
     bool _primerVuelta = false;
     bool _abierto = false;
-    bool _clickDerechoDisponible = true;
-    bool _botonAbrirInventarioDisponible = true;
+
+
     //bool _hayItemEnMano = false;
-    bool _izquierdoPresionadoAnterior = false;
-    bool _frameActualQprecionada = false;
     int _indiceUltimoItemAnalizado = 100;
-    sf::Clock _timerDobleClick2;
-    int _contadorClicksIzquierdo = 0;
     float _posX, _posY;
     sf::Vector2f _posicionEscondite;
     sf::Vector2f _posicionAbierto;
@@ -70,7 +68,7 @@ public:
     void setPosicionAbierto(float X, float Y);
 
     /// Otros Metodos
-    void update(const sf::Vector2f& posGlobalDelMouse, const sf::Mouse& mouse, const sf::View& vista, const float& relacionAspecto, std::list<Loot>& listaLoots, sf::Keyboard& tecladoEntrada);
+    void update(const sf::Vector2f& posGlobalDelMouse, const sf::View& vista, const float& relacionAspecto, std::list<Loot>& listaLoots);
     void controlDeEventos(sf::Event& evento);
     void cargarVectorIDs(int vectorIDs[30]);
     void copiarVectorDeIDs(int vectorAlmacen[30]);

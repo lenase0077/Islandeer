@@ -45,6 +45,8 @@ class Game
         Minimap _minimap;
         TileMap mapa;
         float _tiempoDiaAcumulado = 0;
+        sf::View Camara;
+
 
         //==== DIA Y NOCHE===//
         sf::Clock relojDiaNoche;

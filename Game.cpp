@@ -83,7 +83,6 @@ void Game::run()
     sf::Mouse mause;
 
 /// ======================== Camara =========================///
-    sf::View Camara;
     Camara.setSize({300.f, 300.f});
     sf::Vector2f camaraPosicion = {640, 1120};
 
@@ -171,7 +170,7 @@ void Game::run()
 /// ======================== INICIO GAME LOOP =========================///
     while (window.isOpen())
     {
-        cout << "Energia = " << character.getEnergia() << endl;
+//        cout << "Energia = " << character.getEnergia() << endl;
 
 /// ======================== INICIO MENU PRINCIPAL =========================///
 
@@ -226,15 +225,23 @@ void Game::run()
             sonido.setVolume(volumenActual);
             character.setVolumen(volumenActual);
             deltatime = _relojInterno.restart().asMilliseconds();
+            Comandos::getInstancia().actualizar();
+
 
             sf::Event event;
             bool cambioDeEstado = false;
 
             while (window.pollEvent(event))
             {
+///           ------------- LLAMADA DE EVENTOS -------------
                 if (event.type == sf::Event::Closed)
                 {
                     window.close();
+                }
+
+                if (event.type == sf::Event::MouseWheelScrolled)
+                {
+                    Comandos::getInstancia().registrarScroll(event.mouseWheelScroll.delta);
                 }
 
                 if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
@@ -246,16 +253,12 @@ void Game::run()
                     break;
                 }
 
-                inv.controlDeEventos(event);
-                invR.cambiarSlotsConEventos(event);
             }
-
+/// ======================== INICIO DEL GAME LOOP  ======================== ///
             if (cambioDeEstado) break;
 
-            Comandos::getInstancia().actualizar();
             sf::Vector2f posMouseWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window), Camara);/// ======================== Test spawn =========================///
 
-//        regenerarRecursos(listaEstructuraRandom);
 
 /// ======================== Primeros drawables =========================///
 
@@ -277,11 +280,11 @@ void Game::run()
                 window.draw(*animal);
             }
 
-/// ======================== RELOJ =========================///
+/// ========================= RELOJ ========================= ///
 
             mouse.update(window);
 
-/// ======================== Update del Ciclo dia y noche =========================///
+/// ======================== Update del Ciclo dia y noche ========================= ///
 
             _tiempoDiaAcumulado += deltatime / 1000.0f;
             float tiempoActualSegundos = _tiempoDiaAcumulado;
@@ -467,7 +470,7 @@ void Game::run()
             character.updateEspada(mouse);
             _minimap.update(character.getPosition());
 
-            inv.update( mouse.getPosicion(), mause, Camara, relacion, listaLoots, tecladoEntrada); ///FALLAA
+            inv.update(mouse.getPosicion(), Camara, relacion, listaLoots); ///FALLAA
 
             inv.copiarItemsEnVector(vectorCarga);
             invR.setItems(vectorCarga);
@@ -490,11 +493,13 @@ void Game::run()
 /// ======================== CAMARA EFECTO Y CENTRADO =========================///
 
 
-            camaraPosicion.x = camaraPosicion.x + ((character.getPosition().x - camaraPosicion.x) * 0.1f );
-            camaraPosicion.y = camaraPosicion.y + ((character.getPosition().y- camaraPosicion.y) * 0.1f );
+            lerp(camaraPosicion, character.getPosition(), 0.1f);
 
-            if (character.getEstaCorriendo()) Camara.setSize(Camara.getSize().x + (350 - Camara.getSize().x)*0.05, Camara.getSize().y + (350 - Camara.getSize().y)*0.05);
-            else Camara.setSize(Camara.getSize().x + (300 - Camara.getSize().x)*0.05, Camara.getSize().y + (300 - Camara.getSize().y)*0.05);
+            sf::Vector2f tamanoActual = Camara.getSize();
+            sf::Vector2f tamanoObjetivo = character.getEstaCorriendo() ? sf::Vector2f(350.f, 350.f) : sf::Vector2f(300.f, 300.f);
+
+            lerp(tamanoActual, tamanoObjetivo, 0.05f);
+            Camara.setSize(tamanoActual);
 
             Camara.setCenter(camaraPosicion);
 

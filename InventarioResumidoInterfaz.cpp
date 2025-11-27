@@ -70,59 +70,81 @@ Item* InventarioResumido::getItem(int slot)
 }
 
 ///OTROS METODOS
-void InventarioResumido::cambiarSlotsConEventos(sf::Event& evento)
-{
-    ///CAMBIAR SLOT CON TECLAS
-    if (evento.type == sf::Event::KeyPressed){
-            switch (evento.key.code){
-                case sf::Keyboard::Num1:
-                    setSlotSeleccionado(0);
-                    break;
-                    case sf::Keyboard::Num2:
-                    setSlotSeleccionado(1);
-                    break;
-                    case sf::Keyboard::Num3:
-                    setSlotSeleccionado(2);
-                    break;
-                    case sf::Keyboard::Num4:
-                    setSlotSeleccionado(3);
-                    break;
-                    case sf::Keyboard::Num5:
-                    setSlotSeleccionado(4);
-                    break;
-                    case sf::Keyboard::Num6:
-                    setSlotSeleccionado(5);
-                    break;
-                    case sf::Keyboard::Num7:
-                    setSlotSeleccionado(6);
-                    break;
-                    case sf::Keyboard::Num8:
-                    setSlotSeleccionado(7);
-                    break;
-                    case sf::Keyboard::Num9:
-                    setSlotSeleccionado(8);
-                    break;
-                    case sf::Keyboard::Num0:
-                    setSlotSeleccionado(9);
-                    break;
-                    default:
-                    break;
-            }
-    }
-    ///CAMBIAR SLOT CON RUEDA
-    else if (evento.type == sf::Event::MouseWheelScrolled){
-        if (evento.mouseWheelScroll.delta < 0){
-            if (getSlotSeleccionado() == 9) setSlotSeleccionado(0);
-            else setSlotSeleccionado(getSlotSeleccionado()+1);
-        }
-        else{
-            if (getSlotSeleccionado() == 0) setSlotSeleccionado(9);
-            else setSlotSeleccionado(getSlotSeleccionado()-1);
-        }
-    }
-}
+//void InventarioResumido::cambiarSlotsConEventos(sf::Event& evento)
+//{
+//    /CAMBIAR SLOT CON TECLAS
+//    if (evento.type == sf::Event::KeyPressed){
+//            switch (evento.key.code){
+//                case sf::Keyboard::Num1:
+//                    setSlotSeleccionado(0);
+//                    break;
+//                    case sf::Keyboard::Num2:
+//                    setSlotSeleccionado(1);
+//                    break;
+//                    case sf::Keyboard::Num3:
+//                    setSlotSeleccionado(2);
+//                    break;
+//                    case sf::Keyboard::Num4:
+//                    setSlotSeleccionado(3);
+//                    break;
+//                    case sf::Keyboard::Num5:
+//                    setSlotSeleccionado(4);
+//                    break;
+//                    case sf::Keyboard::Num6:
+//                    setSlotSeleccionado(5);
+//                    break;
+//                    case sf::Keyboard::Num7:
+//                    setSlotSeleccionado(6);
+//                    break;
+//                    case sf::Keyboard::Num8:
+//                    setSlotSeleccionado(7);
+//                    break;
+//                    case sf::Keyboard::Num9:
+//                    setSlotSeleccionado(8);
+//                    break;
+//                    case sf::Keyboard::Num0:
+//                    setSlotSeleccionado(9);
+//                    break;
+//                    default:
+//                    break;
+//            }
+//    }
+//    /CAMBIAR SLOT CON RUEDA
+//    else if (evento.type == sf::Event::MouseWheelScrolled){
+//        if (evento.mouseWheelScroll.delta < 0){
+//            if (getSlotSeleccionado() == 9) setSlotSeleccionado(0);
+//            else setSlotSeleccionado(getSlotSeleccionado()+1);
+//        }
+//        else{
+//            if (getSlotSeleccionado() == 0) setSlotSeleccionado(9);
+//            else setSlotSeleccionado(getSlotSeleccionado()-1);
+//        }
+//    }
+//}
 
 void InventarioResumido::update(const sf::View& vista, const float& relacionAspecto){
+
+    Comandos& input = Comandos::getInstancia();
+
+    if (input.slotSeleccionadoTeclado != -1)
+    {
+        setSlotSeleccionado(input.slotSeleccionadoTeclado);
+    }
+
+    if (input.sentidoScroll != 0)
+    {
+        int nuevoSlot = getSlotSeleccionado() + input.sentidoScroll;
+
+        // Lógica circular (si pasa de 9 va a 0, si baja de 0 va a 9)
+        if (nuevoSlot > 9) nuevoSlot = 0;
+        else if (nuevoSlot < 0) nuevoSlot = 9;
+
+        setSlotSeleccionado(nuevoSlot);
+    }
+
+
+
+
 
     setScale(vista.getSize().x/512, vista.getSize().y/512*relacionAspecto);
     setPosition(vista.getCenter().x-(_sprFondo.getGlobalBounds().width * getScale().x)/2,vista.getCenter().y+(vista.getSize().y/3));
