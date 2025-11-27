@@ -65,7 +65,7 @@ MesaDeCrafteo::MesaDeCrafteo( sf::Texture& texturaBloques, sf::Texture& texturaU
     agregarItemRequerido( 7, 20, 3); // hierro x3
 
     //Soga
-    agregarItemRequerido( 8, 37, 5); // Paja x5    (0% realista pero sirve xD)
+    agregarItemRequerido( 8, 37, 5); // Paja x5
 
     //Espada piedra
     agregarItemRequerido( 9, 18, 2); // piedra x2
@@ -116,7 +116,7 @@ MesaDeCrafteo::MesaDeCrafteo( sf::Texture& texturaBloques, sf::Texture& texturaU
 }
 
 
-void MesaDeCrafteo::update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::Mouse& mouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario)
+void MesaDeCrafteo::update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::Mouse& mouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario, float deltatime)
 {
     ///Detectar jugador cercano
     float distanciaJugador = sqrt(pow(posicionJugador.x - getPosition().x,2) + pow(posicionJugador.y - getPosition().y,2));

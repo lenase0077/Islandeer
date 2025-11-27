@@ -2869,13 +2869,18 @@
 
 1764170642 c:\users\leand\onedrive\documentos\repositorio\islandeer\estadodejuego.h
 
-1763505021 source:d:\alejo\alemart\documents\github\islander\animal.cpp
+1764202888 source:d:\alejo\alemart\documents\github\islander\animal.cpp
 	"Animal.h"
 	<iostream>
 
-1763504012 d:\alejo\alemart\documents\github\islander\animal.h
+1764202888 d:\alejo\alemart\documents\github\islander\animal.h
 	<SFML/Graphics.hpp>
 	"Mob.h"
+	"Item.h"
+	"FabricaEstructuras.h"
+	"Loot.h"
+	"InventarioIntefaz.h"
+	<list>
 	<ctime>
 
 1761750013 d:\alejo\alemart\documents\github\islander\sfml\include\sfml\graphics.hpp
@@ -3287,7 +3292,7 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1763504432 d:\alejo\alemart\documents\github\islander\mob.h
+1763638803 d:\alejo\alemart\documents\github\islander\mob.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<string>
@@ -3313,10 +3318,10 @@
 	"Colisionador.h"
 	<cmath>
 
-1762988359 source:d:\alejo\alemart\documents\github\islander\comando.cpp
+1764027767 source:d:\alejo\alemart\documents\github\islander\comando.cpp
 	"Comando.h"
 
-1762988359 d:\alejo\alemart\documents\github\islander\comando.h
+1764027767 d:\alejo\alemart\documents\github\islander\comando.h
 	<SFML/Graphics.hpp>
 
 1761750013 source:d:\alejo\alemart\documents\github\islander\enemigo.cpp
@@ -3329,27 +3334,31 @@
 	<SFML/Graphics.hpp>
 	<cmath>
 
-1762988359 source:d:\alejo\alemart\documents\github\islander\estructura.cpp
+1764202888 source:d:\alejo\alemart\documents\github\islander\estructura.cpp
 	"Estructura.h"
 	<iostream>
 	<cmath>
 
-1762988359 d:\alejo\alemart\documents\github\islander\estructura.h
+1764202888 d:\alejo\alemart\documents\github\islander\estructura.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<list>
+	<vector>
 	"Loot.h"
+	"FabricaItems.h"
 
-1762988359 d:\alejo\alemart\documents\github\islander\loot.h
+1763595889 d:\alejo\alemart\documents\github\islander\loot.h
 	<SFML/Graphics.hpp>
 	"Item.h"
 	"Colisionador.h"
-	"InventarioIntefaz.h"
+	<memory>
+	"FabricaItems.h"
 
-1762988359 d:\alejo\alemart\documents\github\islander\item.h
+1764202160 d:\alejo\alemart\documents\github\islander\item.h
 	<SFML/Graphics.hpp>
-	<string>
 	"json.hpp"
+	<string>
+	<memory>
 
 1761750014 d:\alejo\alemart\documents\github\islander\json.hpp
 	<algorithm>
@@ -3545,12 +3554,19 @@
 	<any>
 	<string_view>
 
-1762988359 d:\alejo\alemart\documents\github\islander\inventariointefaz.h
+1764202888 d:\alejo\alemart\documents\github\islander\inventariointefaz.h
 	"SeleccionRectangulo.h"
 	"Item.h"
 	"ItemDescripcion.h"
+	"Loot.h"
 	<SFML/Graphics.hpp>
 	<string>
+	<list>
+	"FabricaItems.h"
+	"json.hpp"
+	<memory>
+	<utility>
+	<array>
 
 1761750014 d:\alejo\alemart\documents\github\islander\seleccionrectangulo.h
 	<SFML/Graphics.hpp>
@@ -3559,11 +3575,11 @@
 	<cstring>
 	"SeleccionRectangulo.h"
 
-1762988359 source:d:\alejo\alemart\documents\github\islander\fabricamobs.cpp
+1764202888 source:d:\alejo\alemart\documents\github\islander\fabricamobs.cpp
 	"FabricaMobs.h"
 	<iostream>
 
-1762988359 d:\alejo\alemart\documents\github\islander\fabricamobs.h
+1763638803 d:\alejo\alemart\documents\github\islander\fabricamobs.h
 	<SFML/Graphics.hpp>
 	<string>
 	"Mob.h"
@@ -3572,13 +3588,13 @@
 	"Animal.h"
 	<memory>
 
-1762988359 d:\alejo\alemart\documents\github\islander\fantasma.h
+1763638803 d:\alejo\alemart\documents\github\islander\fantasma.h
 	"Mob.h"
 
-1762988359 d:\alejo\alemart\documents\github\islander\murcielago.h
+1763638803 d:\alejo\alemart\documents\github\islander\murcielago.h
 	"Mob.h"
 
-1762988359 source:d:\alejo\alemart\documents\github\islander\fantasma.cpp
+1763638803 source:d:\alejo\alemart\documents\github\islander\fantasma.cpp
 	"Fantasma.h"
 
 1761750013 source:d:\alejo\alemart\documents\github\islander\funciones.cpp
@@ -3595,11 +3611,14 @@
 1761750014 d:\alejo\alemart\documents\github\islander\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1763589329 source:d:\alejo\alemart\documents\github\islander\game.cpp
+1764202888 source:d:\alejo\alemart\documents\github\islander\game.cpp
 	<iostream>
+	<fstream>
 	"Game.h"
+	"json.hpp"
 
-1763557679 d:\alejo\alemart\documents\github\islander\game.h
+1764202888 d:\alejo\alemart\documents\github\islander\game.h
+	<iostream>
 	<SFML/Graphics.hpp>
 	"Personaje.h"
 	"TileMap.h"
@@ -3618,9 +3637,13 @@
 	"Minimap.h"
 	"Menu_Principal.h"
 	"EstadodeJuego.h"
+	"FabricaEstructuras.h"
+	"FabricaItems.h"
+	<fstream>
+	<set>
 	<cmath>
 
-1763589329 d:\alejo\alemart\documents\github\islander\personaje.h
+1763638803 d:\alejo\alemart\documents\github\islander\personaje.h
 	"Colisionador.h"
 	<SFML/Graphics.hpp>
 	"Funciones.h"
@@ -3738,7 +3761,7 @@
 1761766096 d:\alejo\alemart\documents\github\islander\raton.h
 	<SFML/Graphics.hpp>
 
-1762988359 d:\alejo\alemart\documents\github\islander\tilemap.h
+1763639159 d:\alejo\alemart\documents\github\islander\tilemap.h
 	<SFML/Graphics.hpp>
 	<vector>
 	"json.hpp"
@@ -3746,19 +3769,19 @@
 
 1761750013 d:\alejo\alemart\documents\github\islander\enemigo.h
 
-1762988359 d:\alejo\alemart\documents\github\islander\inventarioresumidointerfaz.h
+1763638803 d:\alejo\alemart\documents\github\islander\inventarioresumidointerfaz.h
 	"Item.h"
 	"SeleccionRectangulo.h"
 	<SFML/Graphics.hpp>
 
-1762988359 d:\alejo\alemart\documents\github\islander\minimap.h
+1764203165 d:\alejo\alemart\documents\github\islander\minimap.h
 	<SFML/Graphics.hpp>
 	"TileMap.h"
 	"Mob.h"
 	<list>
 	<memory>
 
-1763594126 d:\alejo\alemart\documents\github\islander\menu_principal.h
+1764202888 d:\alejo\alemart\documents\github\islander\menu_principal.h
 	<SFML/Graphics.hpp>
 	"Comando.h"
 	<SFML/Audio.hpp>
@@ -3766,17 +3789,21 @@
 	"funcionesInterpolacion.h"
 	<string>
 
-1762988359 d:\alejo\alemart\documents\github\islander\estadodejuego.h
+1763638803 d:\alejo\alemart\documents\github\islander\estadodejuego.h
 
-1763073409 source:d:\alejo\alemart\documents\github\islander\inventariointefaz.cpp
+1764202888 source:d:\alejo\alemart\documents\github\islander\inventariointefaz.cpp
 	"InventarioIntefaz.h"
 	"funcionesInterpolacion.h"
+	<cmath>
+	<iostream>
+	<algorithm>
+	"InventarioResumidoInterfaz.h"
 
-1762988359 source:d:\alejo\alemart\documents\github\islander\inventarioresumidointerfaz.cpp
+1763638803 source:d:\alejo\alemart\documents\github\islander\inventarioresumidointerfaz.cpp
 	"InventarioResumidoInterfaz.h"
 	<iostream>
 
-1762988359 source:d:\alejo\alemart\documents\github\islander\item.cpp
+1764202160 source:d:\alejo\alemart\documents\github\islander\item.cpp
 	"Item.h"
 	<iostream>
 	"json.hpp"
@@ -3786,25 +3813,27 @@
 	<iostream>
 	"ItemDescripcion.h"
 
-1762988359 source:d:\alejo\alemart\documents\github\islander\loot.cpp
+1763595889 source:d:\alejo\alemart\documents\github\islander\loot.cpp
 	"Loot.h"
-	"cmath"
+	<cmath>
 	"funcionesInterpolacion.h"
+	"InventarioIntefaz.h"
+	<iostream>
 
 1761750014 source:d:\alejo\alemart\documents\github\islander\main.cpp
 	"Game.h"
 	<iostream>
 	<ctime>
 
-1763595699 source:d:\alejo\alemart\documents\github\islander\menu_principal.cpp
+1764202888 source:d:\alejo\alemart\documents\github\islander\menu_principal.cpp
 	"Menu_Principal.h"
 	<iostream>
 
-1762988359 source:d:\alejo\alemart\documents\github\islander\minimap.cpp
+1764203165 source:d:\alejo\alemart\documents\github\islander\minimap.cpp
 	"Minimap.h"
 	<iostream>
 
-1763505251 source:d:\alejo\alemart\documents\github\islander\mob.cpp
+1763638803 source:d:\alejo\alemart\documents\github\islander\mob.cpp
 	"Mob.h"
 	<iostream>
 
@@ -3812,10 +3841,10 @@
 
 1762343340 source:d:\alejo\alemart\documents\github\islander\movimiento_ia.cpp
 
-1762988359 source:d:\alejo\alemart\documents\github\islander\murcielago.cpp
+1763638803 source:d:\alejo\alemart\documents\github\islander\murcielago.cpp
 	"Murcielago.h"
 
-1763589329 source:d:\alejo\alemart\documents\github\islander\personaje.cpp
+1763638803 source:d:\alejo\alemart\documents\github\islander\personaje.cpp
 	<iostream>
 	"Personaje.h"
 	"Funciones.h"
@@ -3831,7 +3860,7 @@
 	<SFML/Graphics.hpp>
 	<iostream>
 
-1763502942 source:d:\alejo\alemart\documents\github\islander\tilemap.cpp
+1764027768 source:d:\alejo\alemart\documents\github\islander\tilemap.cpp
 	"tilemap.h"
 	<fstream>
 	<iostream>
@@ -4006,4 +4035,64 @@
 	<iostream>
 	"Horno.h"
 	<cmath>
+
+1764202888 d:\alejo\alemart\documents\github\islander\fabricaestructuras.h
+	"SFML/Graphics.hpp"
+	<list>
+	"Estructura.h"
+	"MesaDeCrafteo.h"
+	"Horno.h"
+	"Arboles.h"
+
+1763595889 d:\alejo\alemart\documents\github\islander\fabricaitems.h
+	<SFML/Graphics.hpp>
+	"json.hpp"
+	"Item.h"
+	<memory>
+	<string>
+
+1764244523 d:\alejo\alemart\documents\github\islander\mesadecrafteo.h
+	"Estructura.h"
+	"SeleccionRectangulo.h"
+	"InventarioIntefaz.h"
+	<memory>
+	"Item.h"
+	"FabricaItems.h"
+	<vector>
+
+1764202888 d:\alejo\alemart\documents\github\islander\horno.h
+	"Estructura.h"
+	"InventarioIntefaz.h"
+	"InventarioResumidoInterfaz.h"
+	"FabricaItems.h"
+	<list>
+
+1764202888 d:\alejo\alemart\documents\github\islander\arboles.h
+	"Estructura.h"
+	<cmath>
+
+1764202888 source:d:\alejo\alemart\documents\github\islander\arboles.cpp
+	"Arboles.h"
+
+1764202888 source:d:\alejo\alemart\documents\github\islander\fabricaestructuras.cpp
+	"FabricaEstructuras.h"
+	<iostream>
+	<memory>
+
+1764027767 source:d:\alejo\alemart\documents\github\islander\fabricaitems.cpp
+	"FabricaItems.h"
+	<fstream>
+	<iostream>
+	<sstream>
+
+1764202888 source:d:\alejo\alemart\documents\github\islander\horno.cpp
+	<iostream>
+	"Horno.h"
+	<cmath>
+
+1764244536 source:d:\alejo\alemart\documents\github\islander\mesadecrafteo.cpp
+	"MesaDeCrafteo.h"
+	"Comando.h"
+	<cmath>
+	<iostream>
 
