@@ -3,8 +3,6 @@
 #include <memory>
 using namespace std;
 
-
-
 FabricaEstructuras::FabricaEstructuras(){
     if(!_texturaEstructuras.loadFromFile("Bloques.png")) {
         cout << "Error cargando textura Bloques.png" << endl;
