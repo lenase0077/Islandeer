@@ -60,7 +60,7 @@ class Game
         EstadoJuego _estadoActual = EstadoJuego::MenuPrincipal;
         MenuPrincipal _menuPrincipal;
 
-        void regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstructuras);
+        void regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstructurasAleatorias);
 
 
 

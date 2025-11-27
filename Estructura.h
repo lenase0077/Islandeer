@@ -13,22 +13,14 @@ private:
     int _bloqueID;
     Colisionador _colision;
     std::vector<int> _lootsIDs;
-
-    sf::Sprite _spriteCopa;
-    bool _tieneCopa = false;
-
 public:
-
-
     sf::Sprite _sprite;
     Estructura( sf::Texture& texturaBloques, float posX, float posY, int id);
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     void setVida(float nuevaVida);
     void setLootsIDs(const std::vector<int>& nuevoLootsIDs);
 
-
     virtual void update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::Mouse& mouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario);
-    void setCopa(const sf::Texture& texturaCopa, int idFrameCopa);
 
     void recibirGolpe(float danio);
     Colisionador &getColisionador() {return _colision;};

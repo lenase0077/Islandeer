@@ -19,6 +19,7 @@ Arbol::Arbol(sf::Texture& texturaTronco, sf::Texture& texturaCopa, float x, floa
 
     _tiempoAcumulado = (rand() % 100) / 10.0f;
     _velocidadViento = 1.5f;
+
 }
 
 void Arbol::update(const sf::Vector2f& posJugador, const sf::Vector2f& posMouse, const sf::Mouse& mouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario)
