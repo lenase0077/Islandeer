@@ -27,6 +27,9 @@ void Game::run()
     list <std::unique_ptr<Estructura>> listaEstructuraRandom;
 
 
+
+
+
     sf::Texture texturaInventarioResumido;
     if(!texturaInventarioResumido.loadFromFile("InventarioResumido.png"))
     {
@@ -89,6 +92,8 @@ void Game::run()
 /// ======================== Personaje =========================///
     Personaje character (_texturaPersonaje);
     cargar(character);
+
+    character.setPosicion(167*32,10*32);
 
 /// ======================== Enemigo =========================///
     sf::Vector2f empuje;

@@ -445,7 +445,7 @@
 1764170642 c:\users\leand\onedrive\documentos\repositorio\islandeer\funciones.h
 	<SFML/Graphics.hpp>
 
-1764286712 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1764294550 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
@@ -3907,7 +3907,7 @@
 	<iostream>
 	<sstream>
 
-1764286544 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\mesadecrafteo.cpp
+1764286902 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\mesadecrafteo.cpp
 	"MesaDeCrafteo.h"
 	"Comando.h"
 	<cmath>
