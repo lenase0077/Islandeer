@@ -8,6 +8,7 @@
 #include <list>
 #include <ctime>
 #include "Comando.h"
+#include "Colisionador.h"
 
 enum class EstadoAnimal{
     Divagando,
@@ -26,6 +27,7 @@ class Animal : public Mob
         bool caracteristicasDelAnimal(int idLoot, bool produceLeche);
         void soltarLoot (FabricaItems& fabItems, std::list<Loot>& listaLoot);
         bool intentarOrdeniar (const sf::Vector2f& Posicionpersonaje, Item* itemEnMano, FabricaItems& fabItems, InventarioInterfaz& Inv);
+        Colisionador &getColisionador() {return _colision;};
 
     private:
         EstadoAnimal _estadoActual;
