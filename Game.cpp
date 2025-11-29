@@ -42,6 +42,12 @@ void Game::run()
     }
 
 
+/// ======================== Configuracion del FADE  =========================///
+
+
+    _fadeRect.setSize(sf::Vector2f(2000, 2000)); // Mismo tamaño que tu ventana
+    _fadeRect.setFillColor(sf::Color::Black);
+    _fadeAlpha = 0.0f;
 
 /// ======================== Reloj Externo =========================///
     FabricaEstructuras fabE;
@@ -477,6 +483,9 @@ void Game::run()
             character.updateEspada(mouse);
             _minimap.update(character.getPosition());
 
+            verificarTeleports(character);
+            actualizarFade(character);
+
             inv.update(mouse.getPosicion(), Camara, relacion, listaLoots); ///FALLAA
 
             inv.copiarItemsEnVector(vectorCarga);
@@ -496,6 +505,11 @@ void Game::run()
             window.draw(_minimap);
 
             window.draw(textReloj);
+
+            if (_enTransicion)
+            {
+                window.draw(_fadeRect);
+            }
 
 /// ======================== CAMARA EFECTO Y CENTRADO =========================///
 
@@ -581,6 +595,8 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
 
             bool esArena = (idTile == 35 || idTile == 79);
 
+            bool esCueva = (idTile == 140);
+
 
             float posX = x * tileW;
             float posY = y * tileH;
@@ -626,10 +642,103 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
                 }
             }
 
+            else if (esCueva)
+            {
+                if (probabilidad < 100) {
+                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 2));
+                }
+
+                if (probabilidad >= 150 && probabilidad <= 200) {
+                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 3));
+                }
+
+                if (probabilidad >= 200 && probabilidad <= 230 ) {
+                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 4));
+                }
+
+                if (probabilidad >= 230 && probabilidad <= 240) {
+                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 5));
+                }
+
+            }
+
+        }
+    }
+}
+
+void Game::iniciarTeletransporte(float x, float y)
+{
+    if (!_enTransicion)
+    {
+        _destinoTeleport = sf::Vector2f(x, y);
+        _enTransicion = true;
+        _estadoFade = 1;
+    }
+}
+
+void Game::actualizarFade(Personaje& character)
+{
+    if (!_enTransicion) return;
+
+    float velocidadFade = 500.0f * 0.016f; // Ajusta para hacerlo más rapido o lento
+
+    if (_estadoFade == 1)
+    {
+        _fadeAlpha += velocidadFade;
+        if (_fadeAlpha >= 255.0f)
+        {
+            _fadeAlpha = 255.0f;
+
+
+            character.setPosicion(_destinoTeleport.x, _destinoTeleport.y);
+//            Camara.setCenter(_destinoTeleport.x, _destinoTeleport.y);
+
+            _estadoFade = 2;
         }
     }
 
+    else if (_estadoFade == 2)
+    {
+        _fadeAlpha -= velocidadFade;
+        if (_fadeAlpha <= 0.0f)
+        {
+            _fadeAlpha = 0.0f;
+            _enTransicion = false;
+            _estadoFade = 0;
+        }
+    }
 
+    _fadeRect.setFillColor(sf::Color(0, 0, 0, static_cast<sf::Uint8>(_fadeAlpha)));
+}
+
+void Game::verificarTeleports(Personaje& character)
+{
+    // Si ya estamos viajando, no chequeamos nada para evitar bucles
+    if (_enTransicion) return;
+
+    // Calculamos coordenadas de la grilla
+    int tileX = static_cast<int>(character.getPosition().x / 32);
+    int tileY = static_cast<int>(character.getPosition().y / 32);
+
+    // ================== CUEVA 1 ==================
+    if (tileX == 84 && tileY == 91)
+    {
+        iniciarTeletransporte(166 * 32, 6 * 32);
+    }
+    else if (tileX == 166 && tileY == 4)
+    {
+        iniciarTeletransporte(84 * 32, 93 * 32);
+    }
+
+    // ================== CUEVA 2 ==================
+    else if (tileX == 51 && tileY == 61)
+    {
+        iniciarTeletransporte(166 * 32, 46 * 32);
+    }
+    else if (tileX == 166 && tileY == 44)
+    {
+        iniciarTeletransporte(51 * 32, 63 * 32);
+    }
 }
 
 

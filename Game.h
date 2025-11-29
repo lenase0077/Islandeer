@@ -62,4 +62,17 @@ class Game
 
         void regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstructurasAleatorias);
 
+/// --- VARIABLES DE USO PARA FADE IN Y FADE OUT TEST
+
+        sf::RectangleShape _fadeRect;   // El rectangulo negro
+        float _fadeAlpha = 0.0f;        // Transparencia actual
+        bool _enTransicion = false;
+        int _estadoFade = 0;            // 0: Nada, 1: Oscureciendo, 2: Aclarando
+        sf::Vector2f _destinoTeleport;  // Guardamos a donde queremos ir
+
+        void actualizarFade(Personaje& character);
+        void iniciarTeletransporte(float x, float y);
+        void verificarTeleports(Personaje& character);
+
+
 };
