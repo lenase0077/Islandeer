@@ -97,10 +97,48 @@ bool TileMap::loadFromJSON(const std::string& filename,
                 // 🔹 COLISIONES - Solo en segunda capa
                 if (capaIndex == 1 && localID >= 0) {
                     switch(gid) {
-                    case 1154: {
+                    case 161:
+                    case 162:
+                    {
                         Colisionador colision;
                         sf::FloatRect tamanioColision(
                             x * _tileWidth, y * _tileHeight, _tileWidth, _tileHeight);
+                        colision.setColision(tamanioColision);
+                        _colisiones.push_back(colision);
+                        break;
+                    }
+                    case 163:
+                    {
+                        Colisionador colision;
+                        sf::FloatRect tamanioColision(
+                            x * _tileWidth, y * _tileHeight, _tileWidth, _tileHeight / 2);
+                        colision.setColision(tamanioColision);
+                        _colisiones.push_back(colision);
+                        break;
+                    }
+                    case 193:
+                    {
+                        Colisionador colision;
+                        sf::FloatRect tamanioColision(
+                            x * _tileWidth, y * _tileHeight, _tileWidth / 2, _tileHeight);
+                        colision.setColision(tamanioColision);
+                        _colisiones.push_back(colision);
+                        break;
+                    }
+                    case 194:
+                    {
+                        Colisionador colision;
+                        sf::FloatRect tamanioColision(
+                            (x * _tileWidth) + _tileWidth / 2, y * _tileHeight, _tileWidth / 2, _tileHeight);
+                        colision.setColision(tamanioColision);
+                        _colisiones.push_back(colision);
+                        break;
+                    }
+                    case 195:
+                    {
+                        Colisionador colision;
+                        sf::FloatRect tamanioColision(
+                            x * _tileWidth,  (y *_tileHeight) + _tileHeight / 2 , _tileWidth, _tileHeight /2);
                         colision.setColision(tamanioColision);
                         _colisiones.push_back(colision);
                         break;
