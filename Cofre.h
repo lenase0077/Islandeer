@@ -7,10 +7,10 @@
 class Cofre : public Estructura
 {
 private:
-    InventarioInterfaz _inventarioCofre; // El cofre tiene su propio inventario
-
+    bool _abierto = true;
 public:
-    void update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventarioJugador, std::list<Loot>& listaLoots);
-    Cofre(sf::Texture& texturaBloques, float posX, float posY, int id, FabricaItems& fabItems);
+    void update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario, InventarioInterfaz& inventarioCofre, float deltatime);
+    Cofre(sf::Texture& texturaBloques, float posX, float posY, int id);
+    bool getAbierto();
 
 };

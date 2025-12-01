@@ -23,7 +23,7 @@ public:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     void setVida(float nuevaVida);
     void setLootsIDs(const std::vector<int>& nuevoLootsIDs);
-    virtual void update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::Mouse& mouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario, float deltatime, std::list<Loot>& listaLoots);
+    virtual void update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario, InventarioInterfaz& inventarioCofre, float deltatime);
     virtual void generarLoot (std::list<Loot>& listaLoot);
     void recibirGolpe(float danio);
     Colisionador &getColisionador() {return _colision;}

@@ -15,11 +15,7 @@ private:
     sf::Texture _texturaCopas;
 
     std::list<Estructura> _listaEstructuras;
-
-    ///FABRICAS QUE NESESITAN ALGUNAS ESTRUCTURAS:
-    FabricaItems* _fabItems = nullptr;
 public:
-    FabricaEstructuras(FabricaItems& fabItems);
     FabricaEstructuras();
     void update();
     std::unique_ptr<Estructura> crearEstructura(float x, float y, int ID);

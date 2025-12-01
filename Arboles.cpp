@@ -22,9 +22,9 @@ Arbol::Arbol(sf::Texture& texturaTronco, sf::Texture& texturaCopa, float x, floa
 
 }
 
-void Arbol::update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::Mouse& mouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario, float deltatime, std::list<Loot>& listaLoots)
+void Arbol::update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario, InventarioInterfaz& inventarioCofre, float deltatime)
 {
-    Estructura::update(posicionJugador, posGlobalDelMouse, mouse, vista, relacionAspecto, inventario, deltatime,listaLoots);
+    Estructura::update(posicionJugador, posGlobalDelMouse, vista, relacionAspecto, inventario, inventarioCofre, deltatime);
 
     float dt = 1.0f / 60.0f;
     _tiempoAcumulado += dt * _velocidadViento;

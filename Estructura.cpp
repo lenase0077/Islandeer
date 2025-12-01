@@ -75,7 +75,7 @@ void Estructura::setLootsIDs(const std::vector<int>& nuevoLootsIDs){
     _lootsIDs = nuevoLootsIDs;
 }
 
-void Estructura::update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::Mouse& mouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario, float deltatime, std::list<Loot>& listaLoots){
+void Estructura::update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario, InventarioInterfaz& inventarioCofre, float deltatime){
 
 }
 

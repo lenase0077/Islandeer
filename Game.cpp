@@ -60,9 +60,10 @@ void Game::run()
 /// ======================== Inventario =========================///
 
     FabricaItems fabItems;
-    FabricaEstructuras fabE(fabItems);
+    FabricaEstructuras fabE;
 
     InventarioInterfaz inv(fabItems);
+    InventarioInterfaz inventarioCofre(fabItems);
 
     inv.agregarItem(44,30);
     inv.agregarItem(15,3);
@@ -428,7 +429,7 @@ void Game::run()
                         (*estructura)->recibirGolpe(5);
                     }
                     window.draw(**estructura);
-                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime, listaLoots);
+                    (*estructura)->update( PosicionJugador, posMouseWorld, Camara, relacion, inv, inventarioCofre, deltatime);
                 }
                 else
                 {
@@ -455,7 +456,7 @@ void Game::run()
                     }
                     window.draw(**estructura);
 
-                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime, listaLoots);
+                    (*estructura)->update( PosicionJugador, posMouseWorld, Camara, relacion, inv, inventarioCofre, deltatime);
 
                     (*estructura)->generarLoot(listaLoots);
 
@@ -467,6 +468,8 @@ void Game::run()
                     estructura = listaEstructuras.erase(estructura);
                 }
             }
+
+            inventarioCofre.update(mouse.getPosicion(), Camara, relacion, listaLoots);
 
 /// ======================== INICIO LOOT =========================///
 
@@ -487,7 +490,7 @@ void Game::run()
             verificarTeleports(character);
             actualizarFade(character);
 
-            inv.update(mouse.getPosicion(), Camara, relacion, listaLoots); ///FALLAA
+            inv.update(mouse.getPosicion(), Camara, relacion, listaLoots);
 
             inv.copiarItemsEnVector(vectorCarga);
             invR.setItems(vectorCarga);

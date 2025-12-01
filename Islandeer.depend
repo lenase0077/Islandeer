@@ -1359,12 +1359,12 @@
 	<SFML/Graphics.hpp>
 	<cmath>
 
-1764599439 source:c:\users\sebas\onedrive\documentos\github\islandeer\estructura.cpp
+1764601847 source:c:\users\sebas\onedrive\documentos\github\islandeer\estructura.cpp
 	"Estructura.h"
 	<iostream>
 	<cmath>
 
-1764599439 c:\users\sebas\onedrive\documentos\github\islandeer\estructura.h
+1764601847 c:\users\sebas\onedrive\documentos\github\islandeer\estructura.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<list>
@@ -1387,7 +1387,7 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1764600241 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1764602578 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
@@ -3956,13 +3956,12 @@
 	<memory>
 	<string>
 
-1764598694 source:c:\users\sebas\onedrive\documentos\github\islandeer\fabricaestructuras.cpp
+1764601973 source:c:\users\sebas\onedrive\documentos\github\islandeer\fabricaestructuras.cpp
 	"FabricaEstructuras.h"
 	<iostream>
 	<memory>
-	"FabricaItems.h"
 
-1764598311 c:\users\sebas\onedrive\documentos\github\islandeer\fabricaestructuras.h
+1764601973 c:\users\sebas\onedrive\documentos\github\islandeer\fabricaestructuras.h
 	"SFML/Graphics.hpp"
 	<list>
 	"Estructura.h"
@@ -4159,20 +4158,20 @@
 1764256475 c:\users\sebas\onedrive\documentos\github\islandeer\funcion.h
 	<SFML/Graphics.hpp>
 
-1764599541 c:\users\sebas\onedrive\documentos\github\islandeer\arboles.h
+1764601872 c:\users\sebas\onedrive\documentos\github\islandeer\arboles.h
 	"Estructura.h"
 	<cmath>
 
-1764597236 c:\users\sebas\onedrive\documentos\github\islandeer\cofre.h
+1764602521 c:\users\sebas\onedrive\documentos\github\islandeer\cofre.h
 	"Estructura.h"
 	"InventarioIntefaz.h"
 	"Item.h"
 	"FabricaItems.h"
 
-1764599600 source:c:\users\sebas\onedrive\documentos\github\islandeer\arboles.cpp
+1764601920 source:c:\users\sebas\onedrive\documentos\github\islandeer\arboles.cpp
 	"Arboles.h"
 
-1764597277 source:c:\users\sebas\onedrive\documentos\github\islandeer\cofre.cpp
+1764602521 source:c:\users\sebas\onedrive\documentos\github\islandeer\cofre.cpp
 	<iostream>
 	"Cofre.h"
 
