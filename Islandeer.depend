@@ -1387,7 +1387,7 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1764627148 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1764629795 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
@@ -1739,7 +1739,7 @@
 
 1761749986 c:\users\sebas\onedrive\documentos\github\islandeer\enemigo.h
 
-1764596987 c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.h
+1764629401 c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.h
 	"SeleccionRectangulo.h"
 	"Item.h"
 	"ItemDescripcion.h"
@@ -1773,7 +1773,7 @@
 	<SFML/Graphics.hpp>
 	"Comando.h"
 
-1764595752 source:c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.cpp
+1764630552 source:c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.cpp
 	"InventarioIntefaz.h"
 	"funcionesInterpolacion.h"
 	<cmath>
@@ -4028,7 +4028,7 @@
 	"Menu_Principal.h"
 	<iostream>
 
-1764627319 source:c:\users\sebas\onedrive\documentos\github\islandeer\mesadecrafteo.cpp
+1764631558 source:c:\users\sebas\onedrive\documentos\github\islandeer\mesadecrafteo.cpp
 	"MesaDeCrafteo.h"
 	"Comando.h"
 	<cmath>
@@ -4171,11 +4171,11 @@
 1764601920 source:c:\users\sebas\onedrive\documentos\github\islandeer\arboles.cpp
 	"Arboles.h"
 
-1764626675 source:c:\users\sebas\onedrive\documentos\github\islandeer\cofre.cpp
+1764631558 source:c:\users\sebas\onedrive\documentos\github\islandeer\cofre.cpp
 	<iostream>
 	"Cofre.h"
 
-1764600393 source:c:\users\sebas\onedrive\documentos\github\islandeer\horno.cpp
+1764627427 source:c:\users\sebas\onedrive\documentos\github\islandeer\horno.cpp
 	<iostream>
 	"Horno.h"
 	<cmath>

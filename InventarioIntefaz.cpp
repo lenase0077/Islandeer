@@ -136,6 +136,10 @@ void InventarioInterfaz::setPosicionAbierto(float X, float Y)
     _posicionAbierto = sf::Vector2f(X,Y);
 }
 
+void InventarioInterfaz::setDesvioDelCentroEnY(float desvioY){
+    _desvioDelCentroEnY = desvioY;
+}
+
 /// METODO UPDATE PRINCIPAL - Actualiza logica e interacciones del inventario
 void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf::View& vista, const float& relacionAspecto, std::list<Loot>& listaLoots)
 {
@@ -445,10 +449,10 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
         // Si clickea fuera del inventario, suelta el item como loot
         if (!mouseInteractuo)
         {
-            if (input.mouseIzqRecienPresionado)
+            if (input.mouseIzqRecienPresionado /*&& const_cast<InventarioInterfaz*>(this)->usaItemEnManoExterno()*/)
             {
 
-                soltarLoot((*_ptrItemEnManoActual), listaLoots, true); // Tirar todo el stack
+                //soltarLoot((*_ptrItemEnManoActual), listaLoots, true); // Tirar todo el stack
             }
         }
     }
@@ -458,10 +462,6 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
     {
         _descripcion.setVisible(false);
     }
-
-
-
-
 
 }
 
@@ -620,13 +620,6 @@ void InventarioInterfaz::draw(sf::RenderTarget& target, sf::RenderStates states)
             target.draw(*_inventarioItems[i], states);
     }
 
-    /*
-    // Dibuja el item que esta siendo arrastrado (si existe)
-    if ((*_ptrItemEnManoActual) != nullptr)
-    {
-        target.draw(*(*_ptrItemEnManoActual));
-    }*/
-
     if (!const_cast<InventarioInterfaz*>(this)->usaItemEnManoExterno())
     {
         if (*_ptrItemEnManoActual != nullptr)
@@ -652,7 +645,8 @@ void InventarioInterfaz::ajustarEscalaAutomaticamente(const sf::View& vista, con
     float centroX = (_sprFondoInventario.getGlobalBounds().width/ 2) * getScale().x;
 
     // Calcula posiciones para estado abierto y cerrado
-    setPosicionAbierto(vista.getCenter().x - centroX, vista.getCenter().y - vista.getSize().y/4);
+
+    setPosicionAbierto(vista.getCenter().x - centroX, vista.getCenter().y - _desvioDelCentroEnY * getScale().y);
     setPosicionEscondite(vista.getCenter().x - centroX, vista.getCenter().y + vista.getSize().y);
 
     // Inicializacion en primera ejecucion
@@ -677,6 +671,8 @@ void InventarioInterfaz::ajustarEscalaAutomaticamente(const sf::View& vista, con
         setPosition(_posX, _posY);
     }
 }
+
+
 
 // Suelta un item del inventario como loot en el mundo
 void InventarioInterfaz::soltarLoot(std::unique_ptr<Item>& itemQueTirar, std::list<Loot>& listaLoots, bool tirarCompleto)

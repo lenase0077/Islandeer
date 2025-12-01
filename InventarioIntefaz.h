@@ -24,6 +24,7 @@ private:
 
     int _indiceUltimoItemAnalizado = 100;
     float _posX, _posY;
+    float _desvioDelCentroEnY = 32;
     sf::Vector2f _posicionEscondite;
     sf::Vector2f _posicionAbierto;
     ItemDescripcion _descripcion;
@@ -67,6 +68,7 @@ public:
     void setAbierto(bool nuevoEstado);
     void setPosicionEscondite(float X, float Y);
     void setPosicionAbierto(float X, float Y);
+    void setDesvioDelCentroEnY(float desvioY);
 
     /// Otros Metodos
     void update(const sf::Vector2f& posGlobalDelMouse, const sf::View& vista, const float& relacionAspecto, std::list<Loot>& listaLoots);

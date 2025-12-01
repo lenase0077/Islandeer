@@ -121,9 +121,9 @@ MesaDeCrafteo::MesaDeCrafteo( sf::Texture& texturaBloques, sf::Texture& texturaU
 void MesaDeCrafteo::update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario, InventarioInterfaz& inventarioCofre, float deltatime)
 {
     ///Detectar jugador cercano
-    float distanciaJugador = sqrt(pow(posicionJugador.x - getPosition().x,2) + pow(posicionJugador.y - getPosition().y,2));
+    float distanciaJugador = sqrt(pow((posicionJugador.x + 8) - (getPosition().x + 16) ,2) + pow((posicionJugador.y + 8) - (getPosition().y + 16),2));
 
-    if (distanciaJugador < 40)
+    if (distanciaJugador < 25)
     {
         _sprite.setColor(sf::Color::Blue);
         _enUso = true;

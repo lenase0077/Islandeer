@@ -500,7 +500,10 @@ void Game::run()
 
             window.draw(invR);
 
+            window.draw(inventarioCofre);
+
             window.draw(inv);
+
 
             window.setView(window.getDefaultView());
 
