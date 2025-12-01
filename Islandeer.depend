@@ -3340,7 +3340,7 @@
 	<SFML/Graphics.hpp>
 	<cmath>
 
-1764287055 source:d:\alejo\alemart\documents\github\islander\estructura.cpp
+1764592920 source:d:\alejo\alemart\documents\github\islander\estructura.cpp
 	"Estructura.h"
 	<iostream>
 	<cmath>
@@ -3619,13 +3619,13 @@
 1761750014 d:\alejo\alemart\documents\github\islander\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1764334341 source:d:\alejo\alemart\documents\github\islander\game.cpp
+1764593728 source:d:\alejo\alemart\documents\github\islander\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1764287055 d:\alejo\alemart\documents\github\islander\game.h
+1764593073 d:\alejo\alemart\documents\github\islander\game.h
 	<iostream>
 	<SFML/Graphics.hpp>
 	"Personaje.h"
@@ -3869,7 +3869,7 @@
 	<SFML/Graphics.hpp>
 	<iostream>
 
-1764027768 source:d:\alejo\alemart\documents\github\islander\tilemap.cpp
+1764593073 source:d:\alejo\alemart\documents\github\islander\tilemap.cpp
 	"tilemap.h"
 	<fstream>
 	<iostream>

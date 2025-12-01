@@ -124,10 +124,10 @@ void Mob::setVida(float vida) {
 void Mob::bajarVida(float danio)
 {
     _vida -= danio;
+    recibirDanio();
 
     if (_vida < 0)
     {
         _vida = 0;
-        recibirDanio();
     }
 }

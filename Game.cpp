@@ -406,11 +406,6 @@ void Game::run()
                     mobBase->move(mobBase->getVelocidad());
                     ++it;
                 }
-
-                if (character.getColisionador().detectorDeColision(animal->getColisionador()))
-                {
-                    animal->recibirAtaqueDeEspada();
-                }
             }
 /// ======================== COLISION MAPA =========================///
 
