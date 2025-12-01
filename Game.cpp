@@ -50,7 +50,6 @@ void Game::run()
     _fadeAlpha = 0.0f;
 
 /// ======================== Reloj Externo =========================///
-    FabricaEstructuras fabE;
 
     sf::Keyboard tecladoEntrada;
 
@@ -61,6 +60,7 @@ void Game::run()
 /// ======================== Inventario =========================///
 
     FabricaItems fabItems;
+    FabricaEstructuras fabE(fabItems);
 
     InventarioInterfaz inv(fabItems);
 
@@ -428,7 +428,7 @@ void Game::run()
                         (*estructura)->recibirGolpe(5);
                     }
                     window.draw(**estructura);
-                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime);
+                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime, listaLoots);
                 }
                 else
                 {
@@ -454,7 +454,8 @@ void Game::run()
                         }
                     }
                     window.draw(**estructura);
-                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime);
+
+                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime, listaLoots);
 
                     (*estructura)->generarLoot(listaLoots);
 

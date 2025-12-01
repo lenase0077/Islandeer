@@ -1,7 +1,23 @@
 #include "FabricaEstructuras.h"
 #include <iostream>
 #include <memory>
+#include "FabricaItems.h"
 using namespace std;
+
+FabricaEstructuras::FabricaEstructuras(FabricaItems& fabItems){
+    if(!_texturaEstructuras.loadFromFile("Bloques.png")) {
+        cout << "Error cargando textura Bloques.png" << endl;
+    }
+    if(!_texturaUIMesa.loadFromFile("MesaCrafteo.png")) {
+        cout << "Error cargando textura MesaCrafteo.png" << endl;
+    }
+
+    if(!_texturaCopas.loadFromFile("Copa-arboles.png")) {
+        cout << "Error cargando textura Copas" << endl;
+    }
+
+    _fabItems = &fabItems;
+}
 
 FabricaEstructuras::FabricaEstructuras(){
     if(!_texturaEstructuras.loadFromFile("Bloques.png")) {
@@ -79,7 +95,7 @@ std::unique_ptr<Estructura> FabricaEstructuras::crearEstructura(float x, float y
         break;
 
     case 8:///Cofre
-        estructuraCreada = std::make_unique<Cofre>(_texturaEstructuras, x, y, ID);
+        estructuraCreada = std::make_unique<Cofre>(_texturaEstructuras, x, y, ID, *_fabItems);
         estructuraCreada -> setVida(150);
         vectorLootIDs.push_back(49);
         estructuraCreada -> setLootsIDs(vectorLootIDs);

@@ -22,8 +22,6 @@ private:
     bool _primerVuelta = false;
     bool _abierto = false;
 
-
-    //bool _hayItemEnMano = false;
     int _indiceUltimoItemAnalizado = 100;
     float _posX, _posY;
     sf::Vector2f _posicionEscondite;
@@ -32,6 +30,8 @@ private:
 
     std::array<std::unique_ptr<Item>, 30> _inventarioItems;
     std::unique_ptr<Item> _itemEnMano;
+    std::unique_ptr<Item>* _ptrItemEnManoActual; // NUEVO: Este puntero apuntar  a _itemEnMano (propio) o al de otro inventario
+
     FabricaItems* _fabItems;
     std::array<SeleccionRectangulo, 30> _areasSeleccion;
     std::string _nombreDireccionTextura;
@@ -50,6 +50,7 @@ private:
 public:
     /// Constructores
     InventarioInterfaz(FabricaItems& fabItems,std::string nombreDireccionTextura = "Inventario.png");
+    InventarioInterfaz(){};
 
     /// Getters
     float getPosX();
@@ -84,4 +85,11 @@ public:
     InventarioResumido* getInventarioResumido();
     void consumirItemEnSlot(int slot, int cantidad);
     Item* getItemEnMano();
+
+
+    std::unique_ptr<Item>* obtenerPunteroItemEnMano();// M‚todo para obtener la direcci¢n de memoria de TU item en mano
+
+    void enlazarItemEnMano(std::unique_ptr<Item>* punteroExterno);// M‚todo para decirle a este inventario que use el item en mano de otro
+
+    bool usaItemEnManoExterno();// Para saber si estamos usando el item en mano de otro inventario (principalmente usado en draw)
 };
