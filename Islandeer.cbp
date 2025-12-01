@@ -116,11 +116,6 @@
 		<Unit filename="funcionesInterpolacion.h" />
 		<Unit filename="json.hpp" />
 		<Unit filename="main.cpp" />
-		<Unit filename="tmxlite/include/tmxlite/detail/Android.hpp" />
-		<Unit filename="tmxlite/include/tmxlite/detail/Log.hpp" />
-		<Unit filename="tmxlite/src/detail/pugiconfig.hpp" />
-		<Unit filename="tmxlite/src/detail/pugixml.hpp" />
-		<Unit filename="tmxlite/src/miniz.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
