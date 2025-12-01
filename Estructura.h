@@ -26,7 +26,7 @@ public:
     virtual void update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::Mouse& mouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario, float deltatime);
     virtual void generarLoot (std::list<Loot>& listaLoot);
     void recibirGolpe(float danio);
-    Colisionador &getColisionador() {return _colision;};
+    Colisionador &getColisionador() {return _colision;}
     bool estaDestruido() const;
     ~Estructura(){};
     void liberarLoot(FabricaItems& fabItems,std::list<Loot>& listaLoot);

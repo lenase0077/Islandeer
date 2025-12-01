@@ -137,25 +137,18 @@ void Animal::update(sf::Vector2f& Posicionpersonaje, float deltatime)
 
     // --- LÓGICA DE DETECCIÓN Y CAMBIO DE ESTADO (PRIORIDAD) ---
 
-    // 1. Detección por Proximidad
-    if (DistanciaJugador < 40)
-    {
-        _estadoActual = EstadoAnimal::Huyendo;
-        _tiempoEnEstado = 0.f;
-    }
-
     // 2. Fin de Huida por Proximidad (solo si no fue golpeado)
-    else if (_estadoActual == EstadoAnimal::Huyendo && DistanciaJugador > 100 && !_golpeadoPorEspada)
+    if (_estadoActual == EstadoAnimal::Huyendo)
     {
-        _estadoActual = EstadoAnimal::Divagando;
-        _tiempoEnEstado = 0.f;
-    }
-    // 3. Fin de Huida por Golpe (tiempo fijo)
-    else if (_estadoActual == EstadoAnimal::Huyendo && _golpeadoPorEspada && _tiempoEnEstado > 1000.f) // Huye por 1 segundos
-    {
-        _golpeadoPorEspada = false;
-        _estadoActual = EstadoAnimal::Divagando;
-        _tiempoEnEstado = 0.f;
+        bool jugadorLejos = DistanciaJugador > 200;
+        bool animalCansado = _tiempoEnEstado > 10000;
+
+        if (jugadorLejos||animalCansado)
+        {
+            _estadoActual = EstadoAnimal::Divagando;
+            _tiempoEnEstado = 0.f;
+            _golpeadoPorEspada = false;
+        }
     }
 
     // --- EJECUCION DEL ESTADO ACTUAL ---

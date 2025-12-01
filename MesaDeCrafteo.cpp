@@ -208,8 +208,6 @@ void MesaDeCrafteo::ajustarEscalaAutomaticamente(const sf::View& vista, const fl
         //SELECTORES
         _selectores[i].set_dimenciones( x1, x2, y1, y2);
 
-
-
         _items[i] -> setPosition( x1 + (escalaCartel.x * 16), y1 + (escalaCartel.y * 16));
         _items[i] -> setScale(escalaCartel.x, escalaCartel.y);
 
