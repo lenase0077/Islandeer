@@ -1387,7 +1387,7 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1764602578 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1764627148 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
@@ -3961,7 +3961,7 @@
 	<iostream>
 	<memory>
 
-1764601973 c:\users\sebas\onedrive\documentos\github\islandeer\fabricaestructuras.h
+1764627161 c:\users\sebas\onedrive\documentos\github\islandeer\fabricaestructuras.h
 	"SFML/Graphics.hpp"
 	<list>
 	"Estructura.h"
@@ -3970,7 +3970,7 @@
 	"Arboles.h"
 	"Cofre.h"
 
-1764600393 c:\users\sebas\onedrive\documentos\github\islandeer\mesadecrafteo.h
+1764627319 c:\users\sebas\onedrive\documentos\github\islandeer\mesadecrafteo.h
 	"Estructura.h"
 	"SeleccionRectangulo.h"
 	"InventarioIntefaz.h"
@@ -4028,7 +4028,7 @@
 	"Menu_Principal.h"
 	<iostream>
 
-1764600406 source:c:\users\sebas\onedrive\documentos\github\islandeer\mesadecrafteo.cpp
+1764627319 source:c:\users\sebas\onedrive\documentos\github\islandeer\mesadecrafteo.cpp
 	"MesaDeCrafteo.h"
 	"Comando.h"
 	<cmath>
@@ -4147,7 +4147,7 @@
 1764286544 c:\users\leand\onedrive\documentos\repositorio\islandeer\funcion.h
 	<SFML/Graphics.hpp>
 
-1764600393 c:\users\sebas\onedrive\documentos\github\islandeer\horno.h
+1764627427 c:\users\sebas\onedrive\documentos\github\islandeer\horno.h
 	"Estructura.h"
 	"InventarioIntefaz.h"
 	"InventarioResumidoInterfaz.h"
@@ -4162,7 +4162,7 @@
 	"Estructura.h"
 	<cmath>
 
-1764602521 c:\users\sebas\onedrive\documentos\github\islandeer\cofre.h
+1764626675 c:\users\sebas\onedrive\documentos\github\islandeer\cofre.h
 	"Estructura.h"
 	"InventarioIntefaz.h"
 	"Item.h"
@@ -4171,7 +4171,7 @@
 1764601920 source:c:\users\sebas\onedrive\documentos\github\islandeer\arboles.cpp
 	"Arboles.h"
 
-1764602521 source:c:\users\sebas\onedrive\documentos\github\islandeer\cofre.cpp
+1764626675 source:c:\users\sebas\onedrive\documentos\github\islandeer\cofre.cpp
 	<iostream>
 	"Cofre.h"
 

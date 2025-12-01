@@ -19,7 +19,7 @@ private:
 
 public:
     Horno(sf::Texture& texturaBloques, float posX, float posY, int id);
-    void update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario , float deltatime, std::list<Loot>& listaLoots);
+    void update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario, InventarioInterfaz& inventarioCofre, float deltatime);
     bool terminarDeCocinar();
     void generarLoot (std::list<Loot>& listaLoot);
 };

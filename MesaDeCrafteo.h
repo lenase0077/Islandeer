@@ -27,7 +27,7 @@ private:
     void quitarRecursosNecesarios(int numeroItem, InventarioInterfaz& inventario);
 
 public:
-    void update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario , float deltatime, std::list<Loot>& listaLoots);
+    void update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario, InventarioInterfaz& inventarioCofre, float deltatime);
     MesaDeCrafteo(sf::Texture& texturaBloques, sf::Texture& texturaUI, float posX, float posY, int id);
     void ajustarEscalaAutomaticamente(const sf::View& vista, const float& relacionAspecto);
     void controlDeItems(const sf::Vector2f& posGlobalDelMouse, InventarioInterfaz& inventario);
