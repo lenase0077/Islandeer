@@ -16,6 +16,7 @@ private:
 
 protected:
     bool _seRompePorColision;
+    bool _enUso = false;
 
 public:
     sf::Sprite _sprite;
@@ -32,4 +33,5 @@ public:
     void liberarLoot(FabricaItems& fabItems,std::list<Loot>& listaLoot);
     bool getRompePorColision();
     int getID();
+    bool estaEnUso();
 };

@@ -19,10 +19,9 @@ void Cofre::update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posG
     if (distanciaJugador < 25)
     {
 
-        inventario.setDesvioDelCentroEnY(-16);
-        inventarioCofre.setDesvioDelCentroEnY(96);
-
         _sprite.setColor(sf::Color::Red);
+
+        _enUso = true;
         if (inventarioCofre.getAbierto())
         {
             // 2. ENLACE MAGICO:
@@ -44,12 +43,8 @@ void Cofre::update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posG
     else{
         _sprite.setColor(sf::Color::White);
 
-        inventario.setDesvioDelCentroEnY(50);
-        inventarioCofre.setDesvioDelCentroEnY(-1000);
+        _enUso = false;
     }
 }
 
-bool Cofre::getAbierto()
-{
-    return _abierto;
-}
+

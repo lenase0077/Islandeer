@@ -446,15 +446,6 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
             (*_ptrItemEnManoActual)->setEscala(sf::Vector2f(1.3 * getScale().x, 1.3 * getScale().y));
             (*_ptrItemEnManoActual)->actualizarSprite();
         }
-        // Si clickea fuera del inventario, suelta el item como loot
-        if (!mouseInteractuo)
-        {
-            if (input.mouseIzqRecienPresionado /*&& const_cast<InventarioInterfaz*>(this)->usaItemEnManoExterno()*/)
-            {
-
-                //soltarLoot((*_ptrItemEnManoActual), listaLoots, true); // Tirar todo el stack
-            }
-        }
     }
 
     // Oculta descripcion si no hay interaccion o hay item en mano

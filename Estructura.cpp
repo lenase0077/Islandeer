@@ -92,3 +92,7 @@ bool Estructura::getRompePorColision()
 int Estructura::getID(){
     return _bloqueID;
 }
+
+bool Estructura::estaEnUso(){
+    return _enUso;
+}
