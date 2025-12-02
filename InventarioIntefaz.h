@@ -94,4 +94,10 @@ public:
     void enlazarItemEnMano(std::unique_ptr<Item>* punteroExterno);// M‚todo para decirle a este inventario que use el item en mano de otro
 
     bool usaItemEnManoExterno();// Para saber si estamos usando el item en mano de otro inventario (principalmente usado en draw)
+
+    // Toma posesi¢n de los items que vienen del cofre
+    void recibirItemsDe(std::array<std::unique_ptr<Item>, 30>& itemsExternos);
+
+    // Entrega la posesi¢n de sus items al cofre
+    void transferirItemsHacia(std::array<std::unique_ptr<Item>, 30>& destinoExterno);
 };

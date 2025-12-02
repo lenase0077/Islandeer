@@ -770,3 +770,24 @@ bool InventarioInterfaz::usaItemEnManoExterno()
 {
     return _ptrItemEnManoActual != &_itemEnMano;
 }
+
+
+void InventarioInterfaz::recibirItemsDe(std::array<std::unique_ptr<Item>, 30>& itemsExternos)
+{
+    for (int i = 0; i < 30; i++)
+    {
+        // Movemos el item del array externo (Cofre) al interno (Interfaz)
+        // El array externo quedar  con nullptr en esa posici¢n
+        _inventarioItems[i] = std::move(itemsExternos[i]);
+    }
+}
+
+void InventarioInterfaz::transferirItemsHacia(std::array<std::unique_ptr<Item>, 30>& destinoExterno)
+{
+    for (int i = 0; i < 30; i++)
+    {
+        // Movemos el item de la Interfaz hacia el array de destino (Cofre)
+        // La Interfaz quedar  vac¡a (nullptr) lista para el pr¢ximo uso
+        destinoExterno[i] = std::move(_inventarioItems[i]);
+    }
+}

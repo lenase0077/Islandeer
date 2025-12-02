@@ -63,7 +63,7 @@ void Game::run()
     FabricaEstructuras fabE;
 
     InventarioInterfaz inv(fabItems);
-    InventarioInterfaz inventarioCofre(fabItems);
+    InventarioInterfaz inventarioCofre(fabItems, "InventarioCofre.png");
 
     inv.agregarItem(44,30);
     inv.agregarItem(15,3);
@@ -158,6 +158,7 @@ void Game::run()
     listaEstructuras.push_back(fabE.crearEstructura(90*32,85*32,9));
 
     listaEstructuras.push_back(fabE.crearEstructura(91*32,85*32,8));
+    listaEstructuras.push_back(fabE.crearEstructura(91*32,86*32,8));
     listaEstructuras.push_back(fabE.crearEstructura(91*32,90*32,8));
 
 /// ======================== CICLO DIA Y NOCHE =========================///

@@ -21,30 +21,72 @@ void Cofre::update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posG
 
         _sprite.setColor(sf::Color::Red);
 
-        _enUso = true;
         if (inventarioCofre.getAbierto())
         {
-            // 2. ENLACE MAGICO:
-            // Le pasamos al cofre el puntero del item en mano del JUGADOR
-            inventarioCofre.enlazarItemEnMano(inventario.obtenerPunteroItemEnMano());
+            if (!_enUso)
+            {
+                _enUso = true;
+                // 2. ENLACE MAGICO:
+                // Le pasamos al cofre el puntero del item en mano del JUGADOR
+                inventarioCofre.enlazarItemEnMano(inventario.obtenerPunteroItemEnMano());
 
-            //Siguientes pasos
-            /*
-            - Al cerrar o alejarse se debe guardar en una matriz la cantidad y el id de los items que existen en inventario cofre,
-            - al abrir llamamos una sola vez a la funcion para cargar los items del inventario, internamente ya deberia funcionar con la fabrica
-            */
+                cargarContenido( inventarioCofre);
+                //Siguientes pasos
+                /*
+                - Al cerrar o alejarse se debe guardar en una matriz la cantidad y el id de los items que existen en inventario cofre,
+                - al abrir llamamos una sola vez a la funcion para cargar los items del inventario, internamente ya deberia funcionar con la fabrica
+                */
+            }
+
         }
         else
         {
-            // Si se cierra, desenlazamos por seguridad (opcional)
-            inventarioCofre.enlazarItemEnMano(nullptr);
+            /*// Si se cierra, desenlazamos por seguridad (opcional)
+            inventarioCofre.enlazarItemEnMano(nullptr);*/
+            if (_enUso)
+            {
+                // 1. Guardamos lo que haya en la interfaz dentro de los arrays de ESTE cofre
+                guardarContenido(inventarioCofre);
+
+                // 3. Desenlazamos por seguridad
+                inventarioCofre.enlazarItemEnMano(nullptr);
+
+                _enUso = false;
+            }
         }
     }
-    else{
+    else
+    {
         _sprite.setColor(sf::Color::White);
 
-        _enUso = false;
+        if (_enUso)
+        {
+            // 1. Guardamos lo que haya en la interfaz dentro de los arrays de ESTE cofre
+            guardarContenido(inventarioCofre);
+
+            // 3. Desenlazamos por seguridad
+            inventarioCofre.enlazarItemEnMano(nullptr);
+
+            _enUso = false;
+        }
     }
 }
 
+void Cofre::cargarContenido(InventarioInterfaz& inventarioCofre)
+{
+    // El cofre le "pasa" sus items a la interfaz visual
+    inventarioCofre.recibirItemsDe(_itemsGuardados);
+
+    // NOTA: Ahora _itemsGuardados del cofre est  lleno de nullptr,
+    // porque los items viven temporalmente en la interfaz.
+    cout << "Cofre abierto: Items movidos a la interfaz." << endl;
+}
+
+void Cofre::guardarContenido(InventarioInterfaz& inventarioCofre)
+{
+    // La interfaz le devuelve los items al cofre
+    inventarioCofre.transferirItemsHacia(_itemsGuardados);
+
+    cout << "Cofre cerrado: Items regresaron al cofre." << endl;
+}
 
