@@ -27,6 +27,18 @@ Estructura::Estructura(sf::Texture& texturaBloques, float posX, float posY, int 
     _colision.setID("Estructura");
 
     _seRompePorColision = true;
+
+    if (id == 0 || id >= 10 && id <= 12) {
+        _material = TipoMaterial::MADERA;
+    }
+    else if (id >= 1 && id <= 6) {
+        _material = TipoMaterial::PIEDRA;
+    }
+    else {
+        _material = TipoMaterial::NADA;
+    }
+
+
 }
 
 void Estructura::draw(sf::RenderTarget& target, sf::RenderStates states) const {

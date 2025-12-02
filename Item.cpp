@@ -159,3 +159,14 @@ void Item::draw(sf::RenderTarget& target, sf::RenderStates states) const{
         target.draw(_textoCantidad,states); // Dibuja texto de cantidad
     }
 }
+
+float Item::obtenerFuerza(TipoMaterial material) const {
+        return 1.0f;
+}
+
+void Item::usar() {
+}
+
+bool Item::estaRota() const {
+        return false;
+}

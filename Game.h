@@ -34,9 +34,10 @@ class Game
         sf::Clock getRelojInterno();
 
     private:
+
+
         sf::Texture _texturaPersonaje;
         Personaje _personaje;
-        Personaje personaTest;
         sf::RenderWindow window;
         sf::Vector2f _posicionPersonaje;
         sf::Clock _relojInterno;

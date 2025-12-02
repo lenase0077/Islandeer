@@ -1,0 +1,94 @@
+[
+  {
+    "id": 0,
+    "nombre": "Pico de Piedra",
+    "tipo": "PICO",
+    "durabilidad": 60,
+    "danio_base": 3,
+    "multiplicadores": {
+      "PIEDRA": 2.0
+    }
+  },
+  {
+    "id": 1,
+    "nombre": "Pico de Hierro",
+    "tipo": "PICO",
+    "durabilidad": 250,
+    "danio_base": 5,
+    "multiplicadores": {
+      "PIEDRA": 4.0
+    }
+  },
+  {
+    "id": 2,
+    "nombre": "Pico de Diamante",
+    "tipo": "PICO",
+    "durabilidad": 500,
+    "danio_base": 7,
+    "multiplicadores": {
+      "PIEDRA": 8.0
+    }
+  },
+  {
+    "id": 3,
+    "nombre": "Hacha de Piedra",
+    "tipo": "HACHA",
+    "durabilidad": 60,
+    "danio_base": 3,
+    "multiplicadores": {
+      "MADERA": 2
+    }
+  },
+  {
+    "id": 4,
+    "nombre": "Hacha de Hierro",
+    "tipo": "HACHA",
+    "durabilidad": 250,
+    "danio_base": 5,
+    "multiplicadores": {
+      "MADERA": 4
+    }
+  },
+  {
+    "id": 5,
+    "nombre": "Hacha de Diamante",
+    "tipo": "HACHA",
+    "durabilidad": 500,
+    "danio_base": 7,
+    "multiplicadores": {
+      "MADERA": 8
+    }
+  },
+  {
+    "id": 6, 
+    "nombre": "Espada de Piedra",
+    "tipo": "ESPADA",
+    "durabilidad": 60,
+    "danio_base": 10,
+    "multiplicadores": {
+      "CARNE": 2.0    
+    }
+  },
+  {
+    "id": 7, 
+    "nombre": "Espada de Hierro",
+    "tipo": "ESPADA",
+    "durabilidad": 250,
+    "danio_base": 10,
+    "multiplicadores": {
+      "CARNE": 5.0
+
+    }
+  },
+  {
+    "id": 8, 
+    "nombre": "Espada de Diamante",
+    "tipo": "ESPADA",
+    "durabilidad": 500,
+    "danio_base": 10,
+    "multiplicadores": {
+      "CARNE": 7.0
+
+    }
+  }
+]

@@ -4,6 +4,8 @@
 #include <string>
 #include <memory>
 
+enum class TipoMaterial { MADERA, NADA, PIEDRA, HIERRO, DIAMANTE, CARNE};
+
 class Item : public sf::Drawable, public sf::Transformable{
 private:
     int _id;
@@ -47,4 +49,11 @@ public:
     void setDescripcion(std::string descripcion);
 
     void actualizarSprite();
+
+
+    virtual float obtenerFuerza(TipoMaterial material) const;
+    virtual void usar();
+    virtual bool estaRota() const;
+    // necesite un getter pa pasarle a la animacion
+    const sf::Sprite& getSprite() const { return sprItem; }
 };
