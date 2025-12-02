@@ -168,11 +168,12 @@ void Personaje::cmd(float deltatime)
         _velocidad.y = 1.5;
         _movimiento = 0;
     };
-
     if (_velocidad.x != 0.f && _velocidad.y != 0.f)
     {
         _velocidad /= sqrt(2.f);
     }
+
+
 
     Correr(_velocidad, deltatime);
 }
