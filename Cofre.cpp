@@ -26,29 +26,20 @@ void Cofre::update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posG
             if (!_enUso)
             {
                 _enUso = true;
-                // 2. ENLACE MAGICO:
                 // Le pasamos al cofre el puntero del item en mano del JUGADOR
                 inventarioCofre.enlazarItemEnMano(inventario.obtenerPunteroItemEnMano());
-
                 cargarContenido( inventarioCofre);
-                //Siguientes pasos
-                /*
-                - Al cerrar o alejarse se debe guardar en una matriz la cantidad y el id de los items que existen en inventario cofre,
-                - al abrir llamamos una sola vez a la funcion para cargar los items del inventario, internamente ya deberia funcionar con la fabrica
-                */
             }
 
         }
         else
         {
-            /*// Si se cierra, desenlazamos por seguridad (opcional)
-            inventarioCofre.enlazarItemEnMano(nullptr);*/
             if (_enUso)
             {
-                // 1. Guardamos lo que haya en la interfaz dentro de los arrays de ESTE cofre
+                // Guardamos lo de interfaz de ESTE cofre
                 guardarContenido(inventarioCofre);
 
-                // 3. Desenlazamos por seguridad
+                // Desenlazamos por seguridad
                 inventarioCofre.enlazarItemEnMano(nullptr);
 
                 _enUso = false;
@@ -61,10 +52,10 @@ void Cofre::update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posG
 
         if (_enUso)
         {
-            // 1. Guardamos lo que haya en la interfaz dentro de los arrays de ESTE cofre
+            // Guardamos lo de interfaz de ESTE cofre
             guardarContenido(inventarioCofre);
 
-            // 3. Desenlazamos por seguridad
+            // Desenlazamos por seguridad
             inventarioCofre.enlazarItemEnMano(nullptr);
 
             _enUso = false;

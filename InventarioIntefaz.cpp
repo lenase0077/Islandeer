@@ -458,53 +458,27 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
 
 /// METODOS DE PERSISTENCIA - Para guardar/cargar el inventario
 
-// Copia los IDs de los items a un array para guardar
-void InventarioInterfaz::copiarVectorDeIDs(int vectorAlmacen[30])
+void InventarioInterfaz::recibirItemsDe(std::array<std::unique_ptr<Item>, 30>& itemsExternos)
 {
     for (int i = 0; i < 30; i++)
     {
-        if (_inventarioItems[i] != nullptr)
-            vectorAlmacen[i] = _inventarioItems[i]->getID(); // ID del item
-        else
-            vectorAlmacen[i] = -1; // -1 indica slot vacio
+        // Movemos el item del array externo (Cofre) al interno (Interfaz)
+        // El array externo quedar  con nullptr en esa posici¢n
+        _inventarioItems[i] = std::move(itemsExternos[i]);
     }
 }
 
-// Carga items desde un array de IDs
-void InventarioInterfaz::cargarVectorIDs(int vectorIDs[30])
+void InventarioInterfaz::transferirItemsHacia(std::array<std::unique_ptr<Item>, 30>& destinoExterno)
 {
     for (int i = 0; i < 30; i++)
     {
-        if (vectorIDs[i] != -1)
-            _inventarioItems[i] = _fabItems->crearItem(vectorIDs[i]); // Crea nuevo item
-        else
-            _inventarioItems[i] = nullptr; // Slot vacio
+        // Movemos el item de la Interfaz hacia el array de destino (Cofre)
+        // La Interfaz quedar  vac¡a (nullptr) lista para el pr¢ximo uso
+        destinoExterno[i] = std::move(_inventarioItems[i]);
     }
 }
 
-// Copia las cantidades de los items para guardar
-void InventarioInterfaz::copiarVectorDeCantidades(int vectorAlmacen[30])
-{
-    for (int i = 0; i < 30; i++)
-    {
-        if (_inventarioItems[i] != nullptr)
-            vectorAlmacen[i] = _inventarioItems[i]->getCantidad(); // Cantidad actual
-        else
-            vectorAlmacen[i] = 0; // 0 indica slot vacio
-    }
-}
-
-// Carga cantidades desde un array
-void InventarioInterfaz::cargarVectorCantidades(int vectorCantidades[30])
-{
-    for (int i = 0; i < 30; i++)
-    {
-        if (_inventarioItems[i] != nullptr)
-            _inventarioItems[i]->setCantidad(vectorCantidades[i]); // Restaura cantidad
-    }
-}
-
-/// Mï¿½TODOS DE GESTION DE ITEMS
+/// METODOS DE GESTION DE ITEMS
 
 // Agrega un item al inventario (busca slots existentes primero, luego vacios)
 bool InventarioInterfaz::agregarItem(int ID, int cantidad)
@@ -769,25 +743,4 @@ void InventarioInterfaz::enlazarItemEnMano(std::unique_ptr<Item>* punteroExterno
 bool InventarioInterfaz::usaItemEnManoExterno()
 {
     return _ptrItemEnManoActual != &_itemEnMano;
-}
-
-
-void InventarioInterfaz::recibirItemsDe(std::array<std::unique_ptr<Item>, 30>& itemsExternos)
-{
-    for (int i = 0; i < 30; i++)
-    {
-        // Movemos el item del array externo (Cofre) al interno (Interfaz)
-        // El array externo quedar  con nullptr en esa posici¢n
-        _inventarioItems[i] = std::move(itemsExternos[i]);
-    }
-}
-
-void InventarioInterfaz::transferirItemsHacia(std::array<std::unique_ptr<Item>, 30>& destinoExterno)
-{
-    for (int i = 0; i < 30; i++)
-    {
-        // Movemos el item de la Interfaz hacia el array de destino (Cofre)
-        // La Interfaz quedar  vac¡a (nullptr) lista para el pr¢ximo uso
-        destinoExterno[i] = std::move(_inventarioItems[i]);
-    }
 }

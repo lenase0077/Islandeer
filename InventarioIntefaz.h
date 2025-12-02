@@ -72,14 +72,11 @@ public:
 
     /// Otros Metodos
     void update(const sf::Vector2f& posGlobalDelMouse, const sf::View& vista, const float& relacionAspecto, std::list<Loot>& listaLoots);
-    void controlDeEventos(sf::Event& evento);
-    void cargarVectorIDs(int vectorIDs[30]);
-    void copiarVectorDeIDs(int vectorAlmacen[30]);
+
+    /// Metodos de control de items
     bool agregarItem(int ID, int cantidad = 1);
     bool quitarItem(int ID, int cantidad = 1);
     int buscarItems(int ID, int cantidad = 1);
-    void copiarVectorDeCantidades(int vectorAlmacen[30]);
-    void cargarVectorCantidades(int vectorCantidades[30]);
 
     void copiarItemsEnVector(Item* vectorDestino[30]);
 

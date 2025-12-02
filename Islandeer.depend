@@ -1387,7 +1387,7 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1764680463 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1764681779 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
@@ -1739,7 +1739,7 @@
 
 1761749986 c:\users\sebas\onedrive\documentos\github\islandeer\enemigo.h
 
-1764680857 c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.h
+1764682649 c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.h
 	"SeleccionRectangulo.h"
 	"Item.h"
 	"ItemDescripcion.h"
@@ -1773,7 +1773,7 @@
 	<SFML/Graphics.hpp>
 	"Comando.h"
 
-1764680857 source:c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.cpp
+1764682649 source:c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.cpp
 	"InventarioIntefaz.h"
 	"funcionesInterpolacion.h"
 	<cmath>
