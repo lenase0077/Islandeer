@@ -41,6 +41,11 @@ void Game::run()
         std::cout << "Error cargando textura" << std::endl;
     }
 
+    if (!_texturaCultivos.loadFromFile("Cultivos.png"))
+    {
+        std::cout << "Error cargando textura Cultivos" << std::endl;
+    }
+
 
 /// ======================== Configuracion del FADE  =========================///
 
@@ -65,16 +70,21 @@ void Game::run()
     InventarioInterfaz inv(fabItems);
     InventarioInterfaz inventarioCofre(fabItems, "InventarioCofre.png");
 
-    inv.agregarItem(44,30);
-    inv.agregarItem(15,3);
-    inv.agregarItem(14,10);
-
-    inv.agregarItem(19,20);
-    inv.agregarItem(11,1);
-    inv.agregarItem(12,1);
+//    inv.agregarItem(44,30);
+//    inv.agregarItem(15,3);
+//    inv.agregarItem(14,10);
+//
+//    inv.agregarItem(19,20);
+//    inv.agregarItem(11,1);
+//    inv.agregarItem(12,1);
 //    inv.agregarItem(45,1);
 //    inv.agregarItem(47,1);
-    inv.agregarItem(28,16);
+//    inv.agregarItem(28,16);
+
+    inv.agregarItem(31,16);
+    inv.agregarItem(32,16);
+    inv.agregarItem(33,16);
+    //inv.agregarItem(28,16);
 
     InventarioResumido invR(texturaInventarioResumido);
 
@@ -276,6 +286,30 @@ void Game::run()
 
             sf::Vector2f posMouseWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window), Camara);/// ======================== Test spawn =========================///
 
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+            {
+                static sf::Clock relojPlantar;
+                if (relojPlantar.getElapsedTime().asSeconds() > 0.2f)
+                {
+                    // Solo intentamos plantar
+                    intentarPlantar(posMouseWorld, inv);
+                    relojPlantar.restart();
+                }
+            }
+
+            // --- CONTROL CLICK IZQUIERDO (ROMPER CULTIVO)
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            {
+                static sf::Clock relojRomper;
+                if (relojRomper.getElapsedTime().asSeconds() > 0.2f)
+                {
+                    // Intentamos romper/cosechar el cultivo
+                    intentarCosecharClick(posMouseWorld, listaLoots, fabItems);
+
+                    // Aqu¡ tambi‚n podr¡as poner l¢gica de atacar enemigos si no hay cultivo
+                    relojRomper.restart();
+                }
+            }
 
 /// ======================== Primeros drawables =========================///
 
@@ -283,6 +317,12 @@ void Game::run()
 
             window.setView(Camara);
             window.draw(mapa);
+
+            for (auto& cultivo : _listaCultivos)
+            {
+                window.draw(*cultivo);
+            }
+
             window.draw(character);
 
             character.getColisionador().draw(window);
@@ -505,6 +545,11 @@ void Game::run()
             }
 /// ======================== INICIO UPDATE =========================///
 
+            for (auto& cultivo : _listaCultivos)
+            {
+                cultivo->update(deltatime);
+            }
+
             character.update();
             character.updateEspada(mouse);
             _minimap.update(character.getPosition());
@@ -525,7 +570,6 @@ void Game::run()
             window.draw(inventarioCofre);
 
             window.draw(inv);
-
 
             window.setView(window.getDefaultView());
 
@@ -607,7 +651,6 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
     listaEstructuras.clear();
 
     cout << "Isla Reset" << endl;
-
 
     int ancho = mapa.getMapWidth();
     int alto = mapa.getMapHeight();
@@ -767,6 +810,85 @@ void Game::verificarTeleports(Personaje& character)
     else if (tileX == 166 && tileY == 44)
     {
         iniciarTeletransporte(51 * 32, 63 * 32);
+    }
+}
+
+bool Game::esSueloCultivable(int tileID) {
+    // IDs de la zona de cultivo que me pasaste
+    return (tileID == 163 || tileID == 164 || tileID == 165 || tileID == 166 ||
+            tileID == 171 || tileID == 172 || tileID == 173 ||
+            tileID == 179 || tileID == 180 || tileID == 181);
+}
+
+void Game::intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv) {
+
+    //Validar que tengamos alg£n ¡tem en la mano
+    Item* item = inv.getItemEnMano();
+    if (item == nullptr) return;
+
+    //Obtener coordenadas del Tile donde se hizo clic
+    int tileW = mapa.getTileWidth();
+    int tileH = mapa.getTileHeight();
+    int tileX = static_cast<int>(posMouseWorld.x / tileW);
+    int tileY = static_cast<int>(posMouseWorld.y / tileH);
+
+    //Validar Terreno
+    int idSuelo = mapa.getTileID(tileX, tileY);
+    if (!esSueloCultivable(idSuelo)) return;
+
+    //Calcular posici¢n
+    float posX = tileX * tileW;
+    float posY = tileY * tileH;
+
+    //Chequeo de colisi¢n: Validar que no haya YA una planta en ese lugar
+    sf::FloatRect rectNuevo(posX + 10, posY + 10, 10, 10);
+
+    for (auto& cultivo : _listaCultivos) {
+        if (cultivo->getBounds().intersects(rectNuevo)) {
+            return; // Ya hay una planta.
+        }
+    }
+
+    // Si el ID del item es una semilla v lida (31, 32, 33...), nos devuelve el objeto.
+    // Si es una espada o cualquier otra cosa, nos devuelve nullptr.
+    auto nuevoCultivo = _fabricaCultivos.crearDesdeSemilla(item->getID(), posX, posY);
+
+    if (nuevoCultivo != nullptr) {
+        //Agregamos el cultivo a la lista del juego
+        _listaCultivos.push_back(std::move(nuevoCultivo));
+
+        // Gasta 1 Semilla del inventario
+        inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
+
+        cout << "Planta creada exitosamente en: " << tileX << ", " << tileY << endl;
+    }
+}
+
+void Game::intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& listaLoots, FabricaItems& fabItems) {
+
+    // 1. Creamos un "apuntador" al principio de la lista
+    auto it = _listaCultivos.begin();
+
+    // 2. Recorremos mientras no lleguemos al final
+    while (it != _listaCultivos.end()) {
+
+        // Verificamos si el mouse toca este cultivo
+        // (*it) nos da el puntero al cultivo actual
+        if ((*it)->getBounds().contains(posMouseWorld)) {
+
+            // Intentamos cosechar
+            if ((*it)->intentarCosechar(listaLoots, fabItems)) {
+
+                // Si devolvi¢ true (se rompi¢/cosech¢), lo borramos de la lista
+                // erase devuelve el puntero al siguiente elemento, pero como hacemos return, no importa tanto
+                it = _listaCultivos.erase(it);
+
+                return; // Salimos de la funci¢n para no romper m s de uno a la vez
+            }
+        }
+
+        // Si no pas¢ nada, avanzamos al siguiente cultivo
+        it++;
     }
 }
 
