@@ -27,6 +27,10 @@ Estructura::Estructura(sf::Texture& texturaBloques, float posX, float posY, int 
     _colision.setID("Estructura");
 
     _seRompePorColision = true;
+
+    _bloqueID = id;
+
+
 }
 
 void Estructura::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -71,7 +75,7 @@ void Estructura::setLootsIDs(const std::vector<int>& nuevoLootsIDs){
     _lootsIDs = nuevoLootsIDs;
 }
 
-void Estructura::update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::Mouse& mouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario, float deltatime){
+void Estructura::update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario, InventarioInterfaz& inventarioCofre, float deltatime){
 
 }
 
@@ -83,4 +87,12 @@ void Estructura::generarLoot (std::list<Loot>& listaLoot){
 bool Estructura::getRompePorColision()
 {
     return _seRompePorColision;
+}
+
+int Estructura::getID(){
+    return _bloqueID;
+}
+
+bool Estructura::estaEnUso(){
+    return _enUso;
 }

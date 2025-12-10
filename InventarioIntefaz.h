@@ -22,16 +22,17 @@ private:
     bool _primerVuelta = false;
     bool _abierto = false;
 
-
-    //bool _hayItemEnMano = false;
     int _indiceUltimoItemAnalizado = 100;
     float _posX, _posY;
+    float _desvioDelCentroEnY = 32;
     sf::Vector2f _posicionEscondite;
     sf::Vector2f _posicionAbierto;
     ItemDescripcion _descripcion;
 
     std::array<std::unique_ptr<Item>, 30> _inventarioItems;
     std::unique_ptr<Item> _itemEnMano;
+    std::unique_ptr<Item>* _ptrItemEnManoActual; // NUEVO: Este puntero apuntar  a _itemEnMano (propio) o al de otro inventario
+
     FabricaItems* _fabItems;
     std::array<SeleccionRectangulo, 30> _areasSeleccion;
     std::string _nombreDireccionTextura;
@@ -50,6 +51,7 @@ private:
 public:
     /// Constructores
     InventarioInterfaz(FabricaItems& fabItems,std::string nombreDireccionTextura = "Inventario.png");
+    InventarioInterfaz(){};
 
     /// Getters
     float getPosX();
@@ -66,17 +68,15 @@ public:
     void setAbierto(bool nuevoEstado);
     void setPosicionEscondite(float X, float Y);
     void setPosicionAbierto(float X, float Y);
+    void setDesvioDelCentroEnY(float desvioY);
 
     /// Otros Metodos
     void update(const sf::Vector2f& posGlobalDelMouse, const sf::View& vista, const float& relacionAspecto, std::list<Loot>& listaLoots);
-    void controlDeEventos(sf::Event& evento);
-    void cargarVectorIDs(int vectorIDs[30]);
-    void copiarVectorDeIDs(int vectorAlmacen[30]);
+
+    /// Metodos de control de items
     bool agregarItem(int ID, int cantidad = 1);
     bool quitarItem(int ID, int cantidad = 1);
     int buscarItems(int ID, int cantidad = 1);
-    void copiarVectorDeCantidades(int vectorAlmacen[30]);
-    void cargarVectorCantidades(int vectorCantidades[30]);
 
     void copiarItemsEnVector(Item* vectorDestino[30]);
 
@@ -84,4 +84,17 @@ public:
     InventarioResumido* getInventarioResumido();
     void consumirItemEnSlot(int slot, int cantidad);
     Item* getItemEnMano();
+
+
+    std::unique_ptr<Item>* obtenerPunteroItemEnMano();// M‚todo para obtener la direcci¢n de memoria de TU item en mano
+
+    void enlazarItemEnMano(std::unique_ptr<Item>* punteroExterno);// M‚todo para decirle a este inventario que use el item en mano de otro
+
+    bool usaItemEnManoExterno();// Para saber si estamos usando el item en mano de otro inventario (principalmente usado en draw)
+
+    // Toma posesi¢n de los items que vienen del cofre
+    void recibirItemsDe(std::array<std::unique_ptr<Item>, 30>& itemsExternos);
+
+    // Entrega la posesi¢n de sus items al cofre
+    void transferirItemsHacia(std::array<std::unique_ptr<Item>, 30>& destinoExterno);
 };

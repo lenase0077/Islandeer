@@ -50,7 +50,6 @@ void Game::run()
     _fadeAlpha = 0.0f;
 
 /// ======================== Reloj Externo =========================///
-    FabricaEstructuras fabE;
 
     sf::Keyboard tecladoEntrada;
 
@@ -61,8 +60,10 @@ void Game::run()
 /// ======================== Inventario =========================///
 
     FabricaItems fabItems;
+    FabricaEstructuras fabE;
 
     InventarioInterfaz inv(fabItems);
+    InventarioInterfaz inventarioCofre(fabItems, "InventarioCofre.png");
 
     inv.agregarItem(44,30);
     inv.agregarItem(15,3);
@@ -152,8 +153,13 @@ void Game::run()
     listaEstructuras.push_back(fabE.crearEstructura(87*32,85*32,5));
     listaEstructuras.push_back(fabE.crearEstructura(88*32,85*32,6));
     listaEstructuras.push_back(fabE.crearEstructura(89*32,85*32,7));
+    listaEstructuras.push_back(fabE.crearEstructura(89*32,90*32,7));
+
     listaEstructuras.push_back(fabE.crearEstructura(90*32,85*32,9));
+
     listaEstructuras.push_back(fabE.crearEstructura(91*32,85*32,8));
+    listaEstructuras.push_back(fabE.crearEstructura(91*32,86*32,8));
+    listaEstructuras.push_back(fabE.crearEstructura(91*32,90*32,8));
 
 /// ======================== CICLO DIA Y NOCHE =========================///
     nightOverlay.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
@@ -428,7 +434,7 @@ void Game::run()
                         (*estructura)->recibirGolpe(5);
                     }
                     window.draw(**estructura);
-                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime);
+                    (*estructura)->update( PosicionJugador, posMouseWorld, Camara, relacion, inv, inventarioCofre, deltatime);
                 }
                 else
                 {
@@ -440,6 +446,7 @@ void Game::run()
 /// ======================== COLISION ESTRUCTURA =========================///
 
 
+            bool seAbrioUnCofre = false;
             for (auto estructura = listaEstructuras.begin(); estructura != listaEstructuras.end(); )
             {
                 if ((*estructura)->estaDestruido() == false)
@@ -454,7 +461,14 @@ void Game::run()
                         }
                     }
                     window.draw(**estructura);
-                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime);
+
+                    (*estructura)->update( PosicionJugador, posMouseWorld, Camara, relacion, inv, inventarioCofre, deltatime);
+
+                    if ((*estructura) -> getID() == 8){
+                        if ((*estructura) -> estaEnUso()){
+                            seAbrioUnCofre = true;
+                        }
+                    }
 
                     (*estructura)->generarLoot(listaLoots);
 
@@ -466,6 +480,18 @@ void Game::run()
                     estructura = listaEstructuras.erase(estructura);
                 }
             }
+
+            ///Ocultar interfaz cofre
+            if (seAbrioUnCofre){
+                inv.setDesvioDelCentroEnY(-16);
+                inventarioCofre.setDesvioDelCentroEnY(96);
+            }
+            else{
+                inv.setDesvioDelCentroEnY(50);
+                inventarioCofre.setDesvioDelCentroEnY(-1000);
+            }
+
+            inventarioCofre.update(mouse.getPosicion(), Camara, relacion, listaLoots);
 
 /// ======================== INICIO LOOT =========================///
 
@@ -486,7 +512,7 @@ void Game::run()
             verificarTeleports(character);
             actualizarFade(character);
 
-            inv.update(mouse.getPosicion(), Camara, relacion, listaLoots); ///FALLAA
+            inv.update(mouse.getPosicion(), Camara, relacion, listaLoots);
 
             inv.copiarItemsEnVector(vectorCarga);
             invR.setItems(vectorCarga);
@@ -496,7 +522,10 @@ void Game::run()
 
             window.draw(invR);
 
+            window.draw(inventarioCofre);
+
             window.draw(inv);
+
 
             window.setView(window.getDefaultView());
 
