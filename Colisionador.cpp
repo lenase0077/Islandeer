@@ -79,3 +79,4 @@ void Colisionador::draw(sf::RenderWindow& window)
     rectanguloDebug.setOutlineThickness(1);
     window.draw(rectanguloDebug);
 }
+

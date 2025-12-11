@@ -4,6 +4,7 @@ Arbol::Arbol(sf::Texture& texturaTronco, sf::Texture& texturaCopa, float x, floa
     : Estructura(texturaTronco, x, y, idTronco)
 {
     _spriteCopa.setTexture(texturaCopa);
+    setScale(1.3,1.3);
 
     int anchoCopa = 32;
     int altoCopa = 64;
@@ -16,6 +17,8 @@ Arbol::Arbol(sf::Texture& texturaTronco, sf::Texture& texturaCopa, float x, floa
     _spriteCopa.setOrigin(anchoCopa / 2.0f, altoCopa - 10.0f);
 
     _spriteCopa.setPosition(16.f, 0.f);
+
+    _colision.setColision(sf::FloatRect(x + 10, y + 20, 20, 20));
 
     _tiempoAcumulado = (rand() % 100) / 10.0f;
     _velocidadViento = 1.5f;

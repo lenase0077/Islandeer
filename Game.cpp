@@ -442,7 +442,7 @@ void Game::run()
 /// ======================== COLISIONES ANIMALES =========================///
 
 
-sf::FloatRect rectEspada = character.getAreaAtaque(); // Calculamos la hitbox actual
+sf::FloatRect rectEspada = character.getAreaAtaque();
 
 for (auto it = animales.begin(); it != animales.end();)
 {
@@ -473,8 +473,6 @@ for (auto it = animales.begin(); it != animales.end();)
         }
     }
 
-    // 4. FÍSICA Y EMPUJE (Block A)
-    // Detectamos si el cuerpo del personaje toca al animal (para empujarlo y no atravesarlo)
     if (character.getColisionador().detectorDeColision(animal->getColisionador()))
     {
         sf::Vector2f direccionEmpuje = animal->getPosition() - character.getPosition();
@@ -485,22 +483,17 @@ for (auto it = animales.begin(); it != animales.end();)
             animal->move(direccionEmpuje * 2.f); // Empuje suave físico
         }
 
-        // No llamamos a character.chocar() aquí para no frenar al jugador
     }
 
-    // 5. COMBATE / ATAQUE (Block B) - Usando Singleton
-    // golpeHabilitado ya viene del Singleton en el Game Loop principal
-    // (if Comandos::getInstancia().mouseIzqRecienPresionado -> iniciarAtaque)
     if (golpeHabilitado)
     {
         sf::FloatRect rectAnimal = animal->getColisionador().getColision();
 
-        // Verificamos Hitbox de Espada vs Hitbox de Animal
         if (rectEspada.intersects(rectAnimal))
         {
             // --- CÁLCULO DE DAÑO ---
             Item* itemEnMano = inv.getItemEnMano();
-            TipoMaterial matAnimal = animal->getMaterial(); // Recuerda tener esto en Animal/Mob
+            TipoMaterial matAnimal = animal->getMaterial(); // recorda tener esto en Animal/Mob
             float danioFinal = 1.0f;
 
             if (itemEnMano != nullptr)
@@ -557,6 +550,7 @@ for (auto estructura = listaEstructuraRandom.begin(); estructura != listaEstruct
     if (!(*estructura)->estaDestruido())
     {
         window.draw(**estructura);
+        (*estructura)->getColisionador().draw(window);
 
         // A. FÍSICA (Chocar para no atravesar) =======================
         // Siempre chequeamos colisión física para el sliding
