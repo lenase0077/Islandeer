@@ -1,0 +1,42 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debuggear con MinGW",
+            "type": "cppdbg",
+            "request": "launch",
+            
+            // 1. AQUÍ VA EL NOMBRE DE TU EJECUTABLE
+            // Asegúrate de que coincida con el nombre que generas al compilar (ej: main.exe o juego.exe)
+            "program": "${workspaceFolder}/main.exe",
+            
+            "args": [],
+            "stopAtEntry": false,
+            
+            // 2. IMPORTANTE PARA SFML:
+            // Esto asegura que cargue las imágenes/fuentes desde la carpeta del proyecto
+            "cwd": "${workspaceFolder}",
+            
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            
+            // 3. AQUÍ PONES TU RUTA DE MINGW
+            // Ejemplo: "C:\\MinGW\\bin\\gdb.exe"
+            // IMPORTANTE: Usa doble barra invertida (\\) en Windows
+            "miDebuggerPath": "C:\\Ruta\\Hacia\\Tu\\MinGW\\bin\\gdb.exe",
+            
+            "setupCommands": [
+                {
+                    "description": "Habilitar la impresión mejorada para gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            
+            // Opcional: Si tienes un tasks.json para compilar, pon el nombre de esa tarea aquí
+            // para que compile automáticamente antes de debuggear.
+            // "preLaunchTask": "C/C++: g++.exe build active file" 
+        }
+    ]
+}
