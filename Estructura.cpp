@@ -30,6 +30,16 @@ Estructura::Estructura(sf::Texture& texturaBloques, float posX, float posY, int 
 
     _bloqueID = id;
 
+    if (id == 0 || id >= 10 && id <= 12) {
+        _material = TipoMaterial::MADERA;
+    }
+    else if (id >= 1 && id <= 6) {
+        _material = TipoMaterial::PIEDRA;
+    }
+    else {
+        _material = TipoMaterial::NADA;
+    }
+
 
 }
 
@@ -96,3 +106,4 @@ int Estructura::getID(){
 bool Estructura::estaEnUso(){
     return _enUso;
 }
+

@@ -4,7 +4,6 @@
 #include "InventarioResumidoInterfaz.h"
 #include "FabricaItems.h"
 #include <list>
-#include "Funcion.h"
 
 class Horno : public Estructura
 {

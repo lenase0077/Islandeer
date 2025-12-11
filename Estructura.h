@@ -5,6 +5,7 @@
 #include <vector>
 #include "Loot.h"
 #include "FabricaItems.h"
+#include "Item.h"
 
 class Estructura : public sf::Transformable, public sf::Drawable
 {
@@ -13,10 +14,12 @@ private:
     int _bloqueID;
     Colisionador _colision;
     std::vector<int> _lootsIDs;
+    TipoMaterial _material;
 
 protected:
     bool _seRompePorColision;
     bool _enUso = false;
+
 
 public:
     sf::Sprite _sprite;
@@ -32,6 +35,7 @@ public:
     ~Estructura(){};
     void liberarLoot(FabricaItems& fabItems,std::list<Loot>& listaLoot);
     bool getRompePorColision();
+    TipoMaterial getMaterial() const { return _material; }
     int getID();
     bool estaEnUso();
 };

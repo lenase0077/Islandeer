@@ -454,17 +454,43 @@ void InventarioInterfaz::update(const sf::Vector2f& posGlobalDelMouse, const sf:
         _descripcion.setVisible(false);
     }
 
+
+
+
+
 }
 
 /// METODOS DE PERSISTENCIA - Para guardar/cargar el inventario
-
 void InventarioInterfaz::recibirItemsDe(std::array<std::unique_ptr<Item>, 30>& itemsExternos)
 {
     for (int i = 0; i < 30; i++)
     {
         // Movemos el item del array externo (Cofre) al interno (Interfaz)
-        // El array externo quedar  con nullptr en esa posici¢n
+        // El array externo quedarï¿½ con nullptr en esa posiciï¿½n
         _inventarioItems[i] = std::move(itemsExternos[i]);
+    }
+}
+// Copia los IDs de los items a un array para guardar
+void InventarioInterfaz::copiarVectorDeIDs(int vectorAlmacen[30])
+{
+    for (int i = 0; i < 30; i++)
+    {
+        if (_inventarioItems[i] != nullptr)
+            vectorAlmacen[i] = _inventarioItems[i]->getID(); // ID del item
+        else
+            vectorAlmacen[i] = -1; // -1 indica slot vacio
+    }
+}
+
+// Carga items desde un array de IDs
+void InventarioInterfaz::cargarVectorIDs(int vectorIDs[30])
+{
+    for (int i = 0; i < 30; i++)
+    {
+        if (vectorIDs[i] != -1)
+            _inventarioItems[i] = _fabItems->crearItem(vectorIDs[i]); // Crea nuevo item
+        else
+            _inventarioItems[i] = nullptr; // Slot vacio
     }
 }
 
@@ -473,12 +499,34 @@ void InventarioInterfaz::transferirItemsHacia(std::array<std::unique_ptr<Item>, 
     for (int i = 0; i < 30; i++)
     {
         // Movemos el item de la Interfaz hacia el array de destino (Cofre)
-        // La Interfaz quedar  vac¡a (nullptr) lista para el pr¢ximo uso
+        // La Interfaz quedarï¿½ vacï¿½a (nullptr) lista para el prï¿½ximo uso
         destinoExterno[i] = std::move(_inventarioItems[i]);
     }
 }
 
-/// METODOS DE GESTION DE ITEMS
+// Copia las cantidades de los items para guardar
+void InventarioInterfaz::copiarVectorDeCantidades(int vectorAlmacen[30])
+{
+    for (int i = 0; i < 30; i++)
+    {
+        if (_inventarioItems[i] != nullptr)
+            vectorAlmacen[i] = _inventarioItems[i]->getCantidad(); // Cantidad actual
+        else
+            vectorAlmacen[i] = 0; // 0 indica slot vacio
+    }
+}
+
+// Carga cantidades desde un array
+void InventarioInterfaz::cargarVectorCantidades(int vectorCantidades[30])
+{
+    for (int i = 0; i < 30; i++)
+    {
+        if (_inventarioItems[i] != nullptr)
+            _inventarioItems[i]->setCantidad(vectorCantidades[i]); // Restaura cantidad
+    }
+}
+
+/// Mï¿½TODOS DE GESTION DE ITEMS
 
 // Agrega un item al inventario (busca slots existentes primero, luego vacios)
 bool InventarioInterfaz::agregarItem(int ID, int cantidad)
@@ -527,7 +575,7 @@ bool InventarioInterfaz::quitarItem(int ID, int cantidad)
 
     for(int i = 0; i < 30 && cantidad > 0; i++)
     {
-        // Si el slot tiene el ¡tem que buscamos
+        // Si el slot tiene el ï¿½tem que buscamos
         if (_inventarioItems[i] != nullptr && _inventarioItems[i]->getID() == ID)
         {
             int cantidadEnEsteSlot = _inventarioItems[i]->getCantidad();
@@ -543,14 +591,14 @@ bool InventarioInterfaz::quitarItem(int ID, int cantidad)
             {
                 // CASO B: El slot tiene justo o menos de lo que necesitamos.
                 // Lo vaciamos entero y seguimos buscando en el siguiente slot.
-                cantidad -= cantidadEnEsteSlot; // Restamos lo que pudimos sacar de ac 
+                cantidad -= cantidadEnEsteSlot; // Restamos lo que pudimos sacar de acï¿½
 
-                _inventarioItems[i] = nullptr; // ELIMINAMOS EL OBJETO (Slot vac¡o)
+                _inventarioItems[i] = nullptr; // ELIMINAMOS EL OBJETO (Slot vacï¿½o)
             }
         }
     }
 
-    return true; // Operaci¢n exitosa
+    return true; // Operaciï¿½n exitosa
 }
 
 // Busca si hay suficiente cantidad de un tipo de item
@@ -587,7 +635,7 @@ void InventarioInterfaz::draw(sf::RenderTarget& target, sf::RenderStates states)
 
     if (!const_cast<InventarioInterfaz*>(this)->usaItemEnManoExterno())
     {
-        if (*_ptrItemEnManoActual != nullptr)
+       if (*_ptrItemEnManoActual != nullptr)
         {
             target.draw(**_ptrItemEnManoActual);
         }
@@ -610,7 +658,6 @@ void InventarioInterfaz::ajustarEscalaAutomaticamente(const sf::View& vista, con
     float centroX = (_sprFondoInventario.getGlobalBounds().width/ 2) * getScale().x;
 
     // Calcula posiciones para estado abierto y cerrado
-
     setPosicionAbierto(vista.getCenter().x - centroX, vista.getCenter().y - _desvioDelCentroEnY * getScale().y);
     setPosicionEscondite(vista.getCenter().x - centroX, vista.getCenter().y + vista.getSize().y);
 
@@ -636,8 +683,6 @@ void InventarioInterfaz::ajustarEscalaAutomaticamente(const sf::View& vista, con
         setPosition(_posX, _posY);
     }
 }
-
-
 
 // Suelta un item del inventario como loot en el mundo
 void InventarioInterfaz::soltarLoot(std::unique_ptr<Item>& itemQueTirar, std::list<Loot>& listaLoots, bool tirarCompleto)
@@ -721,9 +766,10 @@ Item* InventarioInterfaz::getItemEnMano()
     return nullptr;
 }
 
+
 std::unique_ptr<Item>* InventarioInterfaz::obtenerPunteroItemEnMano()
 {
-    // Devolvemos la direcci¢n de memoria de nuestra variable local
+    // Devolvemos la direcciï¿½n de memoria de nuestra variable local
     return &(*_ptrItemEnManoActual);
 }
 

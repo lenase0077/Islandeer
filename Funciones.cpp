@@ -8,6 +8,11 @@ void setFrame(int fila , int columna, sf::Sprite& sprite){
     sprite.setTextureRect((sf::IntRect(columna * 16 , fila * 16 , 16 , 16)));
 
 }
+// usar esto
+void setFramePersonaje(int fila , int columna, sf::Sprite& sprite){
+
+    sprite.setTextureRect((sf::IntRect(columna * 32 , fila * 32 , 32 , 32)));
+}
 
 float calcularDistancia(const sf::Vector2f& pos1, const sf::Vector2f& pos2)
 {

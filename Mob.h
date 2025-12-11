@@ -4,7 +4,8 @@
 #include <string>
 #include <cmath>
 #include <ctime>
-
+#include "Item.h"
+// usar esto
 enum class DireccionMob {
     Arriba,
     Abajo,
@@ -40,6 +41,8 @@ public:
         int _frameActual;
         float _tiempoDivagar;
         float _tiempoDeAnimar;
+
+        virtual TipoMaterial getMaterial() const { return TipoMaterial::CARNE; }
 
 };
 

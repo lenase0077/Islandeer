@@ -27,6 +27,7 @@
 #include <cmath>
 #include "InterfazEstado.h"
 
+
 class Game
 {
     public:
@@ -42,17 +43,19 @@ class Game
         void intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& listaLoots, FabricaItems& fabItems);
         bool esSueloCultivable(int tileID);
 
-
     private:
         InterfazEstado _interfazEstado;
+
+
+
         sf::Texture _texturaPersonaje;
         Personaje _personaje;
-        Personaje personaTest;
         sf::RenderWindow window;
         sf::Vector2f _posicionPersonaje;
         sf::Clock _relojInterno;
         FabricaMobs _FabricaMobs;
         FabricaCultivos _fabricaCultivos;
+
         FabricaEstructuras _FabricaEstructuras;
         Minimap _minimap;
         TileMap mapa;

@@ -18,7 +18,7 @@ private:
 
 
 
-    // Variables para la animación de viento
+    // Variables para la animaciï¿½n de viento
     float _tiempoAcumulado;
     float _velocidadViento;
 };
