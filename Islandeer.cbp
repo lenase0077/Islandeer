@@ -81,8 +81,6 @@
 		<Unit filename="Funciones.h" />
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.h" />
-		<Unit filename="Herramienta.cpp" />
-		<Unit filename="Herramienta.h" />
 		<Unit filename="Horno.cpp" />
 		<Unit filename="Horno.h" />
 		<Unit filename="InterfazEstado.cpp" />

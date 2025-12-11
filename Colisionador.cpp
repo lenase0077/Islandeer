@@ -32,7 +32,7 @@ sf::FloatRect Colisionador::getColision()
 bool Colisionador::detectorDeColision(Colisionador& colisionado) const {
 
     if (_colision.intersects(colisionado.getColision())) {
-//        cout << colisionado.getID() << endl;
+        cout << colisionado.getID() << endl;
         return true;
     }
     return false;

@@ -16,11 +16,11 @@ class Personaje: public sf::Drawable , public sf::Transformable
         Personaje(sf::Texture& _textura , int alto, int ancho);
         void draw(sf::RenderTarget& tarddget, sf::RenderStates states) const;
         void cmd(float deltatime);
-        void update(float deltatime);
+        void update();
         void limite();
         void setVelocidad(float vx = 0.f, float vy = 0.f);
         Colisionador &getColisionador() {return _colision;};
-        void animarPersonaje();
+        void animar();
         void chocar(Colisionador& colision);
         sf::Vector2f getPosition() const;
         void Correr(sf::Vector2f& velocidad , float deltatime);
@@ -41,11 +41,6 @@ class Personaje: public sf::Drawable , public sf::Transformable
         void updateEspada(const Raton& mouse);
         void setVolumen (float Volumen);
 
-        void setItemEnMano(const sf::Sprite& spriteItem, int idItem);
-        bool iniciarAtaque();
-        void actualizarAnimacionAtaque(float deltatime);
-        void quitarItemEnMano() { _tieneHerramienta = false; }
-        sf::FloatRect getAreaAtaque() const;
         ///Hambre
         float getHambre();
         float getHambreMaxima() const { return _hambreMaxima; }
@@ -79,17 +74,5 @@ class Personaje: public sf::Drawable , public sf::Transformable
         sf::Sound _footprints;
         sf::SoundBuffer _footprintsBuffer;
         sf::Clock _relojPasos;
-
-        /// == TEST DE HERRAMIENTAS NO DEFINITIVO
-        sf::Sprite _spriteHerramienta;
-        bool _atacando = false;
-        float _anguloAtaque = 0.0f;
-        bool _tieneHerramienta = false;
-        bool _esEspada = false;
-
-        ///CONTROL DE ANIMACIONES
-        int _maxFrame = 0;
-        int _minFrame = 3;
-        bool _primerRecorridoParado;
-        bool _primerRecorridoMoviendose;
 };
+
