@@ -5,15 +5,18 @@
 
 using namespace std;
 
-/// Constructores
+sf::Font Item::_fuenteTextoCantidad;
+
 
 // Constructor principal - crea item con textura e ID especifico
 Item::Item(sf::Texture& texturaItems, int id){
     setCantidad(1); // Inicializa con cantidad 1
 
-    // Carga fuente para mostrar cantidad
-    if (!_fuenteTextoCantidad.loadFromFile("PIXEARG_.TTF")){
-        cout << "Error al cargar PIXEARG_.TTF" << endl;
+    if (_fuenteTextoCantidad.getInfo().family == "") {
+        if (!_fuenteTextoCantidad.loadFromFile("PIXEARG_.TTF")){
+            cout << "Error al cargar PIXEARG_.TTF" << endl;
+        }
+        const_cast<sf::Texture&>(_fuenteTextoCantidad.getTexture(8)).setSmooth(false);
     }
     sprItem.setTexture(texturaItems); // Asigna textura del atlas de items
 

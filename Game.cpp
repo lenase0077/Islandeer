@@ -551,51 +551,70 @@ for (auto it = animales.begin(); it != animales.end();)
 
 /// ======================== Estructura RANDOM =========================///
 
-            for (auto estructura = listaEstructuraRandom.begin(); estructura != listaEstructuraRandom.end(); )
+for (auto estructura = listaEstructuraRandom.begin(); estructura != listaEstructuraRandom.end(); )
+{
+    // Verificamos si la estructura sigue viva
+    if (!(*estructura)->estaDestruido())
+    {
+        window.draw(**estructura);
+
+        // A. FÍSICA (Chocar para no atravesar) =======================
+        // Siempre chequeamos colisión física para el sliding
+
+             character.chocar((*estructura)->getColisionador());
+
+
+        // B. ATAQUE (Hitbox separada) ================================
+        // Solo entramos si atacaste y la estructura se puede romper
+        if (golpeHabilitado && (*estructura)->getRompePorColision())
+        {
+            // Usamos la HITBOX de la espada, no el cuerpo del personaje
+            if (rectEspada.intersects((*estructura)->getColisionador().getColision()))
             {
-                if ((*estructura)->estaDestruido() == false)
-                {
-                    window.draw(**estructura);
+                Item* itemEnMano = inv.getItemEnMano();
+                TipoMaterial matEstructura = (*estructura)->getMaterial();
+                float danioFinal = 1.0f; // Daño base (puño)
 
-                    if(character.getColisionador().detectorDeColision((*estructura)->getColisionador()))
+                // Lógica de Herramientas
+                if (itemEnMano != nullptr)
+                {
+                    danioFinal = itemEnMano->obtenerFuerza(matEstructura);
+
+                    // Solo gastamos durabilidad si realmente golpeamos algo rompible
+                    itemEnMano->usar();
+
+                    // Si se rompe, lo sacamos del inventario
+                    if (itemEnMano->estaRota())
                     {
-                        character.chocar((*estructura)->getColisionador());
-
-                        if (golpeHabilitado && (*estructura)->getRompePorColision())
-                        {
-
-                            Item* itemEnMano = inv.getItemEnMano();
-                            TipoMaterial matEstructura = (*estructura)->getMaterial();
-                            float danioFinal = 1.0f;
-
-                            if (itemEnMano != nullptr)
-                            {
-                                danioFinal = itemEnMano->obtenerFuerza(matEstructura);
-                                itemEnMano->usar();
-
-                                if (itemEnMano->estaRota())
-                                {
-                                    inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
-                                }
-                            }
-                            cout << "Material: " << (int)matEstructura
-                                 << " | Dmg final: " << danioFinal << endl;
-
-                            (*estructura)->recibirGolpe(danioFinal);
-                            cout << "Esta mierda funciona" << endl;
-                        }
-
+                        inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
+                        // CUIDADO: itemEnMano ahora es un puntero inválido, no lo uses más abajo.
+                        itemEnMano = nullptr;
                     }
+                }
 
-                    (*estructura)->update( PosicionJugador, posMouseWorld, Camara, relacion, inv, inventarioCofre, deltatime);
-                    estructura++;
-                }
-                else
-                {
-                    (*estructura)->liberarLoot(fabItems,listaLoots);
-                    estructura = listaEstructuraRandom.erase(estructura);
-                }
+                // Debug
+                // cout << "Material: " << (int)matEstructura << " | Dmg: " << danioFinal << endl;
+
+                // Aplicar Daño
+                (*estructura)->recibirGolpe(danioFinal);
+
+                // Efecto visual opcional: Vibración o color rojo
+                // (*estructura)->setColor(sf::Color::Red); (Si tu estructura lo soporta)
             }
+        }
+
+        // Update normal de la estructura
+        (*estructura)->update( PosicionJugador, posMouseWorld, Camara, relacion, inv, inventarioCofre, deltatime);
+
+        estructura++; // Avanzamos al siguiente
+    }
+    else
+    {
+        // Si está destruido, soltamos loot y borramos
+        (*estructura)->liberarLoot(fabItems, listaLoots);
+        estructura = listaEstructuraRandom.erase(estructura);
+    }
+}
 /// ======================== COLISION ESTRUCTURA =========================///
 
 
