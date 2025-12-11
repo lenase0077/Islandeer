@@ -28,8 +28,6 @@ Estructura::Estructura(sf::Texture& texturaBloques, float posX, float posY, int 
 
     _seRompePorColision = true;
 
-    _bloqueID = id;
-    
     if (id == 0 || id >= 10 && id <= 12) {
         _material = TipoMaterial::MADERA;
     }
@@ -39,10 +37,6 @@ Estructura::Estructura(sf::Texture& texturaBloques, float posX, float posY, int 
     else {
         _material = TipoMaterial::NADA;
     }
-
-
-
-    _bloqueID = id;
 
 
 }

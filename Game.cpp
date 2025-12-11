@@ -8,7 +8,6 @@ using namespace std;
 Game::Game()
     : window(sf::VideoMode(1024, 768), "SFML works!"),
       _personaje(_texturaPersonaje),
-      personaTest(_texturaPersonaje, 300,300),
       _minimap({150.f, 150.f},
 {
     1024.f - 160.f, 10.f
@@ -36,7 +35,7 @@ void Game::run()
         cout << "ERROR AL CARGAR InventarioResumido.png" << endl;
     }
 
-    if (!_texturaPersonaje.loadFromFile("Basic Charakter Spritesheet.png"))
+    if (!_texturaPersonaje.loadFromFile("Personaje.png"))
     {
         std::cout << "Error cargando textura" << std::endl;
     }
@@ -64,6 +63,21 @@ void Game::run()
 
     InventarioInterfaz inv(fabItems);
 
+    inv.agregarItem(44,30);
+    inv.agregarItem(0,1);
+    inv.agregarItem(2,1);
+
+    inv.agregarItem(6,1);
+    inv.agregarItem(8,1);
+
+    inv.agregarItem(3,1);
+    inv.agregarItem(5,1);
+    inv.agregarItem(15,3);
+    inv.agregarItem(14,10);
+
+    inv.agregarItem(19,20);
+    inv.agregarItem(11,1);
+    inv.agregarItem(12,1);
 //    inv.agregarItem(45,1);
 //    inv.agregarItem(47,1);
     inv.agregarItem(28,16);
@@ -92,7 +106,10 @@ void Game::run()
     Personaje character (_texturaPersonaje);
     cargar(character);
 
-    character.setPosicion(167*32,10*32);
+
+
+
+
 
 /// ======================== Enemigo =========================///
     sf::Vector2f empuje;
@@ -152,8 +169,8 @@ void Game::run()
     nightOverlay.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
     nightOverlay.setPosition(0.f, 0.f);
     sf::Color nightColor(0, 0, 30); // Un azul oscuro para la noche
-    float cicloCompletoSegundos = 30.0f; // Un ciclo de 2 minutos para probar. �Puedes cambiar esto!
-    sf::Uint8 maxOpacidad = 210; // Qu� tan oscura ser� la noche (0-255)
+    float cicloCompletoSegundos = 120.0f; // Un ciclo de 2 minutos para probar. CAMBIA ESTO
+    sf::Uint8 maxOpacidad = 210; // Que tan oscura es la noche (0-255)
 
 /// ======================== Fuente y Display Reloj =========================///
 
@@ -170,6 +187,11 @@ void Game::run()
     /// ======================== Inicio estructura Random =========================///
 
     regenerarRecursos(listaEstructuraRandom);
+
+//    character.setPosicion(0, 0);
+
+
+
 
 /// ======================== INICIO GAME LOOP =========================///
     while (window.isOpen())
@@ -235,6 +257,19 @@ void Game::run()
             sf::Event event;
             bool cambioDeEstado = false;
 
+
+            /// ======================== AUXILIAR HERRAMIENTAS =========================///
+
+            bool golpeHabilitado = false;
+
+            if (Comandos::getInstancia().mouseIzqRecienPresionado)
+            {
+                golpeHabilitado = character.iniciarAtaque();
+
+                if (golpeHabilitado) cout << "Seba gei" << endl;
+            }
+
+
             while (window.pollEvent(event))
             {
 ///           ------------- LLAMADA DE EVENTOS -------------
@@ -284,9 +319,12 @@ void Game::run()
                 window.draw(*animal);
             }
 
-/// ========================= RELOJ ========================= ///
+
+/// ========================= General ========================= ///
 
             mouse.update(window);
+            sf::FloatRect rectEspada = character.getAreaAtaque();
+
 
 /// ======================== Update del Ciclo dia y noche ========================= ///
 
@@ -331,9 +369,13 @@ void Game::run()
             character.cmd(deltatime);
             sf::Vector2f PosicionJugador = character.getPosition();
 
+
+
             ///Mostramos la vida del jugador
 
 //    cout << character.getVida() << endl;
+
+
 
 
 
@@ -351,55 +393,97 @@ void Game::run()
                     character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
                 }
             }
+/// ======================== COLISIONES Mobs =========================///
 
-/// ======================== COLISIONES ANIMAL =========================///
+for (auto it = animales.begin(); it != animales.end();)
+{
+    Mob* mobBase = it->get();
+    Animal* animal = dynamic_cast<Animal*>(mobBase);
 
-            for (auto it = animales.begin(); it != animales.end();)
+    // Update general
+    mobBase->update(PosicionJugador, deltatime);
+
+    // Colisión Mapa
+    for (auto& colisionadorMapa : mapa._colisiones) {
+        animal->chocar(colisionadorMapa);
+    }
+
+    // Ordeñar
+    if (animal != nullptr && Comandos::getInstancia().mouseIzqRecienPresionado) {
+        if (animal->getGlobalBounds().contains(posMouseWorld)) {
+            Item* itemEnMano = inv.getItemEnMano();
+            if (animal->intentarOrdeniar(character.getPosition(), itemEnMano,fabItems, inv)) {
+                cout << "Ordeñada!!" << endl;
+            }
+        }
+    }
+
+    bool murio = false;
+
+    // A. FÍSICA (Empuje suave por contacto)
+    if (character.getColisionador().detectorDeColision(animal->getColisionador()))
+    {
+        sf::Vector2f direccionEmpuje = animal->getPosition() - character.getPosition();
+        float magnitud = sqrt(direccionEmpuje.x*direccionEmpuje.x + direccionEmpuje.y*direccionEmpuje.y);
+
+        if (magnitud > 0) {
+            direccionEmpuje /= magnitud;
+            animal->move(direccionEmpuje * 2.f); // Empuje suave para no atravesar
+        }
+        
+        // BORRADO: character.chocar(animal->getColisionador()); 
+        // (Ya lo empujamos nosotros, no necesitamos frenar al personaje)
+    }
+
+    // B. ATAQUE (Hitbox separada) - ¡AHORA ESTÁ AFUERA DEL IF ANTERIOR!
+    if (golpeHabilitado)
+    {
+        // Usamos Hitbox de Espada vs Hitbox de Animal
+        sf::FloatRect rectAnimal = animal->getColisionador().getColision();
+
+        if (rectEspada.intersects(rectAnimal))
+        {
+            // --- CÁLCULO DE DAÑO ---
+            Item* itemEnMano = inv.getItemEnMano();
+            TipoMaterial matAnimal = animal->getMaterial();
+            float danioFinal = 1.0f;
+
+            if (itemEnMano != nullptr)
             {
-                // Obtenemos el puntero base Mob
-                Mob* mobBase = it->get();
+                danioFinal = itemEnMano->obtenerFuerza(matAnimal);
+                itemEnMano->usar();
 
-                // Intentamos tratarlo como un ANIMAL (Casteo din�mico)
-                Animal* animal = dynamic_cast<Animal*>(mobBase);
-
-                // Update general (movimiento)
-                mobBase->update(PosicionJugador, deltatime);
-
-                for (auto& colisionadorMapa : mapa._colisiones)
-                {
-                    animal->chocar(colisionadorMapa);
-                }
-
-                if (animal != nullptr && sf::Mouse::isButtonPressed(sf::Mouse::Right))
-                {
-                    if (animal->getGlobalBounds().contains(posMouseWorld))
-                    {
-                        Item* itemEnMano = inv.getItemEnMano();
-
-                        if (animal->intentarOrdeniar(character.getPosition(), itemEnMano,fabItems, inv))
-                        {
-                            cout << "Ordeniada!!" << endl;
-                        }
-                    }
-                }
-
-                bool murio = character.atacar(*animal, fuerzaEmpuje, deltatime);
-
-                if (murio)
-                {
-                    if (animal != nullptr)
-                    {
-                        animal->soltarLoot(fabItems, listaLoots);
-                    }
-
-                    it = animales.erase(it);
-                }
-                else
-                {
-                    mobBase->move(mobBase->getVelocidad());
-                    ++it;
+                if (itemEnMano->estaRota()) {
+                    inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
                 }
             }
+
+            // --- APLICAR DAÑO ---
+            animal->bajarVida(danioFinal);
+            cout << "¡Espadazo! Daño: " << danioFinal << endl;
+
+            // --- KNOCKBACK FUERTE ---
+            sf::Vector2f empujeGolpe = animal->getPosition() - character.getPosition();
+            float mag = sqrt(empujeGolpe.x*empujeGolpe.x + empujeGolpe.y*empujeGolpe.y);
+            if (mag > 0) {
+                empujeGolpe /= mag;
+                animal->move(empujeGolpe * 20.0f); // ¡PUM!
+            }
+        }
+    }
+
+    // Verificar muerte
+    if (animal->getVida() <= 0)
+    {
+        animal->soltarLoot(fabItems, listaLoots);
+        it = animales.erase(it);
+    }
+    else
+    {
+        mobBase->move(mobBase->getVelocidad());
+        ++it;
+    }
+}
 /// ======================== COLISION MAPA =========================///
 
             for (auto& colisionador : mapa._colisiones)
@@ -409,13 +493,16 @@ void Game::run()
 
 
             float relacion = (float)window.getSize().x/(float)window.getSize().y;
+
 /// ======================== Estructura RANDOM =========================///
 
             for (auto estructura = listaEstructuraRandom.begin(); estructura != listaEstructuraRandom.end(); )
             {
                 if ((*estructura)->estaDestruido() == false)
                 {
-                    if(character.getColisionador().detectorDeColision((*estructura)->getColisionador()))   ///EJEMPLO
+                    window.draw(**estructura);
+
+                    if(character.getColisionador().detectorDeColision((*estructura)->getColisionador()))
                     {
                         character.chocar((*estructura)->getColisionador());
 
@@ -445,7 +532,7 @@ void Game::run()
 
                     }
 
-                    (*estructura)->update( PosicionJugador, posMouseWorld, Camara, relacion, inv, inventarioCofre, deltatime);
+                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime);
                     estructura++;
                 }
                 else
@@ -453,7 +540,6 @@ void Game::run()
                     (*estructura)->liberarLoot(fabItems,listaLoots);
                     estructura = listaEstructuraRandom.erase(estructura);
                 }
-                estructura++;
             }
 /// ======================== COLISION ESTRUCTURA =========================///
 
@@ -464,6 +550,8 @@ void Game::run()
                 {
                     if(character.getColisionador().detectorDeColision((*estructura)->getColisionador()))   ///EJEMPLO
                     {
+
+
                         character.chocar((*estructura)->getColisionador());
 
                         if ((*estructura)->getRompePorColision())
@@ -495,12 +583,28 @@ void Game::run()
                 else it++;
 
             }
-/// ======================== INICIO UPDATE =========================///
-            for (auto& cultivo : _listaCultivos)
+
+/// ======================== TEST HERRAMIENTAS =========================///
+
+
+            Item* itemVisual = inv.getItemEnMano();
+
+            if (itemVisual != nullptr)
             {
-                cultivo->update(deltatime);
+                character.setItemEnMano(itemVisual->getSprite(), itemVisual->getID());
             }
-            
+            else
+            {
+
+                character.quitarItemEnMano();
+            }
+
+            if (Comandos::getInstancia().mouseIzqRecienPresionado)
+            {
+                character.iniciarAtaque();
+            }
+/// ======================== INICIO UPDATE =========================///
+
             character.update(deltatime);
 
             character.updateEspada(mouse);
@@ -513,6 +617,9 @@ void Game::run()
 
             inv.copiarItemsEnVector(vectorCarga);
             invR.setItems(vectorCarga);
+
+
+
 
 /// ======================== INICIO DRAWABLES =========================///
             invR.update(Camara, relacion);
@@ -647,11 +754,13 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
                 {
                     listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 1)); ///PIEDRA
                 }
-                else if (probabilidad >= 150 && probabilidad <= 200){
+                else if (probabilidad >= 150 && probabilidad <= 200)
+                {
                     listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 11));
 
                 }
-                else if (probabilidad >= 250 && probabilidad <= 300){
+                else if (probabilidad >= 250 && probabilidad <= 300)
+                {
                     listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 12));
 
                 }
@@ -660,26 +769,31 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
 
             else if (esArena)
             {
-                if (probabilidad < 100) {
+                if (probabilidad < 100)
+                {
                     listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 10));
                 }
             }
 
             else if (esCueva)
             {
-                if (probabilidad < 100) {
+                if (probabilidad < 100)
+                {
                     listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 2));
                 }
 
-                if (probabilidad >= 150 && probabilidad <= 200) {
+                if (probabilidad >= 150 && probabilidad <= 200)
+                {
                     listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 3));
                 }
 
-                if (probabilidad >= 200 && probabilidad <= 230 ) {
+                if (probabilidad >= 200 && probabilidad <= 230 )
+                {
                     listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 4));
                 }
 
-                if (probabilidad >= 230 && probabilidad <= 240) {
+                if (probabilidad >= 230 && probabilidad <= 240)
+                {
                     listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 5));
                 }
 

@@ -6,6 +6,11 @@ using namespace std;
 ///CONSTRUCTORES
 InventarioResumido::InventarioResumido(sf::Texture& textura) ///Este Setter se usara principalmente por el InventarioInterfaz
 {
+
+    for (int i = 0; i < 10; i++) {
+        _items[i] = nullptr;
+    }
+
     setSlotSeleccionado(0);
     _sprFondo.setTexture(textura);
 
