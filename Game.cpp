@@ -170,9 +170,13 @@ void Game::run()
     listaEstructuras.push_back(fabE.crearEstructura(87*32,85*32,5));
     listaEstructuras.push_back(fabE.crearEstructura(88*32,85*32,6));
     listaEstructuras.push_back(fabE.crearEstructura(89*32,85*32,7));
-    listaEstructuras.push_back(fabE.crearEstructura(90*32,85*32,9));
-    listaEstructuras.push_back(fabE.crearEstructura(91*32,85*32,8));
+    listaEstructuras.push_back(fabE.crearEstructura(89*32,90*32,7));
 
+    listaEstructuras.push_back(fabE.crearEstructura(90*32,85*32,9));
+
+    listaEstructuras.push_back(fabE.crearEstructura(91*32,85*32,8));
+    listaEstructuras.push_back(fabE.crearEstructura(91*32,86*32,8));
+    listaEstructuras.push_back(fabE.crearEstructura(91*32,90*32,8));
 /// ======================== CICLO DIA Y NOCHE =========================///
     nightOverlay.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
     nightOverlay.setPosition(0.f, 0.f);

@@ -57,6 +57,8 @@
 		<Unit filename="Colisionador.h" />
 		<Unit filename="Comando.cpp" />
 		<Unit filename="Comando.h" />
+		<Unit filename="Cultivos.cpp" />
+		<Unit filename="Cultivos.h" />
 		<Unit filename="Enemigo.cpp" />
 		<Unit filename="Enemigo.h" />
 		<Unit filename="Espada.cpp" />
@@ -64,6 +66,8 @@
 		<Unit filename="EstadodeJuego.h" />
 		<Unit filename="Estructura.cpp" />
 		<Unit filename="Estructura.h" />
+		<Unit filename="FabricaCultivos.cpp" />
+		<Unit filename="FabricaCultivos.h" />
 		<Unit filename="FabricaEstructuras.cpp" />
 		<Unit filename="FabricaEstructuras.h" />
 		<Unit filename="FabricaItems.cpp" />
@@ -81,6 +85,8 @@
 		<Unit filename="Herramienta.h" />
 		<Unit filename="Horno.cpp" />
 		<Unit filename="Horno.h" />
+		<Unit filename="InterfazEstado.cpp" />
+		<Unit filename="InterfazEstado.h" />
 		<Unit filename="InventarioIntefaz.cpp" />
 		<Unit filename="InventarioIntefaz.h" />
 		<Unit filename="InventarioResumidoInterfaz.cpp" />

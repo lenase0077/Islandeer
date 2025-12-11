@@ -418,7 +418,7 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1765473360 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\colisionador.cpp
+1765476560 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\colisionador.cpp
 	<iostream>
 	"Colisionador.h"
 	<cmath>
@@ -437,21 +437,21 @@
 	<SFML/Graphics.hpp>
 	<cmath>
 
-1765473878 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\funciones.cpp
+1765476560 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\funciones.cpp
 	<iostream>
 	"Funciones.h"
 	<cmath>
 
-1765476037 c:\users\leand\onedrive\documentos\repositorio\islandeer\funciones.h
+1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\funciones.h
 	<SFML/Graphics.hpp>
 
-1765476109 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1765476560 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1765475219 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
+1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
 	"Cultivos.h"
 	"FabricaCultivos.h"
 	<iostream>
@@ -480,7 +480,7 @@
 	<cmath>
 	"InterfazEstado.h"
 
-1765476093 c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.h
+1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.h
 	"Colisionador.h"
 	<SFML/Graphics.hpp>
 	"Funciones.h"
@@ -813,7 +813,7 @@
 
 1764170642 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\movimiento_ia.cpp
 
-1765476188 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
+1765476560 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
 	<iostream>
 	"Personaje.h"
 	"Funciones.h"
@@ -836,7 +836,7 @@
 1764170642 c:\users\leand\onedrive\documentos\repositorio\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1765474451 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\inventariointefaz.cpp
+1765476560 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\inventariointefaz.cpp
 	"InventarioIntefaz.h"
 	"funcionesInterpolacion.h"
 	<cmath>
@@ -844,7 +844,7 @@
 	<algorithm>
 	"InventarioResumidoInterfaz.h"
 
-1765474551 c:\users\leand\onedrive\documentos\repositorio\islandeer\inventariointefaz.h
+1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\inventariointefaz.h
 	"SeleccionRectangulo.h"
 	"Item.h"
 	"ItemDescripcion.h"
@@ -862,7 +862,7 @@
 1764170642 c:\users\leand\onedrive\documentos\repositorio\islandeer\seleccionrectangulo.h
 	<SFML/Graphics.hpp>
 
-1765473360 c:\users\leand\onedrive\documentos\repositorio\islandeer\item.h
+1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\item.h
 	<SFML/Graphics.hpp>
 	"json.hpp"
 	<string>
@@ -872,7 +872,7 @@
 	<cstring>
 	"SeleccionRectangulo.h"
 
-1765473360 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\inventarioresumidointerfaz.cpp
+1765476560 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\inventarioresumidointerfaz.cpp
 	"InventarioResumidoInterfaz.h"
 	<iostream>
 
@@ -882,7 +882,7 @@
 	<SFML/Graphics.hpp>
 	"Comando.h"
 
-1765473360 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\item.cpp
+1765476560 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\item.cpp
 	"Item.h"
 	<iostream>
 	"json.hpp"
@@ -911,12 +911,12 @@
 	<SFML/Graphics.hpp>
 	<iostream>
 
-1765473701 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\estructura.cpp
+1765476560 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\estructura.cpp
 	"Estructura.h"
 	<iostream>
 	<cmath>
 
-1765473745 c:\users\leand\onedrive\documentos\repositorio\islandeer\estructura.h
+1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\estructura.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<list>
@@ -1848,7 +1848,7 @@
 	<fstream>
 	<iostream>
 
-1765474751 c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.h
+1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<string>
@@ -2828,7 +2828,7 @@
 	"Animal.h"
 	<iostream>
 
-1765475968 c:\users\leand\onedrive\documentos\repositorio\islandeer\animal.h
+1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\animal.h
 	<SFML/Graphics.hpp>
 	"Mob.h"
 	"Item.h"
@@ -3886,7 +3886,7 @@
 	<fstream>
 	<iostream>
 
-1765473832 c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricaitems.h
+1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricaitems.h
 	<SFML/Graphics.hpp>
 	"json.hpp"
 	"Item.h"
@@ -3895,7 +3895,7 @@
 	"Herramienta.h"
 	<map>
 
-1765473360 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricaestructuras.cpp
+1765476560 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricaestructuras.cpp
 	"FabricaEstructuras.h"
 	<iostream>
 	<memory>
@@ -3918,7 +3918,7 @@
 	"FabricaItems.h"
 	<vector>
 
-1765473803 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricaitems.cpp
+1765476560 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricaitems.cpp
 	"FabricaItems.h"
 	<fstream>
 	<iostream>
@@ -4054,21 +4054,21 @@
 1763637553 source:c:\users\sebas\onedrive\documentos\github\islandeer\murcielago.cpp
 	"Murcielago.h"
 
-1765475942 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\arboles.cpp
+1765476560 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\arboles.cpp
 	"Arboles.h"
 
-1765473547 c:\users\leand\onedrive\documentos\repositorio\islandeer\arboles.h
+1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\arboles.h
 	"Estructura.h"
 	<cmath>
 
-1765475840 c:\users\leand\onedrive\documentos\repositorio\islandeer\horno.h
+1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\horno.h
 	"Estructura.h"
 	"InventarioIntefaz.h"
 	"InventarioResumidoInterfaz.h"
 	"FabricaItems.h"
 	<list>
 
-1765473932 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\horno.cpp
+1765476560 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\horno.cpp
 	<iostream>
 	"Horno.h"
 	<cmath>
@@ -4162,11 +4162,11 @@
 1764286544 c:\users\leand\onedrive\documentos\repositorio\islandeer\funcion.h
 	<SFML/Graphics.hpp>
 
-1765473360 c:\users\leand\onedrive\documentos\repositorio\islandeer\herramienta.h
+1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\herramienta.h
 	"Item.h"
 	<map>
 
-1765473360 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\herramienta.cpp
+1765476560 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\herramienta.cpp
 	"Herramienta.h"
 
 1765456949 c:\users\sebas\onedrive\documentos\github\islandeer\herramienta.h
