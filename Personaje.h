@@ -77,4 +77,10 @@ class Personaje: public sf::Drawable , public sf::Transformable
         float _anguloAtaque = 0.0f;
         bool _tieneHerramienta = false;
         bool _esEspada = false;
+
+        ///CONTROL DE ANIMACIONES
+        int _maxFrame = 0;
+        int _minFrame = 3;
+        bool _primerRecorridoParado;
+        bool _primerRecorridoMoviendose;
 };

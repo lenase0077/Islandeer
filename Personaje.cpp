@@ -49,13 +49,14 @@ Personaje::Personaje(sf::Texture& _textura, int alto, int ancho)
     : _velocidad(0,0), _movimiento(1), _frameActual(0)
 {
 
-    _sprite.setOrigin(0,0);
     _sprite.setTexture(_textura);
     _sprite.setPosition(alto, ancho);
 
     // Si tu spritesheet tiene frames chicos, defin� un rect�ngulo inicial
     _sprite.setTextureRect(sf::IntRect(0, 0, 32, 32)); // primer frame 32x32
     _colision.setColision(_sprite.getGlobalBounds());
+
+    _sprite.setOrigin(16,16);
 }
 
 void Personaje::setVida(float vida)
@@ -67,54 +68,183 @@ float Personaje::getVida()
 {
     return _vida;
 }
-
+/*
 void Personaje::animarPersonaje()
 {
+    int fila;
+
     ///Verificamos si hay movimiento
     if (abs(_velocidad.x) > 0.f || abs(_velocidad.y) > 0.f)
     {
+
+        switch(_movimiento){
+        case 0:///0 -> Abajo
+            _maxFrame = 0;
+            _minFrame = 3;
+            break;
+        case 1:///1 -> Ariiba
+            _maxFrame = 0;
+            _minFrame = 3;
+            break;
+        case 2:///2 -> Izquierda
+            _maxFrame = 0;
+            _minFrame = 3;
+            break;
+        case 3:///3 -> Derecha
+            _maxFrame = 0;
+            _minFrame = 3;
+            break;
+        }
+
+        fila = _movimiento;
 
         ///Verificamos si ya paso mas de 100 milisegundos
         if (_animacion.getElapsedTime().asMilliseconds() > 200)
         {
 
             ///Avanzamos al siguiente frame
-            if (_frameActual == 2)
+            if (_frameActual >= _maxFrame)
             {
-                _frameActual = 3;
+                _frameActual = _minFrame;
             }
-            else _frameActual = 2;
+            else _frameActual++;
+
+            ///Reiniciamos el reloj
+            _animacion.restart();
+        }
+    }
+    ///Cuando no hay movimiento
+    else
+    {
+        switch(_movimiento){
+        case 0:///0 -> Abajo
+            fila = 4;
+            _maxFrame = 0;
+            _minFrame = 6;
+            break;
+        case 1:///1 -> Ariiba
+            fila = 5;
+            _maxFrame = 0;
+            _minFrame = 5;
+            break;
+        case 2:///2 -> Izquierda
+            fila = 6;
+            _maxFrame = 0;
+            _minFrame = 6;
+            break;
+        case 3:///3 -> Derecha
+            fila = 7;
+            _maxFrame = 0;
+            _minFrame = 6;
+            break;
+        }
+        if (_animacion.getElapsedTime().asMilliseconds() > 200)
+        {
+            ///Avanzamos al siguiente frame
+            if (_frameActual >= _maxFrame)
+            {
+                _frameActual = _minFrame;
+            }
+            else _frameActual++;
 
             ///Reiniciamos el reloj
             _animacion.restart();
         }
     }
 
-    ///Cuando no hay movimiento
-    else
-    {
+    setFramePersonaje( fila, _frameActual, _sprite);
 
-        ///Si el personaje esta en movimiento, hacemos que cambie al frame 0
-        if (_frameActual == 2 || _frameActual == 3)
-        {
-            _frameActual = 0;
+}
+*/
+
+void Personaje::animarPersonaje()
+{
+    int fila;
+
+
+    ///Verificamos si hay movimiento
+    if (abs(_velocidad.x) > 0.f || abs(_velocidad.y) > 0.f)
+    {
+        _primerRecorridoParado = false;
+
+        if (!_primerRecorridoMoviendose){
+               if (_frameActual != 0){
+                _frameActual = 0;
+            }
+            _primerRecorridoMoviendose = true;
         }
 
-        else if (_animacion.getElapsedTime().asMilliseconds() > 300)
+        _minFrame = 0;
+        _maxFrame = 3;
+
+        fila = _movimiento;
+
+        ///Verificamos si ya paso mas de 100 milisegundos
+        if (_animacion.getElapsedTime().asMilliseconds() > 100)
         {
-            if (_frameActual == 0)
+            ///Avanzamos al siguiente frame
+            if (_frameActual >= _maxFrame)
             {
-                _frameActual = 1;
+                _frameActual = _minFrame;
             }
+            else _frameActual++;
 
-            else _frameActual = 0;
+            ///Reiniciamos el reloj
+            _animacion.restart();
+        }
+    }
+    ///Cuando no hay movimiento (Reposo)
+    else
+    {
+        _primerRecorridoMoviendose = false;
 
+        if (!_primerRecorridoParado){
+               if (_frameActual != 0){
+                _frameActual = 0;
+            }
+            _primerRecorridoParado = true;
+        }
+
+        switch(_movimiento){
+        case 0:///0 -> Abajo
+            fila = 4;
+            _minFrame = 0;
+            _maxFrame = 6;
+            break;
+        case 1:///1 -> Ariiba
+            fila = 5;
+            _minFrame = 0;
+            _maxFrame = 5;
+            break;
+        case 2:///2 -> Izquierda
+            fila = 6;
+            _minFrame = 0;
+            _maxFrame = 6;
+            break;
+        case 3:///3 -> Derecha
+            fila = 7;
+            _minFrame = 0;
+            _maxFrame = 6;
+            break;
+        }
+
+        if (_animacion.getElapsedTime().asMilliseconds() > 100)
+        {
+            ///Avanzamos al siguiente frame
+            if (_frameActual >= _maxFrame)
+            {
+                _frameActual = _minFrame;
+            }
+            else _frameActual++;
+
+            ///Reiniciamos el reloj
             _animacion.restart();
         }
     }
 
-    setFramePersonaje( _movimiento, _frameActual, _sprite);
+    setFramePersonaje( fila, _frameActual, _sprite);
 }
+
 
 void Personaje::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
