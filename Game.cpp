@@ -37,6 +37,8 @@ void Game::run()
         std::cout << "Error cargando textura" << std::endl;
     }
 
+    _texturaPersonaje.setSmooth(false);
+
     if (!_texturaCultivos.loadFromFile("Cultivos.png"))
     {
         std::cout << "Error cargando textura Cultivos" << std::endl;
@@ -107,6 +109,8 @@ void Game::run()
 
     character.setPosicion(167*32,10*32);
 
+    float hambrePorSegundo = 0.5f;
+
 /// ======================== Aniamles =========================///
     std::list<std::unique_ptr<Mob>> animales;
 
@@ -133,14 +137,14 @@ void Game::run()
     empuje.y = 0.f;
     float fuerzaEmpuje = 50.f;
 
-    for (int i = 0 ; i < 5 ; i++)
-    {
-        _posicionAleatoria.x = spawnX + (rand()%400 - 200);
-        _posicionAleatoria.y = spawnY + (rand()%400 - 200);
-
-        enemigos.push_back(_FabricaMobs.crearMobs("Fantasma", {_posicionAleatoria.x, _posicionAleatoria.y}));
-        enemigos.push_back(_FabricaMobs.crearMobs("Murcielago", {_posicionAleatoria.x + 80,_posicionAleatoria.y}));
-    }
+//    for (int i = 0 ; i < 5 ; i++)
+//    {
+//        _posicionAleatoria.x = spawnX + (rand()%400 - 200);
+//        _posicionAleatoria.y = spawnY + (rand()%400 - 200);
+//
+//        enemigos.push_back(_FabricaMobs.crearMobs("Fantasma", {_posicionAleatoria.x, _posicionAleatoria.y}));
+//        enemigos.push_back(_FabricaMobs.crearMobs("Murcielago", {_posicionAleatoria.x + 80,_posicionAleatoria.y}));
+//    }
 
 /// ======================== Musica =========================///
     sf::SoundBuffer buffer;
@@ -196,6 +200,7 @@ void Game::run()
     regenerarRecursos(listaEstructuraRandom);
 
 /// ======================== INICIO GAME LOOP =========================///
+
     while (window.isOpen())
     {
 //        cout << "Energia = " << character.getEnergia() << endl;
@@ -255,6 +260,7 @@ void Game::run()
             deltatime = _relojInterno.restart().asMilliseconds();
             Comandos::getInstancia().actualizar();
 
+            _interfazEstado.update( character.getVida(), character.getVidaMaxima(), character.getEnergia(), character.getEnergiaMaxima(), character.getHambre(), character.getHambreMaxima());
 
             sf::Event event;
             bool cambioDeEstado = false;
@@ -379,6 +385,8 @@ void Game::run()
                 diaReseteado = false; // Preparamos el flag para el siguiente dia
             }
 
+            float reduccion = hambrePorSegundo * (deltatime / 1000.0f);
+            character.setHambre(character.getHambre() - reduccion);
 
 /// ======================== COMANDOS =========================///
 
@@ -573,6 +581,8 @@ void Game::run()
             window.draw(inv);
 
             window.setView(window.getDefaultView());
+
+            window.draw(_interfazEstado);
 
 //            window.draw(nightOverlay);
 
@@ -892,7 +902,6 @@ void Game::intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& li
         it++;
     }
 }
-
 
 /*
 
