@@ -26,10 +26,6 @@ void Game::run()
     list <Loot> listaLoots;
     list <std::unique_ptr<Estructura>> listaEstructuraRandom;
 
-
-
-
-
     sf::Texture texturaInventarioResumido;
     if(!texturaInventarioResumido.loadFromFile("InventarioResumido.png"))
     {
@@ -48,7 +44,6 @@ void Game::run()
 
 
 /// ======================== Configuracion del FADE  =========================///
-
 
     _fadeRect.setSize(sf::Vector2f(2000, 2000)); // Mismo tamaño que tu ventana
     _fadeRect.setFillColor(sf::Color::Black);
@@ -112,19 +107,8 @@ void Game::run()
 
     character.setPosicion(167*32,10*32);
 
-/// ======================== Enemigo =========================///
-    sf::Vector2f empuje;
-    empuje.x = 0.f;
-    empuje.y = 0.f;
-    float fuerzaEmpuje = 50.f;
-
-    std::list<std::unique_ptr<Mob>> enemigos;
-    std::list<std::unique_ptr<Mob>> animales;
-
-//    enemigos.push_back(_FabricaMobs.crearMobs("Fantasma", {100 , 100}));
-//    enemigos.push_back(_FabricaMobs.crearMobs("Murcielago", {50 , 50}));
-
 /// ======================== Aniamles =========================///
+    std::list<std::unique_ptr<Mob>> animales;
 
     float spawnX = 82*32;
     float spawnY = 90*32;
@@ -139,6 +123,23 @@ void Game::run()
         animales.push_back(_FabricaMobs.crearMobs("Vaca", {_posicionAleatoria.x, _posicionAleatoria.y}));
         animales.push_back(_FabricaMobs.crearMobs("Oveja", {_posicionAleatoria.x + 50,_posicionAleatoria.y}));
         animales.push_back(_FabricaMobs.crearMobs("Cerdo", {_posicionAleatoria.x - 50,_posicionAleatoria.y + 50}));
+    }
+
+/// ======================== Enemigo =========================///
+    std::list<std::unique_ptr<Mob>> enemigos;
+
+    sf::Vector2f empuje;
+    empuje.x = 0.f;
+    empuje.y = 0.f;
+    float fuerzaEmpuje = 50.f;
+
+    for (int i = 0 ; i < 5 ; i++)
+    {
+        _posicionAleatoria.x = spawnX + (rand()%400 - 200);
+        _posicionAleatoria.y = spawnY + (rand()%400 - 200);
+
+        enemigos.push_back(_FabricaMobs.crearMobs("Fantasma", {_posicionAleatoria.x, _posicionAleatoria.y}));
+        enemigos.push_back(_FabricaMobs.crearMobs("Murcielago", {_posicionAleatoria.x + 80,_posicionAleatoria.y}));
     }
 
 /// ======================== Musica =========================///
