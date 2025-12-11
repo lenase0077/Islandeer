@@ -12,11 +12,11 @@ class Estructura : public sf::Transformable, public sf::Drawable
 private:
     float _vida;
     int _bloqueID;
-    Colisionador _colision;
     std::vector<int> _lootsIDs;
     TipoMaterial _material;
 
 protected:
+    Colisionador _colision;
     bool _seRompePorColision;
     bool _enUso = false;
 

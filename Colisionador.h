@@ -17,7 +17,7 @@ class Colisionador{
         std::string getID ();
 
     private:
-        std::string _ID;
         sf::FloatRect _colision;
+        std::string _ID;
         sf::RectangleShape rectanguloDebug;
 };
