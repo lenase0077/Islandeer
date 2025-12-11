@@ -34,9 +34,9 @@ void Horno::update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posG
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-//        cout << "Click detectado en: " << posGlobalDelMouse.x << ", " << posGlobalDelMouse.y << endl;
-//        cout << "Posicion Horno: " << getPosition().x << ", " << getPosition().y << endl;
-//        cout << "Distancia Jugador: " << distanciaJugador << endl;
+        cout << "Click detectado en: " << posGlobalDelMouse.x << ", " << posGlobalDelMouse.y << endl;
+        cout << "Posicion Horno: " << getPosition().x << ", " << getPosition().y << endl;
+        cout << "Distancia Jugador: " << distanciaJugador << endl;
     }
 
     ///Efectos Visuales
