@@ -29,7 +29,7 @@ Personaje::Personaje(sf::Texture& _textura)
     _sprite.setTexture(_textura);
     setPosition(10, 10);
 
-    // Si tu spritesheet tiene frames chicos, definí un rectángulo inicial
+    // Si tu spritesheet tiene frames chicos, definï¿½ un rectï¿½ngulo inicial
     _sprite.setTextureRect(sf::IntRect(0, 0, 32, 32)); // primer frame 32x32
 
     _colision.setColision(getColisionBounds());
@@ -53,7 +53,7 @@ Personaje::Personaje(sf::Texture& _textura, int alto, int ancho)
     _sprite.setTexture(_textura);
     _sprite.setPosition(alto, ancho);
 
-    // Si tu spritesheet tiene frames chicos, definí un rectángulo inicial
+    // Si tu spritesheet tiene frames chicos, definï¿½ un rectï¿½ngulo inicial
     _sprite.setTextureRect(sf::IntRect(0, 0, 32, 32)); // primer frame 32x32
     _colision.setColision(_sprite.getGlobalBounds());
 }
@@ -229,17 +229,22 @@ void Personaje::update(float deltatime)
     if (_movimiento == 2)
     {
         _spriteHerramienta.setScale(-1, 1);
-        _spriteHerramienta.setPosition(-8, 16);
+        _spriteHerramienta.setPosition(8, 16);
     }
     else if (_movimiento == 1)
     {
         _spriteHerramienta.setScale(1, 1);
-        _spriteHerramienta.setPosition(4, 4);
+        _spriteHerramienta.setPosition(16, 8);
+    }
+    else if (_movimiento == 0)
+    {
+        _spriteHerramienta.setScale(1, 1);
+        _spriteHerramienta.setPosition(16, 32);
     }
     else
     {
         _spriteHerramienta.setScale(1, 1);
-        _spriteHerramienta.setPosition(8, 16);
+        _spriteHerramienta.setPosition(24, 16);
     }
 
 
@@ -414,9 +419,8 @@ void Personaje::setVolumen (float Volumen)
 void Personaje::setItemEnMano(const sf::Sprite& spriteItem, int idItem)
 {
     _spriteHerramienta = spriteItem;
-    _spriteHerramienta.setPosition(8, 16);
-
     _spriteHerramienta.setOrigin(0, 32);
+
 
     if (idItem >= 6 && idItem <= 8) {
         _esEspada = true;
@@ -483,6 +487,10 @@ void Personaje::actualizarAnimacionAtaque(float deltatime)
 
             rotacionFinal = _anguloAtaque - 180.0f;
         }
+        else if (_movimiento == 0) {
+            rotacionFinal = -_anguloAtaque - 180;
+        }
+        
 
         if (_spriteHerramienta.getScale().x < 0) {
             _spriteHerramienta.setRotation(-rotacionFinal);
