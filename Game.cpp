@@ -515,7 +515,7 @@ for (auto it = animales.begin(); it != animales.end();)
             float mag = sqrt(empujeGolpe.x*empujeGolpe.x + empujeGolpe.y*empujeGolpe.y);
             if (mag > 0) {
                 empujeGolpe /= mag;
-                animal->move(empujeGolpe * 20.0f); // Empuje fuerte del golpe
+                animal->empujar(empujeGolpe * 15.0f); // Empuje fuerte del golpe
             }
         }
     }

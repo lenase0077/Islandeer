@@ -13,6 +13,7 @@ public:
     void build(const TileMap& map);
 
     void update(sf::Vector2f playerPosition);
+    void empujar(sf::Vector2f fuerza);
 
 protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -29,6 +30,7 @@ private:
     sf::Vector2f      _position;
     sf::Vector2f _displaySize;
     float             _scale;
+    sf::Vector2f _fuerzaRetroceso;
 
 
 

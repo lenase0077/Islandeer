@@ -6,6 +6,7 @@ Mob::Mob() :
     _vida(100.f),
     _tiempoDivagar(0),
     _posicionObjetivoDivagar({0.f, 0.f}),
+    _fuerzaRetroceso({0.f, 0.f}),
     _tiempoDeAnimar(0.f),
     _frameActual(0),
     _direccionActual(DireccionMob::Abajo)
@@ -92,6 +93,17 @@ void Mob::chocar (Colisionador& colision)
 
 void Mob::update(sf::Vector2f& Posicionpersonaje, float deltatime)
 {
+    if (std::abs(_fuerzaRetroceso.x) > 0.1f || std::abs(_fuerzaRetroceso.y) > 0.1f)
+    {
+        move(_fuerzaRetroceso);
+
+
+        _fuerzaRetroceso *= 0.90f;
+    }
+    else
+    {
+        _fuerzaRetroceso = {0.f, 0.f};
+    }
 
 }
 
@@ -131,3 +143,10 @@ void Mob::bajarVida(float danio)
         _vida = 0;
     }
 }
+
+void Mob::empujar(sf::Vector2f fuerza)
+{
+    _fuerzaRetroceso = fuerza;
+}
+
+

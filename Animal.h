@@ -44,4 +44,5 @@ class Animal : public Mob
         void huir(sf::Vector2f& Posicionpersonaje, float aceleracion);
         void actualizarDireccion();
         void recibirDanio();
+        float _tiempoFlashDanio = 0.0f;
 };

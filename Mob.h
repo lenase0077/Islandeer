@@ -19,6 +19,7 @@ private:
         float _vida;
         sf::Vector2f _posicionObjetivoDivagar;
         sf::Vector2f _velocidad;
+        sf::Vector2f _fuerzaRetroceso;
 
 public:
         Mob();
@@ -43,6 +44,7 @@ public:
         float _tiempoDeAnimar;
 
         virtual TipoMaterial getMaterial() const { return TipoMaterial::CARNE; }
+        void empujar(sf::Vector2f fuerza);
 
 };
 

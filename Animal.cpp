@@ -130,6 +130,19 @@ void Animal::actualizarSpriteAnimacion (float deltaTime)
 
 void Animal::update(sf::Vector2f& Posicionpersonaje, float deltatime)
 {
+
+    if (_tiempoFlashDanio > 0)
+    {
+        _tiempoFlashDanio -= deltatime / 1000.0f; // Restamos tiempo
+
+        if (_tiempoFlashDanio <= 0)
+        {
+            setColor(sf::Color::White); // Volver a color normal
+            _tiempoFlashDanio = 0;
+        }
+    }
+
+
     updateColision();
     _tiempoEnEstado += deltatime;
 
@@ -260,6 +273,10 @@ void Animal::huir(sf::Vector2f& Posicionpersonaje, float aceleracion)
 void Animal::recibirDanio()
 {
     recibirAtaqueDeEspada();
+
+    setColor(sf::Color(255, 0, 0));
+    _tiempoFlashDanio = 0.2f;
+
 }
 
 bool Animal::caracteristicasDelAnimal(int idLoot, bool produceLeche)

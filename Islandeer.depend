@@ -418,12 +418,12 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1765484952 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\colisionador.cpp
+1765485997 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\colisionador.cpp
 	<iostream>
 	"Colisionador.h"
 	<cmath>
 
-1765485070 c:\users\leand\onedrive\documentos\repositorio\islandeer\colisionador.h
+1765485997 c:\users\leand\onedrive\documentos\repositorio\islandeer\colisionador.h
 	<SFML/Graphics.hpp>
 	<cstring>
 
@@ -916,7 +916,7 @@
 	<iostream>
 	<cmath>
 
-1765484763 c:\users\leand\onedrive\documentos\repositorio\islandeer\estructura.h
+1765485997 c:\users\leand\onedrive\documentos\repositorio\islandeer\estructura.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<list>
@@ -1848,7 +1848,7 @@
 	<fstream>
 	<iostream>
 
-1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.h
+1765486079 c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<string>
@@ -2828,7 +2828,7 @@
 	"Animal.h"
 	<iostream>
 
-1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\animal.h
+1765486004 c:\users\leand\onedrive\documentos\repositorio\islandeer\animal.h
 	<SFML/Graphics.hpp>
 	"Mob.h"
 	"Item.h"
@@ -2854,7 +2854,7 @@
 	"Animal.h"
 	<memory>
 
-1764203096 c:\users\leand\onedrive\documentos\repositorio\islandeer\minimap.h
+1765486052 c:\users\leand\onedrive\documentos\repositorio\islandeer\minimap.h
 	<SFML/Graphics.hpp>
 	"TileMap.h"
 	"Mob.h"
@@ -4054,7 +4054,7 @@
 1763637553 source:c:\users\sebas\onedrive\documentos\github\islandeer\murcielago.cpp
 	"Murcielago.h"
 
-1765485410 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\arboles.cpp
+1765485997 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\arboles.cpp
 	"Arboles.h"
 
 1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\arboles.h
