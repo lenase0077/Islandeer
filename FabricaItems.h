@@ -6,7 +6,7 @@
 #include <string>
 #include "Herramienta.h"
 #include <map>
-
+// usar esto
 
 struct DatosHerramienta {
     float durabilidad;

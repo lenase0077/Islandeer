@@ -144,3 +144,4 @@ std::unique_ptr<Item> FabricaItems::crearItem(int id)
 
     return nuevoItem;
 }
+// usar esto

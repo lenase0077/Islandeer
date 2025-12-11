@@ -1,4 +1,6 @@
 #pragma once
+#include "Cultivos.h"
+#include "FabricaCultivos.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Personaje.h"
@@ -23,6 +25,8 @@
 #include <fstream>
 #include <set>
 #include <cmath>
+#include "InterfazEstado.h"
+
 
 class Game
 {
@@ -32,8 +36,16 @@ class Game
         void guardar(Personaje &character);
         void cargar (Personaje &character);
         sf::Clock getRelojInterno();
+        sf::Texture _texturaCultivos;
+        std::list<std::unique_ptr<cultivo>> _listaCultivos;
+        void updateCultivos(float deltatime);
+        void intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv);
+        void intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& listaLoots, FabricaItems& fabItems);
+        bool esSueloCultivable(int tileID);
 
     private:
+        InterfazEstado _interfazEstado;
+
 
 
         sf::Texture _texturaPersonaje;
@@ -42,6 +54,8 @@ class Game
         sf::Vector2f _posicionPersonaje;
         sf::Clock _relojInterno;
         FabricaMobs _FabricaMobs;
+        FabricaCultivos _fabricaCultivos;
+
         FabricaEstructuras _FabricaEstructuras;
         Minimap _minimap;
         TileMap mapa;

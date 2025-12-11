@@ -23,8 +23,8 @@ Personaje::Personaje(sf::Texture& _textura)
     _vida (100),
     _vidaMaxima(100),
     _energia(100),
-    _barraVida(_vida, _vidaMaxima)
-{
+    _hambre(100),
+    _hambreMaxima(100) {
 
     _sprite.setTexture(_textura);
 
@@ -34,10 +34,9 @@ Personaje::Personaje(sf::Texture& _textura)
 
 
     _colision.setColision(getColisionBounds());
-    
 
     if (!_footprintsBuffer.loadFromFile("walk-on-grass-3-291986.wav"))
-    {
+{
         return;
     }
 
@@ -157,7 +156,7 @@ void Personaje::animarPersonaje()
             _animacion.restart();
         }
     }
-
+// usar esto
     setFramePersonaje( fila, _frameActual, _sprite);
 }
 
@@ -182,7 +181,6 @@ void Personaje::draw(sf::RenderTarget& target, sf::RenderStates states) const
         }
     }
 //    target.draw(_espada);
-    target.draw(_barraVida);
 }
 
 void Personaje::cmd(float deltatime)
@@ -295,12 +293,7 @@ void Personaje::update(float deltatime)
 
 
     actualizarAnimacionAtaque(deltatime);
-
-    _barraVida.setPosition(getPosition().x, getPosition().y - 10);
-    _barraVida.actualizar();
-
-
-
+// usar esto
 }
 
 void Personaje::limite()
@@ -369,27 +362,27 @@ void Personaje::Correr(sf::Vector2f& velocidad, float deltatime)
 
     _acumuladorEnergia += deltatime;
 
-    if (_acumuladorEnergia >= 500)
+    if (_acumuladorEnergia >= 100)
     {
         if (getEstaCorriendo())
         {
-            _energia -= 10.f;
-
-            if (_energia < 0)
-            {
-                _energia = 0;
-            }
+            _energia -= 2.0f;
+            _hambre -= 0.05f;
         }
 
         else
         {
             _energia += 10.f;
 
-            if (_energia > 100)
+            if (_hambre > 0)
             {
-                _energia = 100;
+                _energia += 2.0f;
             }
         }
+                //Limite Enegia
+        if (_energia < 0) _energia = 0;
+        if (_energia > 100) _energia = 100;
+
         _acumuladorEnergia = 0;
     }
 }
@@ -475,6 +468,22 @@ void Personaje::setVolumen (float Volumen)
     _footprints.setVolume(Volumen);
 }
 
+float Personaje::getHambre()
+{
+    return _hambre;
+}
+
+
+void Personaje::setHambre(float hambre)
+{
+    _hambre = hambre;
+    if(_hambre > _hambreMaxima) _hambre = _hambreMaxima;
+
+    if (_hambre < 0) _hambre = 0;
+}
+
+
+
 void Personaje::setItemEnMano(const sf::Sprite& spriteItem, int idItem)
 {
     _spriteHerramienta = spriteItem;
@@ -549,7 +558,7 @@ void Personaje::actualizarAnimacionAtaque(float deltatime)
         else if (_movimiento == 0) {
             rotacionFinal = -_anguloAtaque - 180;
         }
-        
+
 
         if (_spriteHerramienta.getScale().x < 0) {
             _spriteHerramienta.setRotation(-rotacionFinal);
@@ -562,36 +571,36 @@ void Personaje::actualizarAnimacionAtaque(float deltatime)
 sf::FloatRect Personaje::getAreaAtaque() const
 {
     sf::FloatRect cajaJugador = getColisionBounds();
-    
-    float alcance = 20.0f; 
-    float anchoGolpe = 30.0f; 
+
+    float alcance = 20.0f;
+    float anchoGolpe = 30.0f;
 
     sf::FloatRect areaAtaque;
     areaAtaque.width = anchoGolpe;
     areaAtaque.height = anchoGolpe;
 
     switch (_movimiento) {
-        case 0: 
+        case 0:
             areaAtaque.left = cajaJugador.left + (cajaJugador.width / 2) - (anchoGolpe / 2);
-            areaAtaque.top = cajaJugador.top + cajaJugador.height; 
+            areaAtaque.top = cajaJugador.top + cajaJugador.height;
             break;
-            
+
         case 1:
 
             areaAtaque.left = cajaJugador.left + (cajaJugador.width / 2) - (anchoGolpe / 2);
-            areaAtaque.top = cajaJugador.top - alcance; 
+            areaAtaque.top = cajaJugador.top - alcance;
             break;
-            
+
         case 2:
-            areaAtaque.left = cajaJugador.left - alcance; 
+            areaAtaque.left = cajaJugador.left - alcance;
             areaAtaque.top = cajaJugador.top + (cajaJugador.height / 2) - (anchoGolpe / 2);
             break;
-            
+
         case 3:
-            areaAtaque.left = cajaJugador.left + cajaJugador.width; 
+            areaAtaque.left = cajaJugador.left + cajaJugador.width;
             areaAtaque.top = cajaJugador.top + (cajaJugador.height / 2) - (anchoGolpe / 2);
             break;
-            
+
         default:
             areaAtaque = cajaJugador;
             break;

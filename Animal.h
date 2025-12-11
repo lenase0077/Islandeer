@@ -9,6 +9,7 @@
 #include <ctime>
 #include "Comando.h"
 #include "Colisionador.h"
+#include "Funciones.h"
 
 enum class EstadoAnimal{
     Divagando,

@@ -28,6 +28,8 @@ Estructura::Estructura(sf::Texture& texturaBloques, float posX, float posY, int 
 
     _seRompePorColision = true;
 
+    _bloqueID = id;
+
     if (id == 0 || id >= 10 && id <= 12) {
         _material = TipoMaterial::MADERA;
     }
@@ -83,7 +85,7 @@ void Estructura::setLootsIDs(const std::vector<int>& nuevoLootsIDs){
     _lootsIDs = nuevoLootsIDs;
 }
 
-void Estructura::update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::Mouse& mouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario, float deltatime){
+void Estructura::update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario, InventarioInterfaz& inventarioCofre, float deltatime){
 
 }
 
@@ -96,3 +98,12 @@ bool Estructura::getRompePorColision()
 {
     return _seRompePorColision;
 }
+
+int Estructura::getID(){
+    return _bloqueID;
+}
+
+bool Estructura::estaEnUso(){
+    return _enUso;
+}
+

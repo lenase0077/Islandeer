@@ -4,7 +4,6 @@
 #include "InventarioResumidoInterfaz.h"
 #include "FabricaItems.h"
 #include <list>
-#include "Funcion.h"
 
 class Horno : public Estructura
 {
@@ -19,7 +18,7 @@ private:
 
 public:
     Horno(sf::Texture& texturaBloques, float posX, float posY, int id);
-    void update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::Mouse& mouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario, float deltatime);
+    void update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario, InventarioInterfaz& inventarioCofre, float deltatime);
     bool terminarDeCocinar();
     void generarLoot (std::list<Loot>& listaLoot);
 };

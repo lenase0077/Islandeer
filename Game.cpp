@@ -39,6 +39,10 @@ void Game::run()
     {
         std::cout << "Error cargando textura" << std::endl;
     }
+    if (!_texturaCultivos.loadFromFile("Cultivos.png"))
+    {
+        std::cout << "Error cargando textura Cultivos" << std::endl;
+    }
 
 
 /// ======================== Configuracion del FADE  =========================///
@@ -62,6 +66,8 @@ void Game::run()
     FabricaItems fabItems;
 
     InventarioInterfaz inv(fabItems);
+    InventarioInterfaz inventarioCofre(fabItems, "InventarioCofre.png");
+
 
     inv.agregarItem(44,30);
     inv.agregarItem(0,1);
@@ -105,6 +111,8 @@ void Game::run()
 /// ======================== Personaje =========================///
     Personaje character (_texturaPersonaje);
     cargar(character);
+    float hambrePorSegundo = 0.5f;
+
 
 
 
@@ -253,6 +261,9 @@ void Game::run()
             deltatime = _relojInterno.restart().asMilliseconds();
             Comandos::getInstancia().actualizar();
 
+            _interfazEstado.update( character.getVida(), character.getVidaMaxima(), character.getEnergia(), character.getEnergiaMaxima(), character.getHambre(), character.getHambreMaxima());
+
+
 
             sf::Event event;
             bool cambioDeEstado = false;
@@ -296,8 +307,33 @@ void Game::run()
 /// ======================== INICIO DEL GAME LOOP  ======================== ///
             if (cambioDeEstado) break;
 
-            sf::Vector2f posMouseWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window), Camara);/// ======================== Test spawn =========================///
+            sf::Vector2f posMouseWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window), Camara);
 
+            /// ======================== Test spawn =========================///
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+            {
+                static sf::Clock relojPlantar;
+                if (relojPlantar.getElapsedTime().asSeconds() > 0.2f)
+                {
+                    // Solo intentamos plantar
+                    intentarPlantar(posMouseWorld, inv);
+                    relojPlantar.restart();
+                }
+            }
+
+            // --- CONTROL CLICK IZQUIERDO (ROMPER CULTIVO)
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            {
+                static sf::Clock relojRomper;
+                if (relojRomper.getElapsedTime().asSeconds() > 0.2f)
+                {
+                    // Intentamos romper/cosechar el cultivo
+                    intentarCosecharClick(posMouseWorld, listaLoots, fabItems);
+
+                    // Aqu� tambi�n podr�as poner l�gica de atacar enemigos si no hay cultivo
+                    relojRomper.restart();
+                }
+            }
 
 /// ======================== Primeros drawables =========================///
 
@@ -305,9 +341,14 @@ void Game::run()
 
             window.setView(Camara);
             window.draw(mapa);
+            for (auto& cultivo : _listaCultivos)
+            {
+                window.draw(*cultivo);
+            }
             window.draw(character);
 
             character.getColisionador().draw(window);
+
 
             for(auto& enemigo : enemigos)
             {
@@ -323,7 +364,6 @@ void Game::run()
 /// ========================= General ========================= ///
 
             mouse.update(window);
-            sf::FloatRect rectEspada = character.getAreaAtaque();
 
 
 /// ======================== Update del Ciclo dia y noche ========================= ///
@@ -362,6 +402,8 @@ void Game::run()
             {
                 diaReseteado = false; // Preparamos el flag para el siguiente dia
             }
+            float reduccion = hambrePorSegundo * (deltatime / 1000.0f);
+            character.setHambre(character.getHambre() - reduccion);
 
 
 /// ======================== COMANDOS =========================///
@@ -393,34 +435,42 @@ void Game::run()
                     character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
                 }
             }
-/// ======================== COLISIONES Mobs =========================///
+/// ======================== COLISIONES ANIMALES =========================///
+
+
+sf::FloatRect rectEspada = character.getAreaAtaque(); // Calculamos la hitbox actual
 
 for (auto it = animales.begin(); it != animales.end();)
 {
+    // 1. SETUP DEL PUNTERO
     Mob* mobBase = it->get();
     Animal* animal = dynamic_cast<Animal*>(mobBase);
 
-    // Update general
+    // 2. UPDATE GENERAL
     mobBase->update(PosicionJugador, deltatime);
 
-    // Colisión Mapa
+    // Colisión con el Mapa
     for (auto& colisionadorMapa : mapa._colisiones) {
         animal->chocar(colisionadorMapa);
     }
 
-    // Ordeñar
-    if (animal != nullptr && Comandos::getInstancia().mouseIzqRecienPresionado) {
-        if (animal->getGlobalBounds().contains(posMouseWorld)) {
+    // 3. ORDEÑAR (Click Derecho)
+    // Mantenemos esto con Click Derecho para que no ataque sin querer al ordeñar
+    if (animal != nullptr && sf::Mouse::isButtonPressed(sf::Mouse::Right))
+    {
+        if (animal->getGlobalBounds().contains(posMouseWorld))
+        {
             Item* itemEnMano = inv.getItemEnMano();
-            if (animal->intentarOrdeniar(character.getPosition(), itemEnMano,fabItems, inv)) {
+            // Pasamos inv y fabItems como en tu código original
+            if (animal->intentarOrdeniar(character.getPosition(), itemEnMano, fabItems, inv))
+            {
                 cout << "Ordeñada!!" << endl;
             }
         }
     }
 
-    bool murio = false;
-
-    // A. FÍSICA (Empuje suave por contacto)
+    // 4. FÍSICA Y EMPUJE (Block A)
+    // Detectamos si el cuerpo del personaje toca al animal (para empujarlo y no atravesarlo)
     if (character.getColisionador().detectorDeColision(animal->getColisionador()))
     {
         sf::Vector2f direccionEmpuje = animal->getPosition() - character.getPosition();
@@ -428,24 +478,25 @@ for (auto it = animales.begin(); it != animales.end();)
 
         if (magnitud > 0) {
             direccionEmpuje /= magnitud;
-            animal->move(direccionEmpuje * 2.f); // Empuje suave para no atravesar
+            animal->move(direccionEmpuje * 2.f); // Empuje suave físico
         }
-        
-        // BORRADO: character.chocar(animal->getColisionador()); 
-        // (Ya lo empujamos nosotros, no necesitamos frenar al personaje)
+
+        // No llamamos a character.chocar() aquí para no frenar al jugador
     }
 
-    // B. ATAQUE (Hitbox separada) - ¡AHORA ESTÁ AFUERA DEL IF ANTERIOR!
+    // 5. COMBATE / ATAQUE (Block B) - Usando Singleton
+    // golpeHabilitado ya viene del Singleton en el Game Loop principal
+    // (if Comandos::getInstancia().mouseIzqRecienPresionado -> iniciarAtaque)
     if (golpeHabilitado)
     {
-        // Usamos Hitbox de Espada vs Hitbox de Animal
         sf::FloatRect rectAnimal = animal->getColisionador().getColision();
 
+        // Verificamos Hitbox de Espada vs Hitbox de Animal
         if (rectEspada.intersects(rectAnimal))
         {
             // --- CÁLCULO DE DAÑO ---
             Item* itemEnMano = inv.getItemEnMano();
-            TipoMaterial matAnimal = animal->getMaterial();
+            TipoMaterial matAnimal = animal->getMaterial(); // Recuerda tener esto en Animal/Mob
             float danioFinal = 1.0f;
 
             if (itemEnMano != nullptr)
@@ -460,28 +511,28 @@ for (auto it = animales.begin(); it != animales.end();)
 
             // --- APLICAR DAÑO ---
             animal->bajarVida(danioFinal);
-            cout << "¡Espadazo! Daño: " << danioFinal << endl;
+            cout << "¡Hit! Daño: " << danioFinal << endl;
 
-            // --- KNOCKBACK FUERTE ---
+            // --- KNOCKBACK FUERTE POR GOLPE ---
             sf::Vector2f empujeGolpe = animal->getPosition() - character.getPosition();
             float mag = sqrt(empujeGolpe.x*empujeGolpe.x + empujeGolpe.y*empujeGolpe.y);
             if (mag > 0) {
                 empujeGolpe /= mag;
-                animal->move(empujeGolpe * 20.0f); // ¡PUM!
+                animal->move(empujeGolpe * 20.0f); // Empuje fuerte del golpe
             }
         }
     }
 
-    // Verificar muerte
+    // 6. VERIFICAR MUERTE
     if (animal->getVida() <= 0)
     {
         animal->soltarLoot(fabItems, listaLoots);
-        it = animales.erase(it);
+        it = animales.erase(it); // Borramos y actualizamos iterador
     }
     else
     {
         mobBase->move(mobBase->getVelocidad());
-        ++it;
+        ++it; // Avanzamos iterador
     }
 }
 /// ======================== COLISION MAPA =========================///
@@ -532,7 +583,7 @@ for (auto it = animales.begin(); it != animales.end();)
 
                     }
 
-                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime);
+                    (*estructura)->update( PosicionJugador, posMouseWorld, Camara, relacion, inv, inventarioCofre, deltatime);
                     estructura++;
                 }
                 else
@@ -543,6 +594,8 @@ for (auto it = animales.begin(); it != animales.end();)
             }
 /// ======================== COLISION ESTRUCTURA =========================///
 
+
+            bool seAbrioUnCofre = false;
 
             for (auto estructura = listaEstructuras.begin(); estructura != listaEstructuras.end(); )
             {
@@ -560,8 +613,12 @@ for (auto it = animales.begin(); it != animales.end();)
                         }
                     }
                     window.draw(**estructura);
-                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime);
-
+                    (*estructura)->update( PosicionJugador, posMouseWorld, Camara, relacion, inv, inventarioCofre, deltatime);
+                    if ((*estructura) -> getID() == 8){
+                        if ((*estructura) -> estaEnUso()){
+                            seAbrioUnCofre = true;
+                        }
+                    }
                     (*estructura)->generarLoot(listaLoots);
 
                     estructura++;
@@ -573,6 +630,18 @@ for (auto it = animales.begin(); it != animales.end();)
                 }
             }
 
+            ///Ocultar interfaz cofre
+            if (seAbrioUnCofre){
+                inv.setDesvioDelCentroEnY(-16);
+                inventarioCofre.setDesvioDelCentroEnY(96);
+            }
+            else{
+                inv.setDesvioDelCentroEnY(50);
+                inventarioCofre.setDesvioDelCentroEnY(-1000);
+            }
+
+            inventarioCofre.update(mouse.getPosicion(), Camara, relacion, listaLoots);
+
 /// ======================== INICIO LOOT =========================///
 
             for (auto it = listaLoots.begin(); it != listaLoots.end();)
@@ -582,6 +651,12 @@ for (auto it = animales.begin(); it != animales.end();)
                 if (it->getLooted()) it = listaLoots.erase(it);
                 else it++;
 
+            }
+/// ======================== INICIO UPDATE =========================///
+
+            for (auto& cultivo : _listaCultivos)
+            {
+                cultivo->update(deltatime);
             }
 
 /// ======================== TEST HERRAMIENTAS =========================///
@@ -625,10 +700,15 @@ for (auto it = animales.begin(); it != animales.end();)
             invR.update(Camara, relacion);
 
             window.draw(invR);
+            window.draw(inventarioCofre);
+
 
             window.draw(inv);
 
             window.setView(window.getDefaultView());
+
+            window.draw(_interfazEstado);
+
 
 //            window.draw(nightOverlay);
 
@@ -878,6 +958,85 @@ void Game::verificarTeleports(Personaje& character)
     }
 }
 
+
+bool Game::esSueloCultivable(int tileID) {
+    // IDs de la zona de cultivo que me pasaste
+    return (tileID == 163 || tileID == 164 || tileID == 165 || tileID == 166 ||
+            tileID == 171 || tileID == 172 || tileID == 173 ||
+            tileID == 179 || tileID == 180 || tileID == 181);
+}
+
+void Game::intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv) {
+
+    //Validar que tengamos algun item en la mano
+    Item* item = inv.getItemEnMano();
+    if (item == nullptr) return;
+
+    //Obtener coordenadas del Tile donde se hizo clic
+    int tileW = mapa.getTileWidth();
+    int tileH = mapa.getTileHeight();
+    int tileX = static_cast<int>(posMouseWorld.x / tileW);
+    int tileY = static_cast<int>(posMouseWorld.y / tileH);
+
+    //Validar Terreno
+    int idSuelo = mapa.getTileID(tileX, tileY);
+    if (!esSueloCultivable(idSuelo)) return;
+
+    //Calcular posicion
+    float posX = tileX * tileW;
+    float posY = tileY * tileH;
+
+    //Chequeo de colision: Validar que no haya YA una planta en ese lugar
+    sf::FloatRect rectNuevo(posX + 10, posY + 10, 10, 10);
+
+    for (auto& cultivo : _listaCultivos) {
+        if (cultivo->getBounds().intersects(rectNuevo)) {
+            return; // Ya hay una planta.
+        }
+    }
+
+    // Si el ID del item es una semilla valida (31, 32, 33...), nos devuelve el objeto.
+    // Si es una espada o cualquier otra cosa, nos devuelve nullptr.
+    auto nuevoCultivo = _fabricaCultivos.crearDesdeSemilla(item->getID(), posX, posY);
+
+    if (nuevoCultivo != nullptr) {
+        //Agregamos el cultivo a la lista del juego
+        _listaCultivos.push_back(std::move(nuevoCultivo));
+
+        // Gasta 1 Semilla del inventario
+        inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
+
+        cout << "Planta creada exitosamente en: " << tileX << ", " << tileY << endl;
+    }
+}
+
+void Game::intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& listaLoots, FabricaItems& fabItems) {
+
+    // 1. Creamos un "apuntador" al principio de la lista
+    auto it = _listaCultivos.begin();
+
+    // 2. Recorremos mientras no lleguemos al final
+    while (it != _listaCultivos.end()) {
+
+        // Verificamos si el mouse toca este cultivo
+        // (*it) nos da el puntero al cultivo actual
+        if ((*it)->getBounds().contains(posMouseWorld)) {
+
+            // Intentamos cosechar
+            if ((*it)->intentarCosechar(listaLoots, fabItems)) {
+
+                // Si devolvio true (se rompio/cosecho), lo borramos de la lista
+                // erase devuelve el puntero al siguiente elemento, pero como hacemos return, no importa tanto
+                it = _listaCultivos.erase(it);
+
+                return; // Salimos de la funcion para no romper mas de uno a la vez
+            }
+        }
+
+        // Si no paso nada, avanzamos al siguiente cultivo
+        it++;
+    }
+}
 
 /*
 

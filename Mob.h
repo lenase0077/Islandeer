@@ -5,7 +5,7 @@
 #include <cmath>
 #include <ctime>
 #include "Item.h"
-
+// usar esto
 enum class DireccionMob {
     Arriba,
     Abajo,
