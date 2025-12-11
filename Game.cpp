@@ -25,6 +25,10 @@ void Game::run()
     list <Loot> listaLoots;
     list <std::unique_ptr<Estructura>> listaEstructuraRandom;
 
+
+
+
+
     sf::Texture texturaInventarioResumido;
     if(!texturaInventarioResumido.loadFromFile("InventarioResumido.png"))
     {
@@ -36,21 +40,16 @@ void Game::run()
         std::cout << "Error cargando textura" << std::endl;
     }
 
-    _texturaPersonaje.setSmooth(false);
-
-    if (!_texturaCultivos.loadFromFile("Cultivos.png"))
-    {
-        std::cout << "Error cargando textura Cultivos" << std::endl;
-    }
-
 
 /// ======================== Configuracion del FADE  =========================///
+
 
     _fadeRect.setSize(sf::Vector2f(2000, 2000)); // Mismo tamaño que tu ventana
     _fadeRect.setFillColor(sf::Color::Black);
     _fadeAlpha = 0.0f;
 
 /// ======================== Reloj Externo =========================///
+    FabricaEstructuras fabE;
 
     sf::Keyboard tecladoEntrada;
 
@@ -61,10 +60,8 @@ void Game::run()
 /// ======================== Inventario =========================///
 
     FabricaItems fabItems;
-    FabricaEstructuras fabE;
 
     InventarioInterfaz inv(fabItems);
-    InventarioInterfaz inventarioCofre(fabItems, "InventarioCofre.png");
 
     inv.agregarItem(44,30);
     inv.agregarItem(0,1);
@@ -81,21 +78,9 @@ void Game::run()
     inv.agregarItem(19,20);
     inv.agregarItem(11,1);
     inv.agregarItem(12,1);
-//    inv.agregarItem(44,30);
-//    inv.agregarItem(15,3);
-//    inv.agregarItem(14,10);
-//
-//    inv.agregarItem(19,20);
-//    inv.agregarItem(11,1);
-//    inv.agregarItem(12,1);
 //    inv.agregarItem(45,1);
 //    inv.agregarItem(47,1);
-//    inv.agregarItem(28,16);
-
-    inv.agregarItem(31,16);
-    inv.agregarItem(32,16);
-    inv.agregarItem(33,16);
-    //inv.agregarItem(28,16);
+    inv.agregarItem(28,16);
 
     InventarioResumido invR(texturaInventarioResumido);
 
@@ -126,10 +111,19 @@ void Game::run()
 
 
 
-    float hambrePorSegundo = 0.5f;
+/// ======================== Enemigo =========================///
+    sf::Vector2f empuje;
+    empuje.x = 0.f;
+    empuje.y = 0.f;
+    float fuerzaEmpuje = 50.f;
+
+    std::list<std::unique_ptr<Mob>> enemigos;
+    std::list<std::unique_ptr<Mob>> animales;
+
+//    enemigos.push_back(_FabricaMobs.crearMobs("Fantasma", {100 , 100}));
+//    enemigos.push_back(_FabricaMobs.crearMobs("Murcielago", {50 , 50}));
 
 /// ======================== Aniamles =========================///
-    std::list<std::unique_ptr<Mob>> animales;
 
     float spawnX = 82*32;
     float spawnY = 90*32;
@@ -145,23 +139,6 @@ void Game::run()
         animales.push_back(_FabricaMobs.crearMobs("Oveja", {_posicionAleatoria.x + 50,_posicionAleatoria.y}));
         animales.push_back(_FabricaMobs.crearMobs("Cerdo", {_posicionAleatoria.x - 50,_posicionAleatoria.y + 50}));
     }
-
-/// ======================== Enemigo =========================///
-    std::list<std::unique_ptr<Mob>> enemigos;
-
-    sf::Vector2f empuje;
-    empuje.x = 0.f;
-    empuje.y = 0.f;
-    float fuerzaEmpuje = 50.f;
-
-//    for (int i = 0 ; i < 5 ; i++)
-//    {
-//        _posicionAleatoria.x = spawnX + (rand()%400 - 200);
-//        _posicionAleatoria.y = spawnY + (rand()%400 - 200);
-//
-//        enemigos.push_back(_FabricaMobs.crearMobs("Fantasma", {_posicionAleatoria.x, _posicionAleatoria.y}));
-//        enemigos.push_back(_FabricaMobs.crearMobs("Murcielago", {_posicionAleatoria.x + 80,_posicionAleatoria.y}));
-//    }
 
 /// ======================== Musica =========================///
     sf::SoundBuffer buffer;
@@ -185,13 +162,8 @@ void Game::run()
     listaEstructuras.push_back(fabE.crearEstructura(87*32,85*32,5));
     listaEstructuras.push_back(fabE.crearEstructura(88*32,85*32,6));
     listaEstructuras.push_back(fabE.crearEstructura(89*32,85*32,7));
-    listaEstructuras.push_back(fabE.crearEstructura(89*32,90*32,7));
-
     listaEstructuras.push_back(fabE.crearEstructura(90*32,85*32,9));
-
     listaEstructuras.push_back(fabE.crearEstructura(91*32,85*32,8));
-    listaEstructuras.push_back(fabE.crearEstructura(91*32,86*32,8));
-    listaEstructuras.push_back(fabE.crearEstructura(91*32,90*32,8));
 
 /// ======================== CICLO DIA Y NOCHE =========================///
     nightOverlay.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
@@ -222,7 +194,6 @@ void Game::run()
 
 
 /// ======================== INICIO GAME LOOP =========================///
-
     while (window.isOpen())
     {
 //        cout << "Energia = " << character.getEnergia() << endl;
@@ -282,7 +253,6 @@ void Game::run()
             deltatime = _relojInterno.restart().asMilliseconds();
             Comandos::getInstancia().actualizar();
 
-            _interfazEstado.update( character.getVida(), character.getVidaMaxima(), character.getEnergia(), character.getEnergiaMaxima(), character.getHambre(), character.getHambreMaxima());
 
             sf::Event event;
             bool cambioDeEstado = false;
@@ -328,30 +298,6 @@ void Game::run()
 
             sf::Vector2f posMouseWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window), Camara);/// ======================== Test spawn =========================///
 
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-            {
-                static sf::Clock relojPlantar;
-                if (relojPlantar.getElapsedTime().asSeconds() > 0.2f)
-                {
-                    // Solo intentamos plantar
-                    intentarPlantar(posMouseWorld, inv);
-                    relojPlantar.restart();
-                }
-            }
-
-            // --- CONTROL CLICK IZQUIERDO (ROMPER CULTIVO)
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-            {
-                static sf::Clock relojRomper;
-                if (relojRomper.getElapsedTime().asSeconds() > 0.2f)
-                {
-                    // Intentamos romper/cosechar el cultivo
-                    intentarCosecharClick(posMouseWorld, listaLoots, fabItems);
-
-                    // Aqu� tambi�n podr�as poner l�gica de atacar enemigos si no hay cultivo
-                    relojRomper.restart();
-                }
-            }
 
 /// ======================== Primeros drawables =========================///
 
@@ -359,12 +305,6 @@ void Game::run()
 
             window.setView(Camara);
             window.draw(mapa);
-
-            for (auto& cultivo : _listaCultivos)
-            {
-                window.draw(*cultivo);
-            }
-
             window.draw(character);
 
             character.getColisionador().draw(window);
@@ -423,8 +363,6 @@ void Game::run()
                 diaReseteado = false; // Preparamos el flag para el siguiente dia
             }
 
-            float reduccion = hambrePorSegundo * (deltatime / 1000.0f);
-            character.setHambre(character.getHambre() - reduccion);
 
 /// ======================== COMANDOS =========================///
 
@@ -594,7 +532,7 @@ for (auto it = animales.begin(); it != animales.end();)
 
                     }
 
-                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inventarioCofre, inv, deltatime);
+                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime);
                     estructura++;
                 }
                 else
@@ -606,7 +544,6 @@ for (auto it = animales.begin(); it != animales.end();)
 /// ======================== COLISION ESTRUCTURA =========================///
 
 
-            bool seAbrioUnCofre = false;
             for (auto estructura = listaEstructuras.begin(); estructura != listaEstructuras.end(); )
             {
                 if ((*estructura)->estaDestruido() == false)
@@ -623,14 +560,7 @@ for (auto it = animales.begin(); it != animales.end();)
                         }
                     }
                     window.draw(**estructura);
-
-                    (*estructura)->update( PosicionJugador, posMouseWorld, Camara, relacion, inv, inventarioCofre, deltatime);
-
-                    if ((*estructura) -> getID() == 8){
-                        if ((*estructura) -> estaEnUso()){
-                            seAbrioUnCofre = true;
-                        }
-                    }
+                    (*estructura)->update( PosicionJugador, posMouseWorld, mause, Camara, relacion, inv, deltatime);
 
                     (*estructura)->generarLoot(listaLoots);
 
@@ -642,18 +572,6 @@ for (auto it = animales.begin(); it != animales.end();)
                     estructura = listaEstructuras.erase(estructura);
                 }
             }
-
-            ///Ocultar interfaz cofre
-            if (seAbrioUnCofre){
-                inv.setDesvioDelCentroEnY(-16);
-                inventarioCofre.setDesvioDelCentroEnY(96);
-            }
-            else{
-                inv.setDesvioDelCentroEnY(50);
-                inventarioCofre.setDesvioDelCentroEnY(-1000);
-            }
-
-            inventarioCofre.update(mouse.getPosicion(), Camara, relacion, listaLoots);
 
 /// ======================== INICIO LOOT =========================///
 
@@ -687,20 +605,15 @@ for (auto it = animales.begin(); it != animales.end();)
             }
 /// ======================== INICIO UPDATE =========================///
 
+            character.update(deltatime);
 
-            for (auto& cultivo : _listaCultivos)
-            {
-                cultivo->update(deltatime);
-            }
-
-            character.update();
             character.updateEspada(mouse);
             _minimap.update(character.getPosition());
 
             verificarTeleports(character);
             actualizarFade(character);
 
-            inv.update(mouse.getPosicion(), Camara, relacion, listaLoots);
+            inv.update(mouse.getPosicion(), Camara, relacion, listaLoots); ///FALLAA
 
             inv.copiarItemsEnVector(vectorCarga);
             invR.setItems(vectorCarga);
@@ -713,13 +626,9 @@ for (auto it = animales.begin(); it != animales.end();)
 
             window.draw(invR);
 
-            window.draw(inventarioCofre);
-
             window.draw(inv);
 
             window.setView(window.getDefaultView());
-
-            window.draw(_interfazEstado);
 
 //            window.draw(nightOverlay);
 
@@ -799,6 +708,7 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
     listaEstructuras.clear();
 
     cout << "Isla Reset" << endl;
+
 
     int ancho = mapa.getMapWidth();
     int alto = mapa.getMapHeight();
@@ -968,84 +878,6 @@ void Game::verificarTeleports(Personaje& character)
     }
 }
 
-bool Game::esSueloCultivable(int tileID) {
-    // IDs de la zona de cultivo que me pasaste
-    return (tileID == 163 || tileID == 164 || tileID == 165 || tileID == 166 ||
-            tileID == 171 || tileID == 172 || tileID == 173 ||
-            tileID == 179 || tileID == 180 || tileID == 181);
-}
-
-void Game::intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv) {
-
-    //Validar que tengamos algun item en la mano
-    Item* item = inv.getItemEnMano();
-    if (item == nullptr) return;
-
-    //Obtener coordenadas del Tile donde se hizo clic
-    int tileW = mapa.getTileWidth();
-    int tileH = mapa.getTileHeight();
-    int tileX = static_cast<int>(posMouseWorld.x / tileW);
-    int tileY = static_cast<int>(posMouseWorld.y / tileH);
-
-    //Validar Terreno
-    int idSuelo = mapa.getTileID(tileX, tileY);
-    if (!esSueloCultivable(idSuelo)) return;
-
-    //Calcular posicion
-    float posX = tileX * tileW;
-    float posY = tileY * tileH;
-
-    //Chequeo de colision: Validar que no haya YA una planta en ese lugar
-    sf::FloatRect rectNuevo(posX + 10, posY + 10, 10, 10);
-
-    for (auto& cultivo : _listaCultivos) {
-        if (cultivo->getBounds().intersects(rectNuevo)) {
-            return; // Ya hay una planta.
-        }
-    }
-
-    // Si el ID del item es una semilla valida (31, 32, 33...), nos devuelve el objeto.
-    // Si es una espada o cualquier otra cosa, nos devuelve nullptr.
-    auto nuevoCultivo = _fabricaCultivos.crearDesdeSemilla(item->getID(), posX, posY);
-
-    if (nuevoCultivo != nullptr) {
-        //Agregamos el cultivo a la lista del juego
-        _listaCultivos.push_back(std::move(nuevoCultivo));
-
-        // Gasta 1 Semilla del inventario
-        inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
-
-        cout << "Planta creada exitosamente en: " << tileX << ", " << tileY << endl;
-    }
-}
-
-void Game::intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& listaLoots, FabricaItems& fabItems) {
-
-    // 1. Creamos un "apuntador" al principio de la lista
-    auto it = _listaCultivos.begin();
-
-    // 2. Recorremos mientras no lleguemos al final
-    while (it != _listaCultivos.end()) {
-
-        // Verificamos si el mouse toca este cultivo
-        // (*it) nos da el puntero al cultivo actual
-        if ((*it)->getBounds().contains(posMouseWorld)) {
-
-            // Intentamos cosechar
-            if ((*it)->intentarCosechar(listaLoots, fabItems)) {
-
-                // Si devolvio true (se rompio/cosecho), lo borramos de la lista
-                // erase devuelve el puntero al siguiente elemento, pero como hacemos return, no importa tanto
-                it = _listaCultivos.erase(it);
-
-                return; // Salimos de la funcion para no romper mas de uno a la vez
-            }
-        }
-
-        // Si no paso nada, avanzamos al siguiente cultivo
-        it++;
-    }
-}
 
 /*
 
