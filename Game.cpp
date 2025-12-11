@@ -307,7 +307,7 @@ void Game::run()
                     // Intentamos romper/cosechar el cultivo
                     intentarCosecharClick(posMouseWorld, listaLoots, fabItems);
 
-                    // Aqu¡ tambi‚n podr¡as poner l¢gica de atacar enemigos si no hay cultivo
+                    // Aquï¿½ tambiï¿½n podrï¿½as poner lï¿½gica de atacar enemigos si no hay cultivo
                     relojRomper.restart();
                 }
             }
@@ -823,7 +823,7 @@ bool Game::esSueloCultivable(int tileID) {
 
 void Game::intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv) {
 
-    //Validar que tengamos alg£n ¡tem en la mano
+    //Validar que tengamos algun item en la mano
     Item* item = inv.getItemEnMano();
     if (item == nullptr) return;
 
@@ -837,11 +837,11 @@ void Game::intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv) 
     int idSuelo = mapa.getTileID(tileX, tileY);
     if (!esSueloCultivable(idSuelo)) return;
 
-    //Calcular posici¢n
+    //Calcular posicion
     float posX = tileX * tileW;
     float posY = tileY * tileH;
 
-    //Chequeo de colisi¢n: Validar que no haya YA una planta en ese lugar
+    //Chequeo de colision: Validar que no haya YA una planta en ese lugar
     sf::FloatRect rectNuevo(posX + 10, posY + 10, 10, 10);
 
     for (auto& cultivo : _listaCultivos) {
@@ -850,7 +850,7 @@ void Game::intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv) 
         }
     }
 
-    // Si el ID del item es una semilla v lida (31, 32, 33...), nos devuelve el objeto.
+    // Si el ID del item es una semilla valida (31, 32, 33...), nos devuelve el objeto.
     // Si es una espada o cualquier otra cosa, nos devuelve nullptr.
     auto nuevoCultivo = _fabricaCultivos.crearDesdeSemilla(item->getID(), posX, posY);
 
@@ -880,15 +880,15 @@ void Game::intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& li
             // Intentamos cosechar
             if ((*it)->intentarCosechar(listaLoots, fabItems)) {
 
-                // Si devolvi¢ true (se rompi¢/cosech¢), lo borramos de la lista
+                // Si devolvio true (se rompio/cosecho), lo borramos de la lista
                 // erase devuelve el puntero al siguiente elemento, pero como hacemos return, no importa tanto
                 it = _listaCultivos.erase(it);
 
-                return; // Salimos de la funci¢n para no romper m s de uno a la vez
+                return; // Salimos de la funcion para no romper mas de uno a la vez
             }
         }
 
-        // Si no pas¢ nada, avanzamos al siguiente cultivo
+        // Si no paso nada, avanzamos al siguiente cultivo
         it++;
     }
 }
