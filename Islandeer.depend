@@ -3623,13 +3623,13 @@
 1761750014 d:\alejo\alemart\documents\github\islander\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1765454492 source:d:\alejo\alemart\documents\github\islander\game.cpp
+1765463872 source:d:\alejo\alemart\documents\github\islander\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1765405136 d:\alejo\alemart\documents\github\islander\game.h
+1765463209 d:\alejo\alemart\documents\github\islander\game.h
 	"Cultivos.h"
 	"FabricaCultivos.h"
 	<iostream>
@@ -3656,8 +3656,9 @@
 	<fstream>
 	<set>
 	<cmath>
+	"InterfazEstado.h"
 
-1763638803 d:\alejo\alemart\documents\github\islander\personaje.h
+1765463209 d:\alejo\alemart\documents\github\islander\personaje.h
 	"Colisionador.h"
 	<SFML/Graphics.hpp>
 	"Funciones.h"
@@ -3665,7 +3666,6 @@
 	"Espada.h"
 	"Raton.h"
 	"TileMap.h"
-	"BarraDeVida.h"
 	"Mob.h"
 
 1761750013 d:\alejo\alemart\documents\github\islander\sfml\include\sfml\audio.hpp
@@ -3859,7 +3859,7 @@
 1763638803 source:d:\alejo\alemart\documents\github\islander\murcielago.cpp
 	"Murcielago.h"
 
-1763638803 source:d:\alejo\alemart\documents\github\islander\personaje.cpp
+1765463872 source:d:\alejo\alemart\documents\github\islander\personaje.cpp
 	<iostream>
 	"Personaje.h"
 	"Funciones.h"
@@ -4187,22 +4187,30 @@
 	"Horno.h"
 	<cmath>
 
-1765407392 source:d:\alejo\alemart\documents\github\islander\cultivos.cpp
+1765458173 source:d:\alejo\alemart\documents\github\islander\cultivos.cpp
 	<iostream>
 	"Cultivos.h"
 
-1765407392 d:\alejo\alemart\documents\github\islander\cultivos.h
+1765456557 d:\alejo\alemart\documents\github\islander\cultivos.h
 	<SFML/Graphics.hpp>
 	"FabricaItems.h"
 	"Loot.h"
 	<list>
 
-1765405881 source:d:\alejo\alemart\documents\github\islander\fabricacultivos.cpp
+1765456557 source:d:\alejo\alemart\documents\github\islander\fabricacultivos.cpp
 	<iostream>
 	"FabricaCultivos.h"
 
-1765404953 d:\alejo\alemart\documents\github\islander\fabricacultivos.h
+1765456557 d:\alejo\alemart\documents\github\islander\fabricacultivos.h
 	<SFML/Graphics.hpp>
 	<memory>
 	"Cultivos.h"
+
+1765461243 d:\alejo\alemart\documents\github\islander\interfazestado.h
+	<SFML/Graphics.hpp>
+	<string>
+
+1765464265 source:d:\alejo\alemart\documents\github\islander\interfazestado.cpp
+	"InterfazEstado.h"
+	<iostream>
 

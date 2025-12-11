@@ -83,6 +83,8 @@
 		<Unit filename="Game.h" />
 		<Unit filename="Horno.cpp" />
 		<Unit filename="Horno.h" />
+		<Unit filename="InterfazEstado.cpp" />
+		<Unit filename="InterfazEstado.h" />
 		<Unit filename="InventarioIntefaz.cpp" />
 		<Unit filename="InventarioIntefaz.h" />
 		<Unit filename="InventarioResumidoInterfaz.cpp" />

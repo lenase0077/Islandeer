@@ -6,7 +6,6 @@
 #include "Espada.h"
 #include "Raton.h"
 #include "TileMap.h"
-#include "BarraDeVida.h"
 #include "Mob.h"
 
 
@@ -15,7 +14,7 @@ class Personaje: public sf::Drawable , public sf::Transformable
     public:
         Personaje(sf::Texture& _textura);
         Personaje(sf::Texture& _textura , int alto, int ancho);
-        void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+        void draw(sf::RenderTarget& tarddget, sf::RenderStates states) const;
         void cmd(float deltatime);
         void update();
         void limite();
@@ -32,13 +31,20 @@ class Personaje: public sf::Drawable , public sf::Transformable
         void setPosicion(float uno , float dos);
         void setVida(float vida);
         float getVida();
+        float getVidaMaxima() const { return _vidaMaxima; }
         void actuarEnBaseALaColision (std::string IDColision);
         void verificarColisiones(const TileMap& mapa);
         bool atacar(Mob& enemigo, float fuerzaEmpuje, float deltatime);
         float getEnergia();
+        float getEnergiaMaxima() const { return 100.f; }
         ///Espada
         void updateEspada(const Raton& mouse);
         void setVolumen (float Volumen);
+
+        ///Hambre
+        float getHambre();
+        float getHambreMaxima() const { return _hambreMaxima; }
+        void setHambre(float hambre);
 
     private:
         float _acumuladorEnergia = 0;
@@ -51,7 +57,10 @@ class Personaje: public sf::Drawable , public sf::Transformable
         sf::Vector2f _velocidad;
         sf::Sprite _sprite;
         Espada _espada;
-        BarraDeVida _barraVida;
+
+        float _hambre;
+        float _hambreMaxima;
+        float _acumuladorHambre = 0;
 
 
         int _movimiento; ///0 -> Abajio

@@ -25,6 +25,7 @@
 #include <fstream>
 #include <set>
 #include <cmath>
+#include "InterfazEstado.h"
 
 class Game
 {
@@ -41,7 +42,9 @@ class Game
         void intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& listaLoots, FabricaItems& fabItems);
         bool esSueloCultivable(int tileID);
 
+
     private:
+        InterfazEstado _interfazEstado;
         sf::Texture _texturaPersonaje;
         Personaje _personaje;
         Personaje personaTest;

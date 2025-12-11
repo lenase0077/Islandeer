@@ -5,11 +5,13 @@
 #include <cmath>
 using namespace std;
 
-bool Personaje::getEstaCorriendo() const {
+bool Personaje::getEstaCorriendo() const
+{
     return _estaCorriendo;
 }
 
-void Personaje::setEstaCorriendo(bool EstaCorriendo) {
+void Personaje::setEstaCorriendo(bool EstaCorriendo)
+{
     _estaCorriendo = EstaCorriendo;
 }
 
@@ -21,7 +23,8 @@ Personaje::Personaje(sf::Texture& _textura)
     _vida (100),
     _vidaMaxima(100),
     _energia(100),
-    _barraVida(_vida, _vidaMaxima) {
+    _hambre(100),
+    _hambreMaxima(100) {
 
     _sprite.setTexture(_textura);
     setPosition(10, 10);
@@ -105,7 +108,6 @@ void Personaje::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform();
     target.draw(_sprite, states);
     target.draw(_espada);
-    target.draw(_barraVida);
 }
 
 void Personaje::cmd(float deltatime) {
@@ -179,9 +181,6 @@ void Personaje::update() {
     animar();
     manejarPasos();
     move(_velocidad);
-    _barraVida.setPosition(getPosition().x, getPosition().y - 10);
-    _barraVida.actualizar();
-
 }
 
 void Personaje::limite() {
@@ -242,33 +241,31 @@ void Personaje::Correr(sf::Vector2f& velocidad , float deltatime) {
 
     _acumuladorEnergia += deltatime;
 
-    if (_acumuladorEnergia >= 500)
+    if (_acumuladorEnergia >= 100)
     {
         if (getEstaCorriendo())
         {
-            _energia -= 10.f;
-
-            if (_energia < 0)
-            {
-                _energia = 0;
-            }
+            _energia -= 2.0f;
+            _hambre -= 0.05f;
         }
 
         else
         {
-            _energia += 10.f;
-
-            if (_energia > 100)
+            if (_hambre > 0)
             {
-                _energia = 100;
+                _energia += 2.0f;
             }
         }
+
+        //Limite Enegia
+        if (_energia < 0) _energia = 0;
+        if (_energia > 100) _energia = 100;
+
         _acumuladorEnergia = 0;
     }
 }
 
 void Personaje::manejarPasos() {
-
 
     bool estaMoviendo = abs(_velocidad.x) > 0 || abs(_velocidad.y) > 0;
 
@@ -325,4 +322,17 @@ bool Personaje::atacar(Mob& enemigo, float fuerzaEmpuje, float deltatime)
 void Personaje::setVolumen (float Volumen)
 {
     _footprints.setVolume(Volumen);
+}
+
+float Personaje::getHambre()
+{
+    return _hambre;
+}
+
+void Personaje::setHambre(float hambre)
+{
+    _hambre = hambre;
+    if(_hambre > _hambreMaxima) _hambre = _hambreMaxima;
+
+    if (_hambre < 0) _hambre = 0;
 }
