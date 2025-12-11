@@ -105,9 +105,7 @@
 		<Unit filename="Minimap.h" />
 		<Unit filename="Mob.cpp" />
 		<Unit filename="Mob.h" />
-		<Unit filename="Mob_Hostil.cpp" />
 		<Unit filename="Mob_Hostil.h" />
-		<Unit filename="Movimiento_IA.cpp" />
 		<Unit filename="Movimiento_IA.h" />
 		<Unit filename="Murcielago.cpp" />
 		<Unit filename="Murcielago.h" />
@@ -119,7 +117,6 @@
 		<Unit filename="SeleccionRectangulo.h" />
 		<Unit filename="TileMap.cpp" />
 		<Unit filename="TileMap.h" />
-		<Unit filename="auxiliar.cpp" />
 		<Unit filename="funcionesInterpolacion.cpp" />
 		<Unit filename="funcionesInterpolacion.h" />
 		<Unit filename="json.hpp" />

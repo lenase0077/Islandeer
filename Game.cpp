@@ -542,6 +542,17 @@ for (auto it = animales.begin(); it != animales.end();)
 
             float relacion = (float)window.getSize().x/(float)window.getSize().y;
 
+/// ======================== INICIO LOOT =========================///
+
+            for (auto it = listaLoots.begin(); it != listaLoots.end();)
+            {
+                it->update(character.getPosition(),inv);
+                window.draw(*it);
+                if (it->getLooted()) it = listaLoots.erase(it);
+                else it++;
+
+            }
+
 /// ======================== Estructura RANDOM =========================///
 
 for (auto estructura = listaEstructuraRandom.begin(); estructura != listaEstructuraRandom.end(); )
@@ -659,16 +670,6 @@ for (auto estructura = listaEstructuraRandom.begin(); estructura != listaEstruct
 
             inventarioCofre.update(mouse.getPosicion(), Camara, relacion, listaLoots);
 
-/// ======================== INICIO LOOT =========================///
-
-            for (auto it = listaLoots.begin(); it != listaLoots.end();)
-            {
-                it->update(character.getPosition(),inv);
-                window.draw(*it);
-                if (it->getLooted()) it = listaLoots.erase(it);
-                else it++;
-
-            }
 /// ======================== INICIO UPDATE =========================///
 
             for (auto& cultivo : _listaCultivos)
