@@ -485,7 +485,7 @@ void Personaje::actualizarAnimacionAtaque(float deltatime)
 
         if (_movimiento == 1) {
 
-            rotacionFinal = _anguloAtaque - 180.0f;
+            rotacionFinal = _anguloAtaque - 120.0f;
         }
         else if (_movimiento == 0) {
             rotacionFinal = -_anguloAtaque - 180;

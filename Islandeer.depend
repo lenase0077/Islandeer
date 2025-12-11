@@ -810,7 +810,7 @@
 
 1764170642 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\movimiento_ia.cpp
 
-1765458086 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
+1765462036 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
 	<iostream>
 	"Personaje.h"
 	"Funciones.h"
@@ -3909,7 +3909,7 @@
 	"FabricaItems.h"
 	<vector>
 
-1765456264 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricaitems.cpp
+1765461640 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricaitems.cpp
 	"FabricaItems.h"
 	<fstream>
 	<iostream>
