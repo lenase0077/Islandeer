@@ -44,6 +44,7 @@ class Personaje: public sf::Drawable , public sf::Transformable
         bool iniciarAtaque();
         void actualizarAnimacionAtaque(float deltatime);
         void quitarItemEnMano() { _tieneHerramienta = false; }
+        sf::FloatRect getAreaAtaque() const;
 
     private:
         float _acumuladorEnergia = 0;

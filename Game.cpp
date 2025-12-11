@@ -107,6 +107,10 @@ void Game::run()
     cargar(character);
 
 
+
+
+
+
 /// ======================== Enemigo =========================///
     sf::Vector2f empuje;
     empuje.x = 0.f;
@@ -316,9 +320,11 @@ void Game::run()
             }
 
 
-/// ========================= RELOJ ========================= ///
+/// ========================= General ========================= ///
 
             mouse.update(window);
+            sf::FloatRect rectEspada = character.getAreaAtaque();
+
 
 /// ======================== Update del Ciclo dia y noche ========================= ///
 
@@ -387,110 +393,97 @@ void Game::run()
                     character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
                 }
             }
-
 /// ======================== COLISIONES Mobs =========================///
 
-            for (auto it = animales.begin(); it != animales.end();)
-            {
-                // Obtenemos el puntero base Mob
-                Mob* mobBase = it->get();
+for (auto it = animales.begin(); it != animales.end();)
+{
+    Mob* mobBase = it->get();
+    Animal* animal = dynamic_cast<Animal*>(mobBase);
 
-                // Intentamos tratarlo como un ANIMAL (Casteo din�mico)
-                Animal* animal = dynamic_cast<Animal*>(mobBase);
+    // Update general
+    mobBase->update(PosicionJugador, deltatime);
 
-                // Update general (movimiento)
-                mobBase->update(PosicionJugador, deltatime);
+    // Colisión Mapa
+    for (auto& colisionadorMapa : mapa._colisiones) {
+        animal->chocar(colisionadorMapa);
+    }
 
-                for (auto& colisionadorMapa : mapa._colisiones)
-                {
-                    animal->chocar(colisionadorMapa);
-                }
-
-                if (animal != nullptr && Comandos::getInstancia().mouseIzqRecienPresionado)
-                {
-                    if (animal->getGlobalBounds().contains(posMouseWorld))
-                    {
-                        Item* itemEnMano = inv.getItemEnMano();
-
-                        if (animal->intentarOrdeniar(character.getPosition(), itemEnMano,fabItems, inv))
-                        {
-                            cout << "Ordeniada!!" << endl;
-                        }
-                    }
-                }
-
-                bool murio = false;
-
-                if (character.getColisionador().detectorDeColision(animal->getColisionador()))
-                {
-
-                    sf::Vector2f direccionEmpuje = animal->getPosition() - character.getPosition();
-                    float magnitud = sqrt(direccionEmpuje.x*direccionEmpuje.x + direccionEmpuje.y*direccionEmpuje.y);
-
-                    if (magnitud > 0)
-                    {
-                        direccionEmpuje /= magnitud;
-                        animal->move(direccionEmpuje * 2.f);
-                    }
-
-                    character.chocar(animal->getColisionador());
-
-                    if (golpeHabilitado)
-                    {
-                        Item* itemEnMano = inv.getItemEnMano();
-                        TipoMaterial matAnimal = animal->getMaterial();
-                        float danioFinal = 1.0f;
-
-                        if (itemEnMano != nullptr)
-                        {
-                            danioFinal = itemEnMano->obtenerFuerza(matAnimal);
-                            itemEnMano->usar();
-
-                            if (itemEnMano->estaRota())
-                            {
-                                inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
-                            }
-                        }
-
-                        animal->bajarVida(danioFinal);
-                        animal->move(direccionEmpuje * 4.0f);
-                        cout << "¡Espadazo a la vaca! Daño: " << danioFinal << endl;
-
-
-
-                    }
-                }
-
-                if (animal->getVida() <= 0)
-                {
-                    animal->soltarLoot(fabItems, listaLoots);
-                    it = animales.erase(it);
-                }
-                else
-                {
-
-                    mobBase->move(mobBase->getVelocidad());
-                    ++it;
-                }
-
-
-//                bool murio = character.atacar(*animal, fuerzaEmpuje, deltatime);
-//
-//                if (murio)
-//                {
-//                    if (animal != nullptr)
-//                    {
-//                        animal->soltarLoot(fabItems, listaLoots);
-//                    }
-//
-//                    it = animales.erase(it);
-//                }
-//                else
-//                {
-//                    mobBase->move(mobBase->getVelocidad());
-//                    ++it;
-//                }
+    // Ordeñar
+    if (animal != nullptr && Comandos::getInstancia().mouseIzqRecienPresionado) {
+        if (animal->getGlobalBounds().contains(posMouseWorld)) {
+            Item* itemEnMano = inv.getItemEnMano();
+            if (animal->intentarOrdeniar(character.getPosition(), itemEnMano,fabItems, inv)) {
+                cout << "Ordeñada!!" << endl;
             }
+        }
+    }
+
+    bool murio = false;
+
+    // A. FÍSICA (Empuje suave por contacto)
+    if (character.getColisionador().detectorDeColision(animal->getColisionador()))
+    {
+        sf::Vector2f direccionEmpuje = animal->getPosition() - character.getPosition();
+        float magnitud = sqrt(direccionEmpuje.x*direccionEmpuje.x + direccionEmpuje.y*direccionEmpuje.y);
+
+        if (magnitud > 0) {
+            direccionEmpuje /= magnitud;
+            animal->move(direccionEmpuje * 2.f); // Empuje suave para no atravesar
+        }
+        
+        // BORRADO: character.chocar(animal->getColisionador()); 
+        // (Ya lo empujamos nosotros, no necesitamos frenar al personaje)
+    }
+
+    // B. ATAQUE (Hitbox separada) - ¡AHORA ESTÁ AFUERA DEL IF ANTERIOR!
+    if (golpeHabilitado)
+    {
+        // Usamos Hitbox de Espada vs Hitbox de Animal
+        sf::FloatRect rectAnimal = animal->getColisionador().getColision();
+
+        if (rectEspada.intersects(rectAnimal))
+        {
+            // --- CÁLCULO DE DAÑO ---
+            Item* itemEnMano = inv.getItemEnMano();
+            TipoMaterial matAnimal = animal->getMaterial();
+            float danioFinal = 1.0f;
+
+            if (itemEnMano != nullptr)
+            {
+                danioFinal = itemEnMano->obtenerFuerza(matAnimal);
+                itemEnMano->usar();
+
+                if (itemEnMano->estaRota()) {
+                    inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
+                }
+            }
+
+            // --- APLICAR DAÑO ---
+            animal->bajarVida(danioFinal);
+            cout << "¡Espadazo! Daño: " << danioFinal << endl;
+
+            // --- KNOCKBACK FUERTE ---
+            sf::Vector2f empujeGolpe = animal->getPosition() - character.getPosition();
+            float mag = sqrt(empujeGolpe.x*empujeGolpe.x + empujeGolpe.y*empujeGolpe.y);
+            if (mag > 0) {
+                empujeGolpe /= mag;
+                animal->move(empujeGolpe * 20.0f); // ¡PUM!
+            }
+        }
+    }
+
+    // Verificar muerte
+    if (animal->getVida() <= 0)
+    {
+        animal->soltarLoot(fabItems, listaLoots);
+        it = animales.erase(it);
+    }
+    else
+    {
+        mobBase->move(mobBase->getVelocidad());
+        ++it;
+    }
+}
 /// ======================== COLISION MAPA =========================///
 
             for (auto& colisionador : mapa._colisiones)
@@ -613,6 +606,7 @@ void Game::run()
 /// ======================== INICIO UPDATE =========================///
 
             character.update(deltatime);
+
             character.updateEspada(mouse);
             _minimap.update(character.getPosition());
 

@@ -27,12 +27,14 @@ Personaje::Personaje(sf::Texture& _textura)
 {
 
     _sprite.setTexture(_textura);
-    setPosition(10, 10);
 
     // Si tu spritesheet tiene frames chicos, defin� un rect�ngulo inicial
     _sprite.setTextureRect(sf::IntRect(0, 0, 32, 32)); // primer frame 32x32
+    _sprite.setOrigin(16, 16);
+
 
     _colision.setColision(getColisionBounds());
+    
 
     if (!_footprintsBuffer.loadFromFile("walk-on-grass-3-291986.wav"))
     {
@@ -42,6 +44,7 @@ Personaje::Personaje(sf::Texture& _textura)
     _footprints.setBuffer(_footprintsBuffer);
     _footprints.setVolume(3.f);
     _footprints.setLoop(true);
+
 
 }
 
@@ -54,9 +57,10 @@ Personaje::Personaje(sf::Texture& _textura, int alto, int ancho)
 
     // Si tu spritesheet tiene frames chicos, defin� un rect�ngulo inicial
     _sprite.setTextureRect(sf::IntRect(0, 0, 32, 32)); // primer frame 32x32
+    _sprite.setOrigin(16, 16);
+
     _colision.setColision(_sprite.getGlobalBounds());
 
-    _sprite.setOrigin(16,16);
 }
 
 void Personaje::setVida(float vida)
@@ -68,94 +72,6 @@ float Personaje::getVida()
 {
     return _vida;
 }
-/*
-void Personaje::animarPersonaje()
-{
-    int fila;
-
-    ///Verificamos si hay movimiento
-    if (abs(_velocidad.x) > 0.f || abs(_velocidad.y) > 0.f)
-    {
-
-        switch(_movimiento){
-        case 0:///0 -> Abajo
-            _maxFrame = 0;
-            _minFrame = 3;
-            break;
-        case 1:///1 -> Ariiba
-            _maxFrame = 0;
-            _minFrame = 3;
-            break;
-        case 2:///2 -> Izquierda
-            _maxFrame = 0;
-            _minFrame = 3;
-            break;
-        case 3:///3 -> Derecha
-            _maxFrame = 0;
-            _minFrame = 3;
-            break;
-        }
-
-        fila = _movimiento;
-
-        ///Verificamos si ya paso mas de 100 milisegundos
-        if (_animacion.getElapsedTime().asMilliseconds() > 200)
-        {
-
-            ///Avanzamos al siguiente frame
-            if (_frameActual >= _maxFrame)
-            {
-                _frameActual = _minFrame;
-            }
-            else _frameActual++;
-
-            ///Reiniciamos el reloj
-            _animacion.restart();
-        }
-    }
-    ///Cuando no hay movimiento
-    else
-    {
-        switch(_movimiento){
-        case 0:///0 -> Abajo
-            fila = 4;
-            _maxFrame = 0;
-            _minFrame = 6;
-            break;
-        case 1:///1 -> Ariiba
-            fila = 5;
-            _maxFrame = 0;
-            _minFrame = 5;
-            break;
-        case 2:///2 -> Izquierda
-            fila = 6;
-            _maxFrame = 0;
-            _minFrame = 6;
-            break;
-        case 3:///3 -> Derecha
-            fila = 7;
-            _maxFrame = 0;
-            _minFrame = 6;
-            break;
-        }
-        if (_animacion.getElapsedTime().asMilliseconds() > 200)
-        {
-            ///Avanzamos al siguiente frame
-            if (_frameActual >= _maxFrame)
-            {
-                _frameActual = _minFrame;
-            }
-            else _frameActual++;
-
-            ///Reiniciamos el reloj
-            _animacion.restart();
-        }
-    }
-
-    setFramePersonaje( fila, _frameActual, _sprite);
-
-}
-*/
 
 void Personaje::animarPersonaje()
 {
@@ -359,22 +275,22 @@ void Personaje::update(float deltatime)
     if (_movimiento == 2)
     {
         _spriteHerramienta.setScale(-1, 1);
-        _spriteHerramienta.setPosition(8, 16);
+        _spriteHerramienta.setPosition(-8, 0);
     }
     else if (_movimiento == 1)
     {
         _spriteHerramienta.setScale(1, 1);
-        _spriteHerramienta.setPosition(16, 8);
+        _spriteHerramienta.setPosition(8, 0);
     }
     else if (_movimiento == 0)
     {
         _spriteHerramienta.setScale(1, 1);
-        _spriteHerramienta.setPosition(16, 32);
+        _spriteHerramienta.setPosition(0, 8);
     }
     else
     {
         _spriteHerramienta.setScale(1, 1);
-        _spriteHerramienta.setPosition(24, 16);
+        _spriteHerramienta.setPosition(8, 0);
     }
 
 
@@ -502,9 +418,22 @@ void Personaje::manejarPasos()
 }
 
 sf::FloatRect Personaje::getColisionBounds() const
-{
+    {
 
     sf::FloatRect localRect = _sprite.getLocalBounds();
+
+    float achicarAncho = 4.f;
+    float achicarAlto = 4.f;
+
+
+    localRect.width -= achicarAncho;
+    localRect.height -= achicarAlto;
+
+    localRect.left += achicarAncho / 2.f;
+    localRect.top += achicarAlto / 2.f;
+
+    localRect.left -= _sprite.getOrigin().x;
+    localRect.top -= _sprite.getOrigin().y;
 
     return getTransform().transformRect(localRect);
 
@@ -549,7 +478,7 @@ void Personaje::setVolumen (float Volumen)
 void Personaje::setItemEnMano(const sf::Sprite& spriteItem, int idItem)
 {
     _spriteHerramienta = spriteItem;
-    _spriteHerramienta.setOrigin(0, 32);
+    _spriteHerramienta.setOrigin(0,32);
 
 
     if (idItem >= 6 && idItem <= 8) {
@@ -628,4 +557,45 @@ void Personaje::actualizarAnimacionAtaque(float deltatime)
             _spriteHerramienta.setRotation(rotacionFinal);
         }
     }
+}
+
+sf::FloatRect Personaje::getAreaAtaque() const
+{
+    sf::FloatRect cajaJugador = getColisionBounds();
+    
+    float alcance = 20.0f; 
+    float anchoGolpe = 30.0f; 
+
+    sf::FloatRect areaAtaque;
+    areaAtaque.width = anchoGolpe;
+    areaAtaque.height = anchoGolpe;
+
+    switch (_movimiento) {
+        case 0: 
+            areaAtaque.left = cajaJugador.left + (cajaJugador.width / 2) - (anchoGolpe / 2);
+            areaAtaque.top = cajaJugador.top + cajaJugador.height; 
+            break;
+            
+        case 1:
+
+            areaAtaque.left = cajaJugador.left + (cajaJugador.width / 2) - (anchoGolpe / 2);
+            areaAtaque.top = cajaJugador.top - alcance; 
+            break;
+            
+        case 2:
+            areaAtaque.left = cajaJugador.left - alcance; 
+            areaAtaque.top = cajaJugador.top + (cajaJugador.height / 2) - (anchoGolpe / 2);
+            break;
+            
+        case 3:
+            areaAtaque.left = cajaJugador.left + cajaJugador.width; 
+            areaAtaque.top = cajaJugador.top + (cajaJugador.height / 2) - (anchoGolpe / 2);
+            break;
+            
+        default:
+            areaAtaque = cajaJugador;
+            break;
+    }
+
+    return areaAtaque;
 }
