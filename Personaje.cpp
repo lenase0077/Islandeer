@@ -25,6 +25,8 @@ Personaje::Personaje(sf::Texture& _textura)
     _energia(100),
     _barraVida(_vida, _vidaMaxima)
 {
+    _hambre(100),
+    _hambreMaxima(100) {
 
     _sprite.setTexture(_textura);
 
@@ -369,34 +371,32 @@ void Personaje::Correr(sf::Vector2f& velocidad, float deltatime)
 
     _acumuladorEnergia += deltatime;
 
-    if (_acumuladorEnergia >= 500)
+    if (_acumuladorEnergia >= 100)
     {
         if (getEstaCorriendo())
         {
-            _energia -= 10.f;
-
-            if (_energia < 0)
-            {
-                _energia = 0;
-            }
+            _energia -= 2.0f;
+            _hambre -= 0.05f;
         }
 
         else
         {
-            _energia += 10.f;
-
-            if (_energia > 100)
+            if (_hambre > 0)
             {
-                _energia = 100;
+                _energia += 2.0f;
             }
         }
+
+        //Limite Enegia
+        if (_energia < 0) _energia = 0;
+        if (_energia > 100) _energia = 100;
+
         _acumuladorEnergia = 0;
     }
 }
 
 void Personaje::manejarPasos()
 {
-
 
     bool estaMoviendo = abs(_velocidad.x) > 0 || abs(_velocidad.y) > 0;
 
@@ -598,4 +598,18 @@ sf::FloatRect Personaje::getAreaAtaque() const
     }
 
     return areaAtaque;
+
+}
+
+float Personaje::getHambre()
+{
+    return _hambre;
+}
+
+void Personaje::setHambre(float hambre)
+{
+    _hambre = hambre;
+    if(_hambre > _hambreMaxima) _hambre = _hambreMaxima;
+
+    if (_hambre < 0) _hambre = 0;
 }
