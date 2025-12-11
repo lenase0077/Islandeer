@@ -240,24 +240,40 @@ void Personaje::actuarEnBaseALaColision (string IDColision)
     else
     {
         _tocoEnemigo = false;
-        _velocidad = {0.f, 0.f};
     }
 }
-
 void Personaje::chocar(Colisionador& colision)
 {
+    sf::FloatRect bounds = getColisionBounds();
+    sf::FloatRect futuro = bounds;
 
-    sf::FloatRect RectanguloColison = getColisionBounds();
-    RectanguloColison.left += _velocidad.x;
-    RectanguloColison.top += _velocidad.y;
+    futuro.left += _velocidad.x;
+    futuro.top  += _velocidad.y;
 
-    if (RectanguloColison.intersects(colision.getColision()))
+    if (!futuro.intersects(colision.getColision()))
     {
-
-        actuarEnBaseALaColision(colision.getID());
+        _colision.setColision(getColisionBounds());
+        return;
     }
 
-    ///Actualizamos la colision
+    // 1. Probar solo movimiento en X
+    sf::FloatRect testX = bounds;
+    testX.left += _velocidad.x;
+
+    if (testX.intersects(colision.getColision()))
+    {
+        _velocidad.x = 0;     // BLOQUEAMOS X
+    }
+
+    // 2. Probar solo movimiento en Y
+    sf::FloatRect testY = bounds;
+    testY.top += _velocidad.y;
+
+    if (testY.intersects(colision.getColision()))
+    {
+        _velocidad.y = 0;     // BLOQUEAMOS Y
+    }
+
     _colision.setColision(getColisionBounds());
 }
 
