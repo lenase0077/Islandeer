@@ -4,19 +4,39 @@
 #include <sstream>
 
 
-// Constructor - inicializa la fábrica cargando configuraciones
+// Constructor - inicializa la fï¿½brica cargando configuraciones
 FabricaItems::FabricaItems(){
     ///CARGA DE JSON DE ITEMS ===========================================
     std::ifstream archivo("ItemsConfiguraciones.json");
-    // Convertir ifstream a string para el parser JSON
-    std::stringstream buffer;
-    buffer << archivo.rdbuf();
-    std::string contenidoParaJson = buffer.str();
-    archivo.close();
-    _ConfiguracionItems = nlohmann::json::parse(contenidoParaJson); // Parsea JSON
+    if (archivo.is_open()) {
+        std::stringstream buffer;
+        buffer << archivo.rdbuf();
+        std::string contenidoParaJson = buffer.str();
+        archivo.close();
 
-    // CORRECCIÓN: Quitar "sf::Texture" - usar directamente el miembro de clase
-    // Carga el atlas de sprites de todos los items
+        // 1. Leemos el archivo como un Array (Lista) temporal
+        nlohmann::json jsonArray = nlohmann::json::parse(contenidoParaJson);
+
+        // 2. CONVERSIÃ“N AUTOMÃTICA: De Array a Mapa
+        // Inicializamos la variable de la clase como un Objeto vacÃ­o
+        _ConfiguracionItems = nlohmann::json::object(); 
+
+        // Recorremos la lista y re-guardamos cada item usando su ID como "Clave"
+        for (auto& item : jsonArray) {
+            if (item.contains("id")) {
+                int id = item["id"];
+                std::string idStr = std::to_string(id);
+                
+                // AquÃ­ ocurre la magia: Guardamos en memoria: "0": {datos...}
+                _ConfiguracionItems[idStr] = item; 
+            }
+        }
+    } else {
+        std::cout << "No se pudo abrir ItemsConfiguraciones.json" << std::endl;
+        _ConfiguracionItems = nlohmann::json::object(); // Evita crash si no hay archivo
+    }
+
+    // Carga el atlas de sprites
     if (!_texturaItems.loadFromFile("ItemsSprites.png")){
         std::cout << "Error al cargar ItemsSprites.png" << std::endl;
     }
@@ -54,42 +74,73 @@ void FabricaItems::cargarDatosHerramientas() {
                 datos.multiplicadores[mat] = el.value();
             }
         }
-        // Guardamos en el mapa de la fábrica
+        // Guardamos en el mapa de la fï¿½brica
         _datosHerramientas[id] = datos;
     }
 }
 
 
-// Método factory - crea items según ID con configuraciones predefinidas
-std::unique_ptr<Item> FabricaItems::crearItem(int id){
-    //if (id == -1) return nullptr; // (Comentado) Podría manejar ID inválido
+std::unique_ptr<Item> FabricaItems::crearItem(int id)
+{
+    // 1. CONVERTIR ID A STRING (La clave del Ã©xito)
+    // Como ahora _ConfiguracionItems es un Mapa, la llave es "0", "1", etc.
+    std::string idStr = std::to_string(id);
 
-    if (_datosHerramientas.count(id)) {
+    // ========================================================
+    // CASO A: ES UNA HERRAMIENTA (Existe en herramientas.json)
+    // ========================================================
+    if (_datosHerramientas.count(id))
+    {
         DatosHerramienta& d = _datosHerramientas[id];
-
         auto herramienta = std::make_unique<Herramienta>(_texturaItems, id, d.durabilidad, d.danioBase);
 
         for (auto const& [mat, val] : d.multiplicadores) {
             herramienta->agregarMultiplicador(mat, val);
         }
 
-        if (_ConfiguracionItems.contains(std::to_string(id))) {
-            herramienta->setTitulo(_ConfiguracionItems[id]["titulo"]);
-            herramienta -> setDescripcion(_ConfiguracionItems[id]["descripcion"].get<std::string>());
-            herramienta -> setCantidadMax(_ConfiguracionItems[id]["cantidad_maxima"].get<int>());
+        // Cargamos titulo/descripcion si existen en el OTRO json
+        // IMPORTANTE: Usamos idStr, NO id
+        if (_ConfiguracionItems.contains(idStr))
+        {
+            herramienta->setTitulo(_ConfiguracionItems[idStr]["titulo"]);
+            herramienta->setDescripcion(_ConfiguracionItems[idStr]["descripcion"]);
+            
+            if(_ConfiguracionItems[idStr].contains("cantidad_maxima"))
+                 herramienta->setCantidadMax(_ConfiguracionItems[idStr]["cantidad_maxima"]);
+            else
+                 herramienta->setCantidadMax(1);
+        }
+        else 
+        {
+            herramienta->setTitulo("Herramienta " + idStr);
         }
 
         return herramienta;
     }
 
-
-    // Crea nuevo item con textura e ID
+    // ========================================================
+    // CASO B: ES UN ITEM NORMAL
+    // ========================================================
     auto nuevoItem = std::make_unique<Item>(_texturaItems, id);
 
-    // Configura propiedades desde JSON
-    nuevoItem -> setTitulo(_ConfiguracionItems[id]["titulo"].get<std::string>());
-    nuevoItem -> setDescripcion(_ConfiguracionItems[id]["descripcion"].get<std::string>());
-    nuevoItem -> setCantidadMax(_ConfiguracionItems[id]["cantidad_maxima"].get<int>());
+    // IMPORTANTE: Usamos idStr, NO id
+    if (_ConfiguracionItems.contains(idStr))
+    {
+        nuevoItem->setTitulo(_ConfiguracionItems[idStr]["titulo"]);
+        nuevoItem->setDescripcion(_ConfiguracionItems[idStr]["descripcion"]);
+        
+        if(_ConfiguracionItems[idStr].contains("cantidad_maxima"))
+             nuevoItem->setCantidadMax(_ConfiguracionItems[idStr]["cantidad_maxima"]);
+        else
+             nuevoItem->setCantidadMax(64);
+    }
+    else
+    {
+        // Fallback si el ID no estÃ¡ en el JSON
+        nuevoItem->setTitulo("Item " + idStr);
+        nuevoItem->setDescripcion("Sin descripcion");
+        nuevoItem->setCantidadMax(64);
+    }
 
-    return nuevoItem; // Devuelve item completamente configurado
+    return nuevoItem;
 }
