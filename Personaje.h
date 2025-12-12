@@ -55,6 +55,12 @@ class Personaje: public sf::Drawable , public sf::Transformable
         float getHambreMaxima() const { return _hambreMaxima; }
         void setHambre(float hambre);
 
+        void envenenar(float tiempoSegundos);
+        bool estaEnvenenado() const;
+
+        void activarPoderDorado(float tiempo);
+        bool tienePoderDorado() const;
+
     private:
         float _acumuladorEnergia = 0;
         bool _tocoEnemigo = false;
@@ -96,4 +102,12 @@ class Personaje: public sf::Drawable , public sf::Transformable
         int _minFrame = 3;
         bool _primerRecorridoParado;
         bool _primerRecorridoMoviendose;
+
+
+
+        float _tiempoVenenoRestante = 0.0f;
+        float _acumuladorDanioVeneno = 0.0f;
+
+        float _tiempoPoderDorado = 0.0f;
+        float _acumuladorRegeneracion = 0.0f;
 };

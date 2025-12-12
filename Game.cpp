@@ -7,7 +7,7 @@ using namespace std;
 
 Game::Game()
     : window(sf::VideoMode(1024, 768), "SFML works!"),
-      _personaje(_texturaPersonaje),
+      character(_texturaPersonaje),
       _minimap({150.f, 150.f},
 {
     1024.f - 160.f, 10.f
@@ -55,8 +55,6 @@ void Game::run()
 /// ======================== Reloj Externo =========================///
     FabricaEstructuras fabE;
 
-    sf::Keyboard tecladoEntrada;
-
     //RELOJ INTERNO/////
 
     float deltatime;
@@ -72,6 +70,11 @@ void Game::run()
     inv.agregarItem(31,16);
     inv.agregarItem(32,16);
     inv.agregarItem(33,16);
+
+
+    inv.agregarItem(25,16);
+    inv.agregarItem(26,16);
+    inv.agregarItem(42,16);
 
 
     inv.agregarItem(44,30);
@@ -107,7 +110,6 @@ void Game::run()
 
 /// ======================== Mouse =========================///
     Raton mouse;
-    sf::Mouse mause;
 
 /// ======================== Camara =========================///
     Camara.setSize({300.f, 300.f});
@@ -115,7 +117,6 @@ void Game::run()
 
 /// ======================== Personaje =========================///
     Personaje character (_texturaPersonaje);
-    cargar(character);
     float hambrePorSegundo = 0.5f;
 
 
@@ -166,6 +167,14 @@ void Game::run()
     sonido.setLoop(true);
 
 
+    if (!_bufferComer.loadFromFile("comer.wav"))
+    {
+        cout << "Error al cargar comer.wav" << endl;
+    }
+    _sonidoComer.setBuffer(_bufferComer);
+    _sonidoComer.setVolume(_menuPrincipal.getVolumen());
+
+
 /// ESTRUCTURA TEST
     listaEstructuras.push_back(fabE.crearEstructura(82*32,85*32,0));
     listaEstructuras.push_back(fabE.crearEstructura(83*32,85*32,1));
@@ -206,6 +215,7 @@ void Game::run()
     regenerarRecursos(listaEstructuraRandom);
 
 //    character.setPosicion(100*32, 100*32);
+//    character.setPosicion(100*32, 100*32);
 
 
 
@@ -240,12 +250,43 @@ void Game::run()
 
             if (opcion == OpcionMenu::Jugar)
             {
+                cargar(character);
+                cout << "Anotacion de Lean - Estado jugar carga el personaje" << endl;
+
                 _estadoActual = EstadoJuego::Jugando;
                 _menuPrincipal.detenerMusica();
                 sonido.setVolume(_menuPrincipal.getVolumen());
                 sonido.play();
                 _menuPrincipal.actualizar(posMouse);
                 _relojInterno.restart();
+            }
+            else if (opcion == OpcionMenu::NuevaPartida)
+            {
+
+
+                float posX = 84 * 32.f;
+                float posY = 132 * 32.f;
+                character.setPosicion(posX, posY);
+
+
+                character.setVida(100);
+                character.setHambre(100);
+                character.setVelocidad(0,0);
+
+                regenerarRecursos(listaEstructuraRandom);
+                _listaCultivos.clear();
+                listaLoots.clear();
+
+                _tiempoDiaAcumulado = 0;
+
+                Camara.setCenter(posX, posY);
+
+                _transicionMenuJugando = true;
+                _fadeAlpha = 0.0f;
+                _estadoFade = 1;
+
+
+                cout << "Anotacion de lean - Empate nueva partida" << endl;
             }
 
             else if (opcion == OpcionMenu::Salir)
@@ -256,7 +297,41 @@ void Game::run()
             window.clear(sf::Color::Black);
             window.setView(window.getDefaultView());
             window.draw(_menuPrincipal);
+
+            if (_transicionMenuJugando)
+            {
+                float velocidadFade = 500.0f * 0.016f;
+                _fadeAlpha += velocidadFade;
+
+                if (_fadeAlpha >= 255.0f) _fadeAlpha = 255.0f;
+
+                _fadeRect.setFillColor(sf::Color(0, 0, 0, static_cast<sf::Uint8>(_fadeAlpha)));
+                window.draw(_fadeRect);
+
+                if (_fadeAlpha >= 255.0f)
+                {
+
+
+                    _relojInterno.restart();
+                    relojDiaNoche.restart();
+                    _menuPrincipal.detenerMusica();
+                    sonido.setVolume(_menuPrincipal.getVolumen());
+                    sonido.play();
+
+                    _estadoActual = EstadoJuego::Jugando;
+
+                    _enTransicion = true;
+                    _estadoFade = 2;
+
+                    _transicionMenuJugando = false;
+
+
+                }
+            }
+
+
             window.display();
+
             break;
         }
 
@@ -318,15 +393,33 @@ void Game::run()
 
             sf::Vector2f posMouseWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window), Camara);
 
-            /// ======================== Test spawn =========================///
-            if (Comandos::getInstancia().mouseDerPresionado)
+/// ======================== Test spawn =========================///
+            Item* itemEnManoAccion = inv.getItemEnMano();
+
+            if (itemEnManoAccion != nullptr)
             {
-                static sf::Clock relojPlantar;
-                if (relojPlantar.getElapsedTime().asSeconds() > 0.2f)
+                int id = itemEnManoAccion->getID();
+
+                if (id >= 31 && id <= 33)
                 {
-                    // Solo intentamos plantar
-                    intentarPlantar(posMouseWorld, inv);
-                    relojPlantar.restart();
+                    if (Comandos::getInstancia().mouseDerPresionado)
+                    {
+                        static sf::Clock relojPlantar;
+                        if (relojPlantar.getElapsedTime().asSeconds() > 0.2f)
+                        {
+                            intentarPlantar(posMouseWorld, inv);
+                            relojPlantar.restart();
+                        }
+                    }
+                }
+
+                // COMIDA
+                else if ((id >= 34 && id <= 48) || id == 25 || id == 26 || id == 30)
+                {
+                    if (Comandos::getInstancia().mouseDerRecienPresionado)
+                    {
+                        usarItemEnMano(character, inv);
+                    }
                 }
             }
 
@@ -343,6 +436,11 @@ void Game::run()
                 }
             }
 
+
+
+
+
+
 /// ======================== Primeros drawables =========================///
 
             window.clear(sf::Color::Black);
@@ -353,6 +451,7 @@ void Game::run()
             {
                 window.draw(*cultivo);
             }
+            _particulas.draw(window);
             window.draw(character);
 
             character.getColisionador().draw(window);
@@ -421,6 +520,7 @@ void Game::run()
 
 
 
+
             ///Mostramos la vida del jugador
 
 //    cout << character.getVida() << endl;
@@ -447,6 +547,7 @@ void Game::run()
 
 
             sf::FloatRect rectEspada = character.getAreaAtaque();
+
 
             for (auto it = animales.begin(); it != animales.end();)
             {
@@ -582,40 +683,7 @@ void Game::run()
                     // Solo entramos si atacaste y la estructura se puede romper
                     if (golpeHabilitado && (*estructura)->getRompePorColision())
                     {
-                        // Usamos la HITBOX de la espada, no el cuerpo del personaje
-                        if (rectEspada.intersects((*estructura)->getColisionador().getColision()))
-                        {
-                            Item* itemEnMano = inv.getItemEnMano();
-                            TipoMaterial matEstructura = (*estructura)->getMaterial();
-                            float danioFinal = 1.0f; // Daño base (puño)
-
-                            // Lógica de Herramientas
-                            if (itemEnMano != nullptr)
-                            {
-                                danioFinal = itemEnMano->obtenerFuerza(matEstructura);
-                                cout << "El dmg total es de: " << danioFinal << endl;
-
-                                // Solo gastamos durabilidad si realmente golpeamos algo rompible
-                                itemEnMano->usar();
-
-                                // Si se rompe, lo sacamos del inventario
-                                if (itemEnMano->estaRota())
-                                {
-                                    inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
-                                    // CUIDADO: itemEnMano ahora es un puntero inválido, no lo uses más abajo.
-                                    itemEnMano = nullptr;
-                                }
-                            }
-
-                            // Debug
-                            // cout << "Material: " << (int)matEstructura << " | Dmg: " << danioFinal << endl;
-
-                            // Aplicar Daño
-                            (*estructura)->recibirGolpe(danioFinal);
-
-                            // Efecto visual opcional: Vibración o color rojo
-                            // (*estructura)->setColor(sf::Color::Red); (Si tu estructura lo soporta)
-                        }
+                        procesarAtaqueEstructura(estructura->get(), rectEspada, inv);
                     }
 
                     // Update normal de la estructura
@@ -731,6 +799,21 @@ void Game::run()
 /// ======================== INICIO UPDATE =========================///
 
             character.update(deltatime);
+
+            if (character.estaEnvenenado())
+            {
+                if (rand() % 10 == 0)
+                {
+                    _particulas.emitirVeneno(character.getPosition());
+                }
+            }
+
+            if (character.tienePoderDorado())
+            {
+                _particulas.emitirBrilloDorado(character.getPosition());
+            }
+
+            _particulas.update(deltatime);
 
             character.updateEspada(mouse);
             _minimap.update(character.getPosition());
@@ -859,7 +942,7 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
 
             bool esArena = (idTile == 35 || idTile == 79);
 
-            bool esCueva = (idTile == 140);
+            bool esCueva = (idTile == 132);
 
 
             float posX = x * tileW;
@@ -1108,6 +1191,129 @@ void Game::mostrarTexto (std::string mensaje, float x, float y)
 void Game::mostrarTexto (std::string mensaje, float x, float y, float duracion)
 {
     _listaTextos.push_back(std::make_unique<TextoFlotante>(fontReloj, mensaje, x, y - 50, duracion));
+}
+
+
+void Game::procesarAtaqueEstructura(Estructura* estructura, const sf::FloatRect& rectEspada, InventarioInterfaz& inv)
+{
+    // Verificamos si la espada toca la estructura
+    if (rectEspada.intersects(estructura->getColisionador().getColision()))
+    {
+        Item* itemEnMano = inv.getItemEnMano();
+        TipoMaterial matEstructura = estructura->getMaterial();
+        float danioFinal = 1.0f; // Daño base
+
+        // Lógica de Herramientas
+        if (itemEnMano != nullptr)
+        {
+            danioFinal = itemEnMano->obtenerFuerza(matEstructura);
+            itemEnMano->usar();
+
+            if (itemEnMano->estaRota())
+            {
+                inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
+            }
+        }
+
+        // Aplicar Daño
+        estructura->recibirGolpe(danioFinal);
+        cout << "Daño: " << danioFinal << endl;
+    }
+}
+
+
+void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
+{
+    Item* item = inv.getItemEnMano();
+
+    if (item == nullptr) return;
+
+    int id = item->getID();
+    bool seConsumio = false;
+
+    switch(id)
+    {
+
+    case 34: // Manzana
+    case 35: // Banana
+    case 36: // Coco
+    case 38: // Zanahoria
+    case 40: // Papa Cruda
+
+        if (character.getHambre() < character.getHambreMaxima())
+        {
+            character.setHambre(character.getHambre() + 15);
+
+            character.setVida(character.getVida() + 5);
+            cout << "Comio algo" << endl;
+            seConsumio = true;
+        }
+        break;
+
+    case 39: // Zanahoria Cocida
+    case 41: // Papa Cocinada
+    case 44: // Huevo Frito
+    case 46: // Cerdo Cocido
+    case 48: // Carne Cocida
+        if (character.getHambre() < character.getHambreMaxima())
+        {
+            character.setHambre(character.getHambre() + 35);
+            character.setVida(character.getVida() + 20);
+            seConsumio = true;
+            cout << "Creo que comi algo" << endl;
+        }
+        break;
+
+    case 26: // Hongo weno
+        if (character.getVida() < character.getVidaMaxima())
+        {
+            character.setVida(character.getVida() + 50);
+            seConsumio = true;
+        }
+        break;
+
+    case 25: // Hongo malo
+
+        character.envenenar(5.0f);
+        character.setHambre(character.getHambre() + 5);
+        cout << "Tenes ganas de cagar...!" << endl;
+        seConsumio = true;
+        break;
+
+    case 42: // Papa de Oro
+        character.setVida(character.getVida() + 50);
+        character.setHambre(character.getHambreMaxima());
+
+        // 2. Activar BUFF por 10 segundos
+        character.activarPoderDorado(10.0f);
+
+        cout << "Me rompi una muela masticando esto" << endl;
+        seConsumio = true;
+        break;
+
+
+
+
+    }
+
+
+    if (seConsumio)
+    {
+        float pitchRandom = (rand() % 41 + 100) / 100.0f;
+
+        _sonidoComer.setPitch(pitchRandom);
+        _sonidoComer.play();
+
+        inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
+        if (inv.getItemEnMano() == nullptr)
+        {
+            character.quitarItemEnMano();
+        }
+    }
+    else
+    {
+        cout << "No te podes comer esto, bobo" << endl;
+    }
 }
 
 /*

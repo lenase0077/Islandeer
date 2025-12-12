@@ -27,6 +27,8 @@
 #include <cmath>
 #include "InterfazEstado.h"
 #include "TextoFlotante.h"
+#include "SistemaDeParticulas.h"
+
 
 class Game
 {
@@ -42,15 +44,24 @@ class Game
         void intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv);
         void intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& listaLoots, FabricaItems& fabItems);
         bool esSueloCultivable(int tileID);
+
+        ///refactorizacion para mejor lectura
+        void procesarAtaqueEstructura(Estructura* estructura, const sf::FloatRect& rectEspada, InventarioInterfaz& inv);
+
+        void usarItemEnMano(Personaje& character, InventarioInterfaz& inv);
+
         void mostrarTexto (std::string mensaje, float x, float y);
         void mostrarTexto (std::string mensaje, float x, float y, float duracion);
 
     private:
         InterfazEstado _interfazEstado;
         std::list<std::unique_ptr<TextoFlotante>> _listaTextos;
+        
+        sf::SoundBuffer _bufferComer;
+        sf::Sound _sonidoComer;
 
         sf::Texture _texturaPersonaje;
-        Personaje _personaje;
+        Personaje character;
         sf::RenderWindow window;
         sf::Vector2f _posicionPersonaje;
         sf::Clock _relojInterno;
@@ -80,6 +91,8 @@ class Game
 
 /// --- VARIABLES DE USO PARA FADE IN Y FADE OUT TEST
 
+        bool _transicionMenuJugando = false;
+
         sf::RectangleShape _fadeRect;   // El rectangulo negro
         float _fadeAlpha = 0.0f;        // Transparencia actual
         bool _enTransicion = false;
@@ -89,6 +102,8 @@ class Game
         void actualizarFade(Personaje& character);
         void iniciarTeletransporte(float x, float y);
         void verificarTeleports(Personaje& character);
+
+        SistemaParticulas _particulas;
 
 
 };

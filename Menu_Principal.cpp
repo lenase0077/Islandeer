@@ -39,6 +39,9 @@ MenuPrincipal::MenuPrincipal()
     if (!_imagenVolver.loadFromFile("Volver.png")) {
         std::cout << "Error al cargar Volver.png" << std::endl;
     }
+    if (!_imagenNuevaPartida.loadFromFile("Nueva partida.png")) {
+        std::cout << "Error al cargar NuevaPartida.png" << std::endl;
+    }
 
     ///==========AUDIO===========
 
@@ -53,6 +56,7 @@ MenuPrincipal::MenuPrincipal()
     ///======TEXTURAS======
 
     _texturaLogo.loadFromImage(_imagenLogo);
+    _texturaBotonNuevaPartida.loadFromImage(_imagenNuevaPartida);
     _texturaBotonJugar.loadFromImage(_imagenJugar);
     _texturaBotonOpciones.loadFromImage(_imagenOpciones);
     _texturaBotonSalir.loadFromImage(_imagenSalir);
@@ -62,6 +66,7 @@ MenuPrincipal::MenuPrincipal()
     ///=====SPRITES=====
 
     _spriteLogo.setTexture(_texturaLogo);
+    _spriteBotonNuevaPartida.setTexture(_texturaBotonNuevaPartida);
     _spriteBotonJugar.setTexture(_texturaBotonJugar);
     _spriteBotonOpciones.setTexture(_texturaBotonOpciones);
     _spriteBotonSalir.setTexture(_texturaBotonSalir);
@@ -72,6 +77,7 @@ MenuPrincipal::MenuPrincipal()
     ///======ORIGENES=====
 
     _spriteLogo.setOrigin(_spriteLogo.getLocalBounds().width / 2 , _spriteLogo.getLocalBounds().height / 2);
+    _spriteBotonNuevaPartida.setOrigin(_spriteBotonNuevaPartida.getLocalBounds().width / 2 , _spriteBotonNuevaPartida.getLocalBounds().height / 2);
     _spriteBotonJugar.setOrigin(_spriteBotonJugar.getLocalBounds().width / 2 , _spriteBotonJugar.getLocalBounds().height / 2);
     _spriteBotonOpciones.setOrigin(_spriteBotonOpciones.getLocalBounds().width / 2 , _spriteBotonOpciones.getLocalBounds().height / 2);
     _spriteBotonSalir.setOrigin(_spriteBotonSalir.getLocalBounds().width / 2 , _spriteBotonSalir.getLocalBounds().height / 2);
@@ -83,6 +89,7 @@ MenuPrincipal::MenuPrincipal()
     float centroVentanaX = 1024.f / 2.f;
     _spriteLogo.setScale(0.5,0.5);
 
+    _spriteBotonNuevaPartida.setScale(1,1);
     _spriteBotonJugar.setScale(1,1);
     _spriteBotonOpciones.setScale(1,1);
     _spriteBotonSalir.setScale(1,1);
@@ -91,7 +98,8 @@ MenuPrincipal::MenuPrincipal()
     _spriteBackground.setScale(1,1);
 
     ///======POSICIONES=====
-    _spriteLogo.setPosition(centroVentanaX, 100 + _spriteLogo.getGlobalBounds().height / 2);
+    _spriteLogo.setPosition(centroVentanaX, 50 + _spriteLogo.getGlobalBounds().height / 2);
+    _spriteBotonNuevaPartida.setPosition(centroVentanaX, 300);
     _spriteBotonJugar.setPosition(centroVentanaX, 420);
     _spriteBotonOpciones.setPosition(centroVentanaX, 550);
     _spriteBotonSalir.setPosition(centroVentanaX, 680);
@@ -112,6 +120,7 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
 {
     Comandos& input = Comandos::getInstancia();
 
+    bool hoverNuevaPartida = clickEnPixel(mousePos, _spriteBotonNuevaPartida, _imagenNuevaPartida);
     bool hoverJugar = clickEnPixel(mousePos, _spriteBotonJugar , _imagenJugar);
     bool hoverOpciones = clickEnPixel(mousePos, _spriteBotonOpciones , _imagenOpciones);
     bool hoverSalir = clickEnPixel(mousePos, _spriteBotonSalir , _imagenSalir);
@@ -136,6 +145,17 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
         {
             lerp(_escalaBotonJugar , escalaObjetivoNormal , suavizado);
             lerp (_rotacionBotonJugar , rotacionObjetivoNormal , suavizado);
+        }
+
+        if (hoverNuevaPartida)
+        {
+            lerp(_escalaBotonNuevaPartida , escalaObjetivoGrande , suavizado);
+            lerp (_rotacionBotonNuevaPartida , rotacionObjetivo , suavizado);
+        }
+        else
+        {
+            lerp(_escalaBotonNuevaPartida , escalaObjetivoNormal , suavizado);
+            lerp (_rotacionBotonNuevaPartida , rotacionObjetivoNormal , suavizado);
         }
 
         if (hoverOpciones)
@@ -164,6 +184,9 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
         _spriteBotonJugar.setScale(_escalaBotonJugar , _escalaBotonJugar);
         _spriteBotonJugar.setRotation(_rotacionBotonJugar);
 
+        _spriteBotonNuevaPartida.setScale(_escalaBotonNuevaPartida, _escalaBotonNuevaPartida);
+        _spriteBotonNuevaPartida.setRotation(_rotacionBotonNuevaPartida);
+
         _spriteBotonOpciones.setScale(_escalaBotonOpciones , _escalaBotonOpciones);
         _spriteBotonOpciones.setRotation(_rotacionBotonOpciones);
 
@@ -176,6 +199,8 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
             {
                 return OpcionMenu::Jugar;
             }
+            if (hoverNuevaPartida)
+                return OpcionMenu::NuevaPartida;
 
             if (hoverOpciones)
             {
@@ -336,6 +361,7 @@ void MenuPrincipal::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 
     if (_estadoMenu == EstadoMenu::Principal)
     {
+        target.draw(_spriteBotonNuevaPartida, states);
         target.draw(_spriteBotonJugar, states);
         target.draw(_spriteBotonOpciones, states);
         target.draw(_spriteBotonSalir, states);
