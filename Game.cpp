@@ -55,8 +55,6 @@ void Game::run()
 /// ======================== Reloj Externo =========================///
     FabricaEstructuras fabE;
 
-    sf::Keyboard tecladoEntrada;
-
     //RELOJ INTERNO/////
 
     float deltatime;
@@ -72,6 +70,11 @@ void Game::run()
     inv.agregarItem(31,16);
     inv.agregarItem(32,16);
     inv.agregarItem(33,16);
+
+
+    inv.agregarItem(25,16);
+    inv.agregarItem(26,16);
+    inv.agregarItem(42,16);
 
 
     inv.agregarItem(44,30);
@@ -107,7 +110,6 @@ void Game::run()
 
 /// ======================== Mouse =========================///
     Raton mouse;
-    sf::Mouse mause;
 
 /// ======================== Camara =========================///
     Camara.setSize({300.f, 300.f});
@@ -164,6 +166,14 @@ void Game::run()
     sonido.setBuffer(buffer);
     sonido.setVolume(_menuPrincipal.getVolumen());
     sonido.setLoop(true);
+
+
+    if (!_bufferComer.loadFromFile("comer.wav"))
+    {
+        cout << "Error al cargar comer.wav" << endl;
+    }
+    _sonidoComer.setBuffer(_bufferComer);
+    _sonidoComer.setVolume(_menuPrincipal.getVolumen());
 
 
 /// ESTRUCTURA TEST
@@ -318,17 +328,35 @@ void Game::run()
 
             sf::Vector2f posMouseWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window), Camara);
 
-            /// ======================== Test spawn =========================///
-            if (Comandos::getInstancia().mouseDerPresionado)
-            {
-                static sf::Clock relojPlantar;
-                if (relojPlantar.getElapsedTime().asSeconds() > 0.2f)
+/// ======================== Test spawn =========================///
+                Item* itemEnManoAccion = inv.getItemEnMano();
+
+                if (itemEnManoAccion != nullptr)
                 {
-                    // Solo intentamos plantar
-                    intentarPlantar(posMouseWorld, inv);
-                    relojPlantar.restart();
+                    int id = itemEnManoAccion->getID();
+
+                    if (id >= 31 && id <= 33)
+                    {
+                        if (Comandos::getInstancia().mouseDerPresionado)
+                        {
+                            static sf::Clock relojPlantar;
+                            if (relojPlantar.getElapsedTime().asSeconds() > 0.2f)
+                            {
+                                intentarPlantar(posMouseWorld, inv);
+                                relojPlantar.restart();
+                            }
+                        }
+                    }
+
+                    // COMIDA
+                    else if ((id >= 34 && id <= 48) || id == 25 || id == 26 || id == 30)
+                    {
+                        if (Comandos::getInstancia().mouseDerRecienPresionado)
+                        {
+                            usarItemEnMano(character, inv);
+                        }
+                    }
                 }
-            }
 
             // --- CONTROL CLICK IZQUIERDO (ROMPER CULTIVO)
             if (Comandos::getInstancia().mouseIzqPresionado)
@@ -343,6 +371,11 @@ void Game::run()
                 }
             }
 
+
+
+
+
+
 /// ======================== Primeros drawables =========================///
 
             window.clear(sf::Color::Black);
@@ -353,6 +386,7 @@ void Game::run()
             {
                 window.draw(*cultivo);
             }
+            _particulas.draw(window);
             window.draw(character);
 
             character.getColisionador().draw(window);
@@ -418,6 +452,7 @@ void Game::run()
 
             character.cmd(deltatime);
             sf::Vector2f PosicionJugador = character.getPosition();
+
 
 
 
@@ -680,6 +715,21 @@ void Game::run()
 /// ======================== INICIO UPDATE =========================///
 
             character.update(deltatime);
+
+            if (character.estaEnvenenado())
+            {
+                if (rand() % 10 == 0)
+                    {
+                        _particulas.emitirVeneno(character.getPosition());
+                    }
+            }
+
+            if (character.tienePoderDorado())
+            {
+                _particulas.emitirBrilloDorado(character.getPosition());
+            }
+
+            _particulas.update(deltatime);
 
             character.updateEspada(mouse);
             _minimap.update(character.getPosition());
@@ -1071,6 +1121,97 @@ void Game::procesarAtaqueEstructura(Estructura* estructura, const sf::FloatRect&
         // Aplicar Daño
         estructura->recibirGolpe(danioFinal);
         cout << "Daño: " << danioFinal << endl;
+    }
+}
+
+
+void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
+{
+    Item* item = inv.getItemEnMano();
+
+    if (item == nullptr) return;
+
+    int id = item->getID();
+    bool seConsumio = false;
+
+    switch(id)
+    {
+
+        case 34: // Manzana
+        case 35: // Banana
+        case 36: // Coco
+        case 38: // Zanahoria
+        case 40: // Papa Cruda
+
+        if (character.getHambre() < character.getHambreMaxima())
+        {
+            character.setHambre(character.getHambre() + 15);
+
+            character.setVida(character.getVida() + 5);
+            cout << "Comio algo" << endl;
+            seConsumio = true;
+        }
+        break;
+
+        case 39: // Zanahoria Cocida
+        case 41: // Papa Cocinada
+        case 44: // Huevo Frito
+        case 46: // Cerdo Cocido
+        case 48: // Carne Cocida
+             if (character.getHambre() < character.getHambreMaxima()) {
+                character.setHambre(character.getHambre() + 35);
+                character.setVida(character.getVida() + 20);
+                seConsumio = true;
+                cout << "Creo que comi algo" << endl;
+            }
+            break;
+
+        case 26: // Hongo weno
+            if (character.getVida() < character.getVidaMaxima()) {
+                character.setVida(character.getVida() + 50);
+                seConsumio = true;
+            }
+            break;
+
+        case 25: // Hongo malo
+
+            character.envenenar(5.0f);
+            character.setHambre(character.getHambre() + 5);
+            cout << "Tenes ganas de cagar...!" << endl;
+            seConsumio = true;
+            break;
+
+        case 42: // Papa de Oro
+                character.setVida(character.getVida() + 50);
+                character.setHambre(character.getHambreMaxima());
+
+                // 2. Activar BUFF por 10 segundos
+                character.activarPoderDorado(10.0f);
+
+                cout << "Me rompi una muela masticando esto" << endl;
+                seConsumio = true;
+                break;
+
+
+
+
+    }
+
+
+    if (seConsumio)
+    {
+        float pitchRandom = (rand() % 41 + 100) / 100.0f;
+
+        _sonidoComer.setPitch(pitchRandom);
+        _sonidoComer.play();
+
+        inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
+        if (inv.getItemEnMano() == nullptr){
+            character.quitarItemEnMano();
+        }
+    }
+    else {
+        cout << "No te podes comer esto, bobo" << endl;
     }
 }
 

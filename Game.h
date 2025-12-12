@@ -26,6 +26,7 @@
 #include <set>
 #include <cmath>
 #include "InterfazEstado.h"
+#include "SistemaDeParticulas.h"
 
 
 class Game
@@ -46,11 +47,15 @@ class Game
         ///refactorizacion para mejor lectura
         void procesarAtaqueEstructura(Estructura* estructura, const sf::FloatRect& rectEspada, InventarioInterfaz& inv);
 
+        void usarItemEnMano(Personaje& character, InventarioInterfaz& inv);
+
 
     private:
         InterfazEstado _interfazEstado;
 
 
+        sf::SoundBuffer _bufferComer;
+        sf::Sound _sonidoComer;
 
         sf::Texture _texturaPersonaje;
         Personaje _personaje;
@@ -92,6 +97,8 @@ class Game
         void actualizarFade(Personaje& character);
         void iniciarTeletransporte(float x, float y);
         void verificarTeleports(Personaje& character);
+
+        SistemaParticulas _particulas;
 
 
 };

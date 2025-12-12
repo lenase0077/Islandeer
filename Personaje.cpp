@@ -24,7 +24,11 @@ Personaje::Personaje(sf::Texture& _textura)
     _vidaMaxima(100),
     _energia(100),
     _hambre(100),
-    _hambreMaxima(100) {
+    _hambreMaxima(100),
+    _tiempoVenenoRestante(0.0f),
+    _acumuladorDanioVeneno(0.0f),
+    _tiempoPoderDorado(0.0f),
+    _acumuladorRegeneracion(0.0f) {
 
     _sprite.setTexture(_textura);
 
@@ -65,6 +69,14 @@ Personaje::Personaje(sf::Texture& _textura, int alto, int ancho)
 void Personaje::setVida(float vida)
 {
     _vida = vida;
+
+    if (_vida > _vidaMaxima)
+    {
+        _vida = _vidaMaxima;
+    }
+
+
+
 }
 
 float Personaje::getVida()
@@ -285,6 +297,32 @@ void Personaje::update(float deltatime)
     manejarPasos();
     move(_velocidad);
 
+    // === PODER DE LA PAPA DE ORO ===
+    if (_tiempoPoderDorado > 0)
+    {
+        float dt = deltatime / 1000.0f;
+        _tiempoPoderDorado -= dt;
+        _acumuladorRegeneracion += dt;
+
+        // 1. REGENERACION
+        if (_acumuladorRegeneracion >= 0.2f)
+        {
+            setVida(getVida() + 5);
+            _acumuladorRegeneracion = 0.0f;
+        }
+
+        // 2. VELOCIDAD EXTRA
+        move(_velocidad * 1.2f);
+
+        // 3. TERMINA EL EFECTO
+        if (_tiempoPoderDorado <= 0)
+        {
+            _tiempoPoderDorado = 0;
+            _sprite.setColor(sf::Color::White);
+        }
+    }
+
+
 
     if (_movimiento == 2)
     {
@@ -307,7 +345,21 @@ void Personaje::update(float deltatime)
         _spriteHerramienta.setPosition(8, 0);
     }
 
+    if (_tiempoVenenoRestante > 0)
+        {
+            float dtSegundos = deltatime / 1000.0f;
+            _tiempoVenenoRestante -= dtSegundos;
+            _acumuladorDanioVeneno += dtSegundos;
+            if (_acumuladorDanioVeneno >= 1.0f)
+            {
+                setVida(getVida() - 5);
 
+
+                _acumuladorDanioVeneno = 0.0f;
+            }
+
+            if (_tiempoVenenoRestante < 0) _tiempoVenenoRestante = 0;
+        }
     actualizarAnimacionAtaque(deltatime);
 // usar esto
 }
@@ -622,4 +674,27 @@ sf::FloatRect Personaje::getAreaAtaque() const
     }
 
     return areaAtaque;
+}
+
+void Personaje::envenenar(float tiempoSegundos)
+{
+    _tiempoVenenoRestante = tiempoSegundos;
+    _acumuladorDanioVeneno = 0.0f; // Reseteamos el tic
+}
+
+bool Personaje::estaEnvenenado() const
+{
+    return _tiempoVenenoRestante > 0.0f;
+}
+
+void Personaje::activarPoderDorado(float tiempo)
+{
+    _tiempoPoderDorado = tiempo;
+    _acumuladorRegeneracion = 0.0f;
+    _sprite.setColor(sf::Color(255, 215, 0));
+}
+
+bool Personaje::tienePoderDorado() const
+{
+    return _tiempoPoderDorado > 0.0f;
 }
