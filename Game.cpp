@@ -285,6 +285,9 @@ void Game::run()
                 _fadeAlpha = 0.0f;
                 _estadoFade = 1;
 
+                mostrarTexto("Necesito salir de aqui" , character.getPosition().x - 10, character.getPosition().y - 10, 5000);
+
+
 
 
                 cout << "Anotacion de lean - Empate nueva partida" << endl;
@@ -326,7 +329,6 @@ void Game::run()
 
                     _transicionMenuJugando = false;
 
-                    mostrarTexto("Necesito salir de aqui" , character.getPosition().x - 10, character.getPosition().y - 10, 5);
 
 
 
