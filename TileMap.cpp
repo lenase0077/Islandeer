@@ -132,20 +132,12 @@ bool TileMap::loadFromJSON(const std::string& filename,
                     {
                         Colisionador colision;
                         sf::FloatRect tamanioColision(
-                            (x * _tileWidth) + _tileWidth / 2, y * _tileHeight, _tileWidth / 2, _tileHeight);
+                            (x * _tileWidth), y * _tileHeight, _tileWidth , _tileHeight / 2);
                         colision.setColision(tamanioColision);
                         _colisiones.push_back(colision);
                         break;
                     }
-                    case 291:
-                    {
-                        Colisionador colision;
-                        sf::FloatRect tamanioColision(
-                            x * _tileWidth,  (y *_tileHeight) + _tileHeight / 2 , _tileWidth, _tileHeight /2);
-                        colision.setColision(tamanioColision);
-                        _colisiones.push_back(colision);
-                        break;
-                    }
+
                     }
                 }
             }

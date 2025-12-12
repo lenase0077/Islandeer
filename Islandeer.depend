@@ -445,7 +445,7 @@
 1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\funciones.h
 	<SFML/Graphics.hpp>
 
-1765576322 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1765582385 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
@@ -826,7 +826,7 @@
 	<iostream>
 	"Raton.h"
 
-1765576316 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.cpp
+1765582195 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.cpp
 	"tilemap.h"
 	<fstream>
 	<iostream>
@@ -4295,11 +4295,11 @@
 1765576316 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\sistemadeparticulas.cpp
 	"SistemaDeParticulas.h"
 
-1765576316 c:\users\leand\onedrive\documentos\repositorio\islandeer\textoflotante.h
+1765579178 c:\users\leand\onedrive\documentos\repositorio\islandeer\textoflotante.h
 	<SFML/Graphics.hpp>
 	"string"
 
-1765574499 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\textoflotante.cpp
+1765579178 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\textoflotante.cpp
 	<iostream>
 	"TextoFlotante.h"
 
