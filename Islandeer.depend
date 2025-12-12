@@ -445,7 +445,7 @@
 1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\funciones.h
 	<SFML/Graphics.hpp>
 
-1765544484 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1765545897 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
@@ -824,7 +824,7 @@
 	<iostream>
 	"Raton.h"
 
-1764592981 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.cpp
+1765545878 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.cpp
 	"tilemap.h"
 	<fstream>
 	<iostream>

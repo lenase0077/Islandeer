@@ -98,7 +98,7 @@ bool TileMap::loadFromJSON(const std::string& filename,
                 if (capaIndex == 1 && localID >= 0) {
                     switch(gid) {
                     case 161:
-                    case 162:
+                    case 257:
                     {
                         Colisionador colision;
                         sf::FloatRect tamanioColision(
@@ -107,7 +107,7 @@ bool TileMap::loadFromJSON(const std::string& filename,
                         _colisiones.push_back(colision);
                         break;
                     }
-                    case 163:
+                    case 258:
                     {
                         Colisionador colision;
                         sf::FloatRect tamanioColision(
@@ -116,7 +116,7 @@ bool TileMap::loadFromJSON(const std::string& filename,
                         _colisiones.push_back(colision);
                         break;
                     }
-                    case 193:
+                    case 289:
                     {
                         Colisionador colision;
                         sf::FloatRect tamanioColision(
@@ -125,7 +125,7 @@ bool TileMap::loadFromJSON(const std::string& filename,
                         _colisiones.push_back(colision);
                         break;
                     }
-                    case 194:
+                    case 290:
                     {
                         Colisionador colision;
                         sf::FloatRect tamanioColision(
@@ -134,7 +134,7 @@ bool TileMap::loadFromJSON(const std::string& filename,
                         _colisiones.push_back(colision);
                         break;
                     }
-                    case 195:
+                    case 291:
                     {
                         Colisionador colision;
                         sf::FloatRect tamanioColision(
