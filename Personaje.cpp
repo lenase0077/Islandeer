@@ -95,7 +95,7 @@ void Personaje::animarPersonaje()
         fila = _movimiento;
 
         ///Verificamos si ya paso mas de 100 milisegundos
-        if (_animacion.getElapsedTime().asMilliseconds() > 100)
+        if (_animacion.getElapsedTime().asMilliseconds() > 200)
         {
             ///Avanzamos al siguiente frame
             if (_frameActual >= _maxFrame)
