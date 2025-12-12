@@ -445,13 +445,13 @@
 1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\funciones.h
 	<SFML/Graphics.hpp>
 
-1765558067 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1765558363 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1765556482 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
+1765558363 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
 	"Cultivos.h"
 	"FabricaCultivos.h"
 	<iostream>
@@ -481,7 +481,7 @@
 	"InterfazEstado.h"
 	"SistemaDeParticulas.h"
 
-1765557719 c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.h
+1765558363 c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.h
 	"Colisionador.h"
 	<SFML/Graphics.hpp>
 	"Funciones.h"
@@ -814,7 +814,7 @@
 
 1764170642 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\movimiento_ia.cpp
 
-1765558110 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
+1765558363 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
 	<iostream>
 	"Personaje.h"
 	"Funciones.h"
@@ -825,7 +825,7 @@
 	<iostream>
 	"Raton.h"
 
-1765548541 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.cpp
+1765559796 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.cpp
 	"tilemap.h"
 	<fstream>
 	<iostream>
@@ -3931,7 +3931,7 @@
 	<iostream>
 	<sstream>
 
-1765474694 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\mesadecrafteo.cpp
+1765558317 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\mesadecrafteo.cpp
 	"MesaDeCrafteo.h"
 	"Comando.h"
 	<cmath>
@@ -4280,15 +4280,15 @@
 	"InterfazEstado.h"
 	<iostream>
 
-1765557860 c:\users\leand\onedrive\documentos\repositorio\islandeer\sistemadeparticulas.h
+1765558363 c:\users\leand\onedrive\documentos\repositorio\islandeer\sistemadeparticulas.h
 	"Particula.h"
 	<SFML/Graphics.hpp>
 	<vector>
 	<cmath>
 
-1765556230 c:\users\leand\onedrive\documentos\repositorio\islandeer\particula.h
+1765558363 c:\users\leand\onedrive\documentos\repositorio\islandeer\particula.h
 	<SFML/Graphics.hpp>
 
-1765558009 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\sistemadeparticulas.cpp
+1765558363 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\sistemadeparticulas.cpp
 	"SistemaDeParticulas.h"
 

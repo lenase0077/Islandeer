@@ -109,12 +109,15 @@
 		<Unit filename="Movimiento_IA.h" />
 		<Unit filename="Murcielago.cpp" />
 		<Unit filename="Murcielago.h" />
+		<Unit filename="Particula.h" />
 		<Unit filename="Personaje.cpp" />
 		<Unit filename="Personaje.h" />
 		<Unit filename="Raton.cpp" />
 		<Unit filename="Raton.h" />
 		<Unit filename="SeleccionRectangulo.cpp" />
 		<Unit filename="SeleccionRectangulo.h" />
+		<Unit filename="SistemaDeParticulas.cpp" />
+		<Unit filename="SistemaDeParticulas.h" />
 		<Unit filename="TileMap.cpp" />
 		<Unit filename="TileMap.h" />
 		<Unit filename="funcionesInterpolacion.cpp" />

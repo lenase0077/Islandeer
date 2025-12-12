@@ -114,7 +114,7 @@ bool TileMap::loadFromJSON(const std::string& filename,
                     {
                         Colisionador colision;
                         sf::FloatRect tamanioColision(
-                            x * _tileWidth, y * _tileHeight, _tileWidth, _tileHeight / 2);
+                            x * _tileWidth, y * _tileHeight, _tileWidth, _tileHeight);
                         colision.setColision(tamanioColision);
                         _colisiones.push_back(colision);
                         break;

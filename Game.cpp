@@ -854,7 +854,7 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
 
             bool esArena = (idTile == 35 || idTile == 79);
 
-            bool esCueva = (idTile == 140);
+            bool esCueva = (idTile == 132);
 
 
             float posX = x * tileW;
