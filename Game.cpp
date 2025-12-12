@@ -319,7 +319,7 @@ void Game::run()
             sf::Vector2f posMouseWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window), Camara);
 
             /// ======================== Test spawn =========================///
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+            if (Comandos::getInstancia().mouseDerPresionado)
             {
                 static sf::Clock relojPlantar;
                 if (relojPlantar.getElapsedTime().asSeconds() > 0.2f)
@@ -331,7 +331,7 @@ void Game::run()
             }
 
             // --- CONTROL CLICK IZQUIERDO (ROMPER CULTIVO)
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            if (Comandos::getInstancia().mouseIzqPresionado)
             {
                 static sf::Clock relojRomper;
                 if (relojRomper.getElapsedTime().asSeconds() > 0.2f)
@@ -339,7 +339,6 @@ void Game::run()
                     // Intentamos romper/cosechar el cultivo
                     intentarCosecharClick(posMouseWorld, listaLoots, fabItems);
 
-                    // Aqu� tambi�n podr�as poner l�gica de atacar enemigos si no hay cultivo
                     relojRomper.restart();
                 }
             }
