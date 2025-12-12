@@ -26,6 +26,7 @@
 #include <set>
 #include <cmath>
 #include "InterfazEstado.h"
+#include "TextoFlotante.h"
 #include "SistemaDeParticulas.h"
 
 
@@ -49,11 +50,13 @@ class Game
 
         void usarItemEnMano(Personaje& character, InventarioInterfaz& inv);
 
+        void mostrarTexto (std::string mensaje, float x, float y);
+        void mostrarTexto (std::string mensaje, float x, float y, float duracion);
 
     private:
         InterfazEstado _interfazEstado;
-
-
+        std::list<std::unique_ptr<TextoFlotante>> _listaTextos;
+        
         sf::SoundBuffer _bufferComer;
         sf::Sound _sonidoComer;
 

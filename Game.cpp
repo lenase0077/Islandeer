@@ -25,10 +25,6 @@ void Game::run()
     list <Loot> listaLoots;
     list <std::unique_ptr<Estructura>> listaEstructuraRandom;
 
-
-
-
-
     sf::Texture texturaInventarioResumido;
     if(!texturaInventarioResumido.loadFromFile("InventarioResumido.png"))
     {
@@ -44,6 +40,10 @@ void Game::run()
         std::cout << "Error cargando textura Cultivos" << std::endl;
     }
 
+    if (!fontReloj.loadFromFile("PIXEARG_.TTF"))
+    {
+        cout << "Error al cargar PIXEARG_.TTF" << endl;
+    }
 
 /// ======================== Configuracion del FADE  =========================///
 
@@ -214,6 +214,7 @@ void Game::run()
 
     regenerarRecursos(listaEstructuraRandom);
 
+//    character.setPosicion(100*32, 100*32);
 //    character.setPosicion(100*32, 100*32);
 
 
@@ -616,6 +617,7 @@ void Game::run()
                         // --- APLICAR DAÑO ---
                         animal->bajarVida(danioFinal);
                         cout << "¡Hit! Daño: " << danioFinal << endl;
+                        mostrarTexto("Toma Wacha", character.getPosition().x, character.getPosition().y - 10, 3);
 
                         // --- KNOCKBACK FUERTE POR GOLPE ---
                         sf::Vector2f empujeGolpe = animal->getPosition() - character.getPosition();
@@ -757,6 +759,24 @@ void Game::run()
                 cultivo->update(deltatime);
             }
 
+/// ======================== UPDATE TEXTOS =========================///
+
+            // Usamos un while con iterador para poder borrar los textos  que "mueren"
+            auto itTexto = _listaTextos.begin();
+            while (itTexto != _listaTextos.end())
+            {
+                (*itTexto)->update(deltatime);
+
+                if ((*itTexto)->estaDestruido() == true)
+                {
+                    itTexto = _listaTextos.erase(itTexto); // Lo borramos de la memoria y la lista
+                }
+                else
+                {
+                    itTexto++;
+                }
+            }
+
 /// ======================== TEST HERRAMIENTAS =========================///
 
 
@@ -815,8 +835,12 @@ void Game::run()
             window.draw(invR);
             window.draw(inventarioCofre);
 
-
             window.draw(inv);
+
+            for (auto& texto : _listaTextos)
+            {
+                window.draw(*texto);
+            }
 
             window.setView(window.getDefaultView());
 
@@ -1146,7 +1170,6 @@ void Game::intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& li
             // Intentamos cosechar
             if ((*it)->intentarCosechar(listaLoots, fabItems))
             {
-
                 // Si devolvio true (se rompio/cosecho), lo borramos de la lista
                 // erase devuelve el puntero al siguiente elemento, pero como hacemos return, no importa tanto
                 it = _listaCultivos.erase(it);
@@ -1158,6 +1181,16 @@ void Game::intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& li
         // Si no paso nada, avanzamos al siguiente cultivo
         it++;
     }
+}
+
+void Game::mostrarTexto (std::string mensaje, float x, float y)
+{
+    _listaTextos.push_back(std::make_unique<TextoFlotante>(fontReloj, mensaje, x, y - 50));
+}
+
+void Game::mostrarTexto (std::string mensaje, float x, float y, float duracion)
+{
+    _listaTextos.push_back(std::make_unique<TextoFlotante>(fontReloj, mensaje, x, y - 50, duracion));
 }
 
 
