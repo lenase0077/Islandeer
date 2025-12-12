@@ -1087,7 +1087,7 @@ void Game::verificarTeleports(Personaje& character)
     int tileY = static_cast<int>(character.getPosition().y / 32);
 
     // ================== CUEVA 1 ==================
-    if (tileX == 84 && tileY == 91)
+    if (tileX == 84 && tileY == 90)
     {
         iniciarTeletransporte(166 * 32, 6 * 32);
     }
@@ -1287,7 +1287,8 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
     case 25: // Hongo malo
 
         character.envenenar(5.0f);
-        character.setHambre(character.getHambre() + 5);
+
+        character.setHambre(character.getHambre() - 25);
         cout << "Tenes ganas de cagar...!" << endl;
         seConsumio = true;
         break;
