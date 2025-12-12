@@ -98,6 +98,9 @@ bool TileMap::loadFromJSON(const std::string& filename,
                 if (capaIndex == 1 && localID >= 0) {
                     switch(gid) {
                     case 161:
+                    case 321:
+                    case 353:
+                    case 385:
                     case 257:
                     {
                         Colisionador colision;
