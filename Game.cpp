@@ -589,6 +589,7 @@ for (auto estructura = listaEstructuraRandom.begin(); estructura != listaEstruct
                 if (itemEnMano != nullptr)
                 {
                     danioFinal = itemEnMano->obtenerFuerza(matEstructura);
+                    cout << "El dmg total es de: " << danioFinal << endl;
 
                     // Solo gastamos durabilidad si realmente golpeamos algo rompible
                     itemEnMano->usar();
