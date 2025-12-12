@@ -621,7 +621,7 @@ void Game::run()
                         // --- APLICAR DAÑO ---
                         animal->bajarVida(danioFinal);
                         cout << "¡Hit! Daño: " << danioFinal << endl;
-                        mostrarTexto("Toma Wacha", character.getPosition().x, character.getPosition().y - 10, 3);
+                        mostrarTexto("Toma Wacha", character.getPosition().x, character.getPosition().y - 10, 2000);
 
                         // --- KNOCKBACK FUERTE POR GOLPE ---
                         sf::Vector2f empujeGolpe = animal->getPosition() - character.getPosition();

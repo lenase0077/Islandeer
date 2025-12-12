@@ -3636,13 +3636,13 @@
 1761750014 d:\alejo\alemart\documents\github\islander\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1765547388 source:d:\alejo\alemart\documents\github\islander\game.cpp
+1765577021 source:d:\alejo\alemart\documents\github\islander\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1765545402 d:\alejo\alemart\documents\github\islander\game.h
+1765574855 d:\alejo\alemart\documents\github\islander\game.h
 	"Cultivos.h"
 	"FabricaCultivos.h"
 	<iostream>
@@ -3670,8 +3670,10 @@
 	<set>
 	<cmath>
 	"InterfazEstado.h"
+	"TextoFlotante.h"
+	"SistemaDeParticulas.h"
 
-1765545402 d:\alejo\alemart\documents\github\islander\personaje.h
+1765574855 d:\alejo\alemart\documents\github\islander\personaje.h
 	"Colisionador.h"
 	<SFML/Graphics.hpp>
 	"Funciones.h"
@@ -3810,7 +3812,7 @@
 	<list>
 	<memory>
 
-1764252732 d:\alejo\alemart\documents\github\islander\menu_principal.h
+1765574855 d:\alejo\alemart\documents\github\islander\menu_principal.h
 	<SFML/Graphics.hpp>
 	"Comando.h"
 	<SFML/Audio.hpp>
@@ -3854,7 +3856,7 @@
 	<iostream>
 	<ctime>
 
-1764332899 source:d:\alejo\alemart\documents\github\islander\menu_principal.cpp
+1765574855 source:d:\alejo\alemart\documents\github\islander\menu_principal.cpp
 	"Menu_Principal.h"
 	<iostream>
 
@@ -3873,7 +3875,7 @@
 1763638803 source:d:\alejo\alemart\documents\github\islander\murcielago.cpp
 	"Murcielago.h"
 
-1765546922 source:d:\alejo\alemart\documents\github\islander\personaje.cpp
+1765574855 source:d:\alejo\alemart\documents\github\islander\personaje.cpp
 	<iostream>
 	"Personaje.h"
 	"Funciones.h"
@@ -3889,7 +3891,7 @@
 	<SFML/Graphics.hpp>
 	<iostream>
 
-1764593073 source:d:\alejo\alemart\documents\github\islander\tilemap.cpp
+1765574855 source:d:\alejo\alemart\documents\github\islander\tilemap.cpp
 	"tilemap.h"
 	<fstream>
 	<iostream>
@@ -4138,7 +4140,7 @@
 	"Horno.h"
 	<cmath>
 
-1765398571 source:d:\alejo\alemart\documents\github\islander\mesadecrafteo.cpp
+1765574855 source:d:\alejo\alemart\documents\github\islander\mesadecrafteo.cpp
 	"MesaDeCrafteo.h"
 	"Comando.h"
 	<cmath>
@@ -4298,6 +4300,26 @@
 	"string"
 
 1765574499 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\textoflotante.cpp
+	<iostream>
+	"TextoFlotante.h"
+
+1765576818 d:\alejo\alemart\documents\github\islander\textoflotante.h
+	<SFML/Graphics.hpp>
+	"string"
+
+1765574855 d:\alejo\alemart\documents\github\islander\sistemadeparticulas.h
+	"Particula.h"
+	<SFML/Graphics.hpp>
+	<vector>
+	<cmath>
+
+1765574855 d:\alejo\alemart\documents\github\islander\particula.h
+	<SFML/Graphics.hpp>
+
+1765574855 source:d:\alejo\alemart\documents\github\islander\sistemadeparticulas.cpp
+	"SistemaDeParticulas.h"
+
+1765577505 source:d:\alejo\alemart\documents\github\islander\textoflotante.cpp
 	<iostream>
 	"TextoFlotante.h"
 
