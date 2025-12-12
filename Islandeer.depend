@@ -3636,7 +3636,7 @@
 1761750014 d:\alejo\alemart\documents\github\islander\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1765577021 source:d:\alejo\alemart\documents\github\islander\game.cpp
+1765583101 source:d:\alejo\alemart\documents\github\islander\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
@@ -4124,7 +4124,7 @@
 1765545402 source:d:\alejo\alemart\documents\github\islander\arboles.cpp
 	"Arboles.h"
 
-1765545402 source:d:\alejo\alemart\documents\github\islander\fabricaestructuras.cpp
+1765582673 source:d:\alejo\alemart\documents\github\islander\fabricaestructuras.cpp
 	"FabricaEstructuras.h"
 	<iostream>
 	<memory>
@@ -4303,7 +4303,7 @@
 	<iostream>
 	"TextoFlotante.h"
 
-1765576818 d:\alejo\alemart\documents\github\islander\textoflotante.h
+1765579296 d:\alejo\alemart\documents\github\islander\textoflotante.h
 	<SFML/Graphics.hpp>
 	"string"
 
@@ -4319,7 +4319,7 @@
 1765574855 source:d:\alejo\alemart\documents\github\islander\sistemadeparticulas.cpp
 	"SistemaDeParticulas.h"
 
-1765577505 source:d:\alejo\alemart\documents\github\islander\textoflotante.cpp
+1765579296 source:d:\alejo\alemart\documents\github\islander\textoflotante.cpp
 	<iostream>
 	"TextoFlotante.h"
 

@@ -440,8 +440,6 @@ void Personaje::Correr(sf::Vector2f& velocidad, float deltatime)
 
         else
         {
-            _energia += 10.f;
-
             if (_hambre > 0)
             {
                 _energia += 2.0f;
