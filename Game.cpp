@@ -7,7 +7,7 @@ using namespace std;
 
 Game::Game()
     : window(sf::VideoMode(1024, 768), "SFML works!"),
-      _personaje(_texturaPersonaje),
+      character(_texturaPersonaje),
       _minimap({150.f, 150.f},
 {
     1024.f - 160.f, 10.f
@@ -117,7 +117,6 @@ void Game::run()
 
 /// ======================== Personaje =========================///
     Personaje character (_texturaPersonaje);
-    cargar(character);
     float hambrePorSegundo = 0.5f;
 
 
@@ -250,11 +249,32 @@ void Game::run()
 
             if (opcion == OpcionMenu::Jugar)
             {
+                cargar(character);
+                cout << "Anotacion de Lean - Estado jugar carga el personaje" << endl;
+
                 _estadoActual = EstadoJuego::Jugando;
                 _menuPrincipal.detenerMusica();
                 sonido.setVolume(_menuPrincipal.getVolumen());
                 sonido.play();
                 _menuPrincipal.actualizar(posMouse);
+                _relojInterno.restart();
+            }
+            else if (opcion == OpcionMenu::NuevaPartida)
+            {
+
+                float posX = 84 * 32.f;
+                float posY = 132 * 32.f;
+                character.setPosicion(posX, posY);
+
+                character.setVida(100);
+                character.setHambre(100);
+
+                cout << "Anotacion de lean - Empate nueva partida" << endl;
+
+                _estadoActual = EstadoJuego::Jugando;
+                _menuPrincipal.detenerMusica();
+                sonido.setVolume(_menuPrincipal.getVolumen());
+                sonido.play();
                 _relojInterno.restart();
             }
 

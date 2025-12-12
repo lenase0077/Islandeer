@@ -8,6 +8,7 @@
 
 enum class OpcionMenu {
     Ninguna,
+    NuevaPartida,
     Jugar,
     Opciones,
     Salir
@@ -23,6 +24,7 @@ class MenuPrincipal : public sf::Drawable, public sf::Transformable{
 private:
     EstadoMenu _estadoMenu = EstadoMenu::Principal;
     sf::Texture _texturaLogo;
+    sf::Texture _texturaBotonNuevaPartida;
     sf::Texture _texturaBotonJugar;
     sf::Texture _texturaBotonOpciones;
     sf::Texture _texturaBotonSalir;
@@ -31,6 +33,7 @@ private:
     sf::Texture _background;
 
     sf::Image _imagenLogo;
+    sf::Image _imagenNuevaPartida;
     sf::Image _imagenJugar;
     sf::Image _imagenOpciones;
     sf::Image _imagenSalir;
@@ -38,6 +41,7 @@ private:
     sf::Image _imagenVolver;
 
     sf::Sprite _spriteLogo;
+    sf::Sprite _spriteBotonNuevaPartida;
     sf::Sprite _spriteBotonJugar;
     sf::Sprite _spriteBotonOpciones;
     sf::Sprite _spriteBotonSalir;
@@ -49,12 +53,15 @@ private:
     sf::Sound sonidoStardew;
     float _volumenGeneral = 10.0f;
 
+
+    float _escalaBotonNuevaPartida = 1.0f;
     float _escalaBotonJugar = 1.0f;
     float _escalaBotonOpciones = 1.0f;
     float _escalaBotonSalir = 1.0f;
     float _escalaBotonVolumenGeneral = 1.0f;
     float _escalaBotonVolver = 1.0f;
 
+    float _rotacionBotonNuevaPartida = 0.0f;
     float _rotacionBotonJugar = 0.0f;
     float _rotacionBotonOpciones = 0.0f;
     float _rotacionBotonSalir = 0.0f;
