@@ -406,7 +406,6 @@ void Personaje::Correr(sf::Vector2f& velocidad, float deltatime)
 void Personaje::manejarPasos()
 {
 
-
     bool estaMoviendo = abs(_velocidad.x) > 0 || abs(_velocidad.y) > 0;
 
     if (estaMoviendo)
