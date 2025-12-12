@@ -69,6 +69,11 @@ void Game::run()
     InventarioInterfaz inventarioCofre(fabItems, "InventarioCofre.png");
 
 
+    inv.agregarItem(31,16);
+    inv.agregarItem(32,16);
+    inv.agregarItem(33,16);
+
+
     inv.agregarItem(44,30);
     inv.agregarItem(0,1);
     inv.agregarItem(2,1);
