@@ -6,8 +6,9 @@ class TextoFlotante : public sf::Drawable, public sf::Transformable
 {
 private:
     sf::Text _texto;
-    float _duracionTotal;
+    sf::Text _sombra;
     float _tiempoDeLectura;
+    float _duracionFade;
     float _tiempoTranscurrido;
     bool _estadestruido;
 
