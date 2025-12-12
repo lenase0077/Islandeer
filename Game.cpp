@@ -446,96 +446,100 @@ void Game::run()
 /// ======================== COLISIONES ANIMALES =========================///
 
 
-sf::FloatRect rectEspada = character.getAreaAtaque();
+            sf::FloatRect rectEspada = character.getAreaAtaque();
 
-for (auto it = animales.begin(); it != animales.end();)
-{
-    // 1. SETUP DEL PUNTERO
-    Mob* mobBase = it->get();
-    Animal* animal = dynamic_cast<Animal*>(mobBase);
-
-    // 2. UPDATE GENERAL
-    mobBase->update(PosicionJugador, deltatime);
-
-    // Colisión con el Mapa
-    for (auto& colisionadorMapa : mapa._colisiones) {
-        animal->chocar(colisionadorMapa);
-    }
-
-    // 3. ORDEÑAR (Click Derecho)
-    // Mantenemos esto con Click Derecho para que no ataque sin querer al ordeñar
-    if (animal != nullptr && sf::Mouse::isButtonPressed(sf::Mouse::Right))
-    {
-        if (animal->getGlobalBounds().contains(posMouseWorld))
-        {
-            Item* itemEnMano = inv.getItemEnMano();
-            // Pasamos inv y fabItems como en tu código original
-            if (animal->intentarOrdeniar(character.getPosition(), itemEnMano, fabItems, inv))
+            for (auto it = animales.begin(); it != animales.end();)
             {
-                cout << "Ordeñada!!" << endl;
-            }
-        }
-    }
+                // 1. SETUP DEL PUNTERO
+                Mob* mobBase = it->get();
+                Animal* animal = dynamic_cast<Animal*>(mobBase);
 
-    if (character.getColisionador().detectorDeColision(animal->getColisionador()))
-    {
-        sf::Vector2f direccionEmpuje = animal->getPosition() - character.getPosition();
-        float magnitud = sqrt(direccionEmpuje.x*direccionEmpuje.x + direccionEmpuje.y*direccionEmpuje.y);
+                // 2. UPDATE GENERAL
+                mobBase->update(PosicionJugador, deltatime);
 
-        if (magnitud > 0) {
-            direccionEmpuje /= magnitud;
-            animal->move(direccionEmpuje * 2.f); // Empuje suave físico
-        }
+                // Colisión con el Mapa
+                for (auto& colisionadorMapa : mapa._colisiones)
+                {
+                    animal->chocar(colisionadorMapa);
+                }
 
-    }
+                // 3. ORDEÑAR (Click Derecho)
+                // Mantenemos esto con Click Derecho para que no ataque sin querer al ordeñar
+                if (animal != nullptr && sf::Mouse::isButtonPressed(sf::Mouse::Right))
+                {
+                    if (animal->getGlobalBounds().contains(posMouseWorld))
+                    {
+                        Item* itemEnMano = inv.getItemEnMano();
+                        // Pasamos inv y fabItems como en tu código original
+                        if (animal->intentarOrdeniar(character.getPosition(), itemEnMano, fabItems, inv))
+                        {
+                            cout << "Ordeñada!!" << endl;
+                        }
+                    }
+                }
 
-    if (golpeHabilitado)
-    {
-        sf::FloatRect rectAnimal = animal->getColisionador().getColision();
+                if (character.getColisionador().detectorDeColision(animal->getColisionador()))
+                {
+                    sf::Vector2f direccionEmpuje = animal->getPosition() - character.getPosition();
+                    float magnitud = sqrt(direccionEmpuje.x*direccionEmpuje.x + direccionEmpuje.y*direccionEmpuje.y);
 
-        if (rectEspada.intersects(rectAnimal))
-        {
-            // --- CÁLCULO DE DAÑO ---
-            Item* itemEnMano = inv.getItemEnMano();
-            TipoMaterial matAnimal = animal->getMaterial(); // recorda tener esto en Animal/Mob
-            float danioFinal = 1.0f;
+                    if (magnitud > 0)
+                    {
+                        direccionEmpuje /= magnitud;
+                        animal->move(direccionEmpuje * 2.f); // Empuje suave físico
+                    }
 
-            if (itemEnMano != nullptr)
-            {
-                danioFinal = itemEnMano->obtenerFuerza(matAnimal);
-                itemEnMano->usar();
+                }
 
-                if (itemEnMano->estaRota()) {
-                    inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
+                if (golpeHabilitado)
+                {
+                    sf::FloatRect rectAnimal = animal->getColisionador().getColision();
+
+                    if (rectEspada.intersects(rectAnimal))
+                    {
+                        // --- CÁLCULO DE DAÑO ---
+                        Item* itemEnMano = inv.getItemEnMano();
+                        TipoMaterial matAnimal = animal->getMaterial(); // recorda tener esto en Animal/Mob
+                        float danioFinal = 1.0f;
+
+                        if (itemEnMano != nullptr)
+                        {
+                            danioFinal = itemEnMano->obtenerFuerza(matAnimal);
+                            itemEnMano->usar();
+
+                            if (itemEnMano->estaRota())
+                            {
+                                inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
+                            }
+                        }
+
+                        // --- APLICAR DAÑO ---
+                        animal->bajarVida(danioFinal);
+                        cout << "¡Hit! Daño: " << danioFinal << endl;
+
+                        // --- KNOCKBACK FUERTE POR GOLPE ---
+                        sf::Vector2f empujeGolpe = animal->getPosition() - character.getPosition();
+                        float mag = sqrt(empujeGolpe.x*empujeGolpe.x + empujeGolpe.y*empujeGolpe.y);
+                        if (mag > 0)
+                        {
+                            empujeGolpe /= mag;
+                            animal->empujar(empujeGolpe * 15.0f); // Empuje fuerte del golpe
+                        }
+                    }
+                }
+
+                // 6. VERIFICAR MUERTE
+                if (animal->getVida() <= 0)
+                {
+                    animal->soltarLoot(fabItems, listaLoots);
+                    it = animales.erase(it); // Borramos y actualizamos iterador
+                }
+                else
+                {
+                    mobBase->move(mobBase->getVelocidad());
+                    ++it; // Avanzamos iterador
                 }
             }
-
-            // --- APLICAR DAÑO ---
-            animal->bajarVida(danioFinal);
-            cout << "¡Hit! Daño: " << danioFinal << endl;
-
-            // --- KNOCKBACK FUERTE POR GOLPE ---
-            sf::Vector2f empujeGolpe = animal->getPosition() - character.getPosition();
-            float mag = sqrt(empujeGolpe.x*empujeGolpe.x + empujeGolpe.y*empujeGolpe.y);
-            if (mag > 0) {
-                empujeGolpe /= mag;
-                animal->empujar(empujeGolpe * 15.0f); // Empuje fuerte del golpe
-            }
-        }
-    }
-
-    // 6. VERIFICAR MUERTE
-    if (animal->getVida() <= 0)
-    {
-        animal->soltarLoot(fabItems, listaLoots);
-        it = animales.erase(it); // Borramos y actualizamos iterador
-    }
-    else
-    {
-        mobBase->move(mobBase->getVelocidad());
-        ++it; // Avanzamos iterador
-    }
-}
 /// ======================== COLISION MAPA =========================///
 
             for (auto& colisionador : mapa._colisiones)
@@ -559,71 +563,72 @@ for (auto it = animales.begin(); it != animales.end();)
 
 /// ======================== Estructura RANDOM =========================///
 
-for (auto estructura = listaEstructuraRandom.begin(); estructura != listaEstructuraRandom.end(); )
-{
-    // Verificamos si la estructura sigue viva
-    if (!(*estructura)->estaDestruido())
-    {
-        window.draw(**estructura);
-        (*estructura)->getColisionador().draw(window);
-
-        // A. FÍSICA (Chocar para no atravesar) =======================
-        // Siempre chequeamos colisión física para el sliding
-
-             character.chocar((*estructura)->getColisionador());
-
-
-        // B. ATAQUE (Hitbox separada) ================================
-        // Solo entramos si atacaste y la estructura se puede romper
-        if (golpeHabilitado && (*estructura)->getRompePorColision())
-        {
-            // Usamos la HITBOX de la espada, no el cuerpo del personaje
-            if (rectEspada.intersects((*estructura)->getColisionador().getColision()))
+            for (auto estructura = listaEstructuraRandom.begin(); estructura != listaEstructuraRandom.end(); )
             {
-                Item* itemEnMano = inv.getItemEnMano();
-                TipoMaterial matEstructura = (*estructura)->getMaterial();
-                float danioFinal = 1.0f; // Daño base (puño)
-
-                // Lógica de Herramientas
-                if (itemEnMano != nullptr)
+                // Verificamos si la estructura sigue viva
+                if (!(*estructura)->estaDestruido())
                 {
-                    danioFinal = itemEnMano->obtenerFuerza(matEstructura);
+                    window.draw(**estructura);
+                    (*estructura)->getColisionador().draw(window);
 
-                    // Solo gastamos durabilidad si realmente golpeamos algo rompible
-                    itemEnMano->usar();
+                    // A. FÍSICA (Chocar para no atravesar) =======================
+                    // Siempre chequeamos colisión física para el sliding
 
-                    // Si se rompe, lo sacamos del inventario
-                    if (itemEnMano->estaRota())
+                    character.chocar((*estructura)->getColisionador());
+
+
+                    // B. ATAQUE (Hitbox separada) ================================
+                    // Solo entramos si atacaste y la estructura se puede romper
+                    if (golpeHabilitado && (*estructura)->getRompePorColision())
                     {
-                        inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
-                        // CUIDADO: itemEnMano ahora es un puntero inválido, no lo uses más abajo.
-                        itemEnMano = nullptr;
+                        // Usamos la HITBOX de la espada, no el cuerpo del personaje
+                        if (rectEspada.intersects((*estructura)->getColisionador().getColision()))
+                        {
+                            Item* itemEnMano = inv.getItemEnMano();
+                            TipoMaterial matEstructura = (*estructura)->getMaterial();
+                            float danioFinal = 1.0f; // Daño base (puño)
+
+                            // Lógica de Herramientas
+                            if (itemEnMano != nullptr)
+                            {
+                                danioFinal = itemEnMano->obtenerFuerza(matEstructura);
+                                cout << "El dmg total es de: " << danioFinal << endl;
+
+                                // Solo gastamos durabilidad si realmente golpeamos algo rompible
+                                itemEnMano->usar();
+
+                                // Si se rompe, lo sacamos del inventario
+                                if (itemEnMano->estaRota())
+                                {
+                                    inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
+                                    // CUIDADO: itemEnMano ahora es un puntero inválido, no lo uses más abajo.
+                                    itemEnMano = nullptr;
+                                }
+                            }
+
+                            // Debug
+                            // cout << "Material: " << (int)matEstructura << " | Dmg: " << danioFinal << endl;
+
+                            // Aplicar Daño
+                            (*estructura)->recibirGolpe(danioFinal);
+
+                            // Efecto visual opcional: Vibración o color rojo
+                            // (*estructura)->setColor(sf::Color::Red); (Si tu estructura lo soporta)
+                        }
                     }
+
+                    // Update normal de la estructura
+                    (*estructura)->update( PosicionJugador, posMouseWorld, Camara, relacion, inv, inventarioCofre, deltatime);
+
+                    estructura++; // Avanzamos al siguiente
                 }
-
-                // Debug
-                // cout << "Material: " << (int)matEstructura << " | Dmg: " << danioFinal << endl;
-
-                // Aplicar Daño
-                (*estructura)->recibirGolpe(danioFinal);
-
-                // Efecto visual opcional: Vibración o color rojo
-                // (*estructura)->setColor(sf::Color::Red); (Si tu estructura lo soporta)
+                else
+                {
+                    // Si está destruido, soltamos loot y borramos
+                    (*estructura)->liberarLoot(fabItems, listaLoots);
+                    estructura = listaEstructuraRandom.erase(estructura);
+                }
             }
-        }
-
-        // Update normal de la estructura
-        (*estructura)->update( PosicionJugador, posMouseWorld, Camara, relacion, inv, inventarioCofre, deltatime);
-
-        estructura++; // Avanzamos al siguiente
-    }
-    else
-    {
-        // Si está destruido, soltamos loot y borramos
-        (*estructura)->liberarLoot(fabItems, listaLoots);
-        estructura = listaEstructuraRandom.erase(estructura);
-    }
-}
 /// ======================== COLISION ESTRUCTURA =========================///
 
 
@@ -646,8 +651,10 @@ for (auto estructura = listaEstructuraRandom.begin(); estructura != listaEstruct
                     }
                     window.draw(**estructura);
                     (*estructura)->update( PosicionJugador, posMouseWorld, Camara, relacion, inv, inventarioCofre, deltatime);
-                    if ((*estructura) -> getID() == 8){
-                        if ((*estructura) -> estaEnUso()){
+                    if ((*estructura) -> getID() == 8)
+                    {
+                        if ((*estructura) -> estaEnUso())
+                        {
                             seAbrioUnCofre = true;
                         }
                     }
@@ -663,11 +670,13 @@ for (auto estructura = listaEstructuraRandom.begin(); estructura != listaEstruct
             }
 
             ///Ocultar interfaz cofre
-            if (seAbrioUnCofre){
+            if (seAbrioUnCofre)
+            {
                 inv.setDesvioDelCentroEnY(-16);
                 inventarioCofre.setDesvioDelCentroEnY(96);
             }
-            else{
+            else
+            {
                 inv.setDesvioDelCentroEnY(50);
                 inventarioCofre.setDesvioDelCentroEnY(-1000);
             }
@@ -981,14 +990,16 @@ void Game::verificarTeleports(Personaje& character)
 }
 
 
-bool Game::esSueloCultivable(int tileID) {
+bool Game::esSueloCultivable(int tileID)
+{
     // IDs de la zona de cultivo que me pasaste
     return (tileID == 163 || tileID == 164 || tileID == 165 || tileID == 166 ||
             tileID == 171 || tileID == 172 || tileID == 173 ||
             tileID == 179 || tileID == 180 || tileID == 181);
 }
 
-void Game::intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv) {
+void Game::intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv)
+{
 
     //Validar que tengamos algun item en la mano
     Item* item = inv.getItemEnMano();
@@ -1011,8 +1022,10 @@ void Game::intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv) 
     //Chequeo de colision: Validar que no haya YA una planta en ese lugar
     sf::FloatRect rectNuevo(posX + 10, posY + 10, 10, 10);
 
-    for (auto& cultivo : _listaCultivos) {
-        if (cultivo->getBounds().intersects(rectNuevo)) {
+    for (auto& cultivo : _listaCultivos)
+    {
+        if (cultivo->getBounds().intersects(rectNuevo))
+        {
             return; // Ya hay una planta.
         }
     }
@@ -1021,7 +1034,8 @@ void Game::intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv) 
     // Si es una espada o cualquier otra cosa, nos devuelve nullptr.
     auto nuevoCultivo = _fabricaCultivos.crearDesdeSemilla(item->getID(), posX, posY);
 
-    if (nuevoCultivo != nullptr) {
+    if (nuevoCultivo != nullptr)
+    {
         //Agregamos el cultivo a la lista del juego
         _listaCultivos.push_back(std::move(nuevoCultivo));
 
@@ -1032,20 +1046,24 @@ void Game::intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv) 
     }
 }
 
-void Game::intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& listaLoots, FabricaItems& fabItems) {
+void Game::intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& listaLoots, FabricaItems& fabItems)
+{
 
     // 1. Creamos un "apuntador" al principio de la lista
     auto it = _listaCultivos.begin();
 
     // 2. Recorremos mientras no lleguemos al final
-    while (it != _listaCultivos.end()) {
+    while (it != _listaCultivos.end())
+    {
 
         // Verificamos si el mouse toca este cultivo
         // (*it) nos da el puntero al cultivo actual
-        if ((*it)->getBounds().contains(posMouseWorld)) {
+        if ((*it)->getBounds().contains(posMouseWorld))
+        {
 
             // Intentamos cosechar
-            if ((*it)->intentarCosechar(listaLoots, fabItems)) {
+            if ((*it)->intentarCosechar(listaLoots, fabItems))
+            {
 
                 // Si devolvio true (se rompio/cosecho), lo borramos de la lista
                 // erase devuelve el puntero al siguiente elemento, pero como hacemos return, no importa tanto

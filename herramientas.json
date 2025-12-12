@@ -26,7 +26,8 @@
     "durabilidad": 500,
     "danio_base": 7,
     "multiplicadores": {
-      "PIEDRA": 8.0
+      "PIEDRA": 8.0,
+      "MADERA": 0
     }
   },
   {
