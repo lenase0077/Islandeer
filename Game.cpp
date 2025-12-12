@@ -268,14 +268,24 @@ void Game::run()
 
                 character.setVida(100);
                 character.setHambre(100);
+                character.setVelocidad(0,0);
 
-                cout << "Anotacion de lean - Empate nueva partida" << endl;
+                regenerarRecursos(listaEstructuraRandom);
+                _listaCultivos.clear();
+                listaLoots.clear();
+
+                _tiempoDiaAcumulado = 0;
+
+                Camara.setCenter(posX, posY);
+
 
                 _estadoActual = EstadoJuego::Jugando;
                 _menuPrincipal.detenerMusica();
                 sonido.setVolume(_menuPrincipal.getVolumen());
                 sonido.play();
                 _relojInterno.restart();
+                relojDiaNoche.restart();
+                cout << "Anotacion de lean - Empate nueva partida" << endl;
             }
 
             else if (opcion == OpcionMenu::Salir)
