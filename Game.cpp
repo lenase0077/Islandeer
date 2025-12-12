@@ -286,6 +286,7 @@ void Game::run()
                 _estadoFade = 1;
 
 
+
                 cout << "Anotacion de lean - Empate nueva partida" << endl;
             }
 
@@ -324,6 +325,9 @@ void Game::run()
                     _estadoFade = 2;
 
                     _transicionMenuJugando = false;
+
+                    mostrarTexto("Necesito salir de aqui" , character.getPosition().x - 10, character.getPosition().y - 10, 5);
+
 
 
                 }
@@ -761,7 +765,7 @@ void Game::run()
 
 /// ======================== UPDATE TEXTOS =========================///
 
-            // Usamos un while con iterador para poder borrar los textos  que "mueren"
+//     Usamos un while con iterador para poder borrar los textos  que "mueren"
             auto itTexto = _listaTextos.begin();
             while (itTexto != _listaTextos.end())
             {
@@ -776,6 +780,12 @@ void Game::run()
                     itTexto++;
                 }
             }
+
+
+
+
+
+
 
 /// ======================== TEST HERRAMIENTAS =========================///
 
