@@ -451,7 +451,7 @@
 	"Game.h"
 	"json.hpp"
 
-1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
+1765549902 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
 	"Cultivos.h"
 	"FabricaCultivos.h"
 	<iostream>
@@ -813,7 +813,7 @@
 
 1764170642 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\movimiento_ia.cpp
 
-1765481990 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
+1765548597 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
 	<iostream>
 	"Personaje.h"
 	"Funciones.h"
@@ -824,7 +824,7 @@
 	<iostream>
 	"Raton.h"
 
-1765547828 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.cpp
+1765548541 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.cpp
 	"tilemap.h"
 	<fstream>
 	<iostream>

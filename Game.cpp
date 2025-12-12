@@ -205,7 +205,7 @@ void Game::run()
 
     regenerarRecursos(listaEstructuraRandom);
 
-//    character.setPosicion(0, 0);
+//    character.setPosicion(100*32, 100*32);
 
 
 
@@ -448,6 +448,7 @@ void Game::run()
 
             sf::FloatRect rectEspada = character.getAreaAtaque();
 
+
             for (auto it = animales.begin(); it != animales.end();)
             {
                 // 1. SETUP DEL PUNTERO
@@ -581,40 +582,7 @@ void Game::run()
                     // Solo entramos si atacaste y la estructura se puede romper
                     if (golpeHabilitado && (*estructura)->getRompePorColision())
                     {
-                        // Usamos la HITBOX de la espada, no el cuerpo del personaje
-                        if (rectEspada.intersects((*estructura)->getColisionador().getColision()))
-                        {
-                            Item* itemEnMano = inv.getItemEnMano();
-                            TipoMaterial matEstructura = (*estructura)->getMaterial();
-                            float danioFinal = 1.0f; // Daño base (puño)
-
-                            // Lógica de Herramientas
-                            if (itemEnMano != nullptr)
-                            {
-                                danioFinal = itemEnMano->obtenerFuerza(matEstructura);
-                                cout << "El dmg total es de: " << danioFinal << endl;
-
-                                // Solo gastamos durabilidad si realmente golpeamos algo rompible
-                                itemEnMano->usar();
-
-                                // Si se rompe, lo sacamos del inventario
-                                if (itemEnMano->estaRota())
-                                {
-                                    inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
-                                    // CUIDADO: itemEnMano ahora es un puntero inválido, no lo uses más abajo.
-                                    itemEnMano = nullptr;
-                                }
-                            }
-
-                            // Debug
-                            // cout << "Material: " << (int)matEstructura << " | Dmg: " << danioFinal << endl;
-
-                            // Aplicar Daño
-                            (*estructura)->recibirGolpe(danioFinal);
-
-                            // Efecto visual opcional: Vibración o color rojo
-                            // (*estructura)->setColor(sf::Color::Red); (Si tu estructura lo soporta)
-                        }
+                        procesarAtaqueEstructura(estructura->get(), rectEspada, inv);
                     }
 
                     // Update normal de la estructura
@@ -1075,6 +1043,34 @@ void Game::intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& li
 
         // Si no paso nada, avanzamos al siguiente cultivo
         it++;
+    }
+}
+
+
+void Game::procesarAtaqueEstructura(Estructura* estructura, const sf::FloatRect& rectEspada, InventarioInterfaz& inv)
+{
+    // Verificamos si la espada toca la estructura
+    if (rectEspada.intersects(estructura->getColisionador().getColision()))
+    {
+        Item* itemEnMano = inv.getItemEnMano();
+        TipoMaterial matEstructura = estructura->getMaterial();
+        float danioFinal = 1.0f; // Daño base
+
+        // Lógica de Herramientas
+        if (itemEnMano != nullptr)
+        {
+            danioFinal = itemEnMano->obtenerFuerza(matEstructura);
+            itemEnMano->usar();
+
+            if (itemEnMano->estaRota())
+            {
+                inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
+            }
+        }
+
+        // Aplicar Daño
+        estructura->recibirGolpe(danioFinal);
+        cout << "Daño: " << danioFinal << endl;
     }
 }
 

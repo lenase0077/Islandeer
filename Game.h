@@ -43,6 +43,10 @@ class Game
         void intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& listaLoots, FabricaItems& fabItems);
         bool esSueloCultivable(int tileID);
 
+        ///refactorizacion para mejor lectura
+        void procesarAtaqueEstructura(Estructura* estructura, const sf::FloatRect& rectEspada, InventarioInterfaz& inv);
+
+
     private:
         InterfazEstado _interfazEstado;
 
