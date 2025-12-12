@@ -26,7 +26,7 @@
 #include <set>
 #include <cmath>
 #include "InterfazEstado.h"
-
+#include "TextoFlotante.h"
 
 class Game
 {
@@ -42,10 +42,11 @@ class Game
         void intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv);
         void intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& listaLoots, FabricaItems& fabItems);
         bool esSueloCultivable(int tileID);
+        void mostrarTexto (std::string mensaje, float x, float y, sf::Color color = sf::Color::White);
 
     private:
         InterfazEstado _interfazEstado;
-
+        std::list<std::unique_ptr<TextoFlotante>> _listaTextos;
 
 
         sf::Texture _texturaPersonaje;

@@ -205,7 +205,7 @@ void Game::run()
 
     regenerarRecursos(listaEstructuraRandom);
 
-//    character.setPosicion(0, 0);
+//    character.setPosicion(100*32, 100*32);
 
 
 
@@ -690,6 +690,24 @@ void Game::run()
                 cultivo->update(deltatime);
             }
 
+/// ======================== UPDATE TEXTOS =========================///
+
+            // Usamos un while con iterador para poder borrar los textos  que "mueren"
+            auto itTexto = _listaTextos.begin();
+            while (itTexto != _listaTextos.end())
+            {
+                (*itTexto)->update(deltatime);
+
+                if ((*itTexto)->estaDestruido() == true)
+                {
+                    itTexto = _listaTextos.erase(itTexto); // Lo borramos de la memoria y la lista
+                }
+                else
+                {
+                    itTexto++;
+                }
+            }
+
 /// ======================== TEST HERRAMIENTAS =========================///
 
 
@@ -733,8 +751,12 @@ void Game::run()
             window.draw(invR);
             window.draw(inventarioCofre);
 
-
             window.draw(inv);
+
+            for (auto& texto : _listaTextos)
+            {
+                window.draw(*texto);
+            }
 
             window.setView(window.getDefaultView());
 
@@ -1064,6 +1086,7 @@ void Game::intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& li
             // Intentamos cosechar
             if ((*it)->intentarCosechar(listaLoots, fabItems))
             {
+                mostrarTexto("+ Cosecha", (*it)->getPosition().x, (*it)->getPosition().y, sf::Color::Green);
 
                 // Si devolvio true (se rompio/cosecho), lo borramos de la lista
                 // erase devuelve el puntero al siguiente elemento, pero como hacemos return, no importa tanto
@@ -1076,6 +1099,11 @@ void Game::intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& li
         // Si no paso nada, avanzamos al siguiente cultivo
         it++;
     }
+}
+
+void Game::mostrarTexto (std::string mensaje, float x, float y, sf::Color color)
+{
+    _listaTextos.push_back(std::make_unique<TextoFlotante>(fontReloj, mensaje, x, y - 40, color));
 }
 
 /*
