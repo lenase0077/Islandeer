@@ -45,8 +45,7 @@ class Game
 
         ///refactorizacion para mejor lectura
         void procesarAtaqueEstructura(Estructura* estructura, const sf::FloatRect& rectEspada, InventarioInterfaz& inv);
-        void procesarCicloDiaNoche(float deltatime, Personaje& character,
-                           std::list<std::unique_ptr<Estructura>>& listaEstructuras);
+
 
     private:
         InterfazEstado _interfazEstado;
