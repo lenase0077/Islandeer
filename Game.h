@@ -88,6 +88,8 @@ class Game
 
 /// --- VARIABLES DE USO PARA FADE IN Y FADE OUT TEST
 
+        bool _transicionMenuJugando = false;
+
         sf::RectangleShape _fadeRect;   // El rectangulo negro
         float _fadeAlpha = 0.0f;        // Transparencia actual
         bool _enTransicion = false;

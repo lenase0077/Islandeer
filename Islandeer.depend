@@ -445,13 +445,13 @@
 1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\funciones.h
 	<SFML/Graphics.hpp>
 
-1765568097 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1765569983 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1765568126 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
+1765568807 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
 	"Cultivos.h"
 	"FabricaCultivos.h"
 	<iostream>
