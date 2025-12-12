@@ -4,7 +4,6 @@
 #include "json.hpp"
 using namespace std;
 
-
 Game::Game()
     : window(sf::VideoMode(1024, 768), "SFML works!"),
       character(_texturaPersonaje),
@@ -47,7 +46,6 @@ void Game::run()
 
 /// ======================== Configuracion del FADE  =========================///
 
-
     _fadeRect.setSize(sf::Vector2f(2000, 2000)); // Mismo tamaño que tu ventana
     _fadeRect.setFillColor(sf::Color::Black);
     _fadeAlpha = 0.0f;
@@ -70,6 +68,7 @@ void Game::run()
     inv.agregarItem(31,16);
     inv.agregarItem(32,16);
     inv.agregarItem(33,16);
+    inv.agregarItem(24,1);
 
 
     inv.agregarItem(25,16);
@@ -783,14 +782,7 @@ void Game::run()
                 }
             }
 
-
-
-
-
-
-
 /// ======================== TEST HERRAMIENTAS =========================///
-
 
             Item* itemVisual = inv.getItemEnMano();
 
@@ -800,7 +792,6 @@ void Game::run()
             }
             else
             {
-
                 character.quitarItemEnMano();
             }
 
@@ -938,7 +929,6 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
 
     cout << "Isla Reset" << endl;
 
-
     int ancho = mapa.getMapWidth();
     int alto = mapa.getMapHeight();
     int tileW = mapa.getTileWidth();
@@ -956,7 +946,6 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
 
             bool esCueva = (idTile == 132);
 
-
             float posX = x * tileW;
             float posY = y * tileH;
             int probabilidad = rand() % 1000;
@@ -964,12 +953,10 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
             if (esPasto)
             {
 
-
                 if (idTile == 103)
                 {
                     continue;
                 }
-
 
                 // Digamos que hay un 15% de chance de que aparezca un árbol
 

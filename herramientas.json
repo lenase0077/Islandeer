@@ -4,9 +4,10 @@
     "nombre": "Pico de Piedra",
     "tipo": "PICO",
     "durabilidad": 60,
-    "danio_base": 3,
+    "danio_base": 2,
     "multiplicadores": {
-      "PIEDRA": 2.0
+      "PIEDRA": 4.0,
+      "MADERA": 0
     }
   },
   {
@@ -14,19 +15,20 @@
     "nombre": "Pico de Hierro",
     "tipo": "PICO",
     "durabilidad": 250,
-    "danio_base": 5,
+    "danio_base": 3,
     "multiplicadores": {
-      "PIEDRA": 4.0
+      "PIEDRA": 6.0,
+      "MADERA": 0
     }
   },
   {
     "id": 2,
     "nombre": "Pico de Diamante",
     "tipo": "PICO",
-    "durabilidad": 500,
-    "danio_base": 7,
+    "durabilidad": 1561,
+    "danio_base": 4,
     "multiplicadores": {
-      "PIEDRA": 8.0,
+      "PIEDRA": 13.0,
       "MADERA": 0
     }
   },
@@ -35,9 +37,10 @@
     "nombre": "Hacha de Piedra",
     "tipo": "HACHA",
     "durabilidad": 60,
-    "danio_base": 3,
+    "danio_base": 2,
     "multiplicadores": {
-      "MADERA": 2
+      "MADERA": 4.0,
+      "PIEDRA": 0
     }
   },
   {
@@ -45,19 +48,21 @@
     "nombre": "Hacha de Hierro",
     "tipo": "HACHA",
     "durabilidad": 250,
-    "danio_base": 5,
+    "danio_base": 3,
     "multiplicadores": {
-      "MADERA": 4
+      "MADERA": 6.0,
+      "PIEDRA": 0
     }
   },
   {
     "id": 5,
     "nombre": "Hacha de Diamante",
     "tipo": "HACHA",
-    "durabilidad": 500,
-    "danio_base": 7,
+    "durabilidad": 1561,
+    "danio_base": 4,
     "multiplicadores": {
-      "MADERA": 8
+      "MADERA": 10.0,
+      "PIEDRA": 0
     }
   },
   {
@@ -65,9 +70,11 @@
     "nombre": "Espada de Piedra",
     "tipo": "ESPADA",
     "durabilidad": 60,
-    "danio_base": 10,
+    "danio_base": 4,
     "multiplicadores": {
-      "CARNE": 2.0    
+      "CARNE": 3.0,
+      "MADERA": 0,
+      "PIEDRA": 0   
     }
   },
   {
@@ -75,21 +82,35 @@
     "nombre": "Espada de Hierro",
     "tipo": "ESPADA",
     "durabilidad": 250,
-    "danio_base": 10,
+    "danio_base": 5,
     "multiplicadores": {
-      "CARNE": 5.0
-
+      "CARNE": 5.0,
+      "MADERA": 0,
+      "PIEDRA": 0 
     }
   },
   {
     "id": 8, 
     "nombre": "Espada de Diamante",
     "tipo": "ESPADA",
-    "durabilidad": 500,
-    "danio_base": 10,
+    "durabilidad": 1561,
+    "danio_base": 6,
     "multiplicadores": {
-      "CARNE": 7.0
-
+      "CARNE": 8.0,
+      "MADERA": 0,
+      "PIEDRA": 0 
+    }
+  },
+  {
+    "id": 24, 
+    "nombre": "Cuchillo",
+    "tipo": "ESPADA",
+    "durabilidad": 780,
+    "danio_base": 6,
+    "multiplicadores": {
+      "CARNE": 6.0,
+      "MADERA": 0,
+      "PIEDRA": 0
     }
   }
 ]
