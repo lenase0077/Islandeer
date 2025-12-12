@@ -262,9 +262,11 @@ void Game::run()
             else if (opcion == OpcionMenu::NuevaPartida)
             {
 
+
                 float posX = 84 * 32.f;
                 float posY = 132 * 32.f;
                 character.setPosicion(posX, posY);
+
 
                 character.setVida(100);
                 character.setHambre(100);
@@ -278,13 +280,11 @@ void Game::run()
 
                 Camara.setCenter(posX, posY);
 
+                _transicionMenuJugando = true;
+                _fadeAlpha = 0.0f;
+                _estadoFade = 1;
 
-                _estadoActual = EstadoJuego::Jugando;
-                _menuPrincipal.detenerMusica();
-                sonido.setVolume(_menuPrincipal.getVolumen());
-                sonido.play();
-                _relojInterno.restart();
-                relojDiaNoche.restart();
+
                 cout << "Anotacion de lean - Empate nueva partida" << endl;
             }
 
@@ -296,7 +296,41 @@ void Game::run()
             window.clear(sf::Color::Black);
             window.setView(window.getDefaultView());
             window.draw(_menuPrincipal);
+
+            if (_transicionMenuJugando)
+            {
+                float velocidadFade = 500.0f * 0.016f;
+                _fadeAlpha += velocidadFade;
+
+                if (_fadeAlpha >= 255.0f) _fadeAlpha = 255.0f;
+
+                _fadeRect.setFillColor(sf::Color(0, 0, 0, static_cast<sf::Uint8>(_fadeAlpha)));
+                window.draw(_fadeRect);
+
+                if (_fadeAlpha >= 255.0f)
+                {
+
+
+                    _relojInterno.restart();
+                    relojDiaNoche.restart();
+                    _menuPrincipal.detenerMusica();
+                    sonido.setVolume(_menuPrincipal.getVolumen());
+                    sonido.play();
+
+                    _estadoActual = EstadoJuego::Jugando;
+
+                    _enTransicion = true;
+                    _estadoFade = 2;
+
+                    _transicionMenuJugando = false;
+
+
+                }
+            }
+
+
             window.display();
+
             break;
         }
 
@@ -359,34 +393,34 @@ void Game::run()
             sf::Vector2f posMouseWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window), Camara);
 
 /// ======================== Test spawn =========================///
-                Item* itemEnManoAccion = inv.getItemEnMano();
+            Item* itemEnManoAccion = inv.getItemEnMano();
 
-                if (itemEnManoAccion != nullptr)
+            if (itemEnManoAccion != nullptr)
+            {
+                int id = itemEnManoAccion->getID();
+
+                if (id >= 31 && id <= 33)
                 {
-                    int id = itemEnManoAccion->getID();
-
-                    if (id >= 31 && id <= 33)
+                    if (Comandos::getInstancia().mouseDerPresionado)
                     {
-                        if (Comandos::getInstancia().mouseDerPresionado)
+                        static sf::Clock relojPlantar;
+                        if (relojPlantar.getElapsedTime().asSeconds() > 0.2f)
                         {
-                            static sf::Clock relojPlantar;
-                            if (relojPlantar.getElapsedTime().asSeconds() > 0.2f)
-                            {
-                                intentarPlantar(posMouseWorld, inv);
-                                relojPlantar.restart();
-                            }
-                        }
-                    }
-
-                    // COMIDA
-                    else if ((id >= 34 && id <= 48) || id == 25 || id == 26 || id == 30)
-                    {
-                        if (Comandos::getInstancia().mouseDerRecienPresionado)
-                        {
-                            usarItemEnMano(character, inv);
+                            intentarPlantar(posMouseWorld, inv);
+                            relojPlantar.restart();
                         }
                     }
                 }
+
+                // COMIDA
+                else if ((id >= 34 && id <= 48) || id == 25 || id == 26 || id == 30)
+                {
+                    if (Comandos::getInstancia().mouseDerRecienPresionado)
+                    {
+                        usarItemEnMano(character, inv);
+                    }
+                }
+            }
 
             // --- CONTROL CLICK IZQUIERDO (ROMPER CULTIVO)
             if (Comandos::getInstancia().mouseIzqPresionado)
@@ -749,9 +783,9 @@ void Game::run()
             if (character.estaEnvenenado())
             {
                 if (rand() % 10 == 0)
-                    {
-                        _particulas.emitirVeneno(character.getPosition());
-                    }
+                {
+                    _particulas.emitirVeneno(character.getPosition());
+                }
             }
 
             if (character.tienePoderDorado())
@@ -1167,11 +1201,11 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
     switch(id)
     {
 
-        case 34: // Manzana
-        case 35: // Banana
-        case 36: // Coco
-        case 38: // Zanahoria
-        case 40: // Papa Cruda
+    case 34: // Manzana
+    case 35: // Banana
+    case 36: // Coco
+    case 38: // Zanahoria
+    case 40: // Papa Cruda
 
         if (character.getHambre() < character.getHambreMaxima())
         {
@@ -1183,44 +1217,46 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
         }
         break;
 
-        case 39: // Zanahoria Cocida
-        case 41: // Papa Cocinada
-        case 44: // Huevo Frito
-        case 46: // Cerdo Cocido
-        case 48: // Carne Cocida
-             if (character.getHambre() < character.getHambreMaxima()) {
-                character.setHambre(character.getHambre() + 35);
-                character.setVida(character.getVida() + 20);
-                seConsumio = true;
-                cout << "Creo que comi algo" << endl;
-            }
-            break;
-
-        case 26: // Hongo weno
-            if (character.getVida() < character.getVidaMaxima()) {
-                character.setVida(character.getVida() + 50);
-                seConsumio = true;
-            }
-            break;
-
-        case 25: // Hongo malo
-
-            character.envenenar(5.0f);
-            character.setHambre(character.getHambre() + 5);
-            cout << "Tenes ganas de cagar...!" << endl;
+    case 39: // Zanahoria Cocida
+    case 41: // Papa Cocinada
+    case 44: // Huevo Frito
+    case 46: // Cerdo Cocido
+    case 48: // Carne Cocida
+        if (character.getHambre() < character.getHambreMaxima())
+        {
+            character.setHambre(character.getHambre() + 35);
+            character.setVida(character.getVida() + 20);
             seConsumio = true;
-            break;
+            cout << "Creo que comi algo" << endl;
+        }
+        break;
 
-        case 42: // Papa de Oro
-                character.setVida(character.getVida() + 50);
-                character.setHambre(character.getHambreMaxima());
+    case 26: // Hongo weno
+        if (character.getVida() < character.getVidaMaxima())
+        {
+            character.setVida(character.getVida() + 50);
+            seConsumio = true;
+        }
+        break;
 
-                // 2. Activar BUFF por 10 segundos
-                character.activarPoderDorado(10.0f);
+    case 25: // Hongo malo
 
-                cout << "Me rompi una muela masticando esto" << endl;
-                seConsumio = true;
-                break;
+        character.envenenar(5.0f);
+        character.setHambre(character.getHambre() + 5);
+        cout << "Tenes ganas de cagar...!" << endl;
+        seConsumio = true;
+        break;
+
+    case 42: // Papa de Oro
+        character.setVida(character.getVida() + 50);
+        character.setHambre(character.getHambreMaxima());
+
+        // 2. Activar BUFF por 10 segundos
+        character.activarPoderDorado(10.0f);
+
+        cout << "Me rompi una muela masticando esto" << endl;
+        seConsumio = true;
+        break;
 
 
 
@@ -1236,11 +1272,13 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
         _sonidoComer.play();
 
         inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
-        if (inv.getItemEnMano() == nullptr){
+        if (inv.getItemEnMano() == nullptr)
+        {
             character.quitarItemEnMano();
         }
     }
-    else {
+    else
+    {
         cout << "No te podes comer esto, bobo" << endl;
     }
 }
