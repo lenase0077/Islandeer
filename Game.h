@@ -58,7 +58,7 @@ class Game
         sf::Sound _sonidoComer;
 
         sf::Texture _texturaPersonaje;
-        Personaje _personaje;
+        Personaje character;
         sf::RenderWindow window;
         sf::Vector2f _posicionPersonaje;
         sf::Clock _relojInterno;
