@@ -39,6 +39,19 @@ void Game::run()
         std::cout << "Error cargando textura Cultivos" << std::endl;
     }
 
+    sf::Texture texturaBarcoHuida;
+    if (!texturaBarcoHuida.loadFromFile("Catamaran.png"))
+    {
+        std::cout << "Error cargando textura Catamaran" << std::endl;
+    }
+
+    sf::Texture texturaInterfazBarcoHuida;
+    if (!texturaInterfazBarcoHuida.loadFromFile("InterfazPeticionesBarco.png"))
+    {
+        std::cout << "Error cargando textura InterfazPeticionesBarco" << std::endl;
+    }
+
+
     if (!fontReloj.loadFromFile("PIXEARG_.TTF"))
     {
         cout << "Error al cargar PIXEARG_.TTF" << endl;
@@ -119,8 +132,9 @@ void Game::run()
     float hambrePorSegundo = 0.5f;
 
 
-
-
+/// ======================== Barco huida =========================///
+    BarcoHuida barco(100*32,130*32,texturaBarcoHuida);
+    InterfazBarcoHuida interfazBarco(texturaInterfazBarcoHuida);
 
 
 
@@ -472,7 +486,7 @@ void Game::run()
                 window.draw(*animal);
             }
 
-
+            window.draw(barco);
 /// ========================= General ========================= ///
 
             mouse.update(window);
@@ -803,6 +817,7 @@ void Game::run()
 
             character.update(deltatime);
 
+
             if (character.estaEnvenenado())
             {
                 if (rand() % 10 == 0)
@@ -824,7 +839,7 @@ void Game::run()
             verificarTeleports(character);
             actualizarFade(character);
 
-            inv.update(mouse.getPosicion(), Camara, relacion, listaLoots); ///FALLAA
+            inv.update(mouse.getPosicion(), Camara, relacion, listaLoots);
 
             inv.copiarItemsEnVector(vectorCarga);
             invR.setItems(vectorCarga);
@@ -834,11 +849,16 @@ void Game::run()
 
 /// ======================== INICIO DRAWABLES =========================///
             invR.update(Camara, relacion);
+            barco.update(PosicionJugador);
+            interfazBarco.update(posMouseWorld, inv);
+            interfazBarco.ajustarEscalaAutomaticamente(Camara, relacion);
 
             window.draw(invR);
             window.draw(inventarioCofre);
 
+
             window.draw(inv);
+            window.draw(interfazBarco);
 
             for (auto& texto : _listaTextos)
             {
@@ -860,6 +880,8 @@ void Game::run()
             {
                 window.draw(_fadeRect);
             }
+
+
 
 /// ======================== CAMARA EFECTO Y CENTRADO =========================///
 
