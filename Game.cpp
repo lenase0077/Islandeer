@@ -134,7 +134,7 @@ void Game::run()
 
 /// ======================== Barco huida =========================///
     BarcoHuida barco(100*32,130*32,texturaBarcoHuida);
-    InterfazBarcoHuida interfazBarco(texturaInterfazBarcoHuida);
+    InterfazBarcoHuida interfazBarco(texturaInterfazBarcoHuida,fabItems);
 
 
 

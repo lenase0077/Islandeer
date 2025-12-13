@@ -1394,7 +1394,7 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1765626269 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1765631211 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
@@ -4388,14 +4388,18 @@
 	<string>
 	<cmath>
 
-1765628247 source:c:\users\sebas\onedrive\documentos\github\islandeer\interfazbarcohuida.cpp
+1765637453 source:c:\users\sebas\onedrive\documentos\github\islandeer\interfazbarcohuida.cpp
 	"InterfazBarcoHuida.h"
 	"Comando.h"
 	<iostream>
 
-1765629697 c:\users\sebas\onedrive\documentos\github\islandeer\interfazbarcohuida.h
+1765635952 c:\users\sebas\onedrive\documentos\github\islandeer\interfazbarcohuida.h
 	<SFML/Graphics.hpp>
 	"SeleccionRectangulo.h"
 	"InventarioIntefaz.h"
+	"Item.h"
 	<string>
+	<list>
+	<vector>
+	<memory>
 
