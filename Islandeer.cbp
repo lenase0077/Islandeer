@@ -118,6 +118,8 @@
 		<Unit filename="SeleccionRectangulo.h" />
 		<Unit filename="SistemaDeParticulas.cpp" />
 		<Unit filename="SistemaDeParticulas.h" />
+		<Unit filename="TextoFlotante.cpp" />
+		<Unit filename="TextoFlotante.h" />
 		<Unit filename="TileMap.cpp" />
 		<Unit filename="TileMap.h" />
 		<Unit filename="funcionesInterpolacion.cpp" />
