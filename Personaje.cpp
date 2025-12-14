@@ -476,7 +476,7 @@ void Personaje::manejarPasos()
 }
 
 sf::FloatRect Personaje::getColisionBounds() const
-    {
+{
 
     sf::FloatRect localRect = _sprite.getLocalBounds();
 

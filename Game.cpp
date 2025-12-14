@@ -20,7 +20,6 @@ void Game::run()
 {
 /// ======================== Texturas =========================///
 
-    list <std::unique_ptr<Estructura>> listaEstructuras;
     list <Loot> listaLoots;
     list <std::unique_ptr<Estructura>> listaEstructuraRandom;
 
@@ -89,11 +88,11 @@ void Game::run()
     inv.agregarItem(14,10);
 
     inv.agregarItem(19,20);
-    inv.agregarItem(11,1);
-    inv.agregarItem(12,1);
+    inv.agregarItem(52,1);
+    inv.agregarItem(50,1);
 //    inv.agregarItem(45,1);
 //    inv.agregarItem(47,1);
-    inv.agregarItem(28,16);
+    inv.agregarItem(49,1);
 
     InventarioResumido invR(texturaInventarioResumido);
 
@@ -117,12 +116,6 @@ void Game::run()
 /// ======================== Personaje =========================///
     Personaje character (_texturaPersonaje);
     float hambrePorSegundo = 0.5f;
-
-
-
-
-
-
 
 /// ======================== Enemigo =========================///
     sf::Vector2f empuje;
@@ -387,6 +380,7 @@ void Game::run()
             {
                 int id = itemEnManoAccion->getID();
 
+                //CULTIVAR
                 if (id >= 31 && id <= 33)
                 {
                     if (Comandos::getInstancia().mouseDerPresionado)
@@ -406,6 +400,15 @@ void Game::run()
                     if (Comandos::getInstancia().mouseDerRecienPresionado)
                     {
                         usarItemEnMano(character, inv);
+                    }
+                }
+
+                //CONSTRUIR
+                else if (id == 49 || id == 50 || id == 51 || id == 52)
+                {
+                    if (Comandos::getInstancia().mouseDerRecienPresionado)
+                    {
+                        colocarEstructura(posMouseWorld, inv, listaEstructuraRandom);
                     }
                 }
             }
@@ -691,22 +694,23 @@ void Game::run()
 
             bool seAbrioUnCofre = false;
 
-            for (auto estructura = listaEstructuras.begin(); estructura != listaEstructuras.end(); )
+            for (auto estructura = _listaEstructuras.begin(); estructura != _listaEstructuras.end(); )
             {
+
                 if ((*estructura)->estaDestruido() == false)
                 {
                     if(character.getColisionador().detectorDeColision((*estructura)->getColisionador()))   ///EJEMPLO
                     {
-
-
                         character.chocar((*estructura)->getColisionador());
-
-                        if ((*estructura)->getRompePorColision())
-                        {
-                            (*estructura)->recibirGolpe(5);
-                        }
                     }
+
                     window.draw(**estructura);
+
+                    if (golpeHabilitado)
+                    {
+                        procesarAtaqueEstructura(estructura->get(), rectEspada, inv);
+                    }
+
                     (*estructura)->update( PosicionJugador, posMouseWorld, Camara, relacion, inv, inventarioCofre, deltatime);
                     if ((*estructura) -> getID() == 8)
                     {
@@ -722,7 +726,7 @@ void Game::run()
                 else
                 {
                     (*estructura)->liberarLoot(fabItems,listaLoots);
-                    estructura = listaEstructuras.erase(estructura);
+                    estructura = _listaEstructuras.erase(estructura);
                 }
             }
 
@@ -1354,6 +1358,74 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
     else
     {
         cout << "No te podes comer esto, bobo" << endl;
+    }
+}
+
+void Game::colocarEstructura(sf::Vector2f posMouseWorld, InventarioInterfaz& inv, std::list<std::unique_ptr<Estructura>>& lista)
+{
+    //Ver que item tengo en la mano
+    Item* item = inv.getItemEnMano();
+    if (item == nullptr) return;
+
+    int idItem = item->getID();
+    int idEstructuraFisica = -1;
+
+    //Convertimos IDItem a IDEstructura (Fabrica)
+    if (idItem == 52) idEstructuraFisica = 7;       // Mesa
+    else if (idItem == 49) idEstructuraFisica = 8;  // Cofre
+    else if (idItem == 50) idEstructuraFisica = 9;  // Horno
+    else if (idItem == 51) idEstructuraFisica = 13; // Valla
+
+    // Si no es un item de construir, salimos
+    if (idEstructuraFisica == -1) return;
+
+    //Grid Snapping (Alinear a la cuadr¡cula 32x32)
+    int tileW = mapa.getTileWidth();
+    int tileH = mapa.getTileHeight();
+
+    int gridX = static_cast<int>(posMouseWorld.x / tileW);
+    int gridY = static_cast<int>(posMouseWorld.y / tileH);
+
+    float posX = gridX * tileW;
+    float posY = gridY * tileH;
+
+    //Validamos que el lugar est‚ libre
+    //Creamos un rect un poco m s chico (24x24) en el centro
+    sf::FloatRect rectNuevo(posX + 4, posY + 4, 24, 24);
+
+    //No construir sobre el personaje
+    if (character.getColisionBounds().intersects(rectNuevo)) {
+        cout << "No puedes construir sobre ti mismo." << endl;
+        return;
+    }
+
+    //No construir sobre otras estructuras
+    for (auto& estructura : _listaEstructuras) {
+        if (!estructura->estaDestruido() && estructura->getColisionador().getColision().intersects(rectNuevo)) return;
+    }
+
+    //No construir sobre recursos del mapa
+    for (auto& estructura : lista) {
+        if (!estructura->estaDestruido() && estructura->getColisionador().getColision().intersects(rectNuevo)) return;
+    }
+
+    //No construir sobre cultivos
+    for (auto& cultivos : _listaCultivos) {
+        if (cultivos->getBounds().intersects(rectNuevo)) return;
+    }
+
+    //Creamos la estructura
+    auto nuevaEstructura = _FabricaEstructuras.crearEstructura(posX, posY, idEstructuraFisica);
+
+    if (nuevaEstructura != nullptr)
+    {
+        // Guardamos en la lista
+        _listaEstructuras.push_back(std::move(nuevaEstructura));
+
+        // Consumimos 1 item del inventario
+        inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
+
+        cout << "Estructura colocada!" << endl;
     }
 }
 

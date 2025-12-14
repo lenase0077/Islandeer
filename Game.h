@@ -40,6 +40,7 @@ class Game
         sf::Clock getRelojInterno();
         sf::Texture _texturaCultivos;
         std::list<std::unique_ptr<cultivo>> _listaCultivos;
+        std::list <std::unique_ptr<Estructura>> _listaEstructuras;
         void updateCultivos(float deltatime);
         void intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv);
         void intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& listaLoots, FabricaItems& fabItems);
@@ -52,7 +53,7 @@ class Game
 
         void mostrarTexto (std::string mensaje, float x, float y);
         void mostrarTexto (std::string mensaje, float x, float y, float duracion);
-
+        void colocarEstructura(sf::Vector2f posMouseWorld, InventarioInterfaz& inv, std::list<std::unique_ptr<Estructura>>& lista);
     private:
         InterfazEstado _interfazEstado;
         std::list<std::unique_ptr<TextoFlotante>> _listaTextos;
