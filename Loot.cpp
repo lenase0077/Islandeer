@@ -15,7 +15,6 @@ Loot::Loot( FabricaItems& fabItems, const sf::Vector2f& posicion, const int& id)
        _item->setCantidad(1);//Hacemos esto para que no sea visible el numero cantidad.
     }
     setScale(1.0,1.0);
-    cout << "Update de inventario" <<endl;
 }
 
 ///HACER GET y SET de _cantidad

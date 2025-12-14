@@ -51,6 +51,11 @@ void Game::run()
         std::cout << "Error cargando textura InterfazPeticionesBarco" << std::endl;
     }
 
+    sf::Texture texturaBotonesInterfazBarco;
+    if(!texturaBotonesInterfazBarco.loadFromFile("botonesInterfazBarco.png"))
+    {
+        cout << "ERROR AL CARGAR botonesInterfazBarco.png" << endl;
+    }
 
     if (!fontReloj.loadFromFile("PIXEARG_.TTF"))
     {
@@ -97,7 +102,8 @@ void Game::run()
     inv.agregarItem(8,1);
 
     inv.agregarItem(3,1);
-    inv.agregarItem(5,1);
+    inv.agregarItem(5,3);
+    inv.agregarItem(10,4);
     inv.agregarItem(15,3);
     inv.agregarItem(14,10);
 
@@ -134,7 +140,7 @@ void Game::run()
 
 /// ======================== Barco huida =========================///
     BarcoHuida barco(100*32,130*32,texturaBarcoHuida);
-    InterfazBarcoHuida interfazBarco(texturaInterfazBarcoHuida,fabItems);
+    InterfazBarcoHuida interfazBarco(texturaInterfazBarcoHuida, texturaBotonesInterfazBarco,fabItems);
 
 
 
@@ -850,10 +856,19 @@ void Game::run()
 /// ======================== INICIO DRAWABLES =========================///
             invR.update(Camara, relacion);
             barco.update(PosicionJugador);
-            interfazBarco.update(posMouseWorld, inv);
-            interfazBarco.ajustarEscalaAutomaticamente(Camara, relacion);
-
             window.draw(invR);
+            ///Logica interfazBarco
+            interfazBarco.ajustarEscalaAutomaticamente(Camara, relacion);
+            interfazBarco.update(posMouseWorld, inv);
+            interfazBarco.setVolumen(volumenActual);
+            if (barco.getDentroDeRango()) interfazBarco.setOculto(false);
+            else interfazBarco.setOculto(true);
+
+            if (interfazBarco.getCompletado()){
+                    window.close();
+            }
+
+            //================================
             window.draw(inventarioCofre);
 
 

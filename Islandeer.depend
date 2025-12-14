@@ -1394,7 +1394,7 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1765631211 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1765725395 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
@@ -1809,7 +1809,7 @@
 	<iostream>
 	"ItemDescripcion.h"
 
-1763502409 source:c:\users\sebas\onedrive\documentos\github\islandeer\loot.cpp
+1765724879 source:c:\users\sebas\onedrive\documentos\github\islandeer\loot.cpp
 	"Loot.h"
 	<cmath>
 	"funcionesInterpolacion.h"
@@ -4388,13 +4388,15 @@
 	<string>
 	<cmath>
 
-1765637453 source:c:\users\sebas\onedrive\documentos\github\islandeer\interfazbarcohuida.cpp
+1765725083 source:c:\users\sebas\onedrive\documentos\github\islandeer\interfazbarcohuida.cpp
 	"InterfazBarcoHuida.h"
 	"Comando.h"
+	"funcionesInterpolacion.h"
 	<iostream>
 
-1765635952 c:\users\sebas\onedrive\documentos\github\islandeer\interfazbarcohuida.h
+1765721979 c:\users\sebas\onedrive\documentos\github\islandeer\interfazbarcohuida.h
 	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
 	"SeleccionRectangulo.h"
 	"InventarioIntefaz.h"
 	"Item.h"
