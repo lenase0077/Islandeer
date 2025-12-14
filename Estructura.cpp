@@ -77,7 +77,7 @@ void Estructura::liberarLoot(FabricaItems& fabItems,list<Loot>& listaLoot){
 
         lootPosX = getPosition().x + 16 +(cos(anguloRadianes)* distanciaLoots);
         lootPosY = getPosition().y + 16 +(sin(anguloRadianes)* distanciaLoots);
-        listaLoot.emplace_back(fabItems,sf::Vector2f(lootPosX,lootPosY), p);
+        listaLoot.emplace_back(fabItems,sf::Vector2f(lootPosX,lootPosY), p, 1);
         iterador++;
     }
 }

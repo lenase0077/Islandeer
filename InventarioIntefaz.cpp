@@ -708,7 +708,7 @@ void InventarioInterfaz::soltarLoot(std::unique_ptr<Item>& itemQueTirar, std::li
 
                 posicionLoot.x += (cos(anguloRadianes) * distanciaLoots);
                 posicionLoot.y += (sin(anguloRadianes) * distanciaLoots);
-                listaLoots.emplace_back(*_fabItems, posicionLoot, itemQueTirar->getID());
+                listaLoots.emplace_back(*_fabItems, posicionLoot, itemQueTirar->getID(), itemQueTirar->getCantidad());
             }
             itemQueTirar = nullptr; // Elimina el item del inventario
         }
@@ -719,7 +719,7 @@ void InventarioInterfaz::soltarLoot(std::unique_ptr<Item>& itemQueTirar, std::li
             posicionLoot.x += (_sprFondoInventario.getGlobalBounds().width / 2) * getScale().x;
             posicionLoot.y += (_sprFondoInventario.getGlobalBounds().height + 48) * getScale().y;
 
-            listaLoots.emplace_back(*_fabItems, posicionLoot, itemQueTirar->getID());
+            listaLoots.emplace_back(*_fabItems, posicionLoot, itemQueTirar->getID(), itemQueTirar->getCantidad());
             int cantidadItem = itemQueTirar->getCantidad();
             if (cantidadItem > 1)
                 itemQueTirar->setCantidad(cantidadItem - 1); // Reduce cantidad

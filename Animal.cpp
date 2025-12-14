@@ -355,7 +355,7 @@ void Animal::soltarLoot (FabricaItems& fabItems, std::list<Loot>& listaLoot)
 {
     if (_idLootAlMorir != -1)
     {
-        listaLoot.emplace_back(fabItems, getPosition(), _idLootAlMorir);
+        listaLoot.emplace_back(fabItems, getPosition(), _idLootAlMorir, 1);
     }
 
     if (_idLootSecundario != -1)
@@ -364,7 +364,7 @@ void Animal::soltarLoot (FabricaItems& fabItems, std::list<Loot>& listaLoot)
         sf::Vector2f posLootSecundario = getPosition();
         posLootSecundario.x += (rand() % 20) - 10;
 
-        listaLoot.emplace_back(fabItems, getPosition(), _idLootSecundario);
+        listaLoot.emplace_back(fabItems, getPosition(), _idLootSecundario, 1);
     }
 }
 

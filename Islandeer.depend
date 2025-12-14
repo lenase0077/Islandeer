@@ -2887,7 +2887,7 @@
 
 1764170642 c:\users\leand\onedrive\documentos\repositorio\islandeer\estadodejuego.h
 
-1765738397 source:d:\alejo\alemart\documents\github\islander\animal.cpp
+1765748596 source:d:\alejo\alemart\documents\github\islander\animal.cpp
 	"Animal.h"
 	<iostream>
 
@@ -3356,12 +3356,12 @@
 	<SFML/Graphics.hpp>
 	<cmath>
 
-1765747044 source:d:\alejo\alemart\documents\github\islander\estructura.cpp
+1765748337 source:d:\alejo\alemart\documents\github\islander\estructura.cpp
 	"Estructura.h"
 	<iostream>
 	<cmath>
 
-1765545402 d:\alejo\alemart\documents\github\islander\estructura.h
+1765748003 d:\alejo\alemart\documents\github\islander\estructura.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<list>
@@ -3370,7 +3370,7 @@
 	"FabricaItems.h"
 	"Item.h"
 
-1764284319 d:\alejo\alemart\documents\github\islander\loot.h
+1765748337 d:\alejo\alemart\documents\github\islander\loot.h
 	<SFML/Graphics.hpp>
 	"Item.h"
 	"Colisionador.h"
@@ -3822,7 +3822,7 @@
 
 1763638803 d:\alejo\alemart\documents\github\islander\estadodejuego.h
 
-1765545402 source:d:\alejo\alemart\documents\github\islander\inventariointefaz.cpp
+1765748596 source:d:\alejo\alemart\documents\github\islander\inventariointefaz.cpp
 	"InventarioIntefaz.h"
 	"funcionesInterpolacion.h"
 	<cmath>
@@ -3844,7 +3844,7 @@
 	<iostream>
 	"ItemDescripcion.h"
 
-1765746626 source:d:\alejo\alemart\documents\github\islander\loot.cpp
+1765748826 source:d:\alejo\alemart\documents\github\islander\loot.cpp
 	"Loot.h"
 	<cmath>
 	"funcionesInterpolacion.h"
@@ -4135,7 +4135,7 @@
 	<iostream>
 	<sstream>
 
-1765545402 source:d:\alejo\alemart\documents\github\islander\horno.cpp
+1765748472 source:d:\alejo\alemart\documents\github\islander\horno.cpp
 	<iostream>
 	"Horno.h"
 	<cmath>
@@ -4146,11 +4146,11 @@
 	<cmath>
 	<iostream>
 
-1765398571 source:d:\alejo\alemart\documents\github\islander\cofre.cpp
+1765748337 source:d:\alejo\alemart\documents\github\islander\cofre.cpp
 	<iostream>
 	"Cofre.h"
 
-1765398571 d:\alejo\alemart\documents\github\islander\cofre.h
+1765748003 d:\alejo\alemart\documents\github\islander\cofre.h
 	"Estructura.h"
 	"InventarioIntefaz.h"
 	"Item.h"
@@ -4253,7 +4253,7 @@
 	"Item.h"
 	<map>
 
-1765458173 source:d:\alejo\alemart\documents\github\islander\cultivos.cpp
+1765748550 source:d:\alejo\alemart\documents\github\islander\cultivos.cpp
 	<iostream>
 	"Cultivos.h"
 
