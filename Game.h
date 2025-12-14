@@ -55,6 +55,8 @@ class Game
         void mostrarTexto (std::string mensaje, float x, float y, float duracion);
         void colocarEstructura(sf::Vector2f posMouseWorld, InventarioInterfaz& inv, std::list<std::unique_ptr<Estructura>>& lista);
     private:
+        sf::Text _textoFPS;
+        float _tiempoFPS = 0.0f;
         InterfazEstado _interfazEstado;
         std::list<std::unique_ptr<TextoFlotante>> _listaTextos;
 

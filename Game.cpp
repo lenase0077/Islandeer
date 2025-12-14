@@ -43,6 +43,12 @@ void Game::run()
         cout << "Error al cargar PIXEARG_.TTF" << endl;
     }
 
+    _textoFPS.setFont(fontReloj);
+    _textoFPS.setCharacterSize(14); // Tama¤o peque¤o
+    _textoFPS.setFillColor(sf::Color::Yellow); // Color llamativo
+    _textoFPS.setPosition(10.f, 10.f); // Arriba a la izquierda
+    _textoFPS.setString("FPS: 0");
+
 /// ======================== Configuracion del FADE  =========================///
 
     _fadeRect.setSize(sf::Vector2f(2000, 2000)); // Mismo tamaÃ±o que tu ventana
@@ -323,6 +329,20 @@ void Game::run()
             sonido.setVolume(volumenActual);
             character.setVolumen(volumenActual);
             deltatime = _relojInterno.restart().asMilliseconds();
+
+            if (deltatime > 0) // Evitar divisi¢n por cero
+            {
+                _tiempoFPS += deltatime;
+
+                // Actualizamos el texto solo cada 500ms (medio segundo) para que sea legible
+                if (_tiempoFPS >= 500.0f)
+                {
+                    float fps = 1000.0f / deltatime; // 1000ms / tiempo del frame = FPS
+                    _textoFPS.setString("FPS: " + std::to_string((int)fps));
+                    _tiempoFPS = 0.0f;
+                }
+            }
+
             Comandos::getInstancia().actualizar();
 
             _interfazEstado.update( character.getVida(), character.getVidaMaxima(), character.getEnergia(), character.getEnergiaMaxima(), character.getHambre(), character.getHambreMaxima());
@@ -833,6 +853,8 @@ void Game::run()
             }
 
             window.setView(window.getDefaultView());
+
+            window.draw(_textoFPS);
 
             window.draw(_interfazEstado);
 

@@ -3313,7 +3313,7 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1765738397 d:\alejo\alemart\documents\github\islander\mob.h
+1765755037 d:\alejo\alemart\documents\github\islander\mob.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<string>
@@ -3599,7 +3599,7 @@
 	<cstring>
 	"SeleccionRectangulo.h"
 
-1765730159 source:d:\alejo\alemart\documents\github\islander\fabricamobs.cpp
+1765755037 source:d:\alejo\alemart\documents\github\islander\fabricamobs.cpp
 	"FabricaMobs.h"
 	<iostream>
 
@@ -3636,13 +3636,13 @@
 1761750014 d:\alejo\alemart\documents\github\islander\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1765749704 source:d:\alejo\alemart\documents\github\islander\game.cpp
+1765755135 source:d:\alejo\alemart\documents\github\islander\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1765741551 d:\alejo\alemart\documents\github\islander\game.h
+1765755135 d:\alejo\alemart\documents\github\islander\game.h
 	"Cultivos.h"
 	"FabricaCultivos.h"
 	<iostream>
@@ -3864,7 +3864,7 @@
 	"Minimap.h"
 	<iostream>
 
-1765738405 source:d:\alejo\alemart\documents\github\islander\mob.cpp
+1765755037 source:d:\alejo\alemart\documents\github\islander\mob.cpp
 	"Mob.h"
 	<iostream>
 
