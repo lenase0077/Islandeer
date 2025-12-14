@@ -21,10 +21,13 @@ private:
         sf::Vector2f _velocidad;
         sf::Vector2f _fuerzaRetroceso;
         sf::Clock _relojVida;
+        bool _chocoConMapa;
 
 public:
         Mob();
         void chocar (Colisionador& colision);
+        void cambioDeRumbo();
+        bool getChocoConMapa();
         sf::FloatRect getColisionBounds() const;
         DireccionMob _direccionActual;
         Colisionador _colision;

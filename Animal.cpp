@@ -193,7 +193,6 @@ void Animal::update(sf::Vector2f& Posicionpersonaje, float deltatime)
         }
     }
 
-
     updateColision();
     _tiempoEnEstado += deltatime;
 
@@ -225,6 +224,11 @@ void Animal::update(sf::Vector2f& Posicionpersonaje, float deltatime)
     }
     else if (_estadoActual == EstadoAnimal::Divagando)
     {
+        if (getChocoConMapa())
+        {
+            cambioDeRumbo();
+        }
+
         // divagar devuelve true si hay movimiento
         if (divagar(Posicionpersonaje, 0.5, deltatime))
         {

@@ -193,6 +193,7 @@ void Game::run()
     /// ======================== Inicio estructura Random =========================///
 
     regenerarRecursos(listaEstructuraRandom);
+    regenerarAnimales(animales);
 
 //    character.setPosicion(100*32, 100*32);
 //    character.setPosicion(100*32, 100*32);

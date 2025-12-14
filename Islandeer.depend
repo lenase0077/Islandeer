@@ -2887,7 +2887,7 @@
 
 1764170642 c:\users\leand\onedrive\documentos\repositorio\islandeer\estadodejuego.h
 
-1765735638 source:d:\alejo\alemart\documents\github\islander\animal.cpp
+1765738397 source:d:\alejo\alemart\documents\github\islander\animal.cpp
 	"Animal.h"
 	<iostream>
 
@@ -3313,7 +3313,7 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1765729656 d:\alejo\alemart\documents\github\islander\mob.h
+1765738397 d:\alejo\alemart\documents\github\islander\mob.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<string>
@@ -3864,7 +3864,7 @@
 	"Minimap.h"
 	<iostream>
 
-1765735300 source:d:\alejo\alemart\documents\github\islander\mob.cpp
+1765738405 source:d:\alejo\alemart\documents\github\islander\mob.cpp
 	"Mob.h"
 	<iostream>
 

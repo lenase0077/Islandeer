@@ -9,6 +9,7 @@ Mob::Mob() :
     _fuerzaRetroceso({0.f, 0.f}),
     _tiempoDeAnimar(0.f),
     _frameActual(0),
+    _chocoConMapa (false),
     _direccionActual(DireccionMob::Abajo)
 {
 }
@@ -86,8 +87,16 @@ void Mob::chocar (Colisionador& colision)
     if (rectanguloColision.intersects(colision.getColision()))
     {
         _velocidad = {0.f , 0.f};
+        _chocoConMapa = true;
     }
+}
 
+void Mob::cambioDeRumbo()
+{
+    //Al poner un n£mero muy alto, la funci¢n divagar() entra en su if
+    // y calcula una nueva posici¢n objetivo inmediatamente.
+    _tiempoDivagar = 10000;
+    _chocoConMapa = false;
 }
 
 
@@ -157,3 +166,7 @@ sf::Clock Mob::getRelojMob()
     return _relojVida;
 }
 
+bool Mob::getChocoConMapa()
+{
+    return _chocoConMapa;
+}
