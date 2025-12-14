@@ -56,7 +56,7 @@ class Game
     private:
         InterfazEstado _interfazEstado;
         std::list<std::unique_ptr<TextoFlotante>> _listaTextos;
-        
+
         sf::SoundBuffer _bufferComer;
         sf::Sound _sonidoComer;
 
@@ -88,6 +88,7 @@ class Game
         MenuPrincipal _menuPrincipal;
 
         void regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstructurasAleatorias);
+        void regenerarAnimales(std::list<std::unique_ptr<Mob>>& listaAnimalesAleatorias);
 
 /// --- VARIABLES DE USO PARA FADE IN Y FADE OUT TEST
 

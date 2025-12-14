@@ -136,24 +136,6 @@ void Game::run()
 //    enemigos.push_back(_FabricaMobs.crearMobs("Fantasma", {100 , 100}));
 //    enemigos.push_back(_FabricaMobs.crearMobs("Murcielago", {50 , 50}));
 
-/// ======================== Aniamles =========================///
-
-    float spawnX = 82*32;
-    float spawnY = 90*32;
-
-    sf::Vector2f _posicionAleatoria;
-
-    for (int i = 0 ; i < 5 ; i++)
-    {
-        _posicionAleatoria.x = spawnX + (rand()%400 - 200);
-        _posicionAleatoria.y = spawnY + (rand()%400 - 200);
-
-        animales.push_back(_FabricaMobs.crearMobs("Vaca", {_posicionAleatoria.x, _posicionAleatoria.y}));
-        animales.push_back(_FabricaMobs.crearMobs("Oveja", {_posicionAleatoria.x + 50,_posicionAleatoria.y}));
-        animales.push_back(_FabricaMobs.crearMobs("Cerdo", {_posicionAleatoria.x - 50,_posicionAleatoria.y + 50}));
-        animales.push_back(_FabricaMobs.crearMobs("Gallina", {_posicionAleatoria.x,_posicionAleatoria.y + 50}));
-    }
-
 /// ======================== Musica =========================///
     sf::SoundBuffer buffer;
     sf::Sound sonido;
@@ -260,8 +242,6 @@ void Game::run()
             }
             else if (opcion == OpcionMenu::NuevaPartida)
             {
-
-
                 float posX = 84 * 32.f;
                 float posY = 132 * 32.f;
                 character.setPosicion(posX, posY);
@@ -272,6 +252,8 @@ void Game::run()
                 character.setVelocidad(0,0);
 
                 regenerarRecursos(listaEstructuraRandom);
+                animales.clear();
+                regenerarAnimales(animales);
                 _listaCultivos.clear();
                 listaLoots.clear();
 
@@ -505,6 +487,7 @@ void Game::run()
             if (hora == 6 && !diaReseteado)
             {
                 regenerarRecursos(listaEstructuraRandom);
+                regenerarAnimales(animales);
                 cout << "Â¡Un nuevo dia comienza! La isla se ha regenerado." << endl;
                 diaReseteado = true; // Marcamos que ya reseteamos hoy
             }
@@ -920,6 +903,64 @@ sf::Clock Game::getRelojInterno()
 {
     return _relojInterno;
 }
+
+void Game::regenerarAnimales(std::list<std::unique_ptr<Mob>>& listaAnimales)
+{
+
+    int ancho = mapa.getMapWidth();
+    int alto = mapa.getMapHeight();
+    int tileW = mapa.getTileWidth();
+    int tileH = mapa.getTileHeight();
+
+    for (int y = 0; y < alto; y++)
+    {
+        for (int x = 0; x < ancho; x++)
+        {
+            // Obtenemos el ID del suelo
+            int idTile = mapa.getTileID(x, y);
+
+            // Verificamos si es Pasto (IDs sacados de tu regenerarRecursos)
+            bool esPasto = (idTile == 28 || idTile == 29 || idTile == 36 || idTile == 37);
+
+            // Ignoramos zonas prohibidas (como el tile 103 que usabas antes)
+            if (idTile == 103) continue;
+
+            if (esPasto)
+            {
+                // Posici¢n en pixeles
+                float posX = x * tileW;
+                float posY = y * tileH;
+
+                // Probabilidad de que aparezca animales
+                int probabilidad = rand() % 100;
+
+                if (probabilidad == 0)
+                {
+                    // Elegimos qu‚ animal spawnear al azar
+                    int tipoAnimal = rand() % 4; // 0, 1, 2, 3
+
+                    switch(tipoAnimal)
+                    {
+                        case 0:
+                            listaAnimales.push_back(_FabricaMobs.crearMobs("Vaca", {posX, posY}));
+                            break;
+                        case 1:
+                            listaAnimales.push_back(_FabricaMobs.crearMobs("Cerdo", {posX, posY}));
+                            break;
+                        case 2:
+                            listaAnimales.push_back(_FabricaMobs.crearMobs("Oveja", {posX, posY}));
+                            break;
+                        case 3:
+                            listaAnimales.push_back(_FabricaMobs.crearMobs("Gallina", {posX, posY}));
+                            break;
+                    }
+                }
+            }
+        }
+    }
+    cout << "Fauna regenerada. Total animales: " << listaAnimales.size() << endl;
+}
+
 
 void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstructuras)
 {
