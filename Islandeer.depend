@@ -3636,7 +3636,7 @@
 1761750014 d:\alejo\alemart\documents\github\islander\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1765746362 source:d:\alejo\alemart\documents\github\islander\game.cpp
+1765749704 source:d:\alejo\alemart\documents\github\islander\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
@@ -3844,7 +3844,7 @@
 	<iostream>
 	"ItemDescripcion.h"
 
-1765748826 source:d:\alejo\alemart\documents\github\islander\loot.cpp
+1765750298 source:d:\alejo\alemart\documents\github\islander\loot.cpp
 	"Loot.h"
 	<cmath>
 	"funcionesInterpolacion.h"

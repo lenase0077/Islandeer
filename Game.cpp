@@ -937,7 +937,7 @@ void Game::regenerarAnimales(std::list<std::unique_ptr<Mob>>& listaAnimales)
                 float posY = y * tileH;
 
                 // Probabilidad de que aparezca animales
-                int probabilidad = rand() % 100;
+                int probabilidad = rand() % 80;
 
                 if (probabilidad == 0)
                 {
