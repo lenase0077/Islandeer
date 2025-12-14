@@ -151,6 +151,7 @@ void Game::run()
         animales.push_back(_FabricaMobs.crearMobs("Vaca", {_posicionAleatoria.x, _posicionAleatoria.y}));
         animales.push_back(_FabricaMobs.crearMobs("Oveja", {_posicionAleatoria.x + 50,_posicionAleatoria.y}));
         animales.push_back(_FabricaMobs.crearMobs("Cerdo", {_posicionAleatoria.x - 50,_posicionAleatoria.y + 50}));
+        animales.push_back(_FabricaMobs.crearMobs("Gallina", {_posicionAleatoria.x,_posicionAleatoria.y + 50}));
     }
 
 /// ======================== Musica =========================///
@@ -175,21 +176,19 @@ void Game::run()
 
 
 /// ESTRUCTURA TEST
-    listaEstructuras.push_back(fabE.crearEstructura(82*32,85*32,0));
-    listaEstructuras.push_back(fabE.crearEstructura(83*32,85*32,1));
-    listaEstructuras.push_back(fabE.crearEstructura(84*32,85*32,2));
-    listaEstructuras.push_back(fabE.crearEstructura(85*32,85*32,3));
-    listaEstructuras.push_back(fabE.crearEstructura(86*32,85*32,4));
-    listaEstructuras.push_back(fabE.crearEstructura(87*32,85*32,5));
-    listaEstructuras.push_back(fabE.crearEstructura(88*32,85*32,6));
-    listaEstructuras.push_back(fabE.crearEstructura(89*32,85*32,7));
-    listaEstructuras.push_back(fabE.crearEstructura(89*32,90*32,7));
-
-    listaEstructuras.push_back(fabE.crearEstructura(90*32,85*32,9));
-
-    listaEstructuras.push_back(fabE.crearEstructura(91*32,85*32,8));
-    listaEstructuras.push_back(fabE.crearEstructura(91*32,86*32,8));
-    listaEstructuras.push_back(fabE.crearEstructura(91*32,90*32,8));
+//    listaEstructuras.push_back(fabE.crearEstructura(82*32,85*32,0));
+//    listaEstructuras.push_back(fabE.crearEstructura(83*32,85*32,1));
+//    listaEstructuras.push_back(fabE.crearEstructura(84*32,85*32,2));
+//    listaEstructuras.push_back(fabE.crearEstructura(85*32,85*32,3));
+//    listaEstructuras.push_back(fabE.crearEstructura(86*32,85*32,4));
+//    listaEstructuras.push_back(fabE.crearEstructura(87*32,85*32,5));
+//    listaEstructuras.push_back(fabE.crearEstructura(88*32,85*32,6));
+//    listaEstructuras.push_back(fabE.crearEstructura(89*32,85*32,7));
+//    listaEstructuras.push_back(fabE.crearEstructura(89*32,90*32,7));
+//    listaEstructuras.push_back(fabE.crearEstructura(90*32,85*32,9));
+//    listaEstructuras.push_back(fabE.crearEstructura(91*32,85*32,8));
+//    listaEstructuras.push_back(fabE.crearEstructura(91*32,86*32,8));
+//    listaEstructuras.push_back(fabE.crearEstructura(91*32,90*32,8));
 /// ======================== CICLO DIA Y NOCHE =========================///
     nightOverlay.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
     nightOverlay.setPosition(0.f, 0.f);

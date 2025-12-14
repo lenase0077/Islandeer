@@ -109,11 +109,13 @@ void Mob::update(sf::Vector2f& Posicionpersonaje, float deltatime)
 
 void Mob::updateColision() {
     _colision.setColision(getGlobalBounds());
-
 }
 
 void Mob::setFrame(int fila, int columna) {
-    setTextureRect((sf::IntRect(columna * 32, fila * 32, 32, 32)));
+    int ancho = getTextureRect().width;
+    int alto = getTextureRect().height;
+
+    setTextureRect(sf::IntRect(columna * ancho, fila * alto, ancho, alto));
 }
 
 float Mob::getVida() const {
@@ -149,4 +151,9 @@ void Mob::empujar(sf::Vector2f fuerza)
     _fuerzaRetroceso = fuerza;
 }
 
+
+sf::Clock Mob::getRelojMob()
+{
+    return _relojVida;
+}
 
