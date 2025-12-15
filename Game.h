@@ -62,6 +62,17 @@ class Game
         FabricaItems fabItems;
         InventarioInterfaz inv;
 
+        std::unique_ptr<BarcoHuida> barco;
+        std::unique_ptr<InterfazBarcoHuida> interfazBarco;
+        std::unique_ptr<SelectorDeOpciones> opcionesBarcoHuida;
+
+        sf::Texture texturaBarcoHuida;
+        sf::Texture texturaInterfazBarcoHuida;
+        sf::Texture texturaBotonesInterfazBarco;
+        sf::Font fuentePixelArt;
+
+
+
 
 
     private:

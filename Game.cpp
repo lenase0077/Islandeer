@@ -150,11 +150,14 @@ void Game::run()
     float hambrePorSegundo = 0.5f;
 
 /// ======================== Barco huida =========================///
-    BarcoHuida barco(100*32,130*32,texturaBarcoHuida);
-    InterfazBarcoHuida interfazBarco(texturaInterfazBarcoHuida, texturaBotonesInterfazBarco, fuentePixelArt,fabItems);
-    SelectorDeOpciones opcionesBarcoHuida("�Quieres retirarte de la isla?",fuentePixelArt);
-    opcionesBarcoHuida.agregarOpcion("SI, no banco mas esto.");
-    opcionesBarcoHuida.agregarOpcion("NO, no quiero volver a latam.");
+    barco = std::make_unique<BarcoHuida>(100*32, 130*32, texturaBarcoHuida);
+
+    interfazBarco = std::make_unique<InterfazBarcoHuida>(texturaInterfazBarcoHuida, texturaBotonesInterfazBarco, fuentePixelArt, fabItems);
+
+
+    opcionesBarcoHuida = std::make_unique<SelectorDeOpciones>("¿Quieres retirarte de la isla?", fuentePixelArt);
+    opcionesBarcoHuida->agregarOpcion("SI, no banco mas esto.");
+    opcionesBarcoHuida->agregarOpcion("NO, no quiero volver a latam.");
 
 
 
@@ -524,7 +527,7 @@ void Game::run()
                 window.draw(*animal);
             }
 
-            window.draw(barco);
+            window.draw(*barco);
 
 /// ========================= General ========================= ///
 
@@ -962,53 +965,53 @@ void Game::run()
 
 /// ======================== INICIO DRAWABLES =========================///
             invR.update(Camara, relacion);
-            barco.update(PosicionJugador);
+            barco->update(PosicionJugador);
 
             window.draw(invR);
             ///Logica interfazBarco
-            interfazBarco.ajustarEscalaAutomaticamente(Camara, relacion);
-            interfazBarco.update(posMouseWorld, inv);
-            interfazBarco.setVolumen(volumenActual);
-            if (barco.getDentroDeRango())
+            interfazBarco->ajustarEscalaAutomaticamente(Camara, relacion);
+            interfazBarco->update(posMouseWorld, inv);
+            interfazBarco->setVolumen(volumenActual);
+            if (barco->getDentroDeRango())
             {
-                if (interfazBarco.getCompletado())
+                if (interfazBarco->getCompletado())
                 {
-                    barco.setConstruido(true);
-                    opcionesBarcoHuida.setAbierto(true);
-                    interfazBarco.setOculto(true);
-                    if(opcionesBarcoHuida.getOpcionSeleccionada() == 0)
+                    barco->setConstruido(true);
+                    opcionesBarcoHuida->setAbierto(true);
+                    interfazBarco->setOculto(true);
+                    if(opcionesBarcoHuida->getOpcionSeleccionada() == 0)
                     {
                         window.close();
                     }
-                    else if(opcionesBarcoHuida.getOpcionSeleccionada() == 1)
+                    else if(opcionesBarcoHuida->getOpcionSeleccionada() == 1)
                     {
-                        opcionesBarcoHuida.setAbierto(false);
+                        opcionesBarcoHuida->setAbierto(false);
                     }
                 }
                 else
                 {
-                    opcionesBarcoHuida.setAbierto(false);
-                    interfazBarco.setOculto(false);
+                    opcionesBarcoHuida->setAbierto(false);
+                    interfazBarco->setOculto(false);
                 }
             }
             else
             {
-                opcionesBarcoHuida.resetOpcionSeleccionada();
-                interfazBarco.setOculto(true);
-                opcionesBarcoHuida.setAbierto(false);
+                opcionesBarcoHuida->resetOpcionSeleccionada();
+                interfazBarco->setOculto(true);
+                opcionesBarcoHuida->setAbierto(false);
             }
 
             //================================
-            opcionesBarcoHuida.ajustarEscalaAutomaticamente(Camara, relacion);
-            opcionesBarcoHuida.update(posMouseWorld,inv);
+            opcionesBarcoHuida->ajustarEscalaAutomaticamente(Camara, relacion);
+            opcionesBarcoHuida->update(posMouseWorld,inv);
 
             window.draw(inventarioCofre);
 
             window.draw(inv);
-            window.draw(interfazBarco);
+            window.draw(*interfazBarco);
 
 
-            window.draw(opcionesBarcoHuida);
+            window.draw(*opcionesBarcoHuida);
 
 
             window.setView(window.getDefaultView());
@@ -1142,6 +1145,14 @@ void Game::guardarPartida()
 
     j["mundo"]["tiempoAcumulado"] = _tiempoDiaAcumulado;
 
+    // 6. PROGRESO DEL BARCO
+    j["barco"] = json::array();
+
+    for (int i = 0; i < 4; i++)
+    {
+        j["barco"].push_back(interfazBarco->getCantidadesPagina(i));
+    }
+
 
     std::ofstream archivo("partida_guardada.json");
     if (archivo.is_open())
@@ -1270,6 +1281,28 @@ void Game::cargarPartida()
 
     // 5. MUNDO
     _tiempoDiaAcumulado = j["mundo"]["tiempoAcumulado"];
+
+    // 6. CARGAR BARCO
+    if (j.contains("barco"))
+    {
+        int pagina = 0;
+        for (auto& paginaJson : j["barco"])
+        {
+            // Convertimos el array json de vuelta a vector<int>
+            std::vector<int> cantidades = paginaJson.get<std::vector<int>>();
+
+            // Le decimos a la interfaz que actualice esa página
+            interfazBarco->setCantidadesPagina(pagina, cantidades);
+
+            pagina++;
+        }
+        interfazBarco->recalcularEstadoCompletado();
+
+        if (interfazBarco->getCompletado())
+        {
+            barco->setConstruido(true);
+        }
+    }
 
     cout << "--- PARTIDA CARGADA EXITOSAMENTE ---" << endl;
 }

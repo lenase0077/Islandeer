@@ -48,5 +48,10 @@ public:
     bool getOculto();
     void setOculto(bool nuevoEstado);
     void setVolumen (float Volumen);
+
+    const std::vector<int>& getCantidadesPagina(int pagina) const;
+    void setCantidadesPagina(int pagina, const std::vector<int>& datosCargados);
+    void recalcularEstadoCompletado();
+
 };
 

@@ -445,13 +445,13 @@
 1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\funciones.h
 	<SFML/Graphics.hpp>
 
-1765819589 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1765820878 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1765819589 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
+1765820562 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
 	"Cultivos.h"
 	"FabricaCultivos.h"
 	<iostream>
@@ -4331,7 +4331,7 @@
 	<string>
 	<cmath>
 
-1765814744 c:\users\leand\onedrive\documentos\repositorio\islandeer\interfazbarcohuida.h
+1765820851 c:\users\leand\onedrive\documentos\repositorio\islandeer\interfazbarcohuida.h
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 	"SeleccionRectangulo.h"

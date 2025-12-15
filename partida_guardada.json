@@ -1,4 +1,18 @@
 {
+    "barco": [
+        [
+            0
+        ],
+        [
+            1
+        ],
+        [
+            0
+        ],
+        [
+            0
+        ]
+    ],
     "cultivos": [
         {
             "fase": 2,
@@ -190,7 +204,7 @@
             "slot": 2
         },
         {
-            "cantidad": 15,
+            "cantidad": 14,
             "id": 42,
             "slot": 3
         },
@@ -220,18 +234,33 @@
             "slot": 8
         },
         {
-            "cantidad": 6,
+            "cantidad": 1,
             "id": 37,
+            "slot": 9
+        },
+        {
+            "cantidad": 1,
+            "id": 14,
             "slot": 10
+        },
+        {
+            "cantidad": 2,
+            "id": 10,
+            "slot": 11
+        },
+        {
+            "cantidad": 2,
+            "id": 34,
+            "slot": 12
         }
     ],
     "mundo": {
-        "tiempoAcumulado": 72.27375793457031
+        "tiempoAcumulado": 141.4049072265625
     },
     "personaje": {
-        "hambre": 89.5636978149414,
-        "posX": 5408.4345703125,
-        "posY": 250.85475158691406,
+        "hambre": 65.80476379394531,
+        "posX": 3189.793212890625,
+        "posY": 4178.70947265625,
         "vida": 100.0
     }
 }
