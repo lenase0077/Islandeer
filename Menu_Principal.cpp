@@ -48,7 +48,7 @@ MenuPrincipal::MenuPrincipal()
 
     ///==========AUDIO===========
 
-    if (bufferStardew.loadFromFile("01.-Stardew-Valley-Overture.wav"))
+    if (bufferStardew.loadFromFile("sonidos/01.-Stardew-Valley-Overture.wav"))
     {
         sonidoStardew.setBuffer(bufferStardew);
         sonidoStardew.setVolume(_volumenGeneral);

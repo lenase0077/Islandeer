@@ -39,10 +39,19 @@ Personaje::Personaje(sf::Texture& _textura)
 
     _colision.setColision(getColisionBounds());
 
-    if (!_footprintsBuffer.loadFromFile("walk-on-grass-3-291986.wav"))
+    if (!_footprintsBuffer.loadFromFile("sonidos/walk-on-grass-3-291986.wav"))
 {
         return;
     }
+
+    if (!_bufferPoderDorado.loadFromFile("sonidos/golden_time.wav")) {
+        cout << "Error loading golden_time.mp3" << endl;
+    } else {
+        _sonidoPoderDorado.setBuffer(_bufferPoderDorado);
+        _sonidoPoderDorado.setVolume(50.f); // Adjust volume as needed
+    }
+
+
 
     _footprints.setBuffer(_footprintsBuffer);
     _footprints.setVolume(3.f);
@@ -319,6 +328,7 @@ void Personaje::update(float deltatime)
         {
             _tiempoPoderDorado = 0;
             _sprite.setColor(sf::Color::White);
+            _sonidoPoderDorado.stop();
         }
     }
 
@@ -690,6 +700,12 @@ void Personaje::activarPoderDorado(float tiempo)
     _tiempoPoderDorado = tiempo;
     _acumuladorRegeneracion = 0.0f;
     _sprite.setColor(sf::Color(255, 215, 0));
+
+    if (_sonidoPoderDorado.getBuffer() != nullptr) // Check if loaded
+    {
+        _sonidoPoderDorado.play();
+    }
+
 }
 
 bool Personaje::tienePoderDorado() const

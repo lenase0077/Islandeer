@@ -174,7 +174,7 @@ void Game::run()
 /// ======================== Musica =========================///
     sf::SoundBuffer buffer;
     sf::Sound sonido;
-    if (!buffer.loadFromFile("music.wav"))
+    if (!buffer.loadFromFile("sonidos/music.wav"))
     {
         return;
     }
@@ -184,7 +184,7 @@ void Game::run()
     sonido.setLoop(true);
 
 
-    if (!_bufferComer.loadFromFile("comer.wav"))
+    if (!_bufferComer.loadFromFile("sonidos/comer.wav"))
     {
         cout << "Error al cargar comer.wav" << endl;
     }
@@ -1529,7 +1529,7 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
         character.setHambre(character.getHambreMaxima());
 
         // 2. Activar BUFF por 10 segundos
-        character.activarPoderDorado(10.0f);
+        character.activarPoderDorado(15.0f);
 
         cout << "Me rompi una muela masticando esto" << endl;
         seConsumio = true;
