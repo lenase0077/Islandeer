@@ -151,7 +151,8 @@ void InterfazBarcoHuida::draw(sf::RenderTarget& target, sf::RenderStates states)
 
 }
 
-bool InterfazBarcoHuida::getCompletado(){
+bool InterfazBarcoHuida::getCompletado()
+{
     return _completado;
 }
 
@@ -209,7 +210,8 @@ void InterfazBarcoHuida::update(const sf::Vector2f& posGlobalDelMouse, Inventari
 
     _textoTitulo.setString(_titulos[_pagina]);
 
-    if (!interaccionRealizada){
+    if (!interaccionRealizada)
+    {
 
         ///ANALISIS DE LOS SELECTORES
         int fila = 0;
@@ -225,29 +227,53 @@ void InterfazBarcoHuida::update(const sf::Vector2f& posGlobalDelMouse, Inventari
                     if (_selectoresItems[_pagina][fila].estaDentro(posGlobalDelMouse.x,posGlobalDelMouse.y,true))
                     {
                         sobreUno = true;
-                        _bordeSeleccion.setPosition(_selectoresItems[_pagina][fila].get_x1(),_selectoresItems[_pagina][fila].get_y1());///Ajustamos la posicion del borde
+                        _bordeSeleccion.setPosition(_selectoresItems[_pagina][fila].get_x1(),_selectoresItems[_pagina][fila].get_y1());
+
                         ///SISTEMA PARA QUITAR ITEM
                         if (input.mouseIzqRecienPresionado)
                         {
+                            // 1. Datos iniciales
+                            int idItem = itemAnalizado->getID();
+                            int faltaParaCompletar = _cantidadNecesaria[_pagina][fila];
+                            int tengoEnInventario = inventarioJugador.buscarTotalItems(idItem); // Usar la funci¢n nueva que suma todo
+
+                            int cantidadAQuitar = 0;
+
+                            // 2. L¢gica de c lculo blindada
                             if (input.teclaTomarTodo)
                             {
-                                do
-                                {
-                                    cout << "CODIGO EJECUTADO W" <<endl;
-                                    inventarioJugador.quitarItem(itemAnalizado -> getID(),1);
-                                    _cantidadNecesaria[_pagina][fila]--;
-                                }
-                                while((_cantidadNecesaria[_pagina][fila] > 0) && (inventarioJugador.buscarItems(itemAnalizado -> getID()) != -1));
+                                // "Tomar todo" significa: Llenar todo lo que falta de una vez.
+                                // NUNCA debe ser mayor a 'faltaParaCompletar' ni mayor a 'tengoEnInventario'
+                                cantidadAQuitar = std::min(faltaParaCompletar, tengoEnInventario);
                             }
                             else
                             {
-                                cout << "CODIGO EJECUTADO N" <<endl;
-                                ///quito el item del jugador
-                                inventarioJugador.quitarItem(itemAnalizado -> getID(),1);
-                                ///resto la cantidad nesesaria de ese espacio
-                                _cantidadNecesaria[_pagina][fila]--;
+                                // Click normal: 1 a 1
+                                if (tengoEnInventario >= 1)
+                                {
+                                    cantidadAQuitar = 1;
+                                }
                             }
-                            if (_cantidadNecesaria[_pagina][fila] == 0) _sonidoLapiz.play();
+
+                            // 3. DEBUG: Ver qu‚ est  calculando antes de ejecutar
+                            // Si esto imprime 17 cuando solo falta 1, entonces 'faltaParaCompletar' est  mal.
+                            cout << "Calculo: Falta " << faltaParaCompletar
+                                 << " | Tengo " << tengoEnInventario
+                                 << " | A Quitar " << cantidadAQuitar << endl;
+
+                            // 4. Ejecuci¢n segura
+                            if (cantidadAQuitar > 0)
+                            {
+                                // IMPORTANTE: Pasamos expl¡citamente 'cantidadAQuitar'
+                                if (inventarioJugador.quitarItem(idItem, cantidadAQuitar))
+                                {
+                                    _cantidadNecesaria[_pagina][fila] -= cantidadAQuitar;
+
+                                    // Sonido y feedback
+                                    if (_cantidadNecesaria[_pagina][fila] == 0) _sonidoLapiz.play();
+                                    cout << "EXITO: Se quitaron " << cantidadAQuitar << " items." << endl;
+                                }
+                            }
                         }
                     }
                 }
@@ -279,11 +305,19 @@ void InterfazBarcoHuida::update(const sf::Vector2f& posGlobalDelMouse, Inventari
 
         ///Defino el estado de _completado
         int paginasCompletadas = 0;
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++)
+        {
             if (_paginaCompletada[i] == true) paginasCompletadas++;
         }
         if (paginasCompletadas == 4) _completado = true;
     }
+
+    /*
+    INPORTANTE:
+    parece que el error sucede cuando:
+    Hay mas de un slot lleno con el item necesario y es un item acumulable.
+    Verificar con una IA usando InterfazBarco y inventarioInterfaz, puede ser que la funcion quitarItem este fallando.
+    */
 }
 
 void InterfazBarcoHuida::ajustarEscalaAutomaticamente(const sf::View& vista, const float& relacionAspecto)

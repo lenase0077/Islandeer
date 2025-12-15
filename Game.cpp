@@ -103,7 +103,7 @@ void Game::run()
 
     inv.agregarItem(3,1);
     inv.agregarItem(5,3);
-    inv.agregarItem(10,4);
+    inv.agregarItem(10,18);
     inv.agregarItem(15,3);
     inv.agregarItem(14,10);
 

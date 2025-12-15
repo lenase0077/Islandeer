@@ -1394,7 +1394,7 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1765725395 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1765766773 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
@@ -1753,7 +1753,7 @@
 
 1761749986 c:\users\sebas\onedrive\documentos\github\islandeer\enemigo.h
 
-1765552125 c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.h
+1765789543 c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.h
 	"SeleccionRectangulo.h"
 	"Item.h"
 	"ItemDescripcion.h"
@@ -1787,7 +1787,7 @@
 	<SFML/Graphics.hpp>
 	"Comando.h"
 
-1765552125 source:c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.cpp
+1765791743 source:c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.cpp
 	"InventarioIntefaz.h"
 	"funcionesInterpolacion.h"
 	<cmath>
@@ -4059,7 +4059,7 @@
 	"Menu_Principal.h"
 	<iostream>
 
-1765553600 source:c:\users\sebas\onedrive\documentos\github\islandeer\mesadecrafteo.cpp
+1765792261 source:c:\users\sebas\onedrive\documentos\github\islandeer\mesadecrafteo.cpp
 	"MesaDeCrafteo.h"
 	"Comando.h"
 	<cmath>
@@ -4388,7 +4388,7 @@
 	<string>
 	<cmath>
 
-1765725083 source:c:\users\sebas\onedrive\documentos\github\islandeer\interfazbarcohuida.cpp
+1765790441 source:c:\users\sebas\onedrive\documentos\github\islandeer\interfazbarcohuida.cpp
 	"InterfazBarcoHuida.h"
 	"Comando.h"
 	"funcionesInterpolacion.h"
