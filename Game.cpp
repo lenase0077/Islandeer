@@ -56,6 +56,13 @@ void Game::run()
         cout << "ERROR AL CARGAR botonesInterfazBarco.png" << endl;
     }
 
+    sf::Texture texturaAguaCinematica;
+    if (!texturaAguaCinematica.loadFromFile("AguaCinematica.png"))
+    {
+        std::cout << "Error cargando textura AguaCinematica.png" << std::endl;
+    }
+    texturaAguaCinematica.setRepeated(true);
+
     if (!fontReloj.loadFromFile("PIXEARG_.TTF"))
     {
         cout << "Error al cargar PIXEARG_.TTF" << endl;
@@ -158,6 +165,10 @@ void Game::run()
     opcionesBarcoHuida = std::make_unique<SelectorDeOpciones>("¿Quieres retirarte de la isla?", fuentePixelArt);
     opcionesBarcoHuida->agregarOpcion("SI, no banco mas esto.");
     opcionesBarcoHuida->agregarOpcion("NO, no quiero volver a latam.");
+
+
+/// ======================== Cinematicas =========================///
+    CinematicaFinal cinematicaF( texturaBarcoHuida, texturaAguaCinematica, fuentePixelArt, "==========\n ISLANDER \n==========\n Desarrollado por los estudiantes: \n -Leandro Serrano. \n -Alejo Martinez. \n -Sebastian Durazzini. \n -Daniel Raho.");
 
 
 
@@ -972,6 +983,9 @@ void Game::run()
             interfazBarco->ajustarEscalaAutomaticamente(Camara, relacion);
             interfazBarco->update(posMouseWorld, inv);
             interfazBarco->setVolumen(volumenActual);
+
+            cinematicaF.ajustarEscalaAutomaticamente(Camara,relacion);
+
             if (barco->getDentroDeRango())
             {
                 if (interfazBarco->getCompletado())
@@ -981,10 +995,12 @@ void Game::run()
                     interfazBarco->setOculto(true);
                     if(opcionesBarcoHuida->getOpcionSeleccionada() == 0)
                     {
-                        window.close();
+                        opcionesBarcoHuida->resetOpcionSeleccionada();
+                        cinematicaF.reproducir();
                     }
                     else if(opcionesBarcoHuida->getOpcionSeleccionada() == 1)
                     {
+                        opcionesBarcoHuida->resetOpcionSeleccionada();
                         opcionesBarcoHuida->setAbierto(false);
                     }
                 }
@@ -1005,13 +1021,27 @@ void Game::run()
             opcionesBarcoHuida->ajustarEscalaAutomaticamente(Camara, relacion);
             opcionesBarcoHuida->update(posMouseWorld,inv);
 
+            if (cinematicaF.estaReproduciendo()){
+                opcionesBarcoHuida->setAbierto(false);
+                cinematicaF.update();
+                window.draw(cinematicaF);
+            }
+            else if (cinematicaF.getCompletado()){
+                window.close();
+            }
+            else{
+                window.draw(*opcionesBarcoHuida);
+            }
+
             window.draw(inventarioCofre);
 
             window.draw(inv);
             window.draw(*interfazBarco);
 
 
-            window.draw(*opcionesBarcoHuida);
+
+
+
 
 
             window.setView(window.getDefaultView());
