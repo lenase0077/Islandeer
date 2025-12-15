@@ -108,6 +108,8 @@ std::unique_ptr<Item> FabricaItems::crearItem(int id)
         }
 
         if (esHacha) herramienta->setTipoSonido(SonidoHerramienta::HACHA);
+        if (esPico) herramienta->setTipoSonido(SonidoHerramienta::PICO);
+        if (esEspada) herramienta->setTipoSonido(SonidoHerramienta::ESPADA);
 
         // Cargamos titulo/descripcion si existen en el OTRO json
         // IMPORTANTE: Usamos idStr, NO id
