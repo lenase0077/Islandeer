@@ -610,10 +610,39 @@ void Game::run()
                 mobBase->update(PosicionJugador, deltatime);
 
                 // ColisiÃ³n con el Mapa
+
                 for (auto& colisionadorMapa : mapa._colisiones)
                 {
+                    sf::FloatRect rect = colisionadorMapa.getColision();
+
+                    float dx = std::abs(animal->getPosition().x - rect.left);
+                    float dy = std::abs(animal->getPosition().y - rect.top);
+
+                    if (dx > 80.0f || dy > 80.0f) continue;
+
                     animal->chocar(colisionadorMapa);
                 }
+
+
+                for (auto& estructura : listaEstructuraRandom)
+                {
+                    if (!estructura->estaDestruido())
+                    {
+                        // --- OPTIMIZACIÓN: FILTRO DE DISTANCIA ---
+                        float dx = std::abs(animal->getPosition().x - estructura->getPosition().x);
+                        float dy = std::abs(animal->getPosition().y - estructura->getPosition().y);
+
+                        // Si está a más de 50 pixeles (aprox 1.5 tiles), NI SIQUIERA comprobamos colisión.
+                        // "continue" salta al siguiente arbol instantaneamente.
+                        if (dx > 50.0f || dy > 50.0f) continue;
+                        // -----------------------------------------
+
+                        // Si llegamos aca, es porque está cerca. Ahora si gastamos recursos en chocar.
+                        animal->chocar(estructura->getColisionador());
+                    }
+                }
+
+
 
                 // 3. ORDEÃ‘AR (Click Derecho)
                 // Mantenemos esto con Click Derecho para que no ataque sin querer al ordeÃ±ar
@@ -698,9 +727,19 @@ void Game::run()
 
             for (auto& colisionador : mapa._colisiones)
             {
+                sf::FloatRect rect = colisionador.getColision();
+
+
+                float dx = std::abs(character.getPosition().x - rect.left);
+                float dy = std::abs(character.getPosition().y - rect.top);
+
+                if (dx > 80.0f || dy > 80.0f)
+                {
+                    continue;
+                }
+
                 character.chocar(colisionador);
             }
-
 
             float relacion = (float)window.getSize().x/(float)window.getSize().y;
 
@@ -727,33 +766,34 @@ void Game::run()
 
             for (auto estructura = listaEstructuraRandom.begin(); estructura != listaEstructuraRandom.end(); )
             {
-                // Verificamos si la estructura sigue viva
                 if (!(*estructura)->estaDestruido())
                 {
                     window.draw(**estructura);
                     (*estructura)->getColisionador().draw(window);
 
-                    // A. FÃSICA (Chocar para no atravesar) =======================
-                    // Siempre chequeamos colisiÃ³n fÃ­sica para el sliding
+                    float dx = std::abs(character.getPosition().x - (*estructura)->getPosition().x);
+                    float dy = std::abs(character.getPosition().y - (*estructura)->getPosition().y);
 
-                    character.chocar((*estructura)->getColisionador());
-
-
-                    // B. ATAQUE (Hitbox separada) ================================
-                    // Solo entramos si atacaste y la estructura se puede romper
-                    if (golpeHabilitado && (*estructura)->getRompePorColision())
+                    // Solo calculamos y ataques si esta CERCA
+                    if (dx < 80.0f && dy < 80.0f)
                     {
-                        procesarAtaqueEstructura(estructura->get(), rectEspada, inv);
+                        // A. FÍSICA
+                        character.chocar((*estructura)->getColisionador());
+
+                        // B. ATAQUE
+                        {
+                        if (golpeHabilitado && (*estructura)->getRompePorColision())
+                            procesarAtaqueEstructura(estructura->get(), rectEspada, inv);
+                        }
                     }
 
-                    // Update normal de la estructura
+
                     (*estructura)->update( PosicionJugador, posMouseWorld, Camara, relacion, inv, inventarioCofre, deltatime);
 
                     estructura++; // Avanzamos al siguiente
                 }
                 else
                 {
-                    // Si estÃ¡ destruido, soltamos loot y borramos
                     (*estructura)->liberarLoot(fabItems, listaLoots);
                     estructura = listaEstructuraRandom.erase(estructura);
                 }
@@ -979,18 +1019,26 @@ void Game::regenerarAnimales(std::list<std::unique_ptr<Mob>>& listaAnimales)
     int tileW = mapa.getTileWidth();
     int tileH = mapa.getTileHeight();
 
+    int limiteMaximo = 50;
+
     for (int y = 0; y < alto; y++)
     {
         for (int x = 0; x < ancho; x++)
         {
+
+            if (listaAnimales.size() >= limiteMaximo)
+            {
+                cout << "Límite de animales alcanzado (" << limiteMaximo << ")." << endl;
+                return;
+            }
+
+
             // Obtenemos el ID del suelo
             int idTile = mapa.getTileID(x, y);
 
             // Verificamos si es Pasto
             bool esPasto = (idTile == 28 || idTile == 29 || idTile == 36 || idTile == 37);
 
-            // Ignoramos zonas prohibidas
-            if (idTile == 103) continue;
 
             if (esPasto)
             {
@@ -999,7 +1047,7 @@ void Game::regenerarAnimales(std::list<std::unique_ptr<Mob>>& listaAnimales)
                 float posY = y * tileH;
 
                 // Probabilidad de que aparezca animales
-                int probabilidad = rand() % 80;
+                int probabilidad = rand() % 300;
 
                 if (probabilidad == 0)
                 {
@@ -1231,9 +1279,9 @@ void Game::intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv)
 
     //Validar Terreno
     int idSuelo = mapa.getTileID(tileX, tileY);
-    if (!esSueloCultivable(idSuelo))
+    if (!esSueloCultivable(idSuelo)){
         mostrarTexto("No creo que pueda plantar aqui", character.getPosition().x, character.getPosition().y, 1000);
-        return;
+        return;}
 
     //Calcular posicion
     float posX = tileX * tileW;
