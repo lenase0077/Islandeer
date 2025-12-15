@@ -66,6 +66,12 @@ class Game
         sf::SoundBuffer _bufferComer;
         sf::Sound _sonidoComer;
 
+        sf::SoundBuffer _bufferHacha;
+        sf::SoundBuffer _bufferPico;
+        sf::SoundBuffer _bufferEspada;
+
+        sf::Sound _sonidoHerramienta;
+
         sf::Texture _texturaPersonaje;
         Personaje character;
         sf::RenderWindow window;

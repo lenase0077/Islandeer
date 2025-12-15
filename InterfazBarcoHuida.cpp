@@ -25,7 +25,7 @@ InterfazBarcoHuida::InterfazBarcoHuida(const sf::Texture& texturaFondoInterfaz, 
     _bordeSeleccion.setOutlineColor(sf::Color::White);
 
     //Audio subrayado
-    if (!_bufferSonidoLapiz.loadFromFile("SonidoLapiz.wav"))
+    if (!_bufferSonidoLapiz.loadFromFile("Sonidos/SonidoLapiz.wav"))
     {
         cout << "no se pudo cargar el audio SonidoLapiz.wav" << endl;
     }
