@@ -73,7 +73,7 @@ void Game::run()
     inv.agregarItem(31,16);
     inv.agregarItem(32,16);
     inv.agregarItem(33,16);
-    inv.agregarItem(24,1);
+    inv.agregarItem(28,1);
 
 
     inv.agregarItem(25,16);
@@ -505,7 +505,6 @@ void Game::run()
                << std::setw(2) << std::setfill('0') << minuto;
             textReloj.setString(ss.str());
 
-
             static bool diaReseteado = false;
 
             if (hora == 6 && !diaReseteado)
@@ -520,8 +519,39 @@ void Game::run()
             {
                 diaReseteado = false; // Preparamos el flag para el siguiente dia
             }
+
+            if (hora == 22)
+            {
+                mostrarTexto("Escucho ruidos... debo tener cuidado.", character.getPosition().x, character.getPosition().y, 4000);
+            }
+
             float reduccion = hambrePorSegundo * (deltatime / 1000.0f);
             character.setHambre(character.getHambre() - reduccion);
+
+            ///Mensajes
+            if (character.getHambre() < 20)
+            {
+                // Reloj est�tico: recuerda el tiempo aunque el bucle siga girando
+                static sf::Clock relojAvisoHambre;
+
+                // Solo mostramos el mensaje si pasaron 10 segundos desde el �ltimo aviso
+                if (relojAvisoHambre.getElapsedTime().asSeconds() > 10.0f)
+                {
+                    mostrarTexto("Tengo mucha hambre...", character.getPosition().x, character.getPosition().y, 3000);
+
+                    relojAvisoHambre.restart();
+                }
+            }
+
+            if (character.getVida() <= 25)
+            {
+                static sf::Clock relojQueja;
+                if (relojQueja.getElapsedTime().asSeconds() > 8.0f)
+                {
+                    mostrarTexto("Me estoy desangrando...", character.getPosition().x, character.getPosition().y, 3000);
+                    relojQueja.restart();
+                }
+            }
 
 
 /// ======================== COMANDOS =========================///
@@ -577,15 +607,15 @@ void Game::run()
 
                 // 3. ORDEÑAR (Click Derecho)
                 // Mantenemos esto con Click Derecho para que no ataque sin querer al ordeñar
-                if (animal != nullptr && sf::Mouse::isButtonPressed(sf::Mouse::Right))
+                if (animal != nullptr && Comandos::getInstancia().mouseDerRecienPresionado)
                 {
                     if (animal->getGlobalBounds().contains(posMouseWorld))
                     {
                         Item* itemEnMano = inv.getItemEnMano();
-                        // Pasamos inv y fabItems como en tu código original
+
                         if (animal->intentarOrdeniar(character.getPosition(), itemEnMano, fabItems, inv))
                         {
-                            cout << "Ordeñada!!" << endl;
+                            mostrarTexto("Gracias vaquita", character.getPosition().x, character.getPosition().y, 2000);
                         }
                     }
                 }
@@ -622,6 +652,7 @@ void Game::run()
                             if (itemEnMano->estaRota())
                             {
                                 inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
+                                mostrarTexto("Pero la... se me rompio che", character.getPosition().x, character.getPosition().y, 3000);
                             }
                         }
 
@@ -669,7 +700,15 @@ void Game::run()
             {
                 it->update(character.getPosition(),inv);
                 window.draw(*it);
-                if (it->getLooted()) it = listaLoots.erase(it);
+                if (it->getLooted())
+                {
+                    if (rand() % 10 == 0) // 10% de probabilidad
+                    {
+                        mostrarTexto("Esto sera util...", character.getPosition().x, character.getPosition().y, 2000);
+                    }
+                    it = listaLoots.erase(it);
+                }
+
                 else it++;
 
             }
@@ -1109,9 +1148,16 @@ void Game::actualizarFade(Personaje& character)
         {
             _fadeAlpha = 255.0f;
 
-
             character.setPosicion(_destinoTeleport.x, _destinoTeleport.y);
-//            Camara.setCenter(_destinoTeleport.x, _destinoTeleport.y);
+
+            int tileX = static_cast<int>(_destinoTeleport.x / 32);
+            int tileY = static_cast<int>(_destinoTeleport.y / 32);
+
+            // Si llegamos al Tile 166, 46 (Interior Cueva)
+            if (tileX == 166 && tileY == 46)
+            {
+                mostrarTexto("Que frio hace aca...", character.getPosition().x, character.getPosition().y - 50, 4000);
+            }
 
             _estadoFade = 2;
         }
@@ -1185,7 +1231,9 @@ void Game::intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv)
 
     //Validar Terreno
     int idSuelo = mapa.getTileID(tileX, tileY);
-    if (!esSueloCultivable(idSuelo)) return;
+    if (!esSueloCultivable(idSuelo))
+        mostrarTexto("No crecera nada aca", character.getPosition().x, character.getPosition().y, 4000);
+        return;
 
     //Calcular posicion
     float posX = tileX * tileW;
@@ -1311,7 +1359,12 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
             character.setHambre(character.getHambre() + 15);
 
             character.setVida(character.getVida() + 5);
-            cout << "Comio algo" << endl;
+
+            if (id == 40)
+                 mostrarTexto("Esta dura... deberia cocinarla.", character.getPosition().x, character.getPosition().y, 3000);
+            else
+                 mostrarTexto("Rico y fresco.", character.getPosition().x, character.getPosition().y, 2000);
+
             seConsumio = true;
         }
         break;
@@ -1343,7 +1396,10 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
         character.envenenar(5.0f);
 
         character.setHambre(character.getHambre() - 25);
-        cout << "Tenes ganas de cagar...!" << endl;
+
+        mostrarTexto("Me siento terrible...", character.getPosition().x, character.getPosition().y - 20, 4000);
+        mostrarTexto("No debi comer eso", character.getPosition().x, character.getPosition().y, 4000);
+
         seConsumio = true;
         break;
 

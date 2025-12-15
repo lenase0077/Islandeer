@@ -34,7 +34,7 @@ TextoFlotante::TextoFlotante(const sf::Font& fuente, const std::string& mensaje,
     _estadestruido = false;
 }
 
-TextoFlotante::TextoFlotante(const sf::Font& fuente, const std::string& mensaje, float posX, float posY, float& duracion)
+TextoFlotante::TextoFlotante(const sf::Font& fuente, const std::string& mensaje, float posX, float posY, float duracion)
 {
     setPosition(posX, posY);
 
