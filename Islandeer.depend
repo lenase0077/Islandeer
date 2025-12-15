@@ -4455,8 +4455,9 @@
 	<iostream>
 	"TextoFlotante.h"
 
-1765835595 source:c:\users\sebas\onedrive\documentos\github\islandeer\cinematicafinal.cpp
+1765836280 source:c:\users\sebas\onedrive\documentos\github\islandeer\cinematicafinal.cpp
 	"CinematicaFinal.h"
+	<cmath>
 	<iostream>
 
 1765836112 c:\users\sebas\onedrive\documentos\github\islandeer\cinematicafinal.h
