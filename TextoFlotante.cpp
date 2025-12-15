@@ -26,6 +26,7 @@ TextoFlotante::TextoFlotante(const sf::Font& fuente, const std::string& mensaje,
     ///Centramos el origen
     sf::FloatRect bounds = _texto.getLocalBounds();
     _texto.setOrigin(bounds.width / 2.0f, bounds.height / 2.0f);
+    _sombra.setOrigin(bounds.width / 2.0f, bounds.height / 2.0f);
 
     ///Tiempos
     _tiempoDeLectura = 3000.0f;
@@ -34,14 +35,13 @@ TextoFlotante::TextoFlotante(const sf::Font& fuente, const std::string& mensaje,
     _estadestruido = false;
 }
 
-TextoFlotante::TextoFlotante(const sf::Font& fuente, const std::string& mensaje, float posX, float posY, float& duracion)
+TextoFlotante::TextoFlotante(const sf::Font& fuente, const std::string& mensaje, float posX, float posY, float duracion)
 {
     setPosition(posX, posY);
 
     _texto.setFont(fuente);
     _texto.setString(mensaje);
     _texto.setCharacterSize(8);
-    _texto.setColor(sf::Color::White);
 
     sf::Texture& texturaFuente = (sf::Texture&)fuente.getTexture(8);
     texturaFuente.setSmooth(false);
@@ -57,15 +57,15 @@ TextoFlotante::TextoFlotante(const sf::Font& fuente, const std::string& mensaje,
     _sombra.setFillColor(sf::Color::Black);
 
     ///Centramos el origen
-//    sf::FloatRect bounds = _texto.getLocalBounds();
-//    _texto.setOrigin(bounds.width / 2.0f, bounds.height / 2.0f);
+    sf::FloatRect bounds = _texto.getLocalBounds();
+    _texto.setOrigin(bounds.width / 2.0f, bounds.height / 2.0f);
+    _sombra.setOrigin(bounds.width / 2.0f, bounds.height / 2.0f);
 
     ///Tiempos
     _tiempoDeLectura = duracion;
     _duracionFade = 1000.0f;
     _tiempoTranscurrido = 0.0f;
     _estadestruido = false;
-
 }
 
 
@@ -128,13 +128,13 @@ void TextoFlotante::draw(sf::RenderTarget& target, sf::RenderStates states) cons
     //Obtenemos el alpha actual (la transparencia del fade out del update)
     int alphaActual = _sombra.getFillColor().a;
 
-    // CAPA 1: Sombra cercana (M s fuerte)
+    // CAPA 1: Sombra cercana (Más fuerte)
     // Offset (1,1) - Opacidad 30% del alpha actual
     sombraBlur.setPosition(1.f, 1.f);
     sombraBlur.setFillColor(sf::Color(0, 0, 0, alphaActual * 0.3));
     target.draw(sombraBlur, states);
 
-    // CAPA 2: Sombra media (M s suave)
+    // CAPA 2: Sombra media (Más suave)
     // Offset (2,2) - Opacidad 20%
     sombraBlur.setPosition(2.f, 2.f);
     sombraBlur.setFillColor(sf::Color(0, 0, 0, alphaActual * 0.2));

@@ -81,3 +81,24 @@ void Cofre::guardarContenido(InventarioInterfaz& inventarioCofre)
     cout << "Cofre cerrado: Items regresaron al cofre." << endl;
 }
 
+void Cofre::liberarLoot(FabricaItems& fabItems, std::list<Loot>& listaLoot)
+{
+    //Primero soltamos el cofre en s¡ (el item 49)
+    Estructura::liberarLoot(fabItems, listaLoot);
+
+    //Recorremos el interior del cofre
+    for (auto& item : _itemsGuardados)
+    {
+        if (item != nullptr)
+        {
+            // Generamos una posici¢n aleatoria muy cerca del cofre
+            float randX = (rand() % 30 - 15) + getPosition().x + 16;
+            float randY = (rand() % 30 - 15) + getPosition().y + 16;
+
+            //Creamos el Loot usando el ID del item que estaba guardado
+            listaLoot.emplace_back(fabItems, sf::Vector2f(randX, randY), item->getID(), item->getCantidad());
+        }
+    }
+
+    std::cout << "Cofre roto: Items liberados!" << std::endl;
+}
