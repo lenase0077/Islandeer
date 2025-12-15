@@ -83,3 +83,19 @@ sf::FloatRect cultivo::getBounds() const {
 bool cultivo::estaMaduro() const {
     return _listoParaCosechar;
 }
+
+void cultivo::actualizarSpriteSegunCrecimiento()
+{
+    int left = _faseDeCrecimiento * 32;
+
+
+    int top = _tipoCultivo * 48;
+
+
+    _sprite.setTextureRect(sf::IntRect(left, top, 32, 48));
+
+    if (_faseDeCrecimiento >= 2)
+    {
+        _listoParaCosechar = true;
+    }
+}

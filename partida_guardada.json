@@ -1,0 +1,237 @@
+{
+    "cultivos": [
+        {
+            "fase": 2,
+            "idSemilla": 31,
+            "tiempo": 0.0,
+            "x": 5408.0,
+            "y": 352.0
+        },
+        {
+            "fase": 2,
+            "idSemilla": 31,
+            "tiempo": 0.0,
+            "x": 5440.0,
+            "y": 352.0
+        },
+        {
+            "fase": 2,
+            "idSemilla": 31,
+            "tiempo": 0.0,
+            "x": 5472.0,
+            "y": 352.0
+        },
+        {
+            "fase": 2,
+            "idSemilla": 31,
+            "tiempo": 0.0,
+            "x": 5472.0,
+            "y": 384.0
+        },
+        {
+            "fase": 2,
+            "idSemilla": 31,
+            "tiempo": 0.0,
+            "x": 5440.0,
+            "y": 384.0
+        },
+        {
+            "fase": 2,
+            "idSemilla": 31,
+            "tiempo": 0.0,
+            "x": 5408.0,
+            "y": 384.0
+        },
+        {
+            "fase": 2,
+            "idSemilla": 31,
+            "tiempo": 0.0,
+            "x": 5376.0,
+            "y": 384.0
+        },
+        {
+            "fase": 2,
+            "idSemilla": 31,
+            "tiempo": 0.0,
+            "x": 5344.0,
+            "y": 384.0
+        },
+        {
+            "fase": 2,
+            "idSemilla": 31,
+            "tiempo": 0.0,
+            "x": 5344.0,
+            "y": 416.0
+        },
+        {
+            "fase": 2,
+            "idSemilla": 31,
+            "tiempo": 0.0,
+            "x": 5376.0,
+            "y": 416.0
+        },
+        {
+            "fase": 2,
+            "idSemilla": 31,
+            "tiempo": 0.0,
+            "x": 5408.0,
+            "y": 416.0
+        },
+        {
+            "fase": 2,
+            "idSemilla": 31,
+            "tiempo": 0.0,
+            "x": 5440.0,
+            "y": 416.0
+        },
+        {
+            "fase": 2,
+            "idSemilla": 31,
+            "tiempo": 0.0,
+            "x": 5472.0,
+            "y": 416.0
+        },
+        {
+            "fase": 2,
+            "idSemilla": 31,
+            "tiempo": 0.0,
+            "x": 5472.0,
+            "y": 448.0
+        }
+    ],
+    "estructuras": [
+        {
+            "id": 7,
+            "x": 5472.0,
+            "y": 256.0
+        },
+        {
+            "contenido": [
+                {
+                    "cantidad": 15,
+                    "idItem": 10,
+                    "slot": 16
+                },
+                {
+                    "cantidad": 2,
+                    "idItem": 31,
+                    "slot": 19
+                },
+                {
+                    "cantidad": 1,
+                    "idItem": 50,
+                    "slot": 20
+                },
+                {
+                    "cantidad": 16,
+                    "idItem": 32,
+                    "slot": 21
+                },
+                {
+                    "cantidad": 16,
+                    "idItem": 33,
+                    "slot": 22
+                },
+                {
+                    "cantidad": 1,
+                    "idItem": 3,
+                    "slot": 23
+                },
+                {
+                    "cantidad": 16,
+                    "idItem": 25,
+                    "slot": 24
+                },
+                {
+                    "cantidad": 16,
+                    "idItem": 19,
+                    "slot": 25
+                },
+                {
+                    "cantidad": 16,
+                    "idItem": 26,
+                    "slot": 26
+                },
+                {
+                    "cantidad": 10,
+                    "idItem": 14,
+                    "slot": 27
+                },
+                {
+                    "cantidad": 4,
+                    "idItem": 19,
+                    "slot": 28
+                },
+                {
+                    "cantidad": 1,
+                    "idItem": 0,
+                    "slot": 29
+                }
+            ],
+            "id": 8,
+            "x": 5440.0,
+            "y": 256.0
+        }
+    ],
+    "inventario": [
+        {
+            "cantidad": 1,
+            "id": 28,
+            "slot": 0
+        },
+        {
+            "cantidad": 1,
+            "id": 5,
+            "slot": 1
+        },
+        {
+            "cantidad": 3,
+            "id": 15,
+            "slot": 2
+        },
+        {
+            "cantidad": 15,
+            "id": 42,
+            "slot": 3
+        },
+        {
+            "cantidad": 16,
+            "id": 44,
+            "slot": 4
+        },
+        {
+            "cantidad": 14,
+            "id": 44,
+            "slot": 5
+        },
+        {
+            "cantidad": 1,
+            "id": 2,
+            "slot": 6
+        },
+        {
+            "cantidad": 1,
+            "id": 6,
+            "slot": 7
+        },
+        {
+            "cantidad": 1,
+            "id": 8,
+            "slot": 8
+        },
+        {
+            "cantidad": 6,
+            "id": 37,
+            "slot": 10
+        }
+    ],
+    "mundo": {
+        "tiempoAcumulado": 72.27375793457031
+    },
+    "personaje": {
+        "hambre": 89.5636978149414,
+        "posX": 5408.4345703125,
+        "posY": 250.85475158691406,
+        "vida": 100.0
+    }
+}

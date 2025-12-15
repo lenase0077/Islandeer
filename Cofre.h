@@ -19,4 +19,6 @@ public:
     void liberarLoot(FabricaItems& fabItems, std::list<Loot>& listaLoot);
     void guardarContenido(InventarioInterfaz& inventarioCofre);
     void cargarContenido(InventarioInterfaz& inventarioCofre);
+    const std::array<std::unique_ptr<Item>, 30>& getItemsGuardados() const { return _itemsGuardados; }
+    std::array<std::unique_ptr<Item>, 30>& getItemsGuardadosModificable() { return _itemsGuardados; }
 };
