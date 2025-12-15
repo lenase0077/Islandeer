@@ -21,7 +21,10 @@ Estructura::Estructura(sf::Texture& texturaBloques, float posX, float posY, int 
 
     setPosition(posX,posY);
 
-    sf::FloatRect colisionadorDimenciones(posX + 8,posY + 8,20,20);
+    float centradoX = 6.0f;
+    float centradoY = 6.0f;
+
+    sf::FloatRect colisionadorDimenciones(posX + centradoX ,posY + centradoY,20,20);
 
     _colision.setColision(colisionadorDimenciones);
     _colision.setID("Estructura");
@@ -30,17 +33,15 @@ Estructura::Estructura(sf::Texture& texturaBloques, float posX, float posY, int 
 
     _bloqueID = id;
 
-    if (id == 0 || id >= 10 && id <= 12) {
+    if (id == 0 || (id >= 10 && id <= 12) || id == 7 || id == 8 || id == 13) {
         _material = TipoMaterial::MADERA;
     }
-    else if (id >= 1 && id <= 6) {
+    else if ((id >= 1 && id <= 6) || id == 9) {
         _material = TipoMaterial::PIEDRA;
     }
     else {
         _material = TipoMaterial::NADA;
     }
-
-
 }
 
 void Estructura::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -76,7 +77,7 @@ void Estructura::liberarLoot(FabricaItems& fabItems,list<Loot>& listaLoot){
 
         lootPosX = getPosition().x + 16 +(cos(anguloRadianes)* distanciaLoots);
         lootPosY = getPosition().y + 16 +(sin(anguloRadianes)* distanciaLoots);
-        listaLoot.emplace_back(fabItems,sf::Vector2f(lootPosX,lootPosY), p);
+        listaLoot.emplace_back(fabItems,sf::Vector2f(lootPosX,lootPosY), p, 1);
         iterador++;
     }
 }

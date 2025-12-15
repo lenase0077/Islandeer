@@ -153,14 +153,18 @@ void MesaDeCrafteo::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 {
     states.transform *= getTransform();
     target.draw(_sprite, states);
-    target.draw(_sprFondoMesa);
-    for(int i = 0; i < 20; i++)
+    if (_enUso)
     {
-        ///DEBUG
-        //target.draw(_selectoresDibujo[i]);
+        target.draw(_sprFondoMesa);
+        for(int i = 0; i < 20; i++)
+        {
+            ///DEBUG
+            //target.draw(_selectoresDibujo[i]);
 
-        target.draw(*_items[i]);
+            target.draw(*_items[i]);
+        }
     }
+
 }
 
 // Ajusta escala y posicion del inventario segun la vista de camara
@@ -172,14 +176,7 @@ void MesaDeCrafteo::ajustarEscalaAutomaticamente(const sf::View& vista, const fl
     float centroX = ((_sprFondoMesa.getGlobalBounds().width/ 2) +66) * escalaCartel.x;
 
     // Calcula posiciones
-
-    sf::Vector2f posicionCartel;
-    if (_enUso){
-        posicionCartel = sf::Vector2f(vista.getCenter().x - centroX, vista.getCenter().y - vista.getSize().y/2.5);
-    }
-    else{
-        posicionCartel = sf::Vector2f(vista.getCenter().x - centroX, vista.getCenter().y - vista.getSize().y);
-    }
+    sf::Vector2f posicionCartel(vista.getCenter().x - centroX, vista.getCenter().y - vista.getSize().y/2.5);
     _sprFondoMesa.setPosition(posicionCartel);
     _sprFondoMesa.setScale(escalaCartel);
 

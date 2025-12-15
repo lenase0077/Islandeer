@@ -90,8 +90,6 @@ public:
     void consumirItemEnSlot(int slot, int cantidad);
     Item* getItemEnMano();
 
-    int buscarTotalItems(int ID);
-
 
     std::unique_ptr<Item>* obtenerPunteroItemEnMano();// MMtodo para obtener la direccin de memoria de TU item en mano
 
@@ -104,5 +102,4 @@ public:
 
     // Entrega la posesi�n de sus items al cofre
     void transferirItemsHacia(std::array<std::unique_ptr<Item>, 30>& destinoExterno);
-
 };

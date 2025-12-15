@@ -7,14 +7,15 @@
 
 using namespace std;
 
-Loot::Loot( FabricaItems& fabItems, const sf::Vector2f& posicion, const int& id)
+Loot::Loot( FabricaItems& fabItems, const sf::Vector2f& posicion, const int& id, int cantidad)
 {
     setPosicion(posicion);
     _item = std::move(fabItems.crearItem(id));
     if (_item != nullptr){
-       _item->setCantidad(1);//Hacemos esto para que no sea visible el numero cantidad.
+       _item->setCantidad(cantidad);//Hacemos esto para que no sea visible el numero cantidad.
     }
-    setScale(1.0,1.0);
+    setScale(0.8,0.8);
+    cout << "Update de inventario" <<endl;
 }
 
 ///HACER GET y SET de _cantidad
@@ -54,7 +55,7 @@ void Loot::update(const sf::Vector2f posicionJugador, InventarioInterfaz& invent
                 if (distancia < 10)
                 {
                     if (_item != nullptr){
-                      if (inventario.agregarItem(_item->getID(),1)) _looted = true;
+                      if (inventario.agregarItem(_item->getID(), _item-> getCantidad())) _looted = true;
                     }
                 }
             }

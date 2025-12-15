@@ -568,38 +568,39 @@ bool InventarioInterfaz::agregarItem(int ID, int cantidad)
 // Quita una cantidad especifica de un tipo de item
 bool InventarioInterfaz::quitarItem(int ID, int cantidad)
 {
-    // 1. Verificamos si tenemos suficientes items en total antes de tocar nada
     if (buscarItems(ID, cantidad) == -1)
     {
         return false;
     }
 
-    // 2. Procedemos a borrar
     for(int i = 0; i < 30 && cantidad > 0; i++)
     {
+        // Si el slot tiene el ï¿½tem que buscamos
         if (_inventarioItems[i] != nullptr && _inventarioItems[i]->getID() == ID)
         {
             int cantidadEnEsteSlot = _inventarioItems[i]->getCantidad();
 
             if (cantidadEnEsteSlot > cantidad)
             {
-                // CASO A: El slot tiene m s de lo necesario.
-                // Restamos la cantidad y el item sigue existiendo.
+                // CASO A: El slot tiene de sobra.
+                // Le restamos lo que falta y terminamos.
                 _inventarioItems[i]->setCantidad(cantidadEnEsteSlot - cantidad);
-                cantidad = 0; // Deuda saldada, el bucle terminar 
+                cantidad = 0; // Deuda saldada
             }
             else
             {
-                // CASO B: El slot tiene igual o menos de lo necesario.
-                // Consumimos todo el slot.
-                cantidad -= cantidadEnEsteSlot; // Reducimos la deuda
-                _inventarioItems[i] = nullptr;  // Eliminamos el item por completo
+                // CASO B: El slot tiene justo o menos de lo que necesitamos.
+                // Lo vaciamos entero y seguimos buscando en el siguiente slot.
+                cantidad -= cantidadEnEsteSlot; // Restamos lo que pudimos sacar de acï¿½
+
+                _inventarioItems[i] = nullptr; // ELIMINAMOS EL OBJETO (Slot vacï¿½o)
             }
         }
     }
 
-    return true;
+    return true; // Operaciï¿½n exitosa
 }
+
 // Busca si hay suficiente cantidad de un tipo de item
 int InventarioInterfaz::buscarItems(int ID, int cantidad)
 {
@@ -707,7 +708,7 @@ void InventarioInterfaz::soltarLoot(std::unique_ptr<Item>& itemQueTirar, std::li
 
                 posicionLoot.x += (cos(anguloRadianes) * distanciaLoots);
                 posicionLoot.y += (sin(anguloRadianes) * distanciaLoots);
-                listaLoots.emplace_back(*_fabItems, posicionLoot, itemQueTirar->getID());
+                listaLoots.emplace_back(*_fabItems, posicionLoot, itemQueTirar->getID(), itemQueTirar->getCantidad());
             }
             itemQueTirar = nullptr; // Elimina el item del inventario
         }
@@ -718,7 +719,7 @@ void InventarioInterfaz::soltarLoot(std::unique_ptr<Item>& itemQueTirar, std::li
             posicionLoot.x += (_sprFondoInventario.getGlobalBounds().width / 2) * getScale().x;
             posicionLoot.y += (_sprFondoInventario.getGlobalBounds().height + 48) * getScale().y;
 
-            listaLoots.emplace_back(*_fabItems, posicionLoot, itemQueTirar->getID());
+            listaLoots.emplace_back(*_fabItems, posicionLoot, itemQueTirar->getID(), itemQueTirar->getCantidad());
             int cantidadItem = itemQueTirar->getCantidad();
             if (cantidadItem > 1)
                 itemQueTirar->setCantidad(cantidadItem - 1); // Reduce cantidad
@@ -788,20 +789,4 @@ void InventarioInterfaz::enlazarItemEnMano(std::unique_ptr<Item>* punteroExterno
 bool InventarioInterfaz::usaItemEnManoExterno()
 {
     return _ptrItemEnManoActual != &_itemEnMano;
-}
-
-int InventarioInterfaz::buscarTotalItems(int ID)
-{
-    int cantidadTotal = 0;
-    for(int i = 0; i < 30; i++)
-    {
-        if (_inventarioItems[i] != nullptr)
-        {
-            if (_inventarioItems[i]->getID() == ID)
-            {
-                cantidadTotal += _inventarioItems[i]->getCantidad();
-            }
-        }
-    }
-    return cantidadTotal;
 }
