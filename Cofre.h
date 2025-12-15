@@ -16,7 +16,7 @@ public:
     void update(const sf::Vector2f& posicionJugador, const sf::Vector2f& posGlobalDelMouse, const sf::View& vista, const float& relacionAspecto, InventarioInterfaz& inventario, InventarioInterfaz& inventarioCofre, float deltatime) override;
     Cofre(sf::Texture& texturaBloques, float posX, float posY, int id);
     bool getAbierto();
-    void liberarLoot(FabricaItems& fabItems, std::list<Loot>& listaLoot);
+
     void guardarContenido(InventarioInterfaz& inventarioCofre);
     void cargarContenido(InventarioInterfaz& inventarioCofre);
 };

@@ -18,7 +18,7 @@ class Loot : public sf::Transformable, public sf::Drawable
         float _incrementoSeno = 0;
         bool _looted = false;
     public:
-        Loot( FabricaItems& fabItems, const sf::Vector2f& posicion, const int& id, int cantidad);
+        Loot( FabricaItems& fabItems, const sf::Vector2f& posicion, const int& id);
         void setPosicion(sf::Vector2f posicion);
         void update(const sf::Vector2f posicionJugador, InventarioInterfaz& inventario);
         bool getLooted();

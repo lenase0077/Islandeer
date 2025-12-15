@@ -25,7 +25,7 @@ class Animal : public Mob
         void update(sf::Vector2f& Posicionpersonaje, float deltatime);
         void enReposo (float deltaTime);
         void recibirAtaqueDeEspada();
-        bool caracteristicasDelAnimal(int idLoot, bool produceLeche, int idLootSecundario = -1);
+        bool caracteristicasDelAnimal(int idLoot, bool produceLeche);
         void soltarLoot (FabricaItems& fabItems, std::list<Loot>& listaLoot);
         bool intentarOrdeniar (const sf::Vector2f& Posicionpersonaje, Item* itemEnMano, FabricaItems& fabItems, InventarioInterfaz& Inv);
         Colisionador &getColisionador() {return _colision;};
@@ -36,7 +36,6 @@ class Animal : public Mob
         float _tiempoEnReposo;
         float _tiempoDivagacion;
         int _idLootAlMorir;
-        int _idLootSecundario;
         bool _produceLeche;
         bool _lecheDisponible;
         float _tiempoRecargaLeche;
@@ -46,5 +45,4 @@ class Animal : public Mob
         void actualizarDireccion();
         void recibirDanio();
         float _tiempoFlashDanio = 0.0f;
-        int _accionGallina; //0: Dormir, 1: Picar
 };

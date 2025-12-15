@@ -22,10 +22,6 @@ FabricaMobs::FabricaMobs()
     if(!_cerdoTexture.loadFromFile("Pig.png")) {
         std::cout << "Error cargando Cerdo.png" << std::endl;
     }
-
-    if(!_gallinaTexture.loadFromFile("Gallina.png")) {
-        std::cout << "Error cargando Gallina.png" << std::endl;
-    }
 }
 
 std::unique_ptr<Mob> FabricaMobs::crearMobs(const std::string& tipo, sf::Vector2f posicion)
@@ -60,13 +56,6 @@ std::unique_ptr<Mob> FabricaMobs::crearMobs(const std::string& tipo, sf::Vector2
         auto cerdo = std::make_unique<Animal>(_cerdoTexture, posicion);
         cerdo->caracteristicasDelAnimal(45 , false);
         return cerdo;
-    }
-
-    if (tipo == "Gallina")
-    {
-        auto gallina = std::make_unique<Animal>(_gallinaTexture, posicion);
-        gallina->caracteristicasDelAnimal(43 , false, 13);
-        return gallina;
     }
 
     std::cout << "Tipo de enemigo desconocido" << std::endl;

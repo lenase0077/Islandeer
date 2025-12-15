@@ -146,7 +146,7 @@ void Horno::generarLoot (std::list<Loot>& listaLoot)
         posLootProduct.x += 16;
         posLootProduct.y += 32;
 
-        listaLoot.emplace_back(_fabItems, posLootProduct, _idProductoCocinandose, 1);
+        listaLoot.emplace_back(_fabItems, posLootProduct, _idProductoCocinandose);
 
         _estaCocinando = false;
         _tiempoCoccionActual = 0;

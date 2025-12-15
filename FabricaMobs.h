@@ -15,7 +15,6 @@ private:
     sf::Texture _vacaTexture;
     sf::Texture _ovejaTexture;
     sf::Texture _cerdoTexture;
-    sf::Texture _gallinaTexture;
 
 public:
     FabricaMobs();

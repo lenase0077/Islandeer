@@ -11,11 +11,9 @@ Animal::Animal(const sf::Texture& textura)
     setTextureRect(sf::IntRect(0,0,32,32));
     setVida(100);
     _idLootAlMorir = -1;
-    _idLootSecundario= -1;
     _produceLeche = false;
     _lecheDisponible = false;
     _tiempoRecargaLeche = 0;
-    _accionGallina = 0;
 
     _tiempoDivagar = (float)(rand() % (15 - 8 + 1) + 4) * 1000.0f;
     _tiempoEnReposo = (float)(rand() % (5 - 2 + 1) + 2) * 1000.0f;
@@ -41,31 +39,12 @@ Animal::Animal(const sf::Texture& textura, sf::Vector2f PosicionInicial)
     _colision.setID("Animal");
     setPosition(PosicionInicial);
     setTexture(textura);
-
-    sf::Vector2u tamanoTextura = textura.getSize();
-
-    if (tamanoTextura.x <= 64)
-    {
-        //Gallina
-        setTextureRect(sf::IntRect(0, 0, 16, 16));
-        setOrigin(8, 8);
-        setScale(1.5f, 1.5f);
-    }
-    else
-    {
-        //Vaca-Oveja-Cerdo
-        setTextureRect(sf::IntRect(0, 0, 32, 32));
-        setOrigin(16, 16);
-        setScale(1.f, 1.f);
-    }
-
+    setTextureRect(sf::IntRect(0,0,32,32));
     setVida(100);
     _idLootAlMorir = -1;
-    _idLootSecundario = -1;
     _produceLeche = false;
     _lecheDisponible = false;
     _tiempoRecargaLeche = 0;
-    _accionGallina = 0;
 
     _tiempoDivagar = clamp(rand(), 0, 100000);
     _tiempoEnReposo = clamp (rand (), 0, 5000);
@@ -89,53 +68,23 @@ void Animal::enReposo (float deltaTime)
 {
     setVelocidad({0.0f, 0.0f}); // Usamos setVelocidad
 
-    bool esGallina (_idLootAlMorir == 43);
+    _tiempoDeAnimar += deltaTime;
 
-    if (esGallina)
+    if (_tiempoDeAnimar >= 5000)
     {
-        _tiempoDeAnimar += deltaTime;
-
-        float velocidadFrame = (_accionGallina == 1) ? 200.0f : 800.0f;
-
-        if (_tiempoDeAnimar >= velocidadFrame)
+        if (_frameActual == 0)
         {
-            _frameActual++;
-            if (_frameActual >= 4)
-            {
-                _frameActual = 0;
-            }
-            _tiempoDeAnimar -= velocidadFrame;
+            _frameActual = 1;
         }
-
-        if (_accionGallina == 1)
-        {
-            setFrame(6, _frameActual);
-        }
-
         else
         {
-            setFrame(4, _frameActual);
+            _frameActual = 0;
         }
+        _tiempoDeAnimar -= 5000;
     }
 
-    else
-    {
-        _tiempoDeAnimar += deltaTime;
+    setFrame(4, _frameActual);
 
-        if (_tiempoDeAnimar >= 5000)
-        {
-            if (_frameActual == 0)
-            {
-                _frameActual = 1;
-            }
-            else
-            {
-                _frameActual = 0;
-            }
-            _tiempoDeAnimar -= 5000;
-        }
-        setFrame(4, _frameActual);
-    }
 }
 
 void Animal::recibirAtaqueDeEspada()
@@ -193,6 +142,7 @@ void Animal::update(sf::Vector2f& Posicionpersonaje, float deltatime)
         }
     }
 
+
     updateColision();
     _tiempoEnEstado += deltatime;
 
@@ -224,22 +174,6 @@ void Animal::update(sf::Vector2f& Posicionpersonaje, float deltatime)
     }
     else if (_estadoActual == EstadoAnimal::Divagando)
     {
-        if (getChocoConMapa())
-        {
-
-            float rebote = 5.0f; // Cantidad de pixeles a retroceder
-
-            switch (_direccionActual)
-            {
-                case DireccionMob::Arriba:    move(0, rebote); break;
-                case DireccionMob::Abajo:     move(0, -rebote); break;
-                case DireccionMob::Izquierda: move(rebote, 0); break;
-                case DireccionMob::Derecha:   move(-rebote, 0); break;
-            }
-
-            cambioDeRumbo();
-        }
-
         // divagar devuelve true si hay movimiento
         if (divagar(Posicionpersonaje, 0.5, deltatime))
         {
@@ -253,11 +187,7 @@ void Animal::update(sf::Vector2f& Posicionpersonaje, float deltatime)
                 {
                     _estadoActual = EstadoAnimal::EsReposo;
                     _tiempoEnEstado = 0.f;
-                    _frameActual = 0;
-
-                    int decision = rand() % 3;
-                    if (decision == 0) _accionGallina = 0; // Dormir
-                    else _accionGallina = 1;               // Picar
+                    _frameActual = 1;
                 }
             }
         }
@@ -349,33 +279,22 @@ void Animal::recibirDanio()
 
 }
 
-bool Animal::caracteristicasDelAnimal(int idLoot, bool produceLeche, int idLootSecundario)
+bool Animal::caracteristicasDelAnimal(int idLoot, bool produceLeche)
 {
     _idLootAlMorir = idLoot;
     _produceLeche = produceLeche;
-    _idLootSecundario = idLootSecundario;
 
     if (_produceLeche)
     {
         _lecheDisponible = true;
     }
-    return true;
 }
 
 void Animal::soltarLoot (FabricaItems& fabItems, std::list<Loot>& listaLoot)
 {
     if (_idLootAlMorir != -1)
     {
-        listaLoot.emplace_back(fabItems, getPosition(), _idLootAlMorir, 1);
-    }
-
-    if (_idLootSecundario != -1)
-    {
-        //Desplazamiento para que no se superpongan los loots
-        sf::Vector2f posLootSecundario = getPosition();
-        posLootSecundario.x += (rand() % 20) - 10;
-
-        listaLoot.emplace_back(fabItems, getPosition(), _idLootSecundario, 1);
+        listaLoot.emplace_back(fabItems, getPosition(), _idLootAlMorir);
     }
 }
 

@@ -33,7 +33,7 @@ public:
     Colisionador &getColisionador() {return _colision;}
     bool estaDestruido() const;
     ~Estructura(){};
-    virtual void liberarLoot(FabricaItems& fabItems,std::list<Loot>& listaLoot);
+    void liberarLoot(FabricaItems& fabItems,std::list<Loot>& listaLoot);
     bool getRompePorColision();
     TipoMaterial getMaterial() const { return _material; }
     int getID();
