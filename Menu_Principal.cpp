@@ -42,6 +42,9 @@ MenuPrincipal::MenuPrincipal()
     if (!_imagenNuevaPartida.loadFromFile("Nueva partida.png")) {
         std::cout << "Error al cargar NuevaPartida.png" << std::endl;
     }
+    if (!_imagenGuardar.loadFromFile("GuardarPartida.png")) {
+        std::cout << "Error al cargar GuardarPartida.png" << std::endl;
+    }
 
     ///==========AUDIO===========
 
@@ -62,6 +65,7 @@ MenuPrincipal::MenuPrincipal()
     _texturaBotonSalir.loadFromImage(_imagenSalir);
     _texturaBotonVolumenGeneral.loadFromImage(_imagenVolumenGeneral);
     _texturaBotonVolver.loadFromImage(_imagenVolver);
+    _texturaBotonGuardar.loadFromImage(_imagenGuardar);
 
     ///=====SPRITES=====
 
@@ -72,6 +76,7 @@ MenuPrincipal::MenuPrincipal()
     _spriteBotonSalir.setTexture(_texturaBotonSalir);
     _spriteBotonVolumenGeneral.setTexture(_texturaBotonVolumenGeneral);
     _spriteBotonVolver.setTexture(_texturaBotonVolver);
+    _spriteBotonGuardar.setTexture(_texturaBotonGuardar);
     _spriteBackground.setTexture(_background);
 
     ///======ORIGENES=====
@@ -83,28 +88,35 @@ MenuPrincipal::MenuPrincipal()
     _spriteBotonSalir.setOrigin(_spriteBotonSalir.getLocalBounds().width / 2 , _spriteBotonSalir.getLocalBounds().height / 2);
     _spriteBotonVolumenGeneral.setOrigin(_spriteBotonVolumenGeneral.getLocalBounds().width / 2 , _spriteBotonVolumenGeneral.getLocalBounds().height / 2);
     _spriteBotonVolver.setOrigin(_spriteBotonVolver.getLocalBounds().width / 2 , _spriteBotonVolver.getLocalBounds().height / 2);
+    _spriteBotonGuardar.setOrigin(_spriteBotonGuardar.getLocalBounds().width / 2 , _spriteBotonGuardar.getLocalBounds().height / 2);
 
     // ---Posicionar Sprites (Centrados) ---
     // (Asumo una ventana de 1024x768)
     float centroVentanaX = 1024.f / 2.f;
-    _spriteLogo.setScale(0.5,0.5);
 
+    _spriteLogo.setScale(0.5f,0.5f);
     _spriteBotonNuevaPartida.setScale(1,1);
     _spriteBotonJugar.setScale(1,1);
     _spriteBotonOpciones.setScale(1,1);
     _spriteBotonSalir.setScale(1,1);
     _spriteBotonVolumenGeneral.setScale(1,1);
     _spriteBotonVolver.setScale(1,1);
+    if (_texturaBotonGuardar.getSize().x > 0) _spriteBotonGuardar.setScale(1,1);
     _spriteBackground.setScale(1,1);
 
     ///======POSICIONES=====
-    _spriteLogo.setPosition(centroVentanaX, 50 + _spriteLogo.getGlobalBounds().height / 2);
-    _spriteBotonNuevaPartida.setPosition(centroVentanaX, 300);
-    _spriteBotonJugar.setPosition(centroVentanaX, 420);
-    _spriteBotonOpciones.setPosition(centroVentanaX, 550);
-    _spriteBotonSalir.setPosition(centroVentanaX, 680);
-    _spriteBotonVolumenGeneral.setPosition(centroVentanaX, 400);
-    _spriteBotonVolver.setPosition(centroVentanaX, 650);
+    _spriteLogo.setPosition(centroVentanaX, 125);
+
+    float inicioBotonesY = 315.0f;
+    float separacion = 125.0f;
+
+    _spriteBotonNuevaPartida.setPosition(centroVentanaX, inicioBotonesY);
+    _spriteBotonJugar.setPosition(centroVentanaX, inicioBotonesY + separacion);
+    _spriteBotonOpciones.setPosition(centroVentanaX, inicioBotonesY + (separacion*2));
+    _spriteBotonSalir.setPosition(centroVentanaX, inicioBotonesY + (separacion*3));
+    _spriteBotonVolumenGeneral.setPosition(centroVentanaX, 350);
+    if (_texturaBotonGuardar.getSize().x > 0) _spriteBotonGuardar.setPosition(centroVentanaX, 480);
+    _spriteBotonVolver.setPosition(centroVentanaX, 610);
 
     if (!_fuente.loadFromFile("PIXEARG_.TTF")) {
         std::cout << "Error cargando fuente PIXEARG_.TTF" << std::endl;
@@ -126,6 +138,7 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
     bool hoverSalir = clickEnPixel(mousePos, _spriteBotonSalir , _imagenSalir);
     bool hoverVolumenGeneral = clickEnPixel(mousePos, _spriteBotonVolumenGeneral , _imagenVolumenGeneral);
     bool hoverVolver = clickEnPixel(mousePos, _spriteBotonVolver , _imagenVolver);
+    bool hoverGuardar = clickEnPixel(mousePos, _spriteBotonGuardar , _imagenGuardar);
     bool click = input.mouseIzqRecienPresionado;
 
     float const escalaObjetivoGrande = 1.1f;
@@ -158,6 +171,17 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
             lerp (_rotacionBotonNuevaPartida , rotacionObjetivoNormal , suavizado);
         }
 
+        if (hoverGuardar)
+        {
+            lerp(_escalaBotonGuardar , escalaObjetivoGrande , suavizado);
+            lerp (_rotacionBotonGuardar , rotacionObjetivo , suavizado);
+        }
+        else
+        {
+            lerp(_escalaBotonGuardar , escalaObjetivoNormal , suavizado);
+            lerp (_rotacionBotonGuardar , rotacionObjetivoNormal , suavizado);
+        }
+
         if (hoverOpciones)
         {
             lerp(_escalaBotonOpciones , escalaObjetivoGrande , suavizado);
@@ -186,6 +210,9 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
 
         _spriteBotonNuevaPartida.setScale(_escalaBotonNuevaPartida, _escalaBotonNuevaPartida);
         _spriteBotonNuevaPartida.setRotation(_rotacionBotonNuevaPartida);
+
+        _spriteBotonGuardar.setScale(_escalaBotonGuardar, _escalaBotonGuardar);
+        _spriteBotonGuardar.setRotation(_rotacionBotonGuardar);
 
         _spriteBotonOpciones.setScale(_escalaBotonOpciones , _escalaBotonOpciones);
         _spriteBotonOpciones.setRotation(_rotacionBotonOpciones);
@@ -267,6 +294,12 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
             {
                 _estadoMenu = EstadoMenu::ModificadorVolumen;
             }
+
+            if (hoverGuardar)
+            {
+                return OpcionMenu::Guardar;
+            }
+
             if (hoverVolver)
             {
                 _estadoMenu = EstadoMenu::Principal;
@@ -370,6 +403,7 @@ void MenuPrincipal::draw(sf::RenderTarget& target, sf::RenderStates states) cons
     else if (_estadoMenu == EstadoMenu::SeleccionOpciones)
     {
         target.draw(_spriteBotonVolumenGeneral, states);
+        target.draw(_spriteBotonGuardar, states);
         target.draw(_spriteBotonVolver, states);
     }
 

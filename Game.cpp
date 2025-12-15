@@ -273,6 +273,12 @@ void Game::run()
                 cout << "Anotacion de lean - Empate nueva partida" << endl;
             }
 
+            else if (opcion == OpcionMenu::Guardar)
+            {
+                guardar(character);
+                cout << "Partida guardada desde el Menu de Opciones" << endl;
+            }
+
             else if (opcion == OpcionMenu::Salir)
             {
                 window.close();
@@ -481,7 +487,6 @@ void Game::run()
 /// ========================= General ========================= ///
 
             mouse.update(window);
-
 
 /// ======================== Update del Ciclo dia y noche ========================= ///
 
