@@ -990,10 +990,10 @@ void Game::regenerarAnimales(std::list<std::unique_ptr<Mob>>& listaAnimales)
             // Obtenemos el ID del suelo
             int idTile = mapa.getTileID(x, y);
 
-            // Verificamos si es Pasto (IDs sacados de tu regenerarRecursos)
+            // Verificamos si es Pasto
             bool esPasto = (idTile == 28 || idTile == 29 || idTile == 36 || idTile == 37);
 
-            // Ignoramos zonas prohibidas (como el tile 103 que usabas antes)
+            // Ignoramos zonas prohibidas
             if (idTile == 103) continue;
 
             if (esPasto)
@@ -1215,7 +1215,6 @@ void Game::verificarTeleports(Personaje& character)
 
 bool Game::esSueloCultivable(int tileID)
 {
-    // IDs de la zona de cultivo que me pasaste
     return (tileID == 163 || tileID == 164 || tileID == 165 || tileID == 166 ||
             tileID == 171 || tileID == 172 || tileID == 173 ||
             tileID == 179 || tileID == 180 || tileID == 181);
@@ -1418,10 +1417,6 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
         cout << "Me rompi una muela masticando esto" << endl;
         seConsumio = true;
         break;
-
-
-
-
     }
 
 
