@@ -28,6 +28,9 @@
 #include "InterfazEstado.h"
 #include "TextoFlotante.h"
 #include "SistemaDeParticulas.h"
+#include "BarcoHuida.h"
+#include "InterfazBarcoHuida.h"
+#include "SelectorDeOpciones.h"
 
 
 class Game
@@ -40,7 +43,6 @@ class Game
         sf::Clock getRelojInterno();
         sf::Texture _texturaCultivos;
         std::list<std::unique_ptr<cultivo>> _listaCultivos;
-        std::list <std::unique_ptr<Estructura>> _listaEstructuras;
         void updateCultivos(float deltatime);
         void intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv);
         void intentarCosecharClick(sf::Vector2f posMouseWorld, std::list<Loot>& listaLoots, FabricaItems& fabItems);
@@ -53,10 +55,8 @@ class Game
 
         void mostrarTexto (std::string mensaje, float x, float y);
         void mostrarTexto (std::string mensaje, float x, float y, float duracion);
-        void colocarEstructura(sf::Vector2f posMouseWorld, InventarioInterfaz& inv, std::list<std::unique_ptr<Estructura>>& lista);
+
     private:
-        sf::Text _textoFPS;
-        float _tiempoFPS = 0.0f;
         InterfazEstado _interfazEstado;
         std::list<std::unique_ptr<TextoFlotante>> _listaTextos;
 
@@ -91,7 +91,6 @@ class Game
         MenuPrincipal _menuPrincipal;
 
         void regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstructurasAleatorias);
-        void regenerarAnimales(std::list<std::unique_ptr<Mob>>& listaAnimalesAleatorias);
 
 /// --- VARIABLES DE USO PARA FADE IN Y FADE OUT TEST
 

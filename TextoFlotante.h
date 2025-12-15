@@ -14,7 +14,7 @@ private:
 
 public:
     TextoFlotante(const sf::Font& fuente, const std::string& mensaje, float posX, float posY);
-    TextoFlotante(const sf::Font& fuente, const std::string& mensaje, float posX, float posY, float duracion);
+    TextoFlotante(const sf::Font& fuente, const std::string& mensaje, float posX, float posY, float& duracion);
     void update (float deltaTime);
     bool estaDestruido() const;
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
