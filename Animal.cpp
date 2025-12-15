@@ -226,6 +226,17 @@ void Animal::update(sf::Vector2f& Posicionpersonaje, float deltatime)
     {
         if (getChocoConMapa())
         {
+
+            float rebote = 5.0f; // Cantidad de pixeles a retroceder
+
+            switch (_direccionActual)
+            {
+                case DireccionMob::Arriba:    move(0, rebote); break;
+                case DireccionMob::Abajo:     move(0, -rebote); break;
+                case DireccionMob::Izquierda: move(rebote, 0); break;
+                case DireccionMob::Derecha:   move(-rebote, 0); break;
+            }
+
             cambioDeRumbo();
         }
 
