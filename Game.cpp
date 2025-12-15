@@ -62,6 +62,17 @@ void Game::run()
         cout << "Error al cargar PIXEARG_.TTF" << endl;
     }
 
+    ///Fuente PIXEL ART
+    sf::Font fuentePixelArt;
+    if (fuentePixelArt.getInfo().family == "")
+    {
+        if (!fuentePixelArt.loadFromFile("PIXEARG_.TTF"))
+        {
+            cout << "Error al cargar PIXEARG_.TTF" << endl;
+        }
+        const_cast<sf::Texture&>(fuentePixelArt.getTexture(8)).setSmooth(false);
+    }
+
 /// ======================== Configuracion del FADE  =========================///
 
     _fadeRect.setSize(sf::Vector2f(2000, 2000)); // Mismo tama√±o que tu ventana
@@ -140,7 +151,10 @@ void Game::run()
 
 /// ======================== Barco huida =========================///
     BarcoHuida barco(100*32,130*32,texturaBarcoHuida);
-    InterfazBarcoHuida interfazBarco(texturaInterfazBarcoHuida, texturaBotonesInterfazBarco,fabItems);
+    InterfazBarcoHuida interfazBarco(texturaInterfazBarcoHuida, texturaBotonesInterfazBarco, fuentePixelArt,fabItems);
+    SelectorDeOpciones opcionesBarcoHuida("®Quieres retirarte de la isla?",fuentePixelArt);
+    opcionesBarcoHuida.agregarOpcion("SI, no banco mas esto.");
+    opcionesBarcoHuida.agregarOpcion("NO, no quiero volver a latam.");
 
 
 
@@ -861,14 +875,33 @@ void Game::run()
             interfazBarco.ajustarEscalaAutomaticamente(Camara, relacion);
             interfazBarco.update(posMouseWorld, inv);
             interfazBarco.setVolumen(volumenActual);
-            if (barco.getDentroDeRango()) interfazBarco.setOculto(false);
-            else interfazBarco.setOculto(true);
-
-            if (interfazBarco.getCompletado()){
-                    window.close();
+            if (barco.getDentroDeRango()){
+                    if (interfazBarco.getCompletado()){
+                        opcionesBarcoHuida.setAbierto(true);
+                        interfazBarco.setOculto(true);
+                        if(opcionesBarcoHuida.getOpcionSeleccionada() == 0){
+                            window.close();
+                        }
+                        else if(opcionesBarcoHuida.getOpcionSeleccionada() == 1){
+                                opcionesBarcoHuida.setAbierto(false);
+                        }
+                    }
+                    else{
+                        opcionesBarcoHuida.setAbierto(false);
+                        interfazBarco.setOculto(false);
+                    }
+                    }
+            else {
+                opcionesBarcoHuida.resetOpcionSeleccionada();
+                interfazBarco.setOculto(true);
+                opcionesBarcoHuida.setAbierto(false);
             }
 
             //================================
+            opcionesBarcoHuida.ajustarEscalaAutomaticamente(Camara, relacion);
+            opcionesBarcoHuida.update(posMouseWorld,inv);
+
+
             window.draw(inventarioCofre);
 
 
@@ -879,6 +912,8 @@ void Game::run()
             {
                 window.draw(*texto);
             }
+
+            window.draw(opcionesBarcoHuida);
 
             window.setView(window.getDefaultView());
 

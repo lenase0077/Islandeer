@@ -30,6 +30,7 @@
 #include "SistemaDeParticulas.h"
 #include "BarcoHuida.h"
 #include "InterfazBarcoHuida.h"
+#include "SelectorDeOpciones.h"
 
 
 class Game

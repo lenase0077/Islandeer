@@ -574,7 +574,6 @@ bool InventarioInterfaz::quitarItem(int ID, int cantidad)
         return false;
     }
 
-    cout << "quitarItem: Recibida peticion para ID: " << ID << " con cantidad: " << cantidad << endl;
     // 2. Procedemos a borrar
     for(int i = 0; i < 30 && cantidad > 0; i++)
     {

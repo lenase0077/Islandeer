@@ -28,7 +28,6 @@ private:
     sf::Sprite _sprfondoInterfaz;
 
     const sf::Texture* _texturaFondoInterfaz;
-    sf::Font _fuenteTexto;
     sf::Text _textoTitulo;
 
     const sf::Texture* _texturaBotonesDePagina;
@@ -41,7 +40,7 @@ private:
     sf::Sound _sonidoLapiz;
     sf::SoundBuffer _bufferSonidoLapiz;
 public:
-    InterfazBarcoHuida(const sf::Texture& texturaFondoInterfaz, const sf::Texture& texturaBotonesDePagina, FabricaItems& fabItems);
+    InterfazBarcoHuida(const sf::Texture& texturaFondoInterfaz, const sf::Texture& texturaBotonesDePagina, const sf::Font& fuente, FabricaItems& fabItems);
     void update(const sf::Vector2f& posGlobalDelMouse, InventarioInterfaz& inventarioJugador);
     void ajustarEscalaAutomaticamente(const sf::View& vista, const float& relacionAspecto);
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

@@ -1394,13 +1394,13 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1765766773 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1765804177 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1765625500 c:\users\sebas\onedrive\documentos\github\islandeer\game.h
+1765797339 c:\users\sebas\onedrive\documentos\github\islandeer\game.h
 	"Cultivos.h"
 	"FabricaCultivos.h"
 	<iostream>
@@ -1432,6 +1432,7 @@
 	"SistemaDeParticulas.h"
 	"BarcoHuida.h"
 	"InterfazBarcoHuida.h"
+	"SelectorDeOpciones.h"
 
 1765618862 c:\users\sebas\onedrive\documentos\github\islandeer\personaje.h
 	"Colisionador.h"
@@ -1787,7 +1788,7 @@
 	<SFML/Graphics.hpp>
 	"Comando.h"
 
-1765791743 source:c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.cpp
+1765792617 source:c:\users\sebas\onedrive\documentos\github\islandeer\inventariointefaz.cpp
 	"InventarioIntefaz.h"
 	"funcionesInterpolacion.h"
 	<cmath>
@@ -4388,13 +4389,13 @@
 	<string>
 	<cmath>
 
-1765790441 source:c:\users\sebas\onedrive\documentos\github\islandeer\interfazbarcohuida.cpp
+1765799482 source:c:\users\sebas\onedrive\documentos\github\islandeer\interfazbarcohuida.cpp
 	"InterfazBarcoHuida.h"
 	"Comando.h"
 	"funcionesInterpolacion.h"
 	<iostream>
 
-1765721979 c:\users\sebas\onedrive\documentos\github\islandeer\interfazbarcohuida.h
+1765799337 c:\users\sebas\onedrive\documentos\github\islandeer\interfazbarcohuida.h
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 	"SeleccionRectangulo.h"
@@ -4404,4 +4405,14 @@
 	<list>
 	<vector>
 	<memory>
+
+1765803963 source:c:\users\sebas\onedrive\documentos\github\islandeer\selectordeopciones.cpp
+	"SelectorDeOpciones.h"
+
+1765803781 c:\users\sebas\onedrive\documentos\github\islandeer\selectordeopciones.h
+	<SFML/Graphics.hpp>
+	"SeleccionRectangulo.h"
+	"InventarioIntefaz.h"
+	<vector>
+	<list>
 

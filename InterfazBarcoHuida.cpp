@@ -6,7 +6,7 @@
 
 using namespace std;
 
-InterfazBarcoHuida::InterfazBarcoHuida(const sf::Texture& texturaFondoInterfaz, const sf::Texture& texturaBotonesDePagina, FabricaItems& fabItems)
+InterfazBarcoHuida::InterfazBarcoHuida(const sf::Texture& texturaFondoInterfaz, const sf::Texture& texturaBotonesDePagina, const sf::Font& fuente, FabricaItems& fabItems)
 {
     _texturaFondoInterfaz = &texturaFondoInterfaz;
     _sprfondoInterfaz.setTexture(texturaFondoInterfaz);
@@ -43,16 +43,7 @@ InterfazBarcoHuida::InterfazBarcoHuida(const sf::Texture& texturaFondoInterfaz, 
     _paginaCompletada[2] = false;
     _paginaCompletada[3] = false;
 
-    ///FUENTE LOCAL TEMPORAL, NO SE ASUSTEN
-    if (_fuenteTexto.getInfo().family == "")
-    {
-        if (!_fuenteTexto.loadFromFile("PIXEARG_.TTF"))
-        {
-            cout << "Error al cargar PIXEARG_.TTF" << endl;
-        }
-        const_cast<sf::Texture&>(_fuenteTexto.getTexture(8)).setSmooth(false);
-    }
-    _textoTitulo.setFont(_fuenteTexto);
+    _textoTitulo.setFont(fuente);
     _textoTitulo.setColor(sf::Color::Black);
     _textoTitulo.setCharacterSize(8);
 
@@ -91,6 +82,7 @@ InterfazBarcoHuida::InterfazBarcoHuida(const sf::Texture& texturaFondoInterfaz, 
     _ItemsRequeridos[3].push_back(fabItems.crearItem(53));//Mate
     _cantidadNecesaria[3].push_back(1);*/
 
+
     _ItemsRequeridos[0].push_back(fabItems.crearItem(10));//Palo x 100
     _cantidadNecesaria[0].push_back(1);
 
@@ -104,7 +96,7 @@ InterfazBarcoHuida::InterfazBarcoHuida(const sf::Texture& texturaFondoInterfaz, 
     _cantidadNecesaria[3].push_back(1);
 
     sf::Text textoDefaultExigencias;
-    textoDefaultExigencias.setFont(_fuenteTexto);
+    textoDefaultExigencias.setFont(fuente);
     textoDefaultExigencias.setCharacterSize(8);
     textoDefaultExigencias.setString("SIN DATOS");
     textoDefaultExigencias.setColor(sf::Color::Black);
@@ -242,7 +234,6 @@ void InterfazBarcoHuida::update(const sf::Vector2f& posGlobalDelMouse, Inventari
                             // 2. L¢gica de c lculo blindada
                             if (input.teclaTomarTodo)
                             {
-                                // "Tomar todo" significa: Llenar todo lo que falta de una vez.
                                 // NUNCA debe ser mayor a 'faltaParaCompletar' ni mayor a 'tengoEnInventario'
                                 cantidadAQuitar = std::min(faltaParaCompletar, tengoEnInventario);
                             }
@@ -256,7 +247,6 @@ void InterfazBarcoHuida::update(const sf::Vector2f& posGlobalDelMouse, Inventari
                             }
 
                             // 3. DEBUG: Ver qu‚ est  calculando antes de ejecutar
-                            // Si esto imprime 17 cuando solo falta 1, entonces 'faltaParaCompletar' est  mal.
                             cout << "Calculo: Falta " << faltaParaCompletar
                                  << " | Tengo " << tengoEnInventario
                                  << " | A Quitar " << cantidadAQuitar << endl;
@@ -311,13 +301,6 @@ void InterfazBarcoHuida::update(const sf::Vector2f& posGlobalDelMouse, Inventari
         }
         if (paginasCompletadas == 4) _completado = true;
     }
-
-    /*
-    INPORTANTE:
-    parece que el error sucede cuando:
-    Hay mas de un slot lleno con el item necesario y es un item acumulable.
-    Verificar con una IA usando InterfazBarco y inventarioInterfaz, puede ser que la funcion quitarItem este fallando.
-    */
 }
 
 void InterfazBarcoHuida::ajustarEscalaAutomaticamente(const sf::View& vista, const float& relacionAspecto)
