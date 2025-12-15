@@ -101,7 +101,7 @@ MenuPrincipal::MenuPrincipal()
     _spriteBotonSalir.setScale(1,1);
     _spriteBotonVolumenGeneral.setScale(1,1);
     _spriteBotonVolver.setScale(1,1);
-    if (_texturaBotonGuardar.getSize().x > 0) _spriteBotonGuardar.setScale(1,1);
+    _spriteBotonGuardar.setScale(1,1);
     _spriteBackground.setScale(1,1);
 
     ///======POSICIONES=====
@@ -115,7 +115,7 @@ MenuPrincipal::MenuPrincipal()
     _spriteBotonOpciones.setPosition(centroVentanaX, inicioBotonesY + (separacion*2));
     _spriteBotonSalir.setPosition(centroVentanaX, inicioBotonesY + (separacion*3));
     _spriteBotonVolumenGeneral.setPosition(centroVentanaX, 350);
-    if (_texturaBotonGuardar.getSize().x > 0) _spriteBotonGuardar.setPosition(centroVentanaX, 480);
+    _spriteBotonGuardar.setPosition(centroVentanaX, 480);
     _spriteBotonVolver.setPosition(centroVentanaX, 610);
 
     if (!_fuente.loadFromFile("PIXEARG_.TTF")) {
