@@ -320,6 +320,15 @@ void Game::run()
             else if (opcion == OpcionMenu::Cargar)
             {
                 cargarPartida();
+
+                _estadoActual = EstadoJuego::Jugando;
+                _menuPrincipal.detenerMusica();
+                sonido.setVolume(_menuPrincipal.getVolumen());
+                sonido.play();
+                _menuPrincipal.actualizar(posMouse);
+                _relojInterno.restart();
+
+
                 cout << "Partida cargada desde el Menu de Opciones" << endl;
             }
 
