@@ -1232,7 +1232,7 @@ void Game::intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv)
     //Validar Terreno
     int idSuelo = mapa.getTileID(tileX, tileY);
     if (!esSueloCultivable(idSuelo))
-        mostrarTexto("No crecera nada aca", character.getPosition().x, character.getPosition().y, 4000);
+        mostrarTexto("No creo que pueda plantar aqui", character.getPosition().x, character.getPosition().y, 1000);
         return;
 
     //Calcular posicion
@@ -1361,9 +1361,9 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
             character.setVida(character.getVida() + 5);
 
             if (id == 40)
-                 mostrarTexto("Esta dura... deberia cocinarla.", character.getPosition().x, character.getPosition().y, 3000);
+                 mostrarTexto("Esta dura... deberia cocinarla.", character.getPosition().x, character.getPosition().y, 1000);
             else
-                 mostrarTexto("Rico y fresco.", character.getPosition().x, character.getPosition().y, 2000);
+                 mostrarTexto("Rico y fresco.", character.getPosition().x, character.getPosition().y, 1000);
 
             seConsumio = true;
         }
@@ -1397,8 +1397,8 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
 
         character.setHambre(character.getHambre() - 25);
 
-        mostrarTexto("Me siento terrible...", character.getPosition().x, character.getPosition().y - 20, 4000);
-        mostrarTexto("No debi comer eso", character.getPosition().x, character.getPosition().y, 4000);
+        mostrarTexto("Me siento terrible...", character.getPosition().x, character.getPosition().y - 20, 1000);
+        mostrarTexto("No debi comer eso", character.getPosition().x, character.getPosition().y, 1000);
 
         seConsumio = true;
         break;
@@ -1431,7 +1431,7 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
     }
     else
     {
-        mostrarTexto("Esto no es comestible", character.getPosition().x, character.getPosition().y, 2000);
+        mostrarTexto("Esto no es comestible", character.getPosition().x, character.getPosition().y, 1000);
     }
 }
 
@@ -1467,7 +1467,7 @@ void Game::colocarEstructura(sf::Vector2f posMouseWorld, InventarioInterfaz& inv
 
     if (idSuelo != 100)
     {
-        mostrarTexto("Creo que seria mejor construir en la cueva", character.getPosition().x - 10, character.getPosition().y - 10, 2000);
+        mostrarTexto("Creo que seria mejor construir en una cueva", character.getPosition().x - 10, character.getPosition().y - 10, 1000);
         return;
     }
     // ====================================================
@@ -1476,7 +1476,7 @@ void Game::colocarEstructura(sf::Vector2f posMouseWorld, InventarioInterfaz& inv
     sf::FloatRect rectNuevo(posX + 4, posY + 4, 24, 24);
 
     if (character.getColisionBounds().intersects(rectNuevo)) {
-        mostrarTexto("No creo que sea buena idea", character.getPosition().x, character.getPosition().y, 2000);
+        mostrarTexto("No creo que sea buena idea", character.getPosition().x, character.getPosition().y, 1000);
         return;
     }
 

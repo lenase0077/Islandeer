@@ -480,8 +480,8 @@ sf::FloatRect Personaje::getColisionBounds() const
 
     sf::FloatRect localRect = _sprite.getLocalBounds();
 
-    float achicarAncho = 4.f;
-    float achicarAlto = 4.f;
+    float achicarAncho = 12.f;
+    float achicarAlto = 8.f;
 
 
     localRect.width -= achicarAncho;
