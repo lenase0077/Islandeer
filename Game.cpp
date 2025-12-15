@@ -1181,15 +1181,13 @@ void Game::cargarPartida()
     Camara.setCenter(character.getPosition()); // Ajustamos cámara
 
     // 2. CARGAR INVENTARIO
-    // Primero vaciamos el inventario actual
     for(int i=0; i<30; i++) inv.consumirItemEnSlot(i, 9999); // Manera bruta de vaciar
 
     for (auto& itemJson : j["inventario"])
     {
         int id = itemJson["id"];
         int cant = itemJson["cantidad"];
-        // Agregamos el item. Ojo: agregarItem busca el primer slot libre.
-        // Si quieres respetar el slot exacto, necesitarías un metodo inv.setItemEnSlot(slot, id, cant)
+
         inv.agregarItem(id, cant);
     }
 
@@ -1223,10 +1221,7 @@ void Game::cargarPartida()
 
                         if (slot >= 0 && slot < 30)
                         {
-                            // Creamos el item usando tu fábrica (asumiendo que tienes acceso a fabItems)
-                            // NOTA: Necesitas tener 'fabItems' disponible en cargarPartida.
-                            // Si 'fabItems' es local de run(), deberás moverla a Game.h como miembro.
-                            auto nuevoItem = fabItems.crearItem(idItem); // Usa _FabricaItems de Game.h si lo moviste
+                            auto nuevoItem = fabItems.crearItem(idItem);
                             if (nuevoItem)
                             {
                                 nuevoItem->setCantidad(cantidad);
