@@ -49,6 +49,8 @@
 		<Unit filename="Animal.h" />
 		<Unit filename="Arboles.cpp" />
 		<Unit filename="Arboles.h" />
+		<Unit filename="BarcoHuida.cpp" />
+		<Unit filename="BarcoHuida.h" />
 		<Unit filename="BarraDeVida.cpp" />
 		<Unit filename="BarraDeVida.h" />
 		<Unit filename="Cofre.cpp" />
@@ -85,6 +87,8 @@
 		<Unit filename="Herramienta.h" />
 		<Unit filename="Horno.cpp" />
 		<Unit filename="Horno.h" />
+		<Unit filename="InterfazBarcoHuida.cpp" />
+		<Unit filename="InterfazBarcoHuida.h" />
 		<Unit filename="InterfazEstado.cpp" />
 		<Unit filename="InterfazEstado.h" />
 		<Unit filename="InventarioIntefaz.cpp" />
@@ -116,6 +120,8 @@
 		<Unit filename="Raton.h" />
 		<Unit filename="SeleccionRectangulo.cpp" />
 		<Unit filename="SeleccionRectangulo.h" />
+		<Unit filename="SelectorDeOpciones.cpp" />
+		<Unit filename="SelectorDeOpciones.h" />
 		<Unit filename="SistemaDeParticulas.cpp" />
 		<Unit filename="SistemaDeParticulas.h" />
 		<Unit filename="TextoFlotante.cpp" />

@@ -89,12 +89,12 @@ public:
     InventarioResumido* getInventarioResumido();
     void consumirItemEnSlot(int slot, int cantidad);
     Item* getItemEnMano();
+    int buscarTotalItems(int ID);
 
 
     std::unique_ptr<Item>* obtenerPunteroItemEnMano();// MMtodo para obtener la direccin de memoria de TU item en mano
 
-    void enlazarItemEnMano(std::unique_ptr<Item>* punteroExterno);// M�todo para decirle a este inventario que use el item en mano de otro
-
+    void enlazarItemEnMano(std::unique_ptr<Item>* punteroExterno);// MMtodo para decirle a este inventario que use el item en mano de otro
     bool usaItemEnManoExterno();// Para saber si estamos usando el item en mano de otro inventario (principalmente usado en draw)
 
     // Toma posesi�n de los items que vienen del cofre

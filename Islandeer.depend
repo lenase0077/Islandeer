@@ -451,7 +451,7 @@
 	"Game.h"
 	"json.hpp"
 
-1765809245 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
+1765814602 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
 	"Cultivos.h"
 	"FabricaCultivos.h"
 	<iostream>
@@ -481,6 +481,9 @@
 	"InterfazEstado.h"
 	"TextoFlotante.h"
 	"SistemaDeParticulas.h"
+	"BarcoHuida.h"
+	"InterfazBarcoHuida.h"
+	"SelectorDeOpciones.h"
 
 1765576316 c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.h
 	"Colisionador.h"
@@ -846,7 +849,7 @@
 	<algorithm>
 	"InventarioResumidoInterfaz.h"
 
-1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\inventariointefaz.h
+1765814702 c:\users\leand\onedrive\documentos\repositorio\islandeer\inventariointefaz.h
 	"SeleccionRectangulo.h"
 	"Item.h"
 	"ItemDescripcion.h"
@@ -901,7 +904,7 @@
 	"InventarioIntefaz.h"
 	<iostream>
 
-1765809245 c:\users\leand\onedrive\documentos\repositorio\islandeer\loot.h
+1765814349 c:\users\leand\onedrive\documentos\repositorio\islandeer\loot.h
 	<SFML/Graphics.hpp>
 	"Item.h"
 	"Colisionador.h"
@@ -918,7 +921,7 @@
 	<iostream>
 	<cmath>
 
-1765809245 c:\users\leand\onedrive\documentos\repositorio\islandeer\estructura.h
+1765814349 c:\users\leand\onedrive\documentos\repositorio\islandeer\estructura.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<list>
@@ -1850,7 +1853,7 @@
 	<fstream>
 	<iostream>
 
-1765809245 c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.h
+1765814349 c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<string>
@@ -2830,7 +2833,7 @@
 	"Animal.h"
 	<iostream>
 
-1765809245 c:\users\leand\onedrive\documentos\repositorio\islandeer\animal.h
+1765814349 c:\users\leand\onedrive\documentos\repositorio\islandeer\animal.h
 	<SFML/Graphics.hpp>
 	"Mob.h"
 	"Item.h"
@@ -2847,7 +2850,7 @@
 	"FabricaMobs.h"
 	<iostream>
 
-1765809245 c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricamobs.h
+1765814349 c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricamobs.h
 	<SFML/Graphics.hpp>
 	<string>
 	"Mob.h"
@@ -2873,7 +2876,7 @@
 1764286415 c:\users\leand\onedrive\documentos\repositorio\islandeer\comando.h
 	<SFML/Graphics.hpp>
 
-1765809245 c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.h
+1765814349 c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.h
 	<SFML/Graphics.hpp>
 	"Comando.h"
 	<SFML/Audio.hpp>
@@ -4165,7 +4168,7 @@
 	<iostream>
 	"Cofre.h"
 
-1765809245 c:\users\leand\onedrive\documentos\repositorio\islandeer\cofre.h
+1765814349 c:\users\leand\onedrive\documentos\repositorio\islandeer\cofre.h
 	"Estructura.h"
 	"InventarioIntefaz.h"
 	"Item.h"
@@ -4295,7 +4298,7 @@
 1765576316 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\sistemadeparticulas.cpp
 	"SistemaDeParticulas.h"
 
-1765809245 c:\users\leand\onedrive\documentos\repositorio\islandeer\textoflotante.h
+1765814349 c:\users\leand\onedrive\documentos\repositorio\islandeer\textoflotante.h
 	<SFML/Graphics.hpp>
 	"string"
 
@@ -4322,4 +4325,27 @@
 1765756840 source:d:\alejo\alemart\documents\github\islander\textoflotante.cpp
 	<iostream>
 	"TextoFlotante.h"
+
+1765814744 c:\users\leand\onedrive\documentos\repositorio\islandeer\barcohuida.h
+	<SFML/Graphics.hpp>
+	<string>
+	<cmath>
+
+1765814744 c:\users\leand\onedrive\documentos\repositorio\islandeer\interfazbarcohuida.h
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	"SeleccionRectangulo.h"
+	"InventarioIntefaz.h"
+	"Item.h"
+	<string>
+	<list>
+	<vector>
+	<memory>
+
+1765814744 c:\users\leand\onedrive\documentos\repositorio\islandeer\selectordeopciones.h
+	<SFML/Graphics.hpp>
+	"SeleccionRectangulo.h"
+	"InventarioIntefaz.h"
+	<vector>
+	<list>
 

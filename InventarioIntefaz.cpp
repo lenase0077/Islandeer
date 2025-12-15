@@ -790,3 +790,19 @@ bool InventarioInterfaz::usaItemEnManoExterno()
 {
     return _ptrItemEnManoActual != &_itemEnMano;
 }
+int InventarioInterfaz::buscarTotalItems(int ID)
+{
+    int cantidadTotal = 0;
+    for(int i = 0; i < 30; i++)
+    {
+        if (_inventarioItems[i] != nullptr)
+        {
+            if (_inventarioItems[i]->getID() == ID)
+            {
+                cantidadTotal += _inventarioItems[i]->getCantidad();
+            }
+        }
+    }
+    return cantidadTotal;
+}
+

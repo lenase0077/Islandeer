@@ -37,6 +37,23 @@ void Game::run()
     {
         std::cout << "Error cargando textura Cultivos" << std::endl;
     }
+        sf::Texture texturaBarcoHuida;
+    if (!texturaBarcoHuida.loadFromFile("Catamaran.png"))
+    {
+        std::cout << "Error cargando textura Catamaran" << std::endl;
+    }
+
+    sf::Texture texturaInterfazBarcoHuida;
+    if (!texturaInterfazBarcoHuida.loadFromFile("InterfazPeticionesBarco.png"))
+    {
+        std::cout << "Error cargando textura InterfazPeticionesBarco" << std::endl;
+    }
+
+    sf::Texture texturaBotonesInterfazBarco;
+    if(!texturaBotonesInterfazBarco.loadFromFile("botonesInterfazBarco.png"))
+    {
+        cout << "ERROR AL CARGAR botonesInterfazBarco.png" << endl;
+    }
 
     if (!fontReloj.loadFromFile("PIXEARG_.TTF"))
     {
@@ -44,10 +61,21 @@ void Game::run()
     }
 
     _textoFPS.setFont(fontReloj);
-    _textoFPS.setCharacterSize(14); // Tama¤o peque¤o
+    _textoFPS.setCharacterSize(14); // Tamaï¿½o pequeï¿½o
     _textoFPS.setFillColor(sf::Color::Yellow); // Color llamativo
     _textoFPS.setPosition(10.f, 10.f); // Arriba a la izquierda
     _textoFPS.setString("FPS: 0");
+
+        ///Fuente PIXEL ART
+    sf::Font fuentePixelArt;
+    if (fuentePixelArt.getInfo().family == "")
+    {
+        if (!fuentePixelArt.loadFromFile("PIXEARG_.TTF"))
+        {
+            cout << "Error al cargar PIXEARG_.TTF" << endl;
+        }
+        const_cast<sf::Texture&>(fuentePixelArt.getTexture(8)).setSmooth(false);
+    }
 
 /// ======================== Configuracion del FADE  =========================///
 
@@ -121,6 +149,15 @@ void Game::run()
 
 /// ======================== Personaje =========================///
     float hambrePorSegundo = 0.5f;
+
+/// ======================== Barco huida =========================///
+    BarcoHuida barco(100*32,130*32,texturaBarcoHuida);
+    InterfazBarcoHuida interfazBarco(texturaInterfazBarcoHuida, texturaBotonesInterfazBarco, fuentePixelArt,fabItems);
+    SelectorDeOpciones opcionesBarcoHuida("ï¿½Quieres retirarte de la isla?",fuentePixelArt);
+    opcionesBarcoHuida.agregarOpcion("SI, no banco mas esto.");
+    opcionesBarcoHuida.agregarOpcion("NO, no quiero volver a latam.");
+
+
 
 /// ======================== Enemigo =========================///
     sf::Vector2f empuje;
@@ -335,7 +372,7 @@ void Game::run()
             character.setVolumen(volumenActual);
             deltatime = _relojInterno.restart().asMilliseconds();
 
-            if (deltatime > 0) // Evitar divisi¢n por cero
+            if (deltatime > 0) // Evitar divisiï¿½n por cero
             {
                 _tiempoFPS += deltatime;
 
@@ -488,6 +525,7 @@ void Game::run()
                 window.draw(*animal);
             }
 
+            window.draw(barco);
 
 /// ========================= General ========================= ///
 
@@ -541,10 +579,10 @@ void Game::run()
             ///Mensajes
             if (character.getHambre() < 20)
             {
-                // Reloj est tico: recuerda el tiempo aunque el bucle siga girando
+                // Reloj estï¿½tico: recuerda el tiempo aunque el bucle siga girando
                 static sf::Clock relojAvisoHambre;
 
-                // Solo mostramos el mensaje si pasaron 10 segundos desde el £ltimo aviso
+                // Solo mostramos el mensaje si pasaron 10 segundos desde el ï¿½ltimo aviso
                 if (relojAvisoHambre.getElapsedTime().asSeconds() > 10.0f)
                 {
                     mostrarTexto("Tengo mucha hambre...", character.getPosition().x, character.getPosition().y, 3000);
@@ -628,16 +666,16 @@ void Game::run()
                 {
                     if (!estructura->estaDestruido())
                     {
-                        // --- OPTIMIZACIÓN: FILTRO DE DISTANCIA ---
+                        // --- OPTIMIZACIï¿½N: FILTRO DE DISTANCIA ---
                         float dx = std::abs(animal->getPosition().x - estructura->getPosition().x);
                         float dy = std::abs(animal->getPosition().y - estructura->getPosition().y);
 
-                        // Si está a más de 50 pixeles (aprox 1.5 tiles), NI SIQUIERA comprobamos colisión.
+                        // Si estï¿½ a mï¿½s de 50 pixeles (aprox 1.5 tiles), NI SIQUIERA comprobamos colisiï¿½n.
                         // "continue" salta al siguiente arbol instantaneamente.
                         if (dx > 50.0f || dy > 50.0f) continue;
                         // -----------------------------------------
 
-                        // Si llegamos aca, es porque está cerca. Ahora si gastamos recursos en chocar.
+                        // Si llegamos aca, es porque estï¿½ cerca. Ahora si gastamos recursos en chocar.
                         animal->chocar(estructura->getColisionador());
                     }
                 }
@@ -777,7 +815,7 @@ void Game::run()
                     // Solo calculamos y ataques si esta CERCA
                     if (dx < 80.0f && dy < 80.0f)
                     {
-                        // A. FÍSICA
+                        // A. Fï¿½SICA
                         character.chocar((*estructura)->getColisionador());
 
                         // B. ATAQUE
@@ -924,12 +962,47 @@ void Game::run()
 
 /// ======================== INICIO DRAWABLES =========================///
             invR.update(Camara, relacion);
+            barco.update(PosicionJugador);
 
             window.draw(invR);
+             ///Logica interfazBarco
+            interfazBarco.ajustarEscalaAutomaticamente(Camara, relacion);
+            interfazBarco.update(posMouseWorld, inv);
+            interfazBarco.setVolumen(volumenActual);
+            if (barco.getDentroDeRango()){
+                    if (interfazBarco.getCompletado()){
+                        barco.setConstruido(true);
+                        opcionesBarcoHuida.setAbierto(true);
+                        interfazBarco.setOculto(true);
+                        if(opcionesBarcoHuida.getOpcionSeleccionada() == 0){
+                            window.close();
+                        }
+                        else if(opcionesBarcoHuida.getOpcionSeleccionada() == 1){
+                                opcionesBarcoHuida.setAbierto(false);
+                        }
+                    }
+                    else{
+                        opcionesBarcoHuida.setAbierto(false);
+                        interfazBarco.setOculto(false);
+                    }
+                    }
+            else {
+                opcionesBarcoHuida.resetOpcionSeleccionada();
+                interfazBarco.setOculto(true);
+                opcionesBarcoHuida.setAbierto(false);
+            }
+
+            //================================
+            opcionesBarcoHuida.ajustarEscalaAutomaticamente(Camara, relacion);
+            opcionesBarcoHuida.update(posMouseWorld,inv);
+
             window.draw(inventarioCofre);
 
             window.draw(inv);
+                        window.draw(interfazBarco);
 
+
+            window.draw(opcionesBarcoHuida);
 
 
             window.setView(window.getDefaultView());
@@ -1028,7 +1101,7 @@ void Game::regenerarAnimales(std::list<std::unique_ptr<Mob>>& listaAnimales)
 
             if (listaAnimales.size() >= limiteMaximo)
             {
-                cout << "Límite de animales alcanzado (" << limiteMaximo << ")." << endl;
+                cout << "Lï¿½mite de animales alcanzado (" << limiteMaximo << ")." << endl;
                 return;
             }
 
@@ -1042,7 +1115,7 @@ void Game::regenerarAnimales(std::list<std::unique_ptr<Mob>>& listaAnimales)
 
             if (esPasto)
             {
-                // Posici¢n en pixeles
+                // Posiciï¿½n en pixeles
                 float posX = x * tileW;
                 float posY = y * tileH;
 
@@ -1051,7 +1124,7 @@ void Game::regenerarAnimales(std::list<std::unique_ptr<Mob>>& listaAnimales)
 
                 if (probabilidad == 0)
                 {
-                    // Elegimos qu‚ animal spawnear al azar
+                    // Elegimos quï¿½ animal spawnear al azar
                     int tipoAnimal = rand() % 4; // 0, 1, 2, 3
 
                     switch(tipoAnimal)
@@ -1520,7 +1593,7 @@ void Game::colocarEstructura(sf::Vector2f posMouseWorld, InventarioInterfaz& inv
     }
     // ====================================================
 
-    // 4. Validamos que el lugar esté libre (Colisiones)
+    // 4. Validamos que el lugar estï¿½ libre (Colisiones)
     sf::FloatRect rectNuevo(posX + 4, posY + 4, 24, 24);
 
     if (character.getColisionBounds().intersects(rectNuevo)) {
