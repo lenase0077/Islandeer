@@ -122,10 +122,10 @@ MenuPrincipal::MenuPrincipal()
     _spriteBotonJugar.setPosition(centroVentanaX, inicioBotonesY + separacion);
     _spriteBotonOpciones.setPosition(centroVentanaX, inicioBotonesY + (separacion*2));
     _spriteBotonSalir.setPosition(centroVentanaX, inicioBotonesY + (separacion*3));
-    _spriteBotonVolumenGeneral.setPosition(centroVentanaX, 250);
-    _spriteBotonGuardar.setPosition(centroVentanaX, 370);
-    _spriteBotonCargar.setPosition(centroVentanaX, 550);
-    _spriteBotonVolver.setPosition(centroVentanaX, 700);
+    _spriteBotonVolumenGeneral.setPosition(centroVentanaX, inicioBotonesY);
+    _spriteBotonGuardar.setPosition(centroVentanaX, inicioBotonesY + separacion);
+    _spriteBotonCargar.setPosition(centroVentanaX, inicioBotonesY + (separacion*2));
+    _spriteBotonVolver.setPosition(centroVentanaX, inicioBotonesY + (separacion*3));
 
     if (!_fuente.loadFromFile("PIXEARG_.TTF")) {
         std::cout << "Error cargando fuente PIXEARG_.TTF" << std::endl;
