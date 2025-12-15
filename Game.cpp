@@ -213,7 +213,7 @@ void Game::run()
     nightOverlay.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
     nightOverlay.setPosition(0.f, 0.f);
     sf::Color nightColor(0, 0, 30); // Un azul oscuro para la noche
-    float cicloCompletoSegundos = 120.0f; // Un ciclo de 2 minutos para probar. CAMBIA ESTO
+    float cicloCompletoSegundos = 300.0f; // Un ciclo de 2 minutos para probar. CAMBIA ESTO
     sf::Uint8 maxOpacidad = 210; // Que tan oscura es la noche (0-255)
 
 /// ======================== Fuente y Display Reloj =========================///
@@ -295,7 +295,7 @@ void Game::run()
                 _listaCultivos.clear();
                 listaLoots.clear();
 
-                _tiempoDiaAcumulado = 0;
+                _tiempoDiaAcumulado = 3000;
 
                 Camara.setCenter(posX, posY);
 
@@ -304,8 +304,6 @@ void Game::run()
                 _estadoFade = 1;
 
                 mostrarTexto("Necesito salir de aqui", character.getPosition().x - 10, character.getPosition().y - 10, 5000);
-
-
 
 
                 cout << "Anotacion de lean - Empate nueva partida" << endl;
@@ -444,6 +442,18 @@ void Game::run()
                     cambioDeEstado = true;
                     break;
                 }
+                if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Right)
+                {
+                    sf::Vector2f posMouse = window.mapPixelToCoords(sf::Mouse::getPosition(window), Camara);
+                    int tileX = static_cast<int>(posMouse.x / 32);
+                    int tileY = static_cast<int>(posMouse.y / 32);
+                    int idSuelo = mapa.getTileID(tileX, tileY);
+
+                    cout << "--- DEBUG SUELO ---" << endl;
+                    cout << "Coordenadas: " << tileX << ", " << tileY << endl;
+                    cout << "ID DEL TILE: " << idSuelo << endl;
+                    cout << "-------------------" << endl;
+                }
 
             }
 /// ======================== INICIO DEL GAME LOOP  ======================== ///
@@ -570,24 +580,57 @@ void Game::run()
                << std::setw(2) << std::setfill('0') << minuto;
             textReloj.setString(ss.str());
 
-            static bool diaReseteado = false;
-
-            if (hora == 6 && !diaReseteado)
+            if (hora >= 6 && hora < 22)
             {
-                regenerarRecursos(listaEstructuraRandom);
-                regenerarAnimales(animales);
-                cout << "Â¡Un nuevo dia comienza! La isla se ha regenerado." << endl;
-                diaReseteado = true; // Marcamos que ya reseteamos hoy
+                static bool diaReseteado = false;
+
+                if (hora == 6 && !diaReseteado)
+                {
+                    regenerarRecursos(listaEstructuraRandom);
+                    regenerarAnimales(animales);
+                    enemigos.clear();
+                    diaReseteado = true;
+                }
+                else if (hora == 7)
+                {
+                    diaReseteado = false;
+                }
             }
 
-            if (hora == 7)
+            else
             {
-                diaReseteado = false; // Preparamos el flag para el siguiente dia
-            }
+                ///Si el jugador esta en la cueva, no se crean enemigos
+                bool jugadorEnCueva = (character.getPosition().x > 150 * 32);
+                int idSueloJugador = mapa.getTileID(character.getPosition().x / 32 , character.getPosition().y / 32);
 
-            if (hora == 22)
-            {
-                mostrarTexto("Escucho ruidos... debo tener cuidado.", character.getPosition().x, character.getPosition().y, 4000);
+                if (idSueloJugador == 132 || idSueloJugador == 100)
+                {
+                    jugadorEnCueva = true;
+                }
+
+                if (!jugadorEnCueva)
+                {
+                    ///Hacemos que se dificulte mas mientras mas avanza el tiempo
+                    int horasDeOscuridad;
+
+                    if (hora >= 22)
+                        horasDeOscuridad = hora - 22;
+                    else
+                        horasDeOscuridad = hora + 2;
+
+                    ///Calculamos la dificultad segun la hora}
+                    int maximosEnemigos = 3 + (horasDeOscuridad * 2);
+
+                    static sf::Clock relojSpawn;
+                    if(relojSpawn.getElapsedTime().asSeconds() > 8.0f)
+                    {
+                        if(enemigos.size() < maximosEnemigos)
+                        {
+                            spawnearEnemigoIndividual(enemigos);
+                        }
+                        relojSpawn.restart();
+                    }
+                }
             }
 
             float reduccion = hambrePorSegundo * (deltatime / 1000.0f);
@@ -632,28 +675,86 @@ void Game::run()
 //    cout << character.getVida() << endl;
 
 
-
+            sf::FloatRect rectEspada = character.getAreaAtaque();
 
 
 /// ======================== COLISION ENEMIGOS =========================///
 
-            for (auto& enemigo: enemigos)
+            for (auto it = enemigos.begin(); it != enemigos.end(); )
             {
+                Mob* enemigo = it->get();
 
+                //Upadate y Movimiento
                 enemigo->update(PosicionJugador, deltatime);
+                window.draw(*enemigo);
 
-                character.chocar(enemigo->_colision);
+                bool enemigoMurio = false;
 
-                if(character.getColisionador().detectorDeColision(enemigo->_colision, empuje.x, empuje.y))
+                //El enemigo golpea al jugador
+                float empujeX = 0, empujeY = 0;
+
+                if (character.getColisionador().detectorDeColision(enemigo->_colision, empujeX, empujeY))
                 {
-                    character.move(empuje.x * fuerzaEmpuje, empuje.y * fuerzaEmpuje);
+                    //El jugador rebota hacia atr s
+                    character.move(empujeX * fuerzaEmpuje, empujeY * fuerzaEmpuje);
+
+                    //Da¤o con Cooldown
+                    static sf::Clock relojDanioRecibido;
+                    if (relojDanioRecibido.getElapsedTime().asMilliseconds() > 800)
+                    {
+                        character.setVida(character.getVida() - 10);
+                        mostrarTexto("-10 HP", character.getPosition().x, character.getPosition().y - 30, 1000);
+
+                        relojDanioRecibido.restart();
+                    }
+                }
+
+                //El jugador golpea al enemigo
+                if (golpeHabilitado)
+                {
+                    //Verifico si el rect ngulo de la espada toca al enemigo
+                    if (rectEspada.intersects(enemigo->getColisionBounds()))
+                    {
+                        float danioJugador = 35.0f;
+
+                        Item* itemEnMano = inv.getItemEnMano();
+                        if (itemEnMano != nullptr) {
+                            // Si tienemos un arma, usamos su da¤o (ej: Espada, hacha, etc)
+                            danioJugador = itemEnMano->obtenerFuerza(enemigo->getMaterial());
+                            itemEnMano->usar();
+                        }
+
+                        //Aplicamos el danio
+                        enemigo->bajarVida(danioJugador);
+                        mostrarTexto("­Toma wacho!", enemigo->getPosition().x, enemigo->getPosition().y - 20, 500);
+
+                        //Empujamos al enemigo
+                        sf::Vector2f dirGolpe = enemigo->getPosition() - character.getPosition();
+                        float magnitud = std::sqrt(dirGolpe.x*dirGolpe.x + dirGolpe.y*dirGolpe.y);
+                        if (magnitud > 0) {
+                            enemigo->empujar((dirGolpe / magnitud) * 5.0f);
+                        }
+
+                        //Verificamos su Muerte
+                        if (enemigo->getVida() <= 0)
+                        {
+                            enemigoMurio = true;
+                        }
+                    }
+                }
+
+                if (enemigoMurio)
+                {
+                    it = enemigos.erase(it);//Lo borramos
+                    cout << "Enemigo abatido." << endl;
+                }
+                else
+                {
+                    ++it;
                 }
             }
+
 /// ======================== COLISIONES ANIMALES =========================///
-
-
-            sf::FloatRect rectEspada = character.getAreaAtaque();
-
 
             for (auto it = animales.begin(); it != animales.end();)
             {
@@ -1392,6 +1493,47 @@ void Game::regenerarAnimales(std::list<std::unique_ptr<Mob>>& listaAnimales)
     cout << "Fauna regenerada. Total animales: " << listaAnimales.size() << endl;
 }
 
+void Game::spawnearEnemigoIndividual(std::list<std::unique_ptr<Mob>>& listaEnemigos)
+{
+    // Intentamos encontrar una posicion valida
+    for (int i = 0; i < 30; i++)
+    {
+        int tileX = rand() % mapa.getMapWidth();
+        int tileY = rand() % mapa.getMapHeight();
+
+        int idTile = mapa.getTileID(tileX, tileY);
+
+        bool esVacio = (idTile == 0);
+        bool esAgua = (idTile == 103 || idTile == 120 || idTile == 126);
+        bool esCueva = (idTile >= 99 && idTile <= 102) ||
+                       (idTile >= 131 && idTile <= 133) ||
+                       (idTile >= 163 && idTile <= 181);
+
+        // Si es agua, cueva o vacio, intentamos de nuevo
+        if (esVacio || esAgua || esCueva) continue;
+
+        //Chequeamos donde se va a crear el enemigo para que no le aparezca cerca
+        float posX = tileX * 32.0f;
+        float posY = tileY * 32.0f;
+
+        float dx = character.getPosition().x - posX;
+        float dy = character.getPosition().y - posY;
+        float distancia = std::sqrt(dx*dx + dy*dy);
+
+        // Si esta a menos de 400 o mas de 1000 pixeles, que prueba en otro lugar
+        if (distancia < 400.0f || distancia > 1000.0f) continue;
+
+        // 50% Fantasma, 50% Murcielago
+        if (rand() % 2 == 0)
+            listaEnemigos.push_back(_FabricaMobs.crearMobs("Fantasma", {posX, posY}));
+        else
+            listaEnemigos.push_back(_FabricaMobs.crearMobs("Murcielago", {posX, posY}));
+
+        cout << ">>> SPAWN AUTOMATICO EXITOSO en ID: " << idTile << " Dist: " << distancia << endl;
+
+        return;
+    }
+}
 
 void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstructuras)
 {

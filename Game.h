@@ -114,6 +114,7 @@ class Game
 
         void regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstructurasAleatorias);
         void regenerarAnimales(std::list<std::unique_ptr<Mob>>& listaAnimalesAleatorias);
+        void spawnearEnemigoIndividual(std::list<std::unique_ptr<Mob>>& listaEnemigos);
 
 /// --- VARIABLES DE USO PARA FADE IN Y FADE OUT TEST
 

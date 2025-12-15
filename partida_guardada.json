@@ -14,29 +14,11 @@
         ]
     ],
     "cultivos": [],
-    "estructuras": [
-        {
-            "contenido": [
-                {
-                    "cantidad": 16,
-                    "idItem": 26,
-                    "slot": 25
-                },
-                {
-                    "cantidad": 16,
-                    "idItem": 42,
-                    "slot": 26
-                }
-            ],
-            "id": 8,
-            "x": 5440.0,
-            "y": 288.0
-        }
-    ],
+    "estructuras": [],
     "inventario": [
         {
-            "cantidad": 16,
-            "id": 31,
+            "cantidad": 1,
+            "id": 8,
             "slot": 0
         },
         {
@@ -56,87 +38,107 @@
         },
         {
             "cantidad": 16,
-            "id": 25,
+            "id": 42,
             "slot": 4
         },
         {
-            "cantidad": 14,
+            "cantidad": 16,
+            "id": 25,
+            "slot": 5
+        },
+        {
+            "cantidad": 16,
+            "id": 26,
+            "slot": 6
+        },
+        {
+            "cantidad": 1,
+            "id": 42,
+            "slot": 7
+        },
+        {
+            "cantidad": 16,
             "id": 44,
             "slot": 8
         },
         {
-            "cantidad": 1,
-            "id": 0,
+            "cantidad": 14,
+            "id": 44,
             "slot": 9
         },
         {
             "cantidad": 1,
-            "id": 2,
+            "id": 0,
             "slot": 10
         },
         {
             "cantidad": 1,
-            "id": 6,
+            "id": 2,
             "slot": 11
         },
         {
             "cantidad": 1,
-            "id": 8,
+            "id": 6,
             "slot": 12
         },
         {
-            "cantidad": 1,
-            "id": 3,
+            "cantidad": 16,
+            "id": 31,
             "slot": 13
         },
         {
             "cantidad": 1,
-            "id": 5,
+            "id": 3,
             "slot": 14
+        },
+        {
+            "cantidad": 1,
+            "id": 5,
+            "slot": 15
         },
         {
             "cantidad": 3,
             "id": 15,
-            "slot": 15
+            "slot": 16
         },
         {
             "cantidad": 10,
             "id": 14,
-            "slot": 16
-        },
-        {
-            "cantidad": 16,
-            "id": 19,
             "slot": 17
         },
         {
-            "cantidad": 4,
+            "cantidad": 16,
             "id": 19,
             "slot": 18
         },
         {
-            "cantidad": 1,
-            "id": 52,
+            "cantidad": 4,
+            "id": 19,
             "slot": 19
         },
         {
             "cantidad": 1,
-            "id": 50,
+            "id": 52,
             "slot": 20
         },
         {
-            "cantidad": 16,
-            "id": 44,
-            "slot": 27
+            "cantidad": 1,
+            "id": 50,
+            "slot": 21
+        },
+        {
+            "cantidad": 1,
+            "id": 49,
+            "slot": 22
         }
     ],
     "mundo": {
-        "tiempoAcumulado": 24.934907913208008
+        "tiempoAcumulado": 3069.7451171875
     },
     "personaje": {
-        "hambre": 83.83277893066406,
-        "posX": 5346.119140625,
-        "posY": 297.1195068359375,
-        "vida": 100.0
+        "hambre": 60.96968078613281,
+        "posX": 2537.959228515625,
+        "posY": 3983.72705078125,
+        "vida": 90.0
     }
 }

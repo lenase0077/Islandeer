@@ -10,6 +10,7 @@ Mob::Mob() :
     _tiempoDeAnimar(0.f),
     _frameActual(0),
     _chocoConMapa (false),
+    _tiempoColorRojo(0.f),
     _direccionActual(DireccionMob::Abajo)
 {
 }
@@ -102,11 +103,20 @@ void Mob::cambioDeRumbo()
 
 void Mob::update(sf::Vector2f& Posicionpersonaje, float deltatime)
 {
+    if (_tiempoColorRojo > 0)
+    {
+        _tiempoColorRojo -= deltatime / 1000.0f; // Restamos tiempo
+
+        if (_tiempoColorRojo <= 0)
+        {
+            setColor(sf::Color::White); // Vuelve a la normalidad
+            _tiempoColorRojo = 0;
+        }
+    }
+
     if (std::abs(_fuerzaRetroceso.x) > 0.1f || std::abs(_fuerzaRetroceso.y) > 0.1f)
     {
         move(_fuerzaRetroceso);
-
-
         _fuerzaRetroceso *= 0.90f;
     }
     else
@@ -114,6 +124,7 @@ void Mob::update(sf::Vector2f& Posicionpersonaje, float deltatime)
         _fuerzaRetroceso = {0.f, 0.f};
     }
 
+    updateColision();
 }
 
 void Mob::updateColision() {
@@ -147,6 +158,10 @@ void Mob::setVida(float vida) {
 void Mob::bajarVida(float danio)
 {
     _vida -= danio;
+
+    setColor(sf::Color::Red);
+    _tiempoColorRojo = 0.2f;
+
     recibirDanio();
 
     if (_vida < 0)

@@ -33,12 +33,16 @@ std::unique_ptr<Mob> FabricaMobs::crearMobs(const std::string& tipo, sf::Vector2
 
     if (tipo == "Fantasma")
     {
-        return std::make_unique<Fantasma>(_fantasmaTexture, posicion);
+        auto mob = std::make_unique<Fantasma>(_fantasmaTexture, posicion);
+        mob->setVida(100);
+        return mob;
     }
 
     if (tipo == "Murcielago")
     {
-        return std::make_unique<Murcielago>(_murcielagoTexture, posicion);
+        auto mob = std::make_unique<Murcielago>(_murcielagoTexture, posicion);
+        mob->setVida(100);
+        return mob;
     }
 
     if (tipo == "Vaca")
