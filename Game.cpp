@@ -120,7 +120,6 @@ void Game::run()
     sf::Vector2f camaraPosicion = {640, 1120};
 
 /// ======================== Personaje =========================///
-    Personaje character (_texturaPersonaje);
     float hambrePorSegundo = 0.5f;
 
 /// ======================== Enemigo =========================///
@@ -367,7 +366,6 @@ void Game::run()
             {
                 golpeHabilitado = character.iniciarAtaque();
 
-                if (golpeHabilitado) cout << "Seba gei" << endl;
             }
 
 
@@ -463,6 +461,13 @@ void Game::run()
 
             window.setView(Camara);
             window.draw(mapa);
+
+            for (auto& texto : _listaTextos)
+            {
+                window.draw(*texto);
+            }
+
+
             for (auto& cultivo : _listaCultivos)
             {
                 window.draw(*cultivo);
@@ -818,20 +823,14 @@ void Game::run()
 /// ======================== UPDATE TEXTOS =========================///
 
 //     Usamos un while con iterador para poder borrar los textos  que "mueren"
-            auto itTexto = _listaTextos.begin();
-            while (itTexto != _listaTextos.end())
-            {
-                (*itTexto)->update(deltatime);
+                for (auto it = _listaTextos.begin(); it != _listaTextos.end(); ) {
+                    (*it)->update(deltatime);
 
-                if ((*itTexto)->estaDestruido() == true)
-                {
-                    itTexto = _listaTextos.erase(itTexto); // Lo borramos de la memoria y la lista
+                    if ((*it)->estaDestruido())
+                        it = _listaTextos.erase(it);
+                    else
+                        ++it;
                 }
-                else
-                {
-                    itTexto++;
-                }
-            }
 
 /// ======================== TEST HERRAMIENTAS =========================///
 
@@ -891,10 +890,7 @@ void Game::run()
 
             window.draw(inv);
 
-            for (auto& texto : _listaTextos)
-            {
-                window.draw(*texto);
-            }
+
 
             window.setView(window.getDefaultView());
 
@@ -1435,29 +1431,28 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
     }
     else
     {
-        cout << "No te podes comer esto, bobo" << endl;
+        mostrarTexto("Esto no es comestible", character.getPosition().x, character.getPosition().y, 2000);
     }
 }
 
 void Game::colocarEstructura(sf::Vector2f posMouseWorld, InventarioInterfaz& inv, std::list<std::unique_ptr<Estructura>>& lista)
 {
-    //Ver que item tengo en la mano
+    // 1. Ver que item tengo en la mano
     Item* item = inv.getItemEnMano();
     if (item == nullptr) return;
 
     int idItem = item->getID();
     int idEstructuraFisica = -1;
 
-    //Convertimos IDItem a IDEstructura (Fabrica)
+    // Convertimos IDItem a IDEstructura (Fabrica)
     if (idItem == 52) idEstructuraFisica = 7;       // Mesa
     else if (idItem == 49) idEstructuraFisica = 8;  // Cofre
     else if (idItem == 50) idEstructuraFisica = 9;  // Horno
-    else if (idItem == 51) idEstructuraFisica = 13; // Valla
+    // else if (idItem == 51) idEstructuraFisica = 13; // Valla (Esta quizas quieras ponerla en pasto, pero por ahora la dejo aqui)
 
-    // Si no es un item de construir, salimos
     if (idEstructuraFisica == -1) return;
 
-    //Grid Snapping (Alinear a la cuadr¡cula 32x32)
+    // 2. Calcular Coordenadas Grid
     int tileW = mapa.getTileWidth();
     int tileH = mapa.getTileHeight();
 
@@ -1467,46 +1462,46 @@ void Game::colocarEstructura(sf::Vector2f posMouseWorld, InventarioInterfaz& inv
     float posX = gridX * tileW;
     float posY = gridY * tileH;
 
-    //Validamos que el lugar est‚ libre
-    //Creamos un rect un poco m s chico (24x24) en el centro
+    // 3. (Solo ID 100) ===
+    int idSuelo = mapa.getTileID(gridX, gridY);
+
+    if (idSuelo != 100)
+    {
+        mostrarTexto("Creo que seria mejor construir en la cueva", character.getPosition().x - 10, character.getPosition().y - 10, 2000);
+        return;
+    }
+    // ====================================================
+
+    // 4. Validamos que el lugar esté libre (Colisiones)
     sf::FloatRect rectNuevo(posX + 4, posY + 4, 24, 24);
 
-    //No construir sobre el personaje
     if (character.getColisionBounds().intersects(rectNuevo)) {
-        cout << "No puedes construir sobre ti mismo." << endl;
+        mostrarTexto("No creo que sea buena idea", character.getPosition().x, character.getPosition().y, 2000);
         return;
     }
 
-    //No construir sobre otras estructuras
     for (auto& estructura : _listaEstructuras) {
         if (!estructura->estaDestruido() && estructura->getColisionador().getColision().intersects(rectNuevo)) return;
     }
 
-    //No construir sobre recursos del mapa
     for (auto& estructura : lista) {
         if (!estructura->estaDestruido() && estructura->getColisionador().getColision().intersects(rectNuevo)) return;
     }
 
-    //No construir sobre cultivos
     for (auto& cultivos : _listaCultivos) {
         if (cultivos->getBounds().intersects(rectNuevo)) return;
     }
 
-    //Creamos la estructura
+    // 5. Construir
     auto nuevaEstructura = _FabricaEstructuras.crearEstructura(posX, posY, idEstructuraFisica);
 
     if (nuevaEstructura != nullptr)
     {
-        // Guardamos en la lista
         _listaEstructuras.push_back(std::move(nuevaEstructura));
-
-        // Consumimos 1 item del inventario
         inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
-
-        cout << "Estructura colocada!" << endl;
+        cout << "Estructura colocada en suelo de madera!" << endl;
     }
 }
-
 /*
 
 input
