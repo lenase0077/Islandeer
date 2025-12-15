@@ -48,23 +48,23 @@ bool cultivo::intentarCosechar (std::list<Loot>& listaLoots, FabricaItems& fabri
     {
         // 1. Tira el producto que le configuramos al nacer
         rx = (rand() % 20) - 10; ry = (rand() % 20) - 10;
-        listaLoots.emplace_back(fabrica, sf::Vector2f(pos.x + rx, pos.y + ry), _idProducto);
+        listaLoots.emplace_back(fabrica, sf::Vector2f(pos.x + rx, pos.y + ry), _idProducto, rand() % 2 + 1);
 
         // 2. Tira la semilla
         rx = (rand() % 20) - 10; ry = (rand() % 20) - 10;
-        listaLoots.emplace_back(fabrica, sf::Vector2f(pos.x + rx, pos.y + ry), _idSemilla);
+        listaLoots.emplace_back(fabrica, sf::Vector2f(pos.x + rx, pos.y + ry), _idSemilla, rand() % 2 + 1);
 
         // 3. Chance extra
         if (rand() % 100 < 40) {
             rx = (rand() % 20) - 10; ry = (rand() % 20) - 10;
-            listaLoots.emplace_back(fabrica, sf::Vector2f(pos.x + rx, pos.y + ry), _idProducto);
+            listaLoots.emplace_back(fabrica, sf::Vector2f(pos.x + rx, pos.y + ry), _idProducto, rand() % 2 + 1);
         }
     }
     else
     {
         // Solo devuelve semilla
         rx = (rand() % 20) - 10; ry = (rand() % 20) - 10;
-        listaLoots.emplace_back(fabrica, sf::Vector2f(pos.x + rx, pos.y + ry), _idSemilla);
+        listaLoots.emplace_back(fabrica, sf::Vector2f(pos.x + rx, pos.y + ry), _idSemilla, rand() % 2 + 1);
     }
 
     return true;

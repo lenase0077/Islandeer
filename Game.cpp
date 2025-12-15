@@ -20,7 +20,6 @@ void Game::run()
 {
 /// ======================== Texturas =========================///
 
-    list <std::unique_ptr<Estructura>> listaEstructuras;
     list <Loot> listaLoots;
     list <std::unique_ptr<Estructura>> listaEstructuraRandom;
 
@@ -43,6 +42,12 @@ void Game::run()
     {
         cout << "Error al cargar PIXEARG_.TTF" << endl;
     }
+
+    _textoFPS.setFont(fontReloj);
+    _textoFPS.setCharacterSize(14); // Tama¤o peque¤o
+    _textoFPS.setFillColor(sf::Color::Yellow); // Color llamativo
+    _textoFPS.setPosition(10.f, 10.f); // Arriba a la izquierda
+    _textoFPS.setString("FPS: 0");
 
 /// ======================== Configuracion del FADE  =========================///
 
@@ -68,7 +73,7 @@ void Game::run()
     inv.agregarItem(31,16);
     inv.agregarItem(32,16);
     inv.agregarItem(33,16);
-    inv.agregarItem(24,1);
+    inv.agregarItem(28,1);
 
 
     inv.agregarItem(25,16);
@@ -89,11 +94,11 @@ void Game::run()
     inv.agregarItem(14,10);
 
     inv.agregarItem(19,20);
-    inv.agregarItem(11,1);
-    inv.agregarItem(12,1);
+    inv.agregarItem(52,1);
+    inv.agregarItem(50,1);
 //    inv.agregarItem(45,1);
 //    inv.agregarItem(47,1);
-    inv.agregarItem(28,16);
+    inv.agregarItem(49,1);
 
     InventarioResumido invR(texturaInventarioResumido);
 
@@ -115,14 +120,7 @@ void Game::run()
     sf::Vector2f camaraPosicion = {640, 1120};
 
 /// ======================== Personaje =========================///
-    Personaje character (_texturaPersonaje);
     float hambrePorSegundo = 0.5f;
-
-
-
-
-
-
 
 /// ======================== Enemigo =========================///
     sf::Vector2f empuje;
@@ -135,23 +133,6 @@ void Game::run()
 
 //    enemigos.push_back(_FabricaMobs.crearMobs("Fantasma", {100 , 100}));
 //    enemigos.push_back(_FabricaMobs.crearMobs("Murcielago", {50 , 50}));
-
-/// ======================== Aniamles =========================///
-
-    float spawnX = 82*32;
-    float spawnY = 90*32;
-
-    sf::Vector2f _posicionAleatoria;
-
-    for (int i = 0 ; i < 5 ; i++)
-    {
-        _posicionAleatoria.x = spawnX + (rand()%400 - 200);
-        _posicionAleatoria.y = spawnY + (rand()%400 - 200);
-
-        animales.push_back(_FabricaMobs.crearMobs("Vaca", {_posicionAleatoria.x, _posicionAleatoria.y}));
-        animales.push_back(_FabricaMobs.crearMobs("Oveja", {_posicionAleatoria.x + 50,_posicionAleatoria.y}));
-        animales.push_back(_FabricaMobs.crearMobs("Cerdo", {_posicionAleatoria.x - 50,_posicionAleatoria.y + 50}));
-    }
 
 /// ======================== Musica =========================///
     sf::SoundBuffer buffer;
@@ -175,21 +156,19 @@ void Game::run()
 
 
 /// ESTRUCTURA TEST
-    listaEstructuras.push_back(fabE.crearEstructura(82*32,85*32,0));
-    listaEstructuras.push_back(fabE.crearEstructura(83*32,85*32,1));
-    listaEstructuras.push_back(fabE.crearEstructura(84*32,85*32,2));
-    listaEstructuras.push_back(fabE.crearEstructura(85*32,85*32,3));
-    listaEstructuras.push_back(fabE.crearEstructura(86*32,85*32,4));
-    listaEstructuras.push_back(fabE.crearEstructura(87*32,85*32,5));
-    listaEstructuras.push_back(fabE.crearEstructura(88*32,85*32,6));
-    listaEstructuras.push_back(fabE.crearEstructura(89*32,85*32,7));
-    listaEstructuras.push_back(fabE.crearEstructura(89*32,90*32,7));
-
-    listaEstructuras.push_back(fabE.crearEstructura(90*32,85*32,9));
-
-    listaEstructuras.push_back(fabE.crearEstructura(91*32,85*32,8));
-    listaEstructuras.push_back(fabE.crearEstructura(91*32,86*32,8));
-    listaEstructuras.push_back(fabE.crearEstructura(91*32,90*32,8));
+//    listaEstructuras.push_back(fabE.crearEstructura(82*32,85*32,0));
+//    listaEstructuras.push_back(fabE.crearEstructura(83*32,85*32,1));
+//    listaEstructuras.push_back(fabE.crearEstructura(84*32,85*32,2));
+//    listaEstructuras.push_back(fabE.crearEstructura(85*32,85*32,3));
+//    listaEstructuras.push_back(fabE.crearEstructura(86*32,85*32,4));
+//    listaEstructuras.push_back(fabE.crearEstructura(87*32,85*32,5));
+//    listaEstructuras.push_back(fabE.crearEstructura(88*32,85*32,6));
+//    listaEstructuras.push_back(fabE.crearEstructura(89*32,85*32,7));
+//    listaEstructuras.push_back(fabE.crearEstructura(89*32,90*32,7));
+//    listaEstructuras.push_back(fabE.crearEstructura(90*32,85*32,9));
+//    listaEstructuras.push_back(fabE.crearEstructura(91*32,85*32,8));
+//    listaEstructuras.push_back(fabE.crearEstructura(91*32,86*32,8));
+//    listaEstructuras.push_back(fabE.crearEstructura(91*32,90*32,8));
 /// ======================== CICLO DIA Y NOCHE =========================///
     nightOverlay.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
     nightOverlay.setPosition(0.f, 0.f);
@@ -212,6 +191,7 @@ void Game::run()
     /// ======================== Inicio estructura Random =========================///
 
     regenerarRecursos(listaEstructuraRandom);
+    regenerarAnimales(animales);
 
 //    character.setPosicion(100*32, 100*32);
 //    character.setPosicion(100*32, 100*32);
@@ -261,8 +241,6 @@ void Game::run()
             }
             else if (opcion == OpcionMenu::NuevaPartida)
             {
-
-
                 float posX = 84 * 32.f;
                 float posY = 132 * 32.f;
                 character.setPosicion(posX, posY);
@@ -273,6 +251,8 @@ void Game::run()
                 character.setVelocidad(0,0);
 
                 regenerarRecursos(listaEstructuraRandom);
+                animales.clear();
+                regenerarAnimales(animales);
                 _listaCultivos.clear();
                 listaLoots.clear();
 
@@ -290,6 +270,12 @@ void Game::run()
 
 
                 cout << "Anotacion de lean - Empate nueva partida" << endl;
+            }
+
+            else if (opcion == OpcionMenu::Guardar)
+            {
+                guardar(character);
+                cout << "Partida guardada desde el Menu de Opciones" << endl;
             }
 
             else if (opcion == OpcionMenu::Salir)
@@ -348,6 +334,20 @@ void Game::run()
             sonido.setVolume(volumenActual);
             character.setVolumen(volumenActual);
             deltatime = _relojInterno.restart().asMilliseconds();
+
+            if (deltatime > 0) // Evitar divisi¢n por cero
+            {
+                _tiempoFPS += deltatime;
+
+                // Actualizamos el texto solo cada 500ms (medio segundo) para que sea legible
+                if (_tiempoFPS >= 500.0f)
+                {
+                    float fps = 1000.0f / deltatime; // 1000ms / tiempo del frame = FPS
+                    _textoFPS.setString("FPS: " + std::to_string((int)fps));
+                    _tiempoFPS = 0.0f;
+                }
+            }
+
             Comandos::getInstancia().actualizar();
 
             _interfazEstado.update( character.getVida(), character.getVidaMaxima(), character.getEnergia(), character.getEnergiaMaxima(), character.getHambre(), character.getHambreMaxima());
@@ -366,7 +366,6 @@ void Game::run()
             {
                 golpeHabilitado = character.iniciarAtaque();
 
-                if (golpeHabilitado) cout << "Seba gei" << endl;
             }
 
 
@@ -405,6 +404,7 @@ void Game::run()
             {
                 int id = itemEnManoAccion->getID();
 
+                //CULTIVAR
                 if (id >= 31 && id <= 33)
                 {
                     if (Comandos::getInstancia().mouseDerPresionado)
@@ -424,6 +424,15 @@ void Game::run()
                     if (Comandos::getInstancia().mouseDerRecienPresionado)
                     {
                         usarItemEnMano(character, inv);
+                    }
+                }
+
+                //CONSTRUIR
+                else if (id == 49 || id == 50 || id == 51 || id == 52)
+                {
+                    if (Comandos::getInstancia().mouseDerRecienPresionado)
+                    {
+                        colocarEstructura(posMouseWorld, inv, listaEstructuraRandom);
                     }
                 }
             }
@@ -452,6 +461,13 @@ void Game::run()
 
             window.setView(Camara);
             window.draw(mapa);
+
+            for (auto& texto : _listaTextos)
+            {
+                window.draw(*texto);
+            }
+
+
             for (auto& cultivo : _listaCultivos)
             {
                 window.draw(*cultivo);
@@ -477,7 +493,6 @@ void Game::run()
 
             mouse.update(window);
 
-
 /// ======================== Update del Ciclo dia y noche ========================= ///
 
             _tiempoDiaAcumulado += deltatime / 1000.0f;
@@ -500,12 +515,12 @@ void Game::run()
                << std::setw(2) << std::setfill('0') << minuto;
             textReloj.setString(ss.str());
 
-
             static bool diaReseteado = false;
 
             if (hora == 6 && !diaReseteado)
             {
                 regenerarRecursos(listaEstructuraRandom);
+                regenerarAnimales(animales);
                 cout << "Â¡Un nuevo dia comienza! La isla se ha regenerado." << endl;
                 diaReseteado = true; // Marcamos que ya reseteamos hoy
             }
@@ -514,8 +529,39 @@ void Game::run()
             {
                 diaReseteado = false; // Preparamos el flag para el siguiente dia
             }
+
+            if (hora == 22)
+            {
+                mostrarTexto("Escucho ruidos... debo tener cuidado.", character.getPosition().x, character.getPosition().y, 4000);
+            }
+
             float reduccion = hambrePorSegundo * (deltatime / 1000.0f);
             character.setHambre(character.getHambre() - reduccion);
+
+            ///Mensajes
+            if (character.getHambre() < 20)
+            {
+                // Reloj est tico: recuerda el tiempo aunque el bucle siga girando
+                static sf::Clock relojAvisoHambre;
+
+                // Solo mostramos el mensaje si pasaron 10 segundos desde el £ltimo aviso
+                if (relojAvisoHambre.getElapsedTime().asSeconds() > 10.0f)
+                {
+                    mostrarTexto("Tengo mucha hambre...", character.getPosition().x, character.getPosition().y, 3000);
+
+                    relojAvisoHambre.restart();
+                }
+            }
+
+            if (character.getVida() <= 25)
+            {
+                static sf::Clock relojQueja;
+                if (relojQueja.getElapsedTime().asSeconds() > 8.0f)
+                {
+                    mostrarTexto("Me estoy desangrando...", character.getPosition().x, character.getPosition().y, 3000);
+                    relojQueja.restart();
+                }
+            }
 
 
 /// ======================== COMANDOS =========================///
@@ -571,15 +617,15 @@ void Game::run()
 
                 // 3. ORDEÃ‘AR (Click Derecho)
                 // Mantenemos esto con Click Derecho para que no ataque sin querer al ordeÃ±ar
-                if (animal != nullptr && sf::Mouse::isButtonPressed(sf::Mouse::Right))
+                if (animal != nullptr && Comandos::getInstancia().mouseDerRecienPresionado)
                 {
                     if (animal->getGlobalBounds().contains(posMouseWorld))
                     {
                         Item* itemEnMano = inv.getItemEnMano();
-                        // Pasamos inv y fabItems como en tu cÃ³digo original
+
                         if (animal->intentarOrdeniar(character.getPosition(), itemEnMano, fabItems, inv))
                         {
-                            cout << "OrdeÃ±ada!!" << endl;
+                            mostrarTexto("Gracias vaquita", character.getPosition().x, character.getPosition().y, 2000);
                         }
                     }
                 }
@@ -616,6 +662,7 @@ void Game::run()
                             if (itemEnMano->estaRota())
                             {
                                 inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
+                                mostrarTexto("Pero la... se me rompio che", character.getPosition().x, character.getPosition().y, 3000);
                             }
                         }
 
@@ -663,7 +710,15 @@ void Game::run()
             {
                 it->update(character.getPosition(),inv);
                 window.draw(*it);
-                if (it->getLooted()) it = listaLoots.erase(it);
+                if (it->getLooted())
+                {
+                    if (rand() % 10 == 0) // 10% de probabilidad
+                    {
+                        mostrarTexto("Esto sera util...", character.getPosition().x, character.getPosition().y, 2000);
+                    }
+                    it = listaLoots.erase(it);
+                }
+
                 else it++;
 
             }
@@ -708,22 +763,23 @@ void Game::run()
 
             bool seAbrioUnCofre = false;
 
-            for (auto estructura = listaEstructuras.begin(); estructura != listaEstructuras.end(); )
+            for (auto estructura = _listaEstructuras.begin(); estructura != _listaEstructuras.end(); )
             {
+
                 if ((*estructura)->estaDestruido() == false)
                 {
                     if(character.getColisionador().detectorDeColision((*estructura)->getColisionador()))   ///EJEMPLO
                     {
-
-
                         character.chocar((*estructura)->getColisionador());
-
-                        if ((*estructura)->getRompePorColision())
-                        {
-                            (*estructura)->recibirGolpe(5);
-                        }
                     }
+
                     window.draw(**estructura);
+
+                    if (golpeHabilitado)
+                    {
+                        procesarAtaqueEstructura(estructura->get(), rectEspada, inv);
+                    }
+
                     (*estructura)->update( PosicionJugador, posMouseWorld, Camara, relacion, inv, inventarioCofre, deltatime);
                     if ((*estructura) -> getID() == 8)
                     {
@@ -739,7 +795,7 @@ void Game::run()
                 else
                 {
                     (*estructura)->liberarLoot(fabItems,listaLoots);
-                    estructura = listaEstructuras.erase(estructura);
+                    estructura = _listaEstructuras.erase(estructura);
                 }
             }
 
@@ -767,20 +823,14 @@ void Game::run()
 /// ======================== UPDATE TEXTOS =========================///
 
 //     Usamos un while con iterador para poder borrar los textos  que "mueren"
-            auto itTexto = _listaTextos.begin();
-            while (itTexto != _listaTextos.end())
-            {
-                (*itTexto)->update(deltatime);
+                for (auto it = _listaTextos.begin(); it != _listaTextos.end(); ) {
+                    (*it)->update(deltatime);
 
-                if ((*itTexto)->estaDestruido() == true)
-                {
-                    itTexto = _listaTextos.erase(itTexto); // Lo borramos de la memoria y la lista
+                    if ((*it)->estaDestruido())
+                        it = _listaTextos.erase(it);
+                    else
+                        ++it;
                 }
-                else
-                {
-                    itTexto++;
-                }
-            }
 
 /// ======================== TEST HERRAMIENTAS =========================///
 
@@ -840,12 +890,11 @@ void Game::run()
 
             window.draw(inv);
 
-            for (auto& texto : _listaTextos)
-            {
-                window.draw(*texto);
-            }
+
 
             window.setView(window.getDefaultView());
+
+            window.draw(_textoFPS);
 
             window.draw(_interfazEstado);
 
@@ -921,6 +970,64 @@ sf::Clock Game::getRelojInterno()
 {
     return _relojInterno;
 }
+
+void Game::regenerarAnimales(std::list<std::unique_ptr<Mob>>& listaAnimales)
+{
+
+    int ancho = mapa.getMapWidth();
+    int alto = mapa.getMapHeight();
+    int tileW = mapa.getTileWidth();
+    int tileH = mapa.getTileHeight();
+
+    for (int y = 0; y < alto; y++)
+    {
+        for (int x = 0; x < ancho; x++)
+        {
+            // Obtenemos el ID del suelo
+            int idTile = mapa.getTileID(x, y);
+
+            // Verificamos si es Pasto
+            bool esPasto = (idTile == 28 || idTile == 29 || idTile == 36 || idTile == 37);
+
+            // Ignoramos zonas prohibidas
+            if (idTile == 103) continue;
+
+            if (esPasto)
+            {
+                // Posici¢n en pixeles
+                float posX = x * tileW;
+                float posY = y * tileH;
+
+                // Probabilidad de que aparezca animales
+                int probabilidad = rand() % 80;
+
+                if (probabilidad == 0)
+                {
+                    // Elegimos qu‚ animal spawnear al azar
+                    int tipoAnimal = rand() % 4; // 0, 1, 2, 3
+
+                    switch(tipoAnimal)
+                    {
+                        case 0:
+                            listaAnimales.push_back(_FabricaMobs.crearMobs("Vaca", {posX, posY}));
+                            break;
+                        case 1:
+                            listaAnimales.push_back(_FabricaMobs.crearMobs("Cerdo", {posX, posY}));
+                            break;
+                        case 2:
+                            listaAnimales.push_back(_FabricaMobs.crearMobs("Oveja", {posX, posY}));
+                            break;
+                        case 3:
+                            listaAnimales.push_back(_FabricaMobs.crearMobs("Gallina", {posX, posY}));
+                            break;
+                    }
+                }
+            }
+        }
+    }
+    cout << "Fauna regenerada. Total animales: " << listaAnimales.size() << endl;
+}
+
 
 void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstructuras)
 {
@@ -1042,9 +1149,16 @@ void Game::actualizarFade(Personaje& character)
         {
             _fadeAlpha = 255.0f;
 
-
             character.setPosicion(_destinoTeleport.x, _destinoTeleport.y);
-//            Camara.setCenter(_destinoTeleport.x, _destinoTeleport.y);
+
+            int tileX = static_cast<int>(_destinoTeleport.x / 32);
+            int tileY = static_cast<int>(_destinoTeleport.y / 32);
+
+            // Si llegamos al Tile 166, 46 (Interior Cueva)
+            if (tileX == 166 && tileY == 46)
+            {
+                mostrarTexto("Que frio hace aca...", character.getPosition().x, character.getPosition().y - 50, 4000);
+            }
 
             _estadoFade = 2;
         }
@@ -1097,7 +1211,6 @@ void Game::verificarTeleports(Personaje& character)
 
 bool Game::esSueloCultivable(int tileID)
 {
-    // IDs de la zona de cultivo que me pasaste
     return (tileID == 163 || tileID == 164 || tileID == 165 || tileID == 166 ||
             tileID == 171 || tileID == 172 || tileID == 173 ||
             tileID == 179 || tileID == 180 || tileID == 181);
@@ -1118,7 +1231,9 @@ void Game::intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv)
 
     //Validar Terreno
     int idSuelo = mapa.getTileID(tileX, tileY);
-    if (!esSueloCultivable(idSuelo)) return;
+    if (!esSueloCultivable(idSuelo))
+        mostrarTexto("No creo que pueda plantar aqui", character.getPosition().x, character.getPosition().y, 1000);
+        return;
 
     //Calcular posicion
     float posX = tileX * tileW;
@@ -1244,7 +1359,12 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
             character.setHambre(character.getHambre() + 15);
 
             character.setVida(character.getVida() + 5);
-            cout << "Comio algo" << endl;
+
+            if (id == 40)
+                 mostrarTexto("Esta dura... deberia cocinarla.", character.getPosition().x, character.getPosition().y, 1000);
+            else
+                 mostrarTexto("Rico y fresco.", character.getPosition().x, character.getPosition().y, 1000);
+
             seConsumio = true;
         }
         break;
@@ -1276,7 +1396,10 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
         character.envenenar(5.0f);
 
         character.setHambre(character.getHambre() - 25);
-        cout << "Tenes ganas de cagar...!" << endl;
+
+        mostrarTexto("Me siento terrible...", character.getPosition().x, character.getPosition().y - 20, 1000);
+        mostrarTexto("No debi comer eso", character.getPosition().x, character.getPosition().y, 1000);
+
         seConsumio = true;
         break;
 
@@ -1290,10 +1413,6 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
         cout << "Me rompi una muela masticando esto" << endl;
         seConsumio = true;
         break;
-
-
-
-
     }
 
 
@@ -1312,10 +1431,77 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
     }
     else
     {
-        cout << "No te podes comer esto, bobo" << endl;
+        mostrarTexto("Esto no es comestible", character.getPosition().x, character.getPosition().y, 1000);
     }
 }
 
+void Game::colocarEstructura(sf::Vector2f posMouseWorld, InventarioInterfaz& inv, std::list<std::unique_ptr<Estructura>>& lista)
+{
+    // 1. Ver que item tengo en la mano
+    Item* item = inv.getItemEnMano();
+    if (item == nullptr) return;
+
+    int idItem = item->getID();
+    int idEstructuraFisica = -1;
+
+    // Convertimos IDItem a IDEstructura (Fabrica)
+    if (idItem == 52) idEstructuraFisica = 7;       // Mesa
+    else if (idItem == 49) idEstructuraFisica = 8;  // Cofre
+    else if (idItem == 50) idEstructuraFisica = 9;  // Horno
+    // else if (idItem == 51) idEstructuraFisica = 13; // Valla (Esta quizas quieras ponerla en pasto, pero por ahora la dejo aqui)
+
+    if (idEstructuraFisica == -1) return;
+
+    // 2. Calcular Coordenadas Grid
+    int tileW = mapa.getTileWidth();
+    int tileH = mapa.getTileHeight();
+
+    int gridX = static_cast<int>(posMouseWorld.x / tileW);
+    int gridY = static_cast<int>(posMouseWorld.y / tileH);
+
+    float posX = gridX * tileW;
+    float posY = gridY * tileH;
+
+    // 3. (Solo ID 100) ===
+    int idSuelo = mapa.getTileID(gridX, gridY);
+
+    if (idSuelo != 100)
+    {
+        mostrarTexto("Creo que seria mejor construir en una cueva", character.getPosition().x - 10, character.getPosition().y - 10, 1000);
+        return;
+    }
+    // ====================================================
+
+    // 4. Validamos que el lugar esté libre (Colisiones)
+    sf::FloatRect rectNuevo(posX + 4, posY + 4, 24, 24);
+
+    if (character.getColisionBounds().intersects(rectNuevo)) {
+        mostrarTexto("No creo que sea buena idea", character.getPosition().x, character.getPosition().y, 1000);
+        return;
+    }
+
+    for (auto& estructura : _listaEstructuras) {
+        if (!estructura->estaDestruido() && estructura->getColisionador().getColision().intersects(rectNuevo)) return;
+    }
+
+    for (auto& estructura : lista) {
+        if (!estructura->estaDestruido() && estructura->getColisionador().getColision().intersects(rectNuevo)) return;
+    }
+
+    for (auto& cultivos : _listaCultivos) {
+        if (cultivos->getBounds().intersects(rectNuevo)) return;
+    }
+
+    // 5. Construir
+    auto nuevaEstructura = _FabricaEstructuras.crearEstructura(posX, posY, idEstructuraFisica);
+
+    if (nuevaEstructura != nullptr)
+    {
+        _listaEstructuras.push_back(std::move(nuevaEstructura));
+        inv.consumirItemEnSlot(inv.getInventarioResumido()->getSlotSeleccionado(), 1);
+        cout << "Estructura colocada en suelo de madera!" << endl;
+    }
+}
 /*
 
 input
