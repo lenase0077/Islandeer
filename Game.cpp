@@ -877,6 +877,7 @@ void Game::run()
             interfazBarco.setVolumen(volumenActual);
             if (barco.getDentroDeRango()){
                     if (interfazBarco.getCompletado()){
+                        barco.setConstruido(true);
                         opcionesBarcoHuida.setAbierto(true);
                         interfazBarco.setOculto(true);
                         if(opcionesBarcoHuida.getOpcionSeleccionada() == 0){

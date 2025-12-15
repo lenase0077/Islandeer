@@ -1394,7 +1394,7 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1765804177 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1765810996 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
@@ -4381,10 +4381,10 @@
 	<iostream>
 	"TextoFlotante.h"
 
-1765625528 source:c:\users\sebas\onedrive\documentos\github\islandeer\barcohuida.cpp
+1765810908 source:c:\users\sebas\onedrive\documentos\github\islandeer\barcohuida.cpp
 	"BarcoHuida.h"
 
-1765625528 c:\users\sebas\onedrive\documentos\github\islandeer\barcohuida.h
+1765810996 c:\users\sebas\onedrive\documentos\github\islandeer\barcohuida.h
 	<SFML/Graphics.hpp>
 	<string>
 	<cmath>

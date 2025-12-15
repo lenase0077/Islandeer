@@ -1,10 +1,5 @@
 #include "BarcoHuida.h"
 
-
-bool BarcoHuida::eligioIrse(){
-    return _eligioIrse;
-}
-
 BarcoHuida::BarcoHuida(float posX, float posY, const sf::Texture& texturaBarco){
     setPosition(posX,posY);
 
@@ -19,18 +14,27 @@ void BarcoHuida::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 
 void BarcoHuida::update(const sf::Vector2f& posicionJugador){
     ///Detectar jugador cercano
-    float distanciaJugador = sqrt(pow((posicionJugador.x) - (getPosition().x + 16) ,2) + pow((posicionJugador.y) - (getPosition().y + 16),2));
+    float distanciaJugador = sqrt(pow((posicionJugador.x) - (getPosition().x + 79) ,2) + pow((posicionJugador.y) - (getPosition().y + 64),2));
 
-    if (distanciaJugador < 30){
+    if (distanciaJugador < 64){
         _dentroDeRango = true;
-        _sprBarco.setColor(sf::Color::Red);
     }
     else{
         _dentroDeRango = false;
+    }
+
+    if (_construido){
         _sprBarco.setColor(sf::Color::White);
+    }
+    else{
+        _sprBarco.setColor(sf::Color(255,255,255,50));
     }
 }
 
 bool BarcoHuida::getDentroDeRango(){
     return _dentroDeRango;
+}
+
+void BarcoHuida::setConstruido(bool nuevoEstado){
+    _construido = nuevoEstado;
 }
