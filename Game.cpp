@@ -1646,6 +1646,11 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
                     listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 12));
 
                 }
+                else if (probabilidad >= 350 && probabilidad <= 550)
+                {
+                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 12));
+                }
+
             }
 
 
