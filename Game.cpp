@@ -68,6 +68,25 @@ void Game::run()
         std::cout << "Error cargando textura Personaje.png" << std::endl;
     }
 
+    sf::Texture texturaAvion;
+    if (!texturaAvion.loadFromFile("Avion-Sheet.png"))
+    {
+        std::cout << "Error cargando textura Avion-Sheet.png" << std::endl;
+    }
+
+    sf::Texture texturaAvionTurbina;
+    if (!texturaAvionTurbina.loadFromFile("turbina-Sheet.png"))
+    {
+        std::cout << "Error cargando textura turbina-Sheet.png" << std::endl;
+    }
+
+    sf::Texture texturaNube;
+    if (!texturaNube.loadFromFile("Nube.png"))
+    {
+        std::cout << "Error cargando textura Nube.png" << std::endl;
+    }
+
+
     texturaAguaCinematica.setRepeated(true);
 
     if (!fontReloj.loadFromFile("PIXEARG_.TTF"))
@@ -175,6 +194,7 @@ void Game::run()
 
 
 /// ======================== Cinematicas =========================///
+    CinematicaInicial cinematicaIni( texturaPersonaje, texturaAvion, texturaAvionTurbina, texturaNube);
     CinematicaFinal cinematicaF( texturaPersonaje,texturaBarcoHuida, texturaAguaCinematica, fuentePixelArt, "==========\n ISLANDER \n==========\n Desarrollado por los estudiantes: \n -Leandro Serrano. \n -Alejo Martinez. \n -Sebastian Durazzini. \n -Daniel Raho.");
 
 
@@ -322,7 +342,7 @@ void Game::run()
                 _estadoFade = 1;
 
                 mostrarTexto("Necesito salir de aqui", character.getPosition().x - 10, character.getPosition().y - 10, 5000);
-
+                cinematicaIni.reproducir();
 
 
 
@@ -1038,6 +1058,12 @@ void Game::run()
             }
             else{
                 window.draw(*opcionesBarcoHuida);
+            }
+
+            if(cinematicaIni.estaReproduciendo()){
+                cinematicaIni.ajustarEscalaAutomaticamente(Camara, relacion);
+                cinematicaIni.update();
+                window.draw(cinematicaIni);
             }
 
             window.draw(inventarioCofre);

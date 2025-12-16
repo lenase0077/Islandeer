@@ -32,6 +32,7 @@
 #include "InterfazBarcoHuida.h"
 #include "SelectorDeOpciones.h"
 #include "CinematicaFinal.h"
+#include "CinematicaInicial.h"
 
 
 class Game

@@ -1397,13 +1397,13 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1765874841 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1765882042 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1765826484 c:\users\sebas\onedrive\documentos\github\islandeer\game.h
+1765880618 c:\users\sebas\onedrive\documentos\github\islandeer\game.h
 	"Cultivos.h"
 	"FabricaCultivos.h"
 	<iostream>
@@ -1437,6 +1437,7 @@
 	"InterfazBarcoHuida.h"
 	"SelectorDeOpciones.h"
 	"CinematicaFinal.h"
+	"CinematicaInicial.h"
 
 1765618862 c:\users\sebas\onedrive\documentos\github\islandeer\personaje.h
 	"Colisionador.h"
@@ -4463,4 +4464,12 @@
 1765874872 c:\users\sebas\onedrive\documentos\github\islandeer\cinematicafinal.h
 	<SFML/Graphics.hpp>
 	<string>
+
+1765886539 c:\users\sebas\onedrive\documentos\github\islandeer\cinematicainicial.h
+	<SFML/Graphics.hpp>
+
+1765886211 source:c:\users\sebas\onedrive\documentos\github\islandeer\cinematicainicial.cpp
+	"CinematicaInicial.h"
+	<cmath>
+	<iostream>
 
