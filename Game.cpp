@@ -1255,20 +1255,10 @@ void Game::run()
                 window.draw(cinematicaIni);
             }
 
-
-            window.draw(*opcionesBarcoHuida);
-
-
             window.setView(window.getDefaultView());
-
-            window.draw(_textoFPS);
-
-            window.draw(_interfazEstado);
-
 
 //            window.draw(nightOverlay);
 
-            window.draw(_minimap);
 
             if (!cinematicaF.estaReproduciendo() && !cinematicaIni.estaReproduciendo())
             {
@@ -1278,8 +1268,6 @@ void Game::run()
                 window.draw(_minimap);
                 window.draw(textReloj);
             }
-
-            window.draw(textReloj);
 
             if (_enTransicion)
             {
