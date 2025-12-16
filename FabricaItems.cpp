@@ -4,7 +4,7 @@
 #include <sstream>
 
 
-// Constructor - inicializa la f�brica cargando configuraciones
+// Constructor - inicializa la fabrica cargando configuraciones
 FabricaItems::FabricaItems(){
     ///CARGA DE JSON DE ITEMS ===========================================
     std::ifstream archivo("ItemsConfiguraciones.json");
@@ -19,16 +19,16 @@ FabricaItems::FabricaItems(){
 
         // 2. CONVERSIÓN AUTOMÁTICA: De Array a Mapa
         // Inicializamos la variable de la clase como un Objeto vacío
-        _ConfiguracionItems = nlohmann::json::object(); 
+        _ConfiguracionItems = nlohmann::json::object();
 
         // Recorremos la lista y re-guardamos cada item usando su ID como "Clave"
         for (auto& item : jsonArray) {
             if (item.contains("id")) {
                 int id = item["id"];
                 std::string idStr = std::to_string(id);
-                
+
                 // Aquí ocurre la magia: Guardamos en memoria: "0": {datos...}
-                _ConfiguracionItems[idStr] = item; 
+                _ConfiguracionItems[idStr] = item;
             }
         }
     } else {
@@ -89,14 +89,27 @@ std::unique_ptr<Item> FabricaItems::crearItem(int id)
     // ========================================================
     // CASO A: ES UNA HERRAMIENTA (Existe en herramientas.json)
     // ========================================================
+
+
+    bool esPico(id == 0 || id == 1 || id == 2 );
+    bool esHacha(id == 3 || id == 4 || id == 5 );
+    bool esEspada(id == 6 || id == 7 || id == 8 );
+
+
     if (_datosHerramientas.count(id))
     {
         DatosHerramienta& d = _datosHerramientas[id];
         auto herramienta = std::make_unique<Herramienta>(_texturaItems, id, d.durabilidad, d.danioBase);
 
+
+
         for (auto const& [mat, val] : d.multiplicadores) {
             herramienta->agregarMultiplicador(mat, val);
         }
+
+        if (esHacha) herramienta->setTipoSonido(SonidoHerramienta::HACHA);
+        else if (esPico) herramienta->setTipoSonido(SonidoHerramienta::PICO);
+        else if (esEspada) herramienta->setTipoSonido(SonidoHerramienta::ESPADA);
 
         // Cargamos titulo/descripcion si existen en el OTRO json
         // IMPORTANTE: Usamos idStr, NO id
@@ -104,13 +117,13 @@ std::unique_ptr<Item> FabricaItems::crearItem(int id)
         {
             herramienta->setTitulo(_ConfiguracionItems[idStr]["titulo"]);
             herramienta->setDescripcion(_ConfiguracionItems[idStr]["descripcion"]);
-            
+
             if(_ConfiguracionItems[idStr].contains("cantidad_maxima"))
                  herramienta->setCantidadMax(_ConfiguracionItems[idStr]["cantidad_maxima"]);
             else
                  herramienta->setCantidadMax(1);
         }
-        else 
+        else
         {
             herramienta->setTitulo("Herramienta " + idStr);
         }
@@ -128,7 +141,7 @@ std::unique_ptr<Item> FabricaItems::crearItem(int id)
     {
         nuevoItem->setTitulo(_ConfiguracionItems[idStr]["titulo"]);
         nuevoItem->setDescripcion(_ConfiguracionItems[idStr]["descripcion"]);
-        
+
         if(_ConfiguracionItems[idStr].contains("cantidad_maxima"))
              nuevoItem->setCantidadMax(_ConfiguracionItems[idStr]["cantidad_maxima"]);
         else
