@@ -86,6 +86,12 @@ void Game::run()
         std::cout << "Error cargando textura Nube.png" << std::endl;
     }
 
+        if (!texturaCama.loadFromFile("Cama.png"))
+    {
+        std::cout << "Error cargando textura Cama.png" << std::endl;
+    }
+
+
     texturaAguaCinematica.setRepeated(true);
 
 
@@ -195,9 +201,18 @@ void Game::run()
     interfazBarco = std::make_unique<InterfazBarcoHuida>(texturaInterfazBarcoHuida, texturaBotonesInterfazBarco, fuentePixelArt, fabItems);
 
 
-    opcionesBarcoHuida = std::make_unique<SelectorDeOpciones>("¿Quieres retirarte de la isla?", fuentePixelArt);
+    opcionesBarcoHuida = std::make_unique<SelectorDeOpciones>("Quieres retirarte de la isla?", fuentePixelArt);
     opcionesBarcoHuida->agregarOpcion("SI, no banco mas esto.");
     opcionesBarcoHuida->agregarOpcion("NO, no quiero volver a latam.");
+
+
+/// ======================== Cama =========================///
+    Cama camaCueva( 32 * 162, 32 * 5, texturaCama);
+    InterfazCamaPeticiones interfazCama(texturaInterfazBarcoHuida, fuentePixelArt, fabItems);
+    SelectorDeOpciones opcionesCama(" Quieres irte a mimir?", fuentePixelArt);
+    opcionesCama.agregarOpcion("SI, estoy muy cansado.");
+    opcionesCama.agregarOpcion("NO, cansancio y plata nunca tuve.");
+
 
 /// ======================== Cinematicas =========================///
     CinematicaInicial cinematicaIni( texturaPersonaje, texturaAvion, texturaAvionTurbina, texturaNube);
@@ -1206,6 +1221,38 @@ void Game::run()
             invR.update(Camara, relacion);
             barco->update(PosicionJugador);
 
+
+            camaCueva.update(PosicionJugador);
+            window.draw(camaCueva);
+
+
+            interfazCama.ajustarEscalaAutomaticamente(Camara, relacion);
+            interfazCama.update(posMouseWorld, inv);
+            if (camaCueva.getDentroDeRango()){
+                if (interfazCama.getCompletado()){
+                    camaCueva.setConstruido(true);
+                    interfazCama.setOculto(true);
+                    opcionesCama.setAbierto(true);
+                    if (opcionesCama.getOpcionSeleccionada() == 0){
+                            opcionesCama.resetOpcionSeleccionada();
+                            ///AQUI VA LA ACCION A EJECUTAR
+                    }
+                    else if (opcionesCama.getOpcionSeleccionada() == 1){
+                        opcionesCama.setAbierto(false);
+                    }
+                }
+                else{
+                    interfazCama.setOculto(false);
+                    opcionesCama.setAbierto(false);
+                }
+            }
+            else{
+                opcionesCama.resetOpcionSeleccionada();
+                opcionesCama.setAbierto(false);
+                interfazCama.setOculto(true);
+            }
+
+
             window.draw(invR);
             ///Logica interfazBarco
             interfazBarco->ajustarEscalaAutomaticamente(Camara, relacion);
@@ -1248,10 +1295,18 @@ void Game::run()
             opcionesBarcoHuida->ajustarEscalaAutomaticamente(Camara, relacion);
             opcionesBarcoHuida->update(posMouseWorld,inv);
 
+            opcionesCama.ajustarEscalaAutomaticamente(Camara, relacion);
+            opcionesCama.update(posMouseWorld,inv);
+
+
+
             window.draw(inventarioCofre);
 
             window.draw(inv);
             window.draw(*interfazBarco);
+
+            window.draw(interfazCama);
+            window.draw(opcionesCama);
 
             if (cinematicaF.estaReproduciendo())
             {
