@@ -103,6 +103,9 @@ class Personaje: public sf::Drawable , public sf::Transformable
         bool _primerRecorridoParado;
         bool _primerRecorridoMoviendose;
 
+        sf::SoundBuffer _bufferPoderDorado;
+        sf::Sound _sonidoPoderDorado;
+
 
 
         float _tiempoVenenoRestante = 0.0f;

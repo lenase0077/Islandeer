@@ -237,6 +237,12 @@ void Game::run()
     _sonidoComer.setBuffer(_bufferComer);
     _sonidoComer.setVolume(_menuPrincipal.getVolumen());
 
+    if (!_bufferHacha.loadFromFile("hacha.wav")) cout << "Falta hacha.wav" << endl;
+    if (!_bufferPico.loadFromFile("minar.wav")) cout << "Falta mining.wav" << endl;
+    if (!_bufferEspada.loadFromFile("hit.wav")) cout << "Falta hit.wav" << endl;
+
+    _sonidoHerramienta.setVolume(_menuPrincipal.getVolumen());
+
 
 /// ESTRUCTURA TEST
 //    listaEstructuras.push_back(fabE.crearEstructura(82*32,85*32,0));
@@ -798,6 +804,15 @@ void Game::run()
 
                         // --- APLICAR DAÑO ---
                         animal->bajarVida(danioFinal);
+
+                        _sonidoHerramienta.setBuffer(_bufferEspada);
+
+                        float pitch = 0.9f + static_cast<float>(rand() % 20) / 100.0f;
+                        _sonidoHerramienta.setPitch(pitch);
+
+                        _sonidoHerramienta.play();
+
+
                         cout << "¡Hit! Daño: " << danioFinal << endl;
                         mostrarTexto("Toma Wacha", character.getPosition().x, character.getPosition().y - 10, 2000);
 
@@ -1767,6 +1782,35 @@ void Game::procesarAtaqueEstructura(Estructura* estructura, const sf::FloatRect&
         {
             danioFinal = itemEnMano->obtenerFuerza(matEstructura);
             itemEnMano->usar();
+
+Herramienta* herr = dynamic_cast<Herramienta*>(itemEnMano);
+
+            if (herr != nullptr)
+            {
+
+                bool sono = false;
+                switch (herr->getTipoSonido())
+                {
+                    case SonidoHerramienta::HACHA:
+                        _sonidoHerramienta.setBuffer(_bufferHacha);
+                        sono = true;
+                        break;
+                    case SonidoHerramienta::PICO:
+                        _sonidoHerramienta.setBuffer(_bufferPico);
+                        sono = true;
+                        break;
+                    case SonidoHerramienta::ESPADA:
+                        _sonidoHerramienta.setBuffer(_bufferEspada);
+                        sono = true;
+                        break;
+                }
+                if (sono)
+                {
+                    float pitch = 0.9f + static_cast<float>(rand() % 20) / 100.0f;
+                    _sonidoHerramienta.setPitch(pitch);
+                    _sonidoHerramienta.play();
+                }
+            }
 
             if (itemEnMano->estaRota())
             {

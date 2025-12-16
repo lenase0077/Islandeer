@@ -81,6 +81,12 @@ class Game
         sf::Texture texturaAvionTurbina;
         sf::Texture texturaNube;
 
+        sf::SoundBuffer _bufferHacha;
+        sf::SoundBuffer _bufferPico;
+        sf::SoundBuffer _bufferEspada;
+
+        sf::Sound _sonidoHerramienta;
+
 
 
 
