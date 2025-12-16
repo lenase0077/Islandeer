@@ -91,6 +91,7 @@ class Game
         sf::SoundBuffer _bufferHacha;
         sf::SoundBuffer _bufferPico;
         sf::SoundBuffer _bufferEspada;
+        sf::SoundBuffer _bufferMate;
 
         sf::Sound _sonidoHerramienta;
 

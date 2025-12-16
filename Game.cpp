@@ -142,7 +142,7 @@ void Game::run()
     InventarioInterfaz inventarioCofre(fabItems, "InventarioCofre.png");
 
 
-    inv.agregarItem(31,16);
+    inv.agregarItem(53,16);
     inv.agregarItem(32,16);
     inv.agregarItem(33,16);
     inv.agregarItem(28,1);
@@ -172,6 +172,7 @@ void Game::run()
 //    inv.agregarItem(45,1);
 //    inv.agregarItem(47,1);
     inv.agregarItem(49,1);
+    inv.agregarItem(53,1);
 
     InventarioResumido invR(texturaInventarioResumido);
 
@@ -255,6 +256,7 @@ void Game::run()
     if (!_bufferHacha.loadFromFile("hacha.wav")) cout << "Falta hacha.wav" << endl;
     if (!_bufferPico.loadFromFile("minar.wav")) cout << "Falta mining.wav" << endl;
     if (!_bufferEspada.loadFromFile("hit.wav")) cout << "Falta hit.wav" << endl;
+    if (!_bufferMate.loadFromFile("mate.wav")) cout << "Falta mate.wav"  << endl;
 
     _sonidoHerramienta.setVolume(_menuPrincipal.getVolumen());
 
@@ -548,7 +550,7 @@ void Game::run()
                 }
 
                 // COMIDA
-                else if ((id >= 34 && id <= 48) || id == 25 || id == 26 || id == 30)
+                else if ((id >= 34 && id <= 48) || id == 25 || id == 26 || id == 30 || id == 53)
                 {
                     if (Comandos::getInstancia().mouseDerRecienPresionado)
                     {
@@ -2002,13 +2004,13 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
     switch(id)
     {
 
-    case 30:
+    case 30: //Leche
 
         //Curar Veneno
         if (character.estaEnvenenado())
         {
             character.curarVeneno();
-            mostrarTexto("Se me paso el mareo", character.getPosition().x, character.getPosition().y - 40, 2000);
+            mostrarTexto("Se me paso el mareo", character.getPosition().x, character.getPosition().y - 10, 2000);
         }
         else
         {
@@ -2094,6 +2096,13 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
         character.activarPoderDorado(10.0f);
 
         cout << "Me rompi una muela masticando esto" << endl;
+        seConsumio = true;
+        break;
+
+    case 53: //Mate
+        character.setEnergia(character.getEnergia() + 50);
+        _sonidoComer.setBuffer(_bufferMate);
+        mostrarTexto("Unos buenos verdes...", character.getPosition().x, character.getPosition().y - 10, 2000);
         seConsumio = true;
         break;
     }

@@ -62,8 +62,12 @@ class Personaje: public sf::Drawable , public sf::Transformable
         bool tienePoderDorado() const;
 
         void recibirDanio(float danio);
-         void curarVeneno();
+        void curarVeneno();
 
+        void activarEfectoMate(float tiempo);
+        bool tieneEfectoMate() const;
+        void actualizarEfectoMate(float deltatime);
+        void setEnergia(float nuevaEnergia);
 
     private:
         float _acumuladorEnergia = 0;

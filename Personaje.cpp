@@ -29,7 +29,8 @@ Personaje::Personaje(sf::Texture& _textura)
     _acumuladorDanioVeneno(0.0f),
     _tiempoPoderDorado(0.0f),
     _tiempoDanioRojo(0.0f),
-    _acumuladorRegeneracion(0.0f) {
+    _acumuladorRegeneracion(0.0f)
+    {
 
     _sprite.setTexture(_textura);
 
@@ -303,6 +304,7 @@ void Personaje::update(float deltatime)
     animarPersonaje();
     manejarPasos();
     move(_velocidad);
+    float tiempo = deltatime / 1000.0f;
 
     if (_tiempoDanioRojo > 0)
     {
@@ -332,22 +334,14 @@ void Personaje::update(float deltatime)
         // 2. VELOCIDAD EXTRA
         move(_velocidad * 1.2f);
 
-
-
-
-
         // 3. TERMINA EL EFECTO
         if (_tiempoPoderDorado <= 0)
         {
             _tiempoPoderDorado = 0;
             _sprite.setColor(sf::Color::White);
             _sonidoPoderDorado.stop();
-
-
         }
     }
-
-
 
     if (_movimiento == 2)
     {
@@ -386,7 +380,6 @@ void Personaje::update(float deltatime)
             if (_tiempoVenenoRestante < 0) _tiempoVenenoRestante = 0;
         }
     actualizarAnimacionAtaque(deltatime);
-// usar esto
 }
 
 void Personaje::limite()
@@ -746,4 +739,19 @@ void Personaje::curarVeneno()
     _acumuladorDanioVeneno = 0;
 
     _sprite.setColor(sf::Color::White);
+}
+
+void Personaje::setEnergia(float nuevaEnergia)
+{
+    _energia = nuevaEnergia;
+
+    if (_energia > getEnergiaMaxima())
+    {
+        _energia = getEnergiaMaxima();
+    }
+
+    if (_energia < 0)
+    {
+        _energia = 0;
+    }
 }
