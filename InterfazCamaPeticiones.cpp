@@ -31,47 +31,11 @@ InterfazCamaPeticiones::InterfazCamaPeticiones(const sf::Texture& texturaFondoIn
     _textoTitulo.setColor(sf::Color::Black);
     _textoTitulo.setCharacterSize(8);
 
-    ///Agregamos los requisitos
-    //Primer pagina
-    /*_ItemsRequeridos[0].push_back(fabItems.crearItem(52));//mesa de crafteo
-    _cantidadNecesaria[0].push_back(1);
-    _ItemsRequeridos[0].push_back(fabItems.crearItem(5));//Hacha de diamante
-    _cantidadNecesaria[0].push_back(1);
-    _ItemsRequeridos[0].push_back(fabItems.crearItem(10));//Palo x 100
-    _cantidadNecesaria[0].push_back(100);
-    _ItemsRequeridos[0].push_back(fabItems.crearItem(14));//Soga x 50
-    _cantidadNecesaria[0].push_back(50);
-
-    //Segunda Pagina
-    _ItemsRequeridos[1].push_back(fabItems.crearItem(50));//Horno x 1
-    _cantidadNecesaria[1].push_back(1);
-    _ItemsRequeridos[1].push_back(fabItems.crearItem(19));//Carb¢n x 200
-    _cantidadNecesaria[1].push_back(200);
-    _ItemsRequeridos[1].push_back(fabItems.crearItem(48));//Carne Cocida x 50
-    _cantidadNecesaria[1].push_back(50);
-    _ItemsRequeridos[1].push_back(fabItems.crearItem(36));//Coco x 100
-    _cantidadNecesaria[1].push_back(100);
-    _ItemsRequeridos[1].push_back(fabItems.crearItem(41));//Papa Cocinada x 50
-    _cantidadNecesaria[1].push_back(50);
-
-    //Tercera Pagina
-    _ItemsRequeridos[2].push_back(fabItems.crearItem(29));//Balde de Agua x 10
-    _cantidadNecesaria[2].push_back(10);
-    _ItemsRequeridos[2].push_back(fabItems.crearItem(49));//Cofre x 4
-    _cantidadNecesaria[2].push_back(4);
-
-    //Cuarta Pagina
-    _ItemsRequeridos[3].push_back(fabItems.crearItem(8));//Espada de Diamante x 1
-    _cantidadNecesaria[3].push_back(1);
-    _ItemsRequeridos[3].push_back(fabItems.crearItem(53));//Mate
-    _cantidadNecesaria[3].push_back(1);*/
-
-
     _ItemsRequeridos.push_back(fabItems.crearItem(10));//Palo x 100
-    _cantidadNecesaria.push_back(1);
+    _cantidadNecesaria.push_back(10);
 
-    _ItemsRequeridos.push_back(fabItems.crearItem(10));//Palo x 100
-    _cantidadNecesaria.push_back(1);
+    _ItemsRequeridos.push_back(fabItems.crearItem(13));//Palo x 100
+    _cantidadNecesaria.push_back(2);
 
 
 
