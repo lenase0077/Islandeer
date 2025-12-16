@@ -213,9 +213,9 @@ void Game::run()
 
     std::list<std::unique_ptr<Mob>> enemigos;
     std::list<std::unique_ptr<Mob>> animales;
-
-    enemigos.push_back(_FabricaMobs.crearMobs("Fantasma", {170*32 , 7*32}));
-    enemigos.push_back(_FabricaMobs.crearMobs("Murcielago", {170*32 , 7*32}));
+//
+//    enemigos.push_back(_FabricaMobs.crearMobs("Fantasma", {170*32 , 7*32}));
+//    enemigos.push_back(_FabricaMobs.crearMobs("Murcielago", {170*32 , 7*32}));
 
 /// ======================== Musica =========================///
     sf::SoundBuffer buffer;
@@ -1656,11 +1656,12 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
                 // Arreglé los rangos para que sean continuos y sin solapamientos lógicos
                 if (probabilidad < 80)           idEstructura = 0;  // Árbol
                 else if (probabilidad < 150) {                      // 80 a 149
-                    if (probabilidad >= 90)      idEstructura = 1;  // Piedra (Respetando tu gap de 80-90)
+                    if (probabilidad >= 90)      idEstructura = 1;  // Piedra
                 }
                 else if (probabilidad <= 200)    idEstructura = 11; // 150 a 200
-                else if (probabilidad <= 300)    idEstructura = 12; // 201 a 300 (Antes tenías gap de 200 a 250)
+                else if (probabilidad <= 300)    idEstructura = 12; // 201 a 300
                 else if (probabilidad >= 350 && probabilidad <= 550) idEstructura = 12; // 350 a 550
+                else if (probabilidad >= 450 && probabilidad <= 950) idEstructura = 13; // 350 a 550
             }
             else if (esArena)
             {

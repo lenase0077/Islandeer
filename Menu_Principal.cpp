@@ -6,7 +6,7 @@ void MenuPrincipal::configurarTexto (sf::Text& texto, std::string nombre, int ta
     texto.setFont(_fuente);
     texto.setString(nombre);
     texto.setCharacterSize(tamanio);
-    texto.setFillColor(sf::Color::White);
+    texto.setFillColor(sf::Color::Yellow);
     texto.setOutlineColor(sf::Color::Black);
     texto.setOutlineThickness(2);
 
@@ -49,6 +49,19 @@ MenuPrincipal::MenuPrincipal()
     if (!_imagenGuardar.loadFromFile("GuardarPartida.png")) {
         std::cout << "Error al cargar GuardarPartida.png" << std::endl;
     }
+    if (!_imagenBotonMas.loadFromFile("botonMas.png"))
+    {
+        std::cout << "Falta imagen botonMas" << std::endl;
+    }
+    if (!_imagenBotonMenos.loadFromFile("botonMenos.png"))
+    {
+        std::cout << "Falta imagen botonMenos" << std::endl;
+    }
+    if (!_imagenBotonVolumen.loadFromFile("botonVolumen.png"))
+    {
+        std::cout << "Falta imagen botonVolumen" << std::endl;
+    }
+
 
     ///==========AUDIO===========
 
@@ -71,6 +84,9 @@ MenuPrincipal::MenuPrincipal()
     _texturaBotonVolver.loadFromImage(_imagenVolver);
     _texturaBotonCargar.loadFromImage(_imagenBotonCargar);
     _texturaBotonGuardar.loadFromImage(_imagenGuardar);
+    _texturaBotonMas.loadFromImage(_imagenBotonMas);
+    _texturaBotonMenos.loadFromImage(_imagenBotonMenos);
+    _texturaTituloVolumen.loadFromImage(_imagenBotonVolumen);
 
     ///=====SPRITES=====
 
@@ -84,6 +100,9 @@ MenuPrincipal::MenuPrincipal()
     _spriteBotonGuardar.setTexture(_texturaBotonGuardar);
     _spriteBotonCargar.setTexture(_texturaBotonCargar);
     _spriteBackground.setTexture(_background);
+    _spriteTituloVolumen.setTexture(_texturaTituloVolumen);
+    _spriteBotonMas.setTexture(_texturaBotonMas);
+    _spriteBotonMenos.setTexture(_texturaBotonMenos);
 
     ///======ORIGENES=====
 
@@ -96,6 +115,10 @@ MenuPrincipal::MenuPrincipal()
     _spriteBotonVolver.setOrigin(_spriteBotonVolver.getLocalBounds().width / 2 , _spriteBotonVolver.getLocalBounds().height / 2);
     _spriteBotonGuardar.setOrigin(_spriteBotonGuardar.getLocalBounds().width / 2 , _spriteBotonGuardar.getLocalBounds().height / 2);
     _spriteBotonCargar.setOrigin(_spriteBotonCargar.getLocalBounds().width / 2 , _spriteBotonCargar.getLocalBounds().height / 2);
+    _spriteTituloVolumen.setOrigin(_spriteTituloVolumen.getLocalBounds().width / 2, _spriteTituloVolumen.getLocalBounds().height / 2);
+    _spriteBotonMas.setOrigin(_spriteBotonMas.getLocalBounds().width / 2, _spriteBotonMas.getLocalBounds().height / 2);
+    _spriteBotonMenos.setOrigin(_spriteBotonMenos.getLocalBounds().width / 2, _spriteBotonMenos.getLocalBounds().height / 2);
+
 
     // ---Posicionar Sprites (Centrados) ---
     // (Asumo una ventana de 1024x768)
@@ -111,6 +134,9 @@ MenuPrincipal::MenuPrincipal()
     _spriteBotonGuardar.setScale(1,1);
     _spriteBotonCargar.setScale(1,1);
     _spriteBackground.setScale(1,1);
+    _spriteTituloVolumen.setScale(1.0f, 1.0f);
+    _spriteBotonMas.setScale(1,1);
+    _spriteBotonMenos.setScale(1,1);
 
     ///======POSICIONES=====
     _spriteLogo.setPosition(centroVentanaX, 125);
@@ -126,15 +152,15 @@ MenuPrincipal::MenuPrincipal()
     _spriteBotonGuardar.setPosition(centroVentanaX, inicioBotonesY + separacion);
     _spriteBotonCargar.setPosition(centroVentanaX, inicioBotonesY + (separacion*2));
     _spriteBotonVolver.setPosition(centroVentanaX, inicioBotonesY + (separacion*3));
+    _spriteTituloVolumen.setPosition(centroVentanaX, 400);
+
+    configurarTexto(_textoValorVolumen, "50", 50, centroVentanaX, 440);
+    _spriteBotonMenos.setPosition(centroVentanaX - 100, 440);
+    _spriteBotonMas.setPosition(centroVentanaX + 100, 440);
 
     if (!_fuente.loadFromFile("PIXEARG_.TTF")) {
         std::cout << "Error cargando fuente PIXEARG_.TTF" << std::endl;
     }
-
-    configurarTexto(_textoTituloVolumen , "VOLUMEN MUSICA" , 40 , centroVentanaX , 400);
-    configurarTexto(_botonMenos , "-" , 60 , centroVentanaX - 100 , 500);
-    configurarTexto(_botonMas , "+" , 40 , centroVentanaX + 100, 500);
-    configurarTexto(_textoValorVolumen , "50" , 50 , centroVentanaX , 500);
 }
 
 OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
@@ -150,6 +176,8 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
     bool hoverGuardar = clickEnPixel(mousePos, _spriteBotonGuardar , _imagenGuardar);
     bool hoverCargar = clickEnPixel(mousePos, _spriteBotonCargar, _imagenBotonCargar);
     bool click = input.mouseIzqRecienPresionado;
+    bool hoverMas = clickEnPixel(mousePos, _spriteBotonMas, _imagenBotonMas);
+    bool hoverMenos = clickEnPixel(mousePos, _spriteBotonMenos, _imagenBotonMenos);
 
     float const escalaObjetivoGrande = 1.1f;
     float const escalaObjetivoNormal = 1.0f;
@@ -181,9 +209,6 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
             lerp (_rotacionBotonNuevaPartida , rotacionObjetivoNormal , suavizado);
         }
 
-
-
-
         if (hoverOpciones)
         {
             lerp(_escalaBotonOpciones , escalaObjetivoGrande , suavizado);
@@ -205,6 +230,26 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
             lerp(_escalaBotonSalir , escalaObjetivoNormal , suavizado);
             lerp (_rotacionBotonSalir , rotacionObjetivoNormal , suavizado);
         }
+
+        if (hoverMenos)
+        {
+            lerp(_escalaBotonMenos, escalaObjetivoGrande, suavizado);
+        }
+        else
+        {
+            lerp(_escalaBotonMenos, escalaObjetivoNormal, suavizado);
+        }
+        _spriteBotonMenos.setScale(_escalaBotonMenos, _escalaBotonMenos);
+
+        if (hoverMas)
+        {
+            lerp(_escalaBotonMas, escalaObjetivoGrande, suavizado);
+        }
+        else
+        {
+            lerp(_escalaBotonMas, escalaObjetivoNormal, suavizado);
+        }
+        _spriteBotonMas.setScale(_escalaBotonMas, _escalaBotonMas);
 
         // --- 1. Efecto Hover (resaltado) ---
         _spriteBotonJugar.setScale(_escalaBotonJugar , _escalaBotonJugar);
@@ -356,52 +401,64 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
     else if (_estadoMenu == EstadoMenu::ModificadorVolumen)
     {
         _textoValorVolumen.setString(std::to_string((int)_volumenGeneral));
-        sf::Color colorHover = sf::Color::Yellow;
-        sf::Color colorNormal = sf::Color::White;
 
-        ///BOTON MENOS
-        if (_botonMenos.getGlobalBounds().contains(mousePos))
+        sf::FloatRect bounds = _textoValorVolumen.getLocalBounds();
+        _textoValorVolumen.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+
+        // Detectar Hover usando clickEnPixel
+        bool hoverMas = clickEnPixel(mousePos, _spriteBotonMas, _imagenBotonMas);
+        bool hoverMenos = clickEnPixel(mousePos, _spriteBotonMenos, _imagenBotonMenos);
+
+        if (hoverMenos)
         {
-            _botonMenos.setFillColor(colorHover);
-            if (click)
+            lerp(_escalaBotonMenos, escalaObjetivoGrande, suavizado);
+        }
+        else
+        {
+            lerp(_escalaBotonMenos, escalaObjetivoNormal, suavizado);
+        }
+        _spriteBotonMenos.setScale(_escalaBotonMenos, _escalaBotonMenos);
+
+
+        if (hoverMas)
+        {
+            lerp(_escalaBotonMas, escalaObjetivoGrande, suavizado);
+        }
+        else
+        {
+            lerp(_escalaBotonMas, escalaObjetivoNormal, suavizado);
+        }
+        _spriteBotonMas.setScale(_escalaBotonMas, _escalaBotonMas);
+
+        if (click)
+        {
+            if (hoverMenos)
             {
                 _volumenGeneral -= 10.f;
-                if (_volumenGeneral < 0)
-                {
-                    _volumenGeneral = 0;
-                }
+                if (_volumenGeneral < 0) _volumenGeneral = 0;
                 sonidoStardew.setVolume(_volumenGeneral);
             }
-        }
-        else
-        {
-            _botonMenos.setFillColor(colorNormal);
-        }
 
-        ///BOTON MAS
-        if (_botonMas.getGlobalBounds().contains(mousePos))
-        {
-            _botonMas.setFillColor(colorHover);
-            if (click)
+            if (hoverMas)
             {
                 _volumenGeneral += 10.f;
-                if (_volumenGeneral > 100)
-                {
-                    _volumenGeneral = 100;
-                }
+                if (_volumenGeneral > 100) _volumenGeneral = 100;
                 sonidoStardew.setVolume(_volumenGeneral);
             }
-        }
-        else
-        {
-            _botonMas.setFillColor(colorNormal);
+
+            if (hoverVolver)
+            {
+                _estadoMenu = EstadoMenu::SeleccionOpciones;
+            }
         }
 
-        ///BOTON VOLVER
-        if (click && hoverVolver)
-        {
-            _estadoMenu = EstadoMenu::SeleccionOpciones;
+        // Animacion del boton volver
+        if (hoverVolver) {
+             lerp(_escalaBotonVolver , escalaObjetivoGrande , suavizado);
+        } else {
+             lerp(_escalaBotonVolver , escalaObjetivoNormal , suavizado);
         }
+        _spriteBotonVolver.setScale(_escalaBotonVolver, _escalaBotonVolver);
 
         return OpcionMenu::Ninguna;
     }
@@ -456,10 +513,10 @@ void MenuPrincipal::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 
     else if (_estadoMenu == EstadoMenu::ModificadorVolumen)
     {
-        target.draw(_textoTituloVolumen , states);
+        target.draw(_spriteTituloVolumen , states);
         target.draw(_textoValorVolumen , states);
-        target.draw(_botonMas , states);
-        target.draw(_botonMenos , states);
+        target.draw(_spriteBotonMas , states);
+        target.draw(_spriteBotonMenos , states);
         target.draw(_spriteBotonVolver, states);
     }
 }
