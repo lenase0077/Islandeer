@@ -124,11 +124,16 @@ std::unique_ptr<Estructura> FabricaEstructuras::crearEstructura(float x, float y
         estructuraCreada -> setLootsIDs(vectorLootIDs);
 
         break;
-    case 13:///Valla
-        estructuraCreada->setVida(20);
-        vectorLootIDs.push_back(51);
-        estructuraCreada -> setLootsIDs(vectorLootIDs);
-        break;
+    case 13:///Pasto
+        estructuraCreada -> setVida(1);
+        if (rand()%2 == 0)
+        {
+            vectorLootIDs.push_back(27);
+        }
+        else
+        {
+            vectorLootIDs.push_back(31);
+        }
     }
     return estructuraCreada;
 }

@@ -17,6 +17,8 @@ class Mob: public sf::Sprite
 {
 private:
         float _vida;
+        float _tiempoColorRojo;
+
         sf::Vector2f _posicionObjetivoDivagar;
         sf::Vector2f _velocidad;
         sf::Vector2f _fuerzaRetroceso;

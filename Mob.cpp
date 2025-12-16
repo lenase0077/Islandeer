@@ -3,18 +3,21 @@
 
 Mob::Mob() :
     _velocidad({0.f, 0.f}),
-    _vida(100.f),
-    _tiempoDivagar(0),
-    _posicionObjetivoDivagar({0.f, 0.f}),
-    _fuerzaRetroceso({0.f, 0.f}),
-    _tiempoDeAnimar(0.f),
-    _frameActual(0),
-    _chocoConMapa (false),
-    _direccionActual(DireccionMob::Abajo)
+           _vida(100.f),
+           _tiempoDivagar(0),
+           _posicionObjetivoDivagar({0.f, 0.f}),
+           _fuerzaRetroceso({0.f, 0.f}),
+           _tiempoDeAnimar(0.f),
+           _frameActual(0),
+           _chocoConMapa (false),
+           _tiempoColorRojo(0.f),
+
+           _direccionActual(DireccionMob::Abajo)
 {
 }
 
-bool Mob::perseguir(sf::Vector2f Posicionpersonaje, float aceleracion) {
+bool Mob::perseguir(sf::Vector2f Posicionpersonaje, float aceleracion)
+{
 
     sf::Vector2f PosicionEnemigo = getPosition();
 
@@ -22,7 +25,8 @@ bool Mob::perseguir(sf::Vector2f Posicionpersonaje, float aceleracion) {
 
     float longitud = std::sqrt(Direccion.x * Direccion.x + Direccion.y * Direccion.y);
 
-    if (longitud < 100 && longitud > 1) {
+    if (longitud < 100 && longitud > 1)
+    {
         Direccion.x /= longitud;
         Direccion.y /= longitud;
 
@@ -45,7 +49,8 @@ bool Mob::divagar(sf::Vector2f Posicionpersonaje, float aceleracion, float delta
 
     _tiempoDivagar += deltaTime;
 
-    if (_tiempoDivagar > 10000.0f || DistanciaAObjetivo <= 5.0f) {
+    if (_tiempoDivagar > 10000.0f || DistanciaAObjetivo <= 5.0f)
+    {
 
         float rango = 400.0f;
 
@@ -61,13 +66,16 @@ bool Mob::divagar(sf::Vector2f Posicionpersonaje, float aceleracion, float delta
     sf::Vector2f DireccionDivagar = _posicionObjetivoDivagar - PosicionEnemigo;
     float longitudDivagar = std::sqrt(DireccionDivagar.x * DireccionDivagar.x + DireccionDivagar.y * DireccionDivagar.y);
 
-    if (longitudDivagar > 1.0f) {
+    if (longitudDivagar > 1.0f)
+    {
         DireccionDivagar.x /= longitudDivagar;
         DireccionDivagar.y /= longitudDivagar;
 
         _velocidad.x = DireccionDivagar.x * (aceleracion * 0.5f);
         _velocidad.y = DireccionDivagar.y * (aceleracion * 0.5f);
-    } else {
+    }
+    else
+    {
         _velocidad = {0.f, 0.f};
     }
     return true;
@@ -86,7 +94,7 @@ void Mob::chocar (Colisionador& colision)
 
     if (rectanguloColision.intersects(colision.getColision()))
     {
-        _velocidad = {0.f , 0.f};
+        _velocidad = {0.f, 0.f};
         _chocoConMapa = true;
     }
 }
@@ -102,11 +110,21 @@ void Mob::cambioDeRumbo()
 
 void Mob::update(sf::Vector2f& Posicionpersonaje, float deltatime)
 {
+
+    if (_tiempoColorRojo > 0)
+    {
+        _tiempoColorRojo -= deltatime / 1000.0f; // Restamos tiempo
+
+        if (_tiempoColorRojo <= 0)
+        {
+            setColor(sf::Color::White); // Vuelve a la normalidad
+            _tiempoColorRojo = 0;
+        }
+    }
+
     if (std::abs(_fuerzaRetroceso.x) > 0.1f || std::abs(_fuerzaRetroceso.y) > 0.1f)
     {
         move(_fuerzaRetroceso);
-
-
         _fuerzaRetroceso *= 0.90f;
     }
     else
@@ -114,39 +132,53 @@ void Mob::update(sf::Vector2f& Posicionpersonaje, float deltatime)
         _fuerzaRetroceso = {0.f, 0.f};
     }
 
+    updateColision();
 }
 
-void Mob::updateColision() {
+
+
+
+void Mob::updateColision()
+{
     _colision.setColision(getGlobalBounds());
 }
 
-void Mob::setFrame(int fila, int columna) {
+void Mob::setFrame(int fila, int columna)
+{
     int ancho = getTextureRect().width;
     int alto = getTextureRect().height;
 
     setTextureRect(sf::IntRect(columna * ancho, fila * alto, ancho, alto));
 }
 
-float Mob::getVida() const {
+float Mob::getVida() const
+{
     return _vida;
 }
 
-sf::Vector2f Mob::getVelocidad() {
+sf::Vector2f Mob::getVelocidad()
+{
     return _velocidad;
 }
 
-sf::Vector2f Mob::setVelocidad(sf::Vector2f velocidad) {
+sf::Vector2f Mob::setVelocidad(sf::Vector2f velocidad)
+{
     _velocidad = velocidad;
 }
 
 
-void Mob::setVida(float vida) {
+void Mob::setVida(float vida)
+{
     _vida = vida;
 }
 
 void Mob::bajarVida(float danio)
 {
     _vida -= danio;
+
+    setColor(sf::Color::Red);
+    _tiempoColorRojo = 0.2f;
+
     recibirDanio();
 
     if (_vida < 0)

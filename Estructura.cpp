@@ -39,6 +39,12 @@ Estructura::Estructura(sf::Texture& texturaBloques, float posX, float posY, int 
     else if ((id >= 1 && id <= 6) || id == 9) {
         _material = TipoMaterial::PIEDRA;
     }
+        else if (id == 13)
+    {
+        _material = TipoMaterial::CARNE;
+        sf::FloatRect colisionPasto(posX + centradoX ,posY + centradoY, 12, 12);
+        _colision.setColision(colisionPasto);
+    }
     else {
         _material = TipoMaterial::NADA;
     }

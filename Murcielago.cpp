@@ -20,12 +20,14 @@ Murcielago::Murcielago(const sf::Texture& textura , sf::Vector2f PosicionInicial
 
 void Murcielago::murcielagoUpdate(sf::Vector2f& Posicionpersonaje, float deltatime)
 {
-    updateColision();
+    Mob::update(Posicionpersonaje, deltatime);
     Animar(deltatime);
     if (perseguir(Posicionpersonaje, 1.f) == false){
         divagar(Posicionpersonaje, 1.f,deltatime);
     }
     move(getVelocidad());
+    updateColision();
+
 }
 
 void Murcielago::Animar(float deltaTime)
