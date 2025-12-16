@@ -53,6 +53,10 @@
 		<Unit filename="BarcoHuida.h" />
 		<Unit filename="BarraDeVida.cpp" />
 		<Unit filename="BarraDeVida.h" />
+		<Unit filename="CinematicaFinal.cpp" />
+		<Unit filename="CinematicaFinal.h" />
+		<Unit filename="CinematicaInicial.cpp" />
+		<Unit filename="CinematicaInicial.h" />
 		<Unit filename="Cofre.cpp" />
 		<Unit filename="Cofre.h" />
 		<Unit filename="Colisionador.cpp" />
