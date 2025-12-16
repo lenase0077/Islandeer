@@ -846,49 +846,53 @@ void Game::run()
 
 
 
-
             for (auto it = animales.begin(); it != animales.end();)
             {
-                // 1. SETUP DEL PUNTERO
                 Mob* mobBase = it->get();
                 Animal* animal = dynamic_cast<Animal*>(mobBase);
-
-                // 2. UPDATE GENERAL
                 mobBase->update(PosicionJugador, deltatime);
 
-                // Colisión con el Mapa
+                // Colisión con el Mapa - OPTIMIZADO
+                sf::FloatRect bounds = animal->getColisionBounds();
+                int tileX = (int)(bounds.left / 32);
+                int tileY = (int)(bounds.top / 32);
+                int rango = 2;
 
-                for (auto& colisionadorMapa : mapa._colisiones)
+                for (int i = tileX - 1; i <= tileX + rango; i++)
                 {
-                    sf::FloatRect rect = colisionadorMapa.getColision();
-
-                    float dx = std::abs(animal->getPosition().x - rect.left);
-                    float dy = std::abs(animal->getPosition().y - rect.top);
-
-                    if (dx > 80.0f || dy > 80.0f) continue;
-
-                    animal->chocar(colisionadorMapa);
-                }
-
-
-                for (auto& estructura : listaEstructuraRandom)
-                {
-                    if (!estructura->estaDestruido())
+                    for (int j = tileY - 1; j <= tileY + rango; j++)
                     {
-                        // --- OPTIMIZACI�N: FILTRO DE DISTANCIA ---
-                        float dx = std::abs(animal->getPosition().x - estructura->getPosition().x);
-                        float dy = std::abs(animal->getPosition().y - estructura->getPosition().y);
+                        if (i < 0 || j < 0 || i >= mapa.getMapWidth() || j >= mapa.getMapHeight())
+                            continue;
 
-                        // Si est� a m�s de 50 pixeles (aprox 1.5 tiles), NI SIQUIERA comprobamos colisi�n.
-                        // "continue" salta al siguiente arbol instantaneamente.
-                        if (dx > 50.0f || dy > 50.0f) continue;
-                        // -----------------------------------------
+                        if (mapa.getTileID(i, j) == 322 || mapa.getTileID(i, j) == 257) // Solo tiles de colisión
+                        {
+                            sf::FloatRect rectTile(i * 32.f, j * 32.f, 32.f, 32.f);
+                            Colisionador colisionadorTile;
+                            colisionadorTile.setColision(rectTile);
+                            animal->chocar(colisionadorTile);
 
-                        // Si llegamos aca, es porque est� cerca. Ahora si gastamos recursos en chocar.
-                        animal->chocar(estructura->getColisionador());
+                            if (animal->getChocoConMapa())
+                            {
+                                animal->cambioDeRumbo();
+                            }
+                        }
                     }
                 }
 
+                for (auto& estructura : listaEstructuraRandom)
+                {
+                    if (estructura->estaDestruido()) continue;
+
+                    // FILTRO DE DISTANCIA OPTIMIZADO
+                    float dx = std::abs(animal->getPosition().x - estructura->getPosition().x);
+                    float dy = std::abs(animal->getPosition().y - estructura->getPosition().y);
+
+                    // Aumentado a 100 para mayor seguridad con estructuras grandes
+                    if (dx > 100.0f || dy > 100.0f) continue;
+
+                    animal->chocar(estructura->getColisionador());
+                }
 
 
                 // 3. ORDEÑAR (Click Derecho)
@@ -1551,78 +1555,59 @@ sf::Clock Game::getRelojInterno()
 {
     return _relojInterno;
 }
-
 void Game::regenerarAnimales(std::list<std::unique_ptr<Mob>>& listaAnimales)
 {
-
     int ancho = mapa.getMapWidth();
     int alto = mapa.getMapHeight();
     int tileW = mapa.getTileWidth();
     int tileH = mapa.getTileHeight();
-
     int limiteMaximo = 50;
+    int intentosMaximos = 300; // Limitar búsquedas
 
-    for (int y = 0; y < alto; y++)
+    cout << "Regenerando fauna..." << endl;
+
+    for (int intento = 0; intento < intentosMaximos && listaAnimales.size() < limiteMaximo; intento++)
     {
-        for (int x = 0; x < ancho; x++)
+        // Posición aleatoria en lugar de recorrer todo el mapa
+        int x = rand() % ancho;
+        int y = rand() % alto;
+
+        int idTile = mapa.getTileID(x, y);
+        bool esPasto = (idTile == 28 || idTile == 29 || idTile == 36 || idTile == 37);
+
+        if (esPasto)
         {
-
-            if (listaAnimales.size() >= limiteMaximo)
+            if (rand() % 100 < 40) // 15% de chance
             {
-                cout << "L�mite de animales alcanzado (" << limiteMaximo << ")." << endl;
-                return;
-            }
-
-
-            // Obtenemos el ID del suelo
-            int idTile = mapa.getTileID(x, y);
-
-            // Verificamos si es Pasto
-            bool esPasto = (idTile == 28 || idTile == 29 || idTile == 36 || idTile == 37);
-
-
-            if (esPasto)
-            {
-                // Posici�n en pixeles
                 float posX = x * tileW;
                 float posY = y * tileH;
 
-                // Probabilidad de que aparezca animales
-                int probabilidad = rand() % 300;
-
-                if (probabilidad == 0)
+                int tipoAnimal = rand() % 4;
+                switch(tipoAnimal)
                 {
-                    // Elegimos qu� animal spawnear al azar
-                    int tipoAnimal = rand() % 4; // 0, 1, 2, 3
-
-                    switch(tipoAnimal)
-                    {
-                    case 0:
-                        listaAnimales.push_back(_FabricaMobs.crearMobs("Vaca", {posX, posY}));
-                        break;
-                    case 1:
-                        listaAnimales.push_back(_FabricaMobs.crearMobs("Cerdo", {posX, posY}));
-                        break;
-                    case 2:
-                        listaAnimales.push_back(_FabricaMobs.crearMobs("Oveja", {posX, posY}));
-                        break;
-                    case 3:
-                        listaAnimales.push_back(_FabricaMobs.crearMobs("Gallina", {posX, posY}));
-                        break;
-                    }
+                case 0:
+                    listaAnimales.push_back(_FabricaMobs.crearMobs("Vaca", {posX, posY}));
+                    break;
+                case 1:
+                    listaAnimales.push_back(_FabricaMobs.crearMobs("Cerdo", {posX, posY}));
+                    break;
+                case 2:
+                    listaAnimales.push_back(_FabricaMobs.crearMobs("Oveja", {posX, posY}));
+                    break;
+                case 3:
+                    listaAnimales.push_back(_FabricaMobs.crearMobs("Gallina", {posX, posY}));
+                    break;
                 }
             }
         }
     }
+
     cout << "Fauna regenerada. Total animales: " << listaAnimales.size() << endl;
 }
 
-
 void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstructuras)
 {
-
     listaEstructuras.clear();
-
     cout << "Isla Reset" << endl;
 
     int ancho = mapa.getMapWidth();
@@ -1634,87 +1619,59 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
     {
         for (int x = 0; x < ancho; x++)
         {
-
             int idTile = mapa.getTileID(x, y);
+
+            // 1. OPTIMIZACIÓN: Filtro rápido (Early Exit)
+            // Si es un tile prohibido (ej: Agua 103), saltamos al siguiente ciclo inmediatamente.
+            if (idTile == 103 || idTile == 0) continue;
+
+            // Clasificación de terreno
+            // (Usar un switch o un array de propiedades sería aun más rápido, pero esto está bien)
             bool esPasto = (idTile == 28 || idTile == 29 || idTile == 36 || idTile == 37);
-
             bool esArena = (idTile == 35 || idTile == 79);
-
             bool esCueva = (idTile == 132);
 
-            float posX = x * tileW;
-            float posY = y * tileH;
-            int probabilidad = rand() % 1000;
+            // Si no es terreno spawnearle, saltamos
+            if (!esPasto && !esArena && !esCueva) continue;
+
+            // 2. OPTIMIZACIÓN: Solo calculamos el random si el terreno es válido
+            int probabilidad = rand() % 5000;
+
+            // Variables para spawnear (solo se calculan si entramos a un if de spawn)
+            int idEstructura = -1;
 
             if (esPasto)
             {
-
-                if (idTile == 103)
-                {
-                    continue;
+                // Arreglé los rangos para que sean continuos y sin solapamientos lógicos
+                if (probabilidad < 80)           idEstructura = 0;  // Árbol
+                else if (probabilidad < 150) {                      // 80 a 149
+                    if (probabilidad >= 90)      idEstructura = 1;  // Piedra (Respetando tu gap de 80-90)
                 }
-
-                // Digamos que hay un 15% de chance de que aparezca un árbol
-
-                if (probabilidad < 50)
-                {
-                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 0));
-                }
-
-                // 5% de chance (más raro que los árboles)
-                else if (probabilidad >= 50 && probabilidad <= 100)
-                {
-                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 1)); ///PIEDRA
-                }
-                else if (probabilidad >= 150 && probabilidad <= 200)
-                {
-                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 11));
-
-                }
-                else if (probabilidad >= 250 && probabilidad <= 300)
-                {
-                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 12));
-
-                }
-                else if (probabilidad >= 350 && probabilidad <= 550)
-                {
-                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 12));
-                }
+                else if (probabilidad <= 200)    idEstructura = 11; // 150 a 200
+                else if (probabilidad <= 300)    idEstructura = 12; // 201 a 300 (Antes tenías gap de 200 a 250)
+                else if (probabilidad >= 350 && probabilidad <= 550) idEstructura = 12; // 350 a 550
             }
-
-
             else if (esArena)
             {
-                if (probabilidad < 100)
-                {
-                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 10));
-                }
+                if (probabilidad < 100) idEstructura = 10;
             }
-
             else if (esCueva)
             {
-                if (probabilidad < 100)
-                {
-                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 2));
+                if (probabilidad < 100) idEstructura = 2;
+                else if (probabilidad <= 200) { // 100 a 200 (Antes tenías gap 100-150)
+                     if (probabilidad >= 150) idEstructura = 3;
                 }
-
-                if (probabilidad >= 150 && probabilidad <= 200)
-                {
-                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 3));
-                }
-
-                if (probabilidad >= 200 && probabilidad <= 230 )
-                {
-                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 4));
-                }
-
-                if (probabilidad >= 230 && probabilidad <= 240)
-                {
-                    listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, 5));
-                }
-
+                else if (probabilidad <= 230) idEstructura = 4;
+                else if (probabilidad <= 240) idEstructura = 5;
             }
 
+            // 3. SPAWN: Solo si seleccionamos algo, calculamos posición y creamos
+            if (idEstructura != -1)
+            {
+                float posX = x * tileW;
+                float posY = y * tileH;
+                listaEstructuras.push_back(_FabricaEstructuras.crearEstructura(posX, posY, idEstructura));
+            }
         }
     }
 }

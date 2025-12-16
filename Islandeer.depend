@@ -445,13 +445,13 @@
 1765904513 c:\users\leand\onedrive\documentos\repositorio\islandeer\funciones.h
 	<SFML/Graphics.hpp>
 
-1765909078 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1765912836 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1765909094 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
+1765909795 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
 	"Cultivos.h"
 	"FabricaCultivos.h"
 	<iostream>
@@ -812,7 +812,7 @@
 	<iostream>
 	<ctime>
 
-1765909341 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.cpp
+1765909795 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.cpp
 	"Mob.h"
 	<iostream>
 
@@ -918,7 +918,7 @@
 	<SFML/Graphics.hpp>
 	<iostream>
 
-1765908482 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\estructura.cpp
+1765909795 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\estructura.cpp
 	"Estructura.h"
 	<iostream>
 	<cmath>
@@ -1865,7 +1865,7 @@
 	<fstream>
 	<iostream>
 
-1765909333 c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.h
+1765909795 c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<string>
@@ -1873,7 +1873,7 @@
 	<ctime>
 	"Item.h"
 
-1765908567 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\fantasma.cpp
+1765909795 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\fantasma.cpp
 	"Fantasma.h"
 
 1765904513 c:\users\leand\onedrive\documentos\repositorio\islandeer\fantasma.h
@@ -1882,7 +1882,7 @@
 1765904513 c:\users\leand\onedrive\documentos\repositorio\islandeer\murcielago.h
 	"Mob.h"
 
-1765904511 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\murcielago.cpp
+1765909795 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\murcielago.cpp
 	"Murcielago.h"
 
 1762347538 c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricaenemigos.h
@@ -2858,7 +2858,7 @@
 	"Colisionador.h"
 	"Funciones.h"
 
-1765908535 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricamobs.cpp
+1765909795 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricamobs.cpp
 	"FabricaMobs.h"
 	<iostream>
 
@@ -2896,7 +2896,7 @@
 	"funcionesInterpolacion.h"
 	<string>
 
-1765909172 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.cpp
+1765909795 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.cpp
 	"Menu_Principal.h"
 	<iostream>
 
@@ -3920,7 +3920,7 @@
 	"Herramienta.h"
 	<map>
 
-1765908505 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricaestructuras.cpp
+1765909795 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\fabricaestructuras.cpp
 	"FabricaEstructuras.h"
 	<iostream>
 	<memory>
