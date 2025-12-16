@@ -445,13 +445,13 @@
 1765904513 c:\users\leand\onedrive\documentos\repositorio\islandeer\funciones.h
 	<SFML/Graphics.hpp>
 
-1765922439 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1765924663 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1765921042 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
+1765923755 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
 	"Cultivos.h"
 	"FabricaCultivos.h"
 	<iostream>
@@ -489,7 +489,7 @@
 	"Cama.h"
 	"InterfazCamaPeticiones.h"
 
-1765919633 c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.h
+1765923679 c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.h
 	"Colisionador.h"
 	<SFML/Graphics.hpp>
 	"Funciones.h"
@@ -822,7 +822,7 @@
 
 1764170642 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\movimiento_ia.cpp
 
-1765919640 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
+1765923475 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
 	<iostream>
 	"Personaje.h"
 	"Funciones.h"
@@ -2898,7 +2898,7 @@
 	"funcionesInterpolacion.h"
 	<string>
 
-1765917343 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.cpp
+1765923427 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.cpp
 	"Menu_Principal.h"
 	<iostream>
 

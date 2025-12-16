@@ -142,37 +142,6 @@ void Game::run()
     InventarioInterfaz inventarioCofre(fabItems, "InventarioCofre.png");
 
 
-    inv.agregarItem(31,16);
-    inv.agregarItem(32,16);
-    inv.agregarItem(33,16);
-    inv.agregarItem(28,1);
-    inv.agregarItem(42,1);
-
-
-    inv.agregarItem(25,16);
-    inv.agregarItem(26,16);
-    inv.agregarItem(42,16);
-
-
-    inv.agregarItem(44,30);
-    inv.agregarItem(0,1);
-    inv.agregarItem(2,1);
-
-    inv.agregarItem(6,1);
-    inv.agregarItem(8,1);
-
-    inv.agregarItem(3,1);
-    inv.agregarItem(5,1);
-    inv.agregarItem(15,3);
-    inv.agregarItem(14,10);
-
-    inv.agregarItem(19,20);
-    inv.agregarItem(52,1);
-    inv.agregarItem(50,1);
-//    inv.agregarItem(45,1);
-//    inv.agregarItem(47,1);
-    inv.agregarItem(49,1);
-
     InventarioResumido invR(texturaInventarioResumido);
 
     inv.setInventarioResumido(&invR);
@@ -257,12 +226,14 @@ void Game::run()
     if (!_bufferHacha.loadFromFile("hacha.wav")) cout << "Falta hacha.wav" << endl;
     if (!_bufferPico.loadFromFile("minar.wav")) cout << "Falta mining.wav" << endl;
     if (!_bufferEspada.loadFromFile("hit.wav")) cout << "Falta hit.wav" << endl;
+    if (!_bufferMate.loadFromFile("mate.wav")) cout << "Falta mate.wav"  << endl;
+
 
     _sonidoHerramienta.setVolume(_menuPrincipal.getVolumen());
 
 
 /// ESTRUCTURA TEST
-//    listaEstructuras.push_back(fabE.crearEstructura(82*32,85*32,0));
+//    listaEstructuras.push_back(fabE.crearEstructura(82*32,85*32,0)); || id == 53
 //    listaEstructuras.push_back(fabE.crearEstructura(83*32,85*32,1));
 //    listaEstructuras.push_back(fabE.crearEstructura(84*32,85*32,2));
 //    listaEstructuras.push_back(fabE.crearEstructura(85*32,85*32,3));
@@ -493,7 +464,7 @@ void Game::run()
 
             bool golpeHabilitado = false;
 
-            if (Comandos::getInstancia().mouseIzqRecienPresionado)
+            if (Comandos::getInstancia().mouseIzqRecienPresionado && (_herramientasActivadas))
             {
                 golpeHabilitado = character.iniciarAtaque();
 
@@ -531,7 +502,7 @@ void Game::run()
 /// ======================== Test spawn =========================///
             Item* itemEnManoAccion = inv.getItemEnMano();
 
-            if (itemEnManoAccion != nullptr)
+            if (itemEnManoAccion != nullptr && (_herramientasActivadas))
             {
                 int id = itemEnManoAccion->getID();
 
@@ -550,9 +521,9 @@ void Game::run()
                 }
 
                 // COMIDA
-                else if ((id >= 34 && id <= 48) || id == 25 || id == 26 || id == 30)
+                else if ((id >= 34 && id <= 48) || id == 25 || id == 26 || id == 30 || id == 53)
                 {
-                    if (Comandos::getInstancia().mouseDerRecienPresionado)
+                    if (Comandos::getInstancia().mouseDerRecienPresionado && (_herramientasActivadas))
                     {
                         usarItemEnMano(character, inv);
                     }
@@ -561,7 +532,7 @@ void Game::run()
                 //CONSTRUIR
                 else if (id == 49 || id == 50 || id == 51 || id == 52)
                 {
-                    if (Comandos::getInstancia().mouseDerRecienPresionado)
+                    if (Comandos::getInstancia().mouseDerRecienPresionado && (_herramientasActivadas))
                     {
                         colocarEstructura(posMouseWorld, inv, listaEstructuraRandom);
                     }
@@ -606,7 +577,7 @@ void Game::run()
             _particulas.draw(window);
             window.draw(character);
 
-            character.getColisionador().draw(window);
+//            character.getColisionador().draw(window);
 
 
             for(auto& enemigo : enemigos)
@@ -1063,7 +1034,7 @@ void Game::run()
                 if (!(*estructura)->estaDestruido())
                 {
                     window.draw(**estructura);
-                    (*estructura)->getColisionador().draw(window);
+//                    (*estructura)->getColisionador().draw(window);
 
                     float dx = std::abs(character.getPosition().x - (*estructura)->getPosition().x);
                     float dy = std::abs(character.getPosition().y - (*estructura)->getPosition().y);
@@ -1076,7 +1047,7 @@ void Game::run()
 
                         // B. ATAQUE
                         {
-                            if (golpeHabilitado && (*estructura)->getRompePorColision())
+                            if (golpeHabilitado && (*estructura)->getRompePorColision() && (_herramientasActivadas))
                                 procesarAtaqueEstructura(estructura->get(), rectEspada, inv);
                         }
                     }
@@ -1109,7 +1080,7 @@ void Game::run()
 
                     window.draw(**estructura);
 
-                    if (golpeHabilitado)
+                    if (golpeHabilitado && (_herramientasActivadas))
                     {
                         procesarAtaqueEstructura(estructura->get(), rectEspada, inv);
                     }
@@ -1180,7 +1151,7 @@ void Game::run()
                 character.quitarItemEnMano();
             }
 
-            if (Comandos::getInstancia().mouseIzqRecienPresionado)
+            if (Comandos::getInstancia().mouseIzqRecienPresionado && (_herramientasActivadas))
             {
                 character.iniciarAtaque();
             }
@@ -1223,6 +1194,19 @@ void Game::run()
             invR.setItems(vectorCarga);
 
 
+/// ======================== REQUISITOS PARA PODER USAR LAS HERRAMIENTAS =========================///
+            if(   !inv.getAbierto()
+               && !camaCueva->getDentroDeRango()
+               && !(barco->getDentroDeRango())
+               && !cinematicaF.estaReproduciendo()
+               && !cinematicaIni.estaReproduciendo()
+               && !inv.getAbierto()
+               ){
+                   _herramientasActivadas = true;
+               }
+               else{
+                   _herramientasActivadas = false;
+               }
 
 
 /// ======================== INICIO DRAWABLES =========================///
@@ -2044,7 +2028,7 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
         if (character.estaEnvenenado())
         {
             character.curarVeneno();
-            mostrarTexto("Se me paso el mareo", character.getPosition().x, character.getPosition().y - 40, 2000);
+            mostrarTexto("Se me paso el mareo", character.getPosition().x, character.getPosition().y - 10, 2000);
         }
         else
         {
@@ -2130,6 +2114,13 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
         character.activarPoderDorado(10.0f);
 
         cout << "Me rompi una muela masticando esto" << endl;
+        seConsumio = true;
+        break;
+
+    case 53: //Mate
+        character.setEnergia(character.getEnergia() + 50);
+        _sonidoComer.setBuffer(_bufferMate);
+        mostrarTexto("Unos buenos verdes...", character.getPosition().x, character.getPosition().y - 10, 2000);
         seConsumio = true;
         break;
     }

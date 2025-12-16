@@ -434,14 +434,14 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
         {
             if (hoverMenos)
             {
-                _volumenGeneral -= 10.f;
+                _volumenGeneral -= 5.f;
                 if (_volumenGeneral < 0) _volumenGeneral = 0;
                 sonidoStardew.setVolume(_volumenGeneral);
             }
 
             if (hoverMas)
             {
-                _volumenGeneral += 10.f;
+                _volumenGeneral += 5.f;
                 if (_volumenGeneral > 100) _volumenGeneral = 100;
                 sonidoStardew.setVolume(_volumenGeneral);
             }

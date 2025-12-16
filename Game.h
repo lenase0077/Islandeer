@@ -64,6 +64,9 @@ class Game
         void colocarEstructura(sf::Vector2f posMouseWorld, InventarioInterfaz& inv, std::list<std::unique_ptr<Estructura>>& lista);
         void spawnearEnemigoIndividual(std::list<std::unique_ptr<Mob>>& listaEnemigos);
 
+        bool _herramientasActivadas = false;
+
+
 
 
         FabricaItems fabItems;
@@ -95,6 +98,8 @@ class Game
         sf::SoundBuffer _bufferHacha;
         sf::SoundBuffer _bufferPico;
         sf::SoundBuffer _bufferEspada;
+        sf::SoundBuffer _bufferMate;
+
 
         sf::Sound _sonidoHerramienta;
 

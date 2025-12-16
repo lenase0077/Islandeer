@@ -747,3 +747,18 @@ void Personaje::curarVeneno()
 
     _sprite.setColor(sf::Color::White);
 }
+
+void Personaje::setEnergia(float nuevaEnergia)
+{
+    _energia = nuevaEnergia;
+
+    if (_energia > getEnergiaMaxima())
+    {
+        _energia = getEnergiaMaxima();
+    }
+
+    if (_energia < 0)
+    {
+        _energia = 0;
+    }
+}
