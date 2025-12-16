@@ -445,7 +445,7 @@
 1765904513 c:\users\leand\onedrive\documentos\repositorio\islandeer\funciones.h
 	<SFML/Graphics.hpp>
 
-1765912836 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1765916293 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
@@ -487,7 +487,7 @@
 	"CinematicaFinal.h"
 	"CinematicaInicial.h"
 
-1765907971 c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.h
+1765914178 c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.h
 	"Colisionador.h"
 	<SFML/Graphics.hpp>
 	"Funciones.h"
@@ -812,7 +812,7 @@
 	<iostream>
 	<ctime>
 
-1765909795 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.cpp
+1765915943 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\mob.cpp
 	"Mob.h"
 	<iostream>
 
@@ -820,7 +820,7 @@
 
 1764170642 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\movimiento_ia.cpp
 
-1765907971 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
+1765914437 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
 	<iostream>
 	"Personaje.h"
 	"Funciones.h"
@@ -831,7 +831,7 @@
 	<iostream>
 	"Raton.h"
 
-1765904511 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.cpp
+1765913889 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\tilemap.cpp
 	"tilemap.h"
 	<fstream>
 	<iostream>
@@ -4192,11 +4192,11 @@
 1764286544 c:\users\leand\onedrive\documentos\repositorio\islandeer\funcion.h
 	<SFML/Graphics.hpp>
 
-1765908017 c:\users\leand\onedrive\documentos\repositorio\islandeer\herramienta.h
+1765913405 c:\users\leand\onedrive\documentos\repositorio\islandeer\herramienta.h
 	"Item.h"
 	<map>
 
-1765908052 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\herramienta.cpp
+1765913407 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\herramienta.cpp
 	"Herramienta.h"
 
 1765909018 c:\users\sebas\onedrive\documentos\github\islandeer\herramienta.h

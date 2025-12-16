@@ -110,6 +110,15 @@ bool TileMap::loadFromJSON(const std::string& filename,
                         _colisiones.push_back(colision);
                         break;
                     }
+                    case 322:
+                    {
+                        Colisionador colision;
+                        sf::FloatRect tamanioColision(
+                            x * _tileWidth, y * _tileHeight, _tileWidth, _tileHeight);
+                        colision.setColision(tamanioColision);
+                        _colisiones.push_back(colision);
+                        break;
+                    }
                     case 258:
                     {
                         Colisionador colision;

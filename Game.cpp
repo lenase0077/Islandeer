@@ -214,8 +214,8 @@ void Game::run()
     std::list<std::unique_ptr<Mob>> enemigos;
     std::list<std::unique_ptr<Mob>> animales;
 
-//    enemigos.push_back(_FabricaMobs.crearMobs("Fantasma", {100 , 100}));
-//    enemigos.push_back(_FabricaMobs.crearMobs("Murcielago", {50 , 50}));
+    enemigos.push_back(_FabricaMobs.crearMobs("Fantasma", {170*32 , 7*32}));
+    enemigos.push_back(_FabricaMobs.crearMobs("Murcielago", {170*32 , 7*32}));
 
 /// ======================== Musica =========================///
     sf::SoundBuffer buffer;
@@ -284,6 +284,8 @@ void Game::run()
 
 //    character.setPosicion(100*32, 100*32);
 //    character.setPosicion(100*32, 100*32);
+
+
 
 
 
@@ -732,12 +734,40 @@ void Game::run()
 
 
 /// ======================== COLISION ENEMIGOS =========================///
+
             for (auto it = enemigos.begin(); it != enemigos.end(); )
             {
                 Mob* enemigo = it->get();
 
+                sf::Vector2f posJugador = character.getPosition();
+                sf::Vector2f posEnemigo = enemigo->getPosition();
+
+                float dx = posJugador.x - posEnemigo.x;
+                float dy = posJugador.y - posEnemigo.y;
+
+                float distancia = std::sqrt(dx * dx + dy * dy);
+
                 //Upadate y Movimiento
                 enemigo->update(PosicionJugador, deltatime);
+
+                if (distancia < 150.0f)
+                {
+                    float empujeX = 0, empujeY = 0;
+
+                    // Aquí ocurre la magia del empuje y el daño
+                    if (character.getColisionador().detectorDeColision(enemigo->_colision, empujeX, empujeY))
+                    {
+                        character.move(empujeX * fuerzaEmpuje, empujeY * fuerzaEmpuje);
+                        float vidaAntes = character.getVida();
+                        character.recibirDanio(10.0f);
+
+                        if (character.getVida() < vidaAntes)
+                        {
+                            mostrarTexto("-10 HP", character.getPosition().x, character.getPosition().y - 30, 1000);
+                        }
+                    }
+                }
+
 
 
                 //Colision con bordes (tile 322)
@@ -776,32 +806,13 @@ void Game::run()
                 window.draw(*enemigo);
                 bool enemigoMurio = false;
 
-                //El enemigo golpea al jugador
-                float empujeX = 0, empujeY = 0;
-
-                if (character.getColisionador().detectorDeColision(enemigo->_colision, empujeX, empujeY))
-                {
-                    //El jugador rebota hacia atr�s
-                    character.move(empujeX * fuerzaEmpuje, empujeY * fuerzaEmpuje);
-
-                    //Da�o con Cooldown
-                    static sf::Clock relojDanioRecibido;
-                    if (relojDanioRecibido.getElapsedTime().asMilliseconds() > 800)
-                    {
-                        character.setVida(character.getVida() - 10);
-                        mostrarTexto("-10 HP", character.getPosition().x, character.getPosition().y - 30, 1000);
-
-                        relojDanioRecibido.restart();
-                    }
-                }
-
                 //El jugador golpea al enemigo
-                if (golpeHabilitado)
+                if (golpeHabilitado && distancia < 150.0f)
                 {
                     //Verifico si el rect�ngulo de la espada toca al enemigo
                     if (rectEspada.intersects(enemigo->getColisionBounds()))
                     {
-                        float danioJugador = 35.0f;
+                        float danioJugador = 1;
 
                         Item* itemEnMano = inv.getItemEnMano();
                         if (itemEnMano != nullptr)
@@ -813,14 +824,14 @@ void Game::run()
 
                         //Aplicamos el danio
                         enemigo->bajarVida(danioJugador);
-                        mostrarTexto("�Toma wacho!", enemigo->getPosition().x, enemigo->getPosition().y - 20, 500);
+                        mostrarTexto("Toma wacho!", enemigo->getPosition().x, enemigo->getPosition().y - 20, 500);
 
                         //Empujamos al enemigo
                         sf::Vector2f dirGolpe = enemigo->getPosition() - character.getPosition();
                         float magnitud = std::sqrt(dirGolpe.x*dirGolpe.x + dirGolpe.y*dirGolpe.y);
                         if (magnitud > 0)
                         {
-                            enemigo->empujar((dirGolpe / magnitud) * 15.0f);
+                            enemigo->empujar((dirGolpe / magnitud) * 10.0f);
                         }
 
                         //Verificamos su Muerte

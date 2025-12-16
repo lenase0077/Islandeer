@@ -61,6 +61,8 @@ class Personaje: public sf::Drawable , public sf::Transformable
         void activarPoderDorado(float tiempo);
         bool tienePoderDorado() const;
 
+        void recibirDanio(float danio);
+
     private:
         float _acumuladorEnergia = 0;
         bool _tocoEnemigo = false;
@@ -113,4 +115,6 @@ class Personaje: public sf::Drawable , public sf::Transformable
 
         float _tiempoPoderDorado = 0.0f;
         float _acumuladorRegeneracion = 0.0f;
+
+        float _tiempoDanioRojo = 0.0f;
 };

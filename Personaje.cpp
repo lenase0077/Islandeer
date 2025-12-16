@@ -28,6 +28,7 @@ Personaje::Personaje(sf::Texture& _textura)
     _tiempoVenenoRestante(0.0f),
     _acumuladorDanioVeneno(0.0f),
     _tiempoPoderDorado(0.0f),
+    _tiempoDanioRojo(0.0f),
     _acumuladorRegeneracion(0.0f) {
 
     _sprite.setTexture(_textura);
@@ -302,6 +303,17 @@ void Personaje::update(float deltatime)
     animarPersonaje();
     manejarPasos();
     move(_velocidad);
+
+    if (_tiempoDanioRojo > 0)
+    {
+        _tiempoDanioRojo -= deltatime / 1000.0f;
+
+        if (_tiempoDanioRojo <= 0)
+        {
+            _sprite.setColor(sf::Color::White); // Vuelve al color normal
+            _tiempoDanioRojo = 0;
+        }
+    }
 
     // === PODER DE LA PAPA DE ORO ===
     if (_tiempoPoderDorado > 0)
@@ -713,4 +725,17 @@ void Personaje::activarPoderDorado(float tiempo)
 bool Personaje::tienePoderDorado() const
 {
     return _tiempoPoderDorado > 0.0f;
+}
+
+void Personaje::recibirDanio(float danio)
+{
+    // Si ya está rojo (invulnerable), ignoramos el daño (Cooldown visual)
+    if (_tiempoDanioRojo > 0) return;
+
+    _vida -= danio;
+    if (_vida < 0) _vida = 0;
+
+    // Feedback Visual: Color Rojo
+    _sprite.setColor(sf::Color::Red);
+    _tiempoDanioRojo = 0.5f; // Medio segundo de color rojo/invulnerabilidad
 }
