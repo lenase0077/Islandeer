@@ -968,7 +968,7 @@ void Game::run()
                         _sonidoHerramienta.play();
 
 
-                        cout << "¡Hit! Daño: " << danioFinal << endl;
+                        cout << "Danio: " << danioFinal << endl;
                         mostrarTexto("Toma Wacha", character.getPosition().x, character.getPosition().y - 10, 2000);
 
                         // --- KNOCKBACK FUERTE POR GOLPE ---
@@ -1924,7 +1924,7 @@ void Game::procesarAtaqueEstructura(Estructura* estructura, const sf::FloatRect&
 
         // Aplicar Daño
         estructura->recibirGolpe(danioFinal);
-        cout << "Daño: " << danioFinal << endl;
+        cout << "Danio: " << danioFinal << endl;
     }
 }
 
