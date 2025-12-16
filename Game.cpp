@@ -2022,32 +2022,7 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
     switch(id)
     {
 
-    case 30:
 
-        //Curar Veneno
-        if (character.estaEnvenenado())
-        {
-            character.curarVeneno();
-            mostrarTexto("Se me paso el mareo", character.getPosition().x, character.getPosition().y - 10, 2000);
-        }
-        else
-        {
-            mostrarTexto("Fresco y rico", character.getPosition().x, character.getPosition().y - 40, 1000);
-        }
-
-        //Curarvida
-        if (character.getVida() < character.getVidaMaxima())
-        {
-            character.setVida(character.getVida() + 15);
-        }
-
-        seConsumio = true;
-
-        if (!inv.agregarItem(28, 1))
-        {
-             cout << "No hubo lugar para el balde vacio!" << endl;
-        }
-        break;
 
 
 
@@ -2122,6 +2097,34 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
         _sonidoComer.setBuffer(_bufferMate);
         mostrarTexto("Unos buenos verdes...", character.getPosition().x, character.getPosition().y - 10, 2000);
         seConsumio = true;
+        break;
+
+
+    case 30:
+
+        //Curar Veneno
+        if (character.estaEnvenenado())
+        {
+            character.curarVeneno();
+            mostrarTexto("Se me paso el mareo", character.getPosition().x, character.getPosition().y - 10, 2000);
+        }
+        else
+        {
+            mostrarTexto("Fresco y rico", character.getPosition().x, character.getPosition().y - 40, 1000);
+        }
+
+        //Curarvida
+        if (character.getVida() < character.getVidaMaxima())
+        {
+            character.setVida(character.getVida() + 15);
+        }
+
+        seConsumio = true;
+
+        if (!inv.agregarItem(28, 1))
+        {
+             cout << "No hubo lugar para el balde vacio!" << endl;
+        }
         break;
     }
 
