@@ -491,7 +491,7 @@ void Game::run()
 
             bool golpeHabilitado = false;
 
-            if (Comandos::getInstancia().mouseIzqRecienPresionado)
+            if (Comandos::getInstancia().mouseIzqRecienPresionado && (_herramientasActivadas))
             {
                 golpeHabilitado = character.iniciarAtaque();
 
@@ -529,7 +529,7 @@ void Game::run()
 /// ======================== Test spawn =========================///
             Item* itemEnManoAccion = inv.getItemEnMano();
 
-            if (itemEnManoAccion != nullptr)
+            if (itemEnManoAccion != nullptr && (_herramientasActivadas))
             {
                 int id = itemEnManoAccion->getID();
 
@@ -550,7 +550,7 @@ void Game::run()
                 // COMIDA
                 else if ((id >= 34 && id <= 48) || id == 25 || id == 26 || id == 30)
                 {
-                    if (Comandos::getInstancia().mouseDerRecienPresionado)
+                    if (Comandos::getInstancia().mouseDerRecienPresionado && (_herramientasActivadas))
                     {
                         usarItemEnMano(character, inv);
                     }
@@ -559,7 +559,7 @@ void Game::run()
                 //CONSTRUIR
                 else if (id == 49 || id == 50 || id == 51 || id == 52)
                 {
-                    if (Comandos::getInstancia().mouseDerRecienPresionado)
+                    if (Comandos::getInstancia().mouseDerRecienPresionado && (_herramientasActivadas))
                     {
                         colocarEstructura(posMouseWorld, inv, listaEstructuraRandom);
                     }
@@ -1074,7 +1074,7 @@ void Game::run()
 
                         // B. ATAQUE
                         {
-                            if (golpeHabilitado && (*estructura)->getRompePorColision())
+                            if (golpeHabilitado && (*estructura)->getRompePorColision() && (_herramientasActivadas))
                                 procesarAtaqueEstructura(estructura->get(), rectEspada, inv);
                         }
                     }
@@ -1107,7 +1107,7 @@ void Game::run()
 
                     window.draw(**estructura);
 
-                    if (golpeHabilitado)
+                    if (golpeHabilitado && (_herramientasActivadas))
                     {
                         procesarAtaqueEstructura(estructura->get(), rectEspada, inv);
                     }
@@ -1178,7 +1178,7 @@ void Game::run()
                 character.quitarItemEnMano();
             }
 
-            if (Comandos::getInstancia().mouseIzqRecienPresionado)
+            if (Comandos::getInstancia().mouseIzqRecienPresionado && (_herramientasActivadas))
             {
                 character.iniciarAtaque();
             }
@@ -1214,8 +1214,19 @@ void Game::run()
             inv.copiarItemsEnVector(vectorCarga);
             invR.setItems(vectorCarga);
 
-
-
+/// ======================== REQUISITOS PARA PODER USAR LAS HERRAMIENTAS =========================///
+            if(   !inv.getAbierto()
+               && !camaCueva.getDentroDeRango()
+               && !(barco->getDentroDeRango())
+               && !cinematicaF.estaReproduciendo()
+               && !cinematicaIni.estaReproduciendo()
+               && !inv.getAbierto()
+               ){
+                   _herramientasActivadas = true;
+               }
+               else{
+                   _herramientasActivadas = false;
+               }
 
 /// ======================== INICIO DRAWABLES =========================///
             invR.update(Camara, relacion);

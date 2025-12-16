@@ -158,5 +158,6 @@ class Game
 
         SistemaParticulas _particulas;
 
+        bool _herramientasActivadas = false;
 
 };
