@@ -31,8 +31,6 @@
 #include "BarcoHuida.h"
 #include "InterfazBarcoHuida.h"
 #include "SelectorDeOpciones.h"
-#include "CinematicaFinal.h"
-#include "CinematicaInicial.h"
 
 
 class Game
@@ -40,8 +38,8 @@ class Game
     public:
         Game();
         void run();
-        void guardarPartida();
-        void cargarPartida();
+        void guardar(Personaje &character);
+        void cargar (Personaje &character);
         sf::Clock getRelojInterno();
         sf::Texture _texturaCultivos;
         std::list<std::unique_ptr<cultivo>> _listaCultivos;
@@ -59,24 +57,6 @@ class Game
         void mostrarTexto (std::string mensaje, float x, float y);
         void mostrarTexto (std::string mensaje, float x, float y, float duracion);
         void colocarEstructura(sf::Vector2f posMouseWorld, InventarioInterfaz& inv, std::list<std::unique_ptr<Estructura>>& lista);
-
-
-        FabricaItems fabItems;
-        InventarioInterfaz inv;
-
-        std::unique_ptr<BarcoHuida> barco;
-        std::unique_ptr<InterfazBarcoHuida> interfazBarco;
-        std::unique_ptr<SelectorDeOpciones> opcionesBarcoHuida;
-
-        sf::Texture texturaBarcoHuida;
-        sf::Texture texturaInterfazBarcoHuida;
-        sf::Texture texturaBotonesInterfazBarco;
-        sf::Font fuentePixelArt;
-
-
-
-
-
     private:
         sf::Text _textoFPS;
         float _tiempoFPS = 0.0f;
@@ -105,7 +85,6 @@ class Game
         TileMap mapa;
         float _tiempoDiaAcumulado = 0;
         sf::View Camara;
-
 
 
         //==== DIA Y NOCHE===//
