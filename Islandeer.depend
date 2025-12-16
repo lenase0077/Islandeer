@@ -1397,7 +1397,7 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1765835611 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1765874841 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
@@ -4455,12 +4455,12 @@
 	<iostream>
 	"TextoFlotante.h"
 
-1765836280 source:c:\users\sebas\onedrive\documentos\github\islandeer\cinematicafinal.cpp
+1765875290 source:c:\users\sebas\onedrive\documentos\github\islandeer\cinematicafinal.cpp
 	"CinematicaFinal.h"
 	<cmath>
 	<iostream>
 
-1765836112 c:\users\sebas\onedrive\documentos\github\islandeer\cinematicafinal.h
+1765874872 c:\users\sebas\onedrive\documentos\github\islandeer\cinematicafinal.h
 	<SFML/Graphics.hpp>
 	<string>
 

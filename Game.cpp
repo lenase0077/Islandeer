@@ -61,6 +61,13 @@ void Game::run()
     {
         std::cout << "Error cargando textura AguaCinematica.png" << std::endl;
     }
+
+    sf::Texture texturaPersonaje;
+    if (!texturaPersonaje.loadFromFile("Personaje.png"))
+    {
+        std::cout << "Error cargando textura Personaje.png" << std::endl;
+    }
+
     texturaAguaCinematica.setRepeated(true);
 
     if (!fontReloj.loadFromFile("PIXEARG_.TTF"))
@@ -168,7 +175,7 @@ void Game::run()
 
 
 /// ======================== Cinematicas =========================///
-    CinematicaFinal cinematicaF( texturaBarcoHuida, texturaAguaCinematica, fuentePixelArt, "==========\n ISLANDER \n==========\n Desarrollado por los estudiantes: \n -Leandro Serrano. \n -Alejo Martinez. \n -Sebastian Durazzini. \n -Daniel Raho.");
+    CinematicaFinal cinematicaF( texturaPersonaje,texturaBarcoHuida, texturaAguaCinematica, fuentePixelArt, "==========\n ISLANDER \n==========\n Desarrollado por los estudiantes: \n -Leandro Serrano. \n -Alejo Martinez. \n -Sebastian Durazzini. \n -Daniel Raho.");
 
 
 

@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-CinematicaFinal::CinematicaFinal(const sf::Texture& texturaBarco, const sf::Texture& texturaAgua, const sf::Font& fuenteTexto, const std::string textoCreditos)
+CinematicaFinal::CinematicaFinal(const sf::Texture& texturaPersonaje, const sf::Texture& texturaBarco, const sf::Texture& texturaAgua, const sf::Font& fuenteTexto, const std::string textoCreditos)
 {
     _textoCreditos.setFont(fuenteTexto);
     _textoCreditos.setString(textoCreditos);
@@ -14,6 +14,10 @@ CinematicaFinal::CinematicaFinal(const sf::Texture& texturaBarco, const sf::Text
 
     _barco.setTexture(texturaBarco);
     _barco.setPosition( 10, -335);
+
+    _personaje.setTexture(texturaPersonaje);
+    _personaje.setTextureRect({0,0,32,32});
+    _personaje.setOrigin(16,32);
 
     _rectanguloAgua.setSize({1000.0,2000.0});
     _rectanguloAgua.setPosition(0,-500);
@@ -60,6 +64,7 @@ void CinematicaFinal::update()
         _textoCreditos.setPosition(_textoCreditos.getPosition().x, _textoCreditos.getPosition().y - 0.8);
         _rectanguloAgua.setPosition(0,_rectanguloAgua.getPosition().y - 0.5);
         _barco.setPosition(10 + (std::sin(_incSeno) * 6), _barco.getPosition().y);
+        _personaje.setPosition(_barco.getPosition().x + 79, _barco.getPosition().y + 212 );
     }
     else{
         cout << "Completado" << endl;
@@ -88,6 +93,7 @@ void CinematicaFinal::draw(sf::RenderTarget& target, sf::RenderStates states) co
     states.transform *= getTransform();
     target.draw(_rectanguloAgua,states);
     target.draw(_barco,states);
+    target.draw(_personaje,states);
     target.draw(_textoCreditos,states);
 }
 
