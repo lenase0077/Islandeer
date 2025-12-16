@@ -61,6 +61,45 @@ void Game::run()
         cout << "Error al cargar PIXEARG_.TTF" << endl;
     }
 
+    if (!texturaAguaCinematica.loadFromFile("AguaCinematica.png"))
+    {
+        std::cout << "Error cargando textura AguaCinematica.png" << std::endl;
+    }
+
+    if (!texturaPersonaje.loadFromFile("Personaje.png"))
+    {
+        std::cout << "Error cargando textura Personaje.png" << std::endl;
+    }
+
+    if (!texturaAvion.loadFromFile("Avion-Sheet.png"))
+    {
+        std::cout << "Error cargando textura Avion-Sheet.png" << std::endl;
+    }
+
+    if (!texturaAvionTurbina.loadFromFile("turbina-Sheet.png"))
+    {
+        std::cout << "Error cargando textura turbina-Sheet.png" << std::endl;
+    }
+
+    if (!texturaNube.loadFromFile("Nube.png"))
+    {
+        std::cout << "Error cargando textura Nube.png" << std::endl;
+    }
+
+    texturaAguaCinematica.setRepeated(true);
+
+
+
+
+
+
+
+
+
+
+
+
+
     _textoFPS.setFont(fontReloj);
     _textoFPS.setCharacterSize(14); // Tama�o peque�o
     _textoFPS.setFillColor(sf::Color::Yellow); // Color llamativo
@@ -159,6 +198,10 @@ void Game::run()
     opcionesBarcoHuida = std::make_unique<SelectorDeOpciones>("¿Quieres retirarte de la isla?", fuentePixelArt);
     opcionesBarcoHuida->agregarOpcion("SI, no banco mas esto.");
     opcionesBarcoHuida->agregarOpcion("NO, no quiero volver a latam.");
+
+/// ======================== Cinematicas =========================///
+    CinematicaInicial cinematicaIni( texturaPersonaje, texturaAvion, texturaAvionTurbina, texturaNube);
+    CinematicaFinal cinematicaF( texturaPersonaje,texturaBarcoHuida, texturaAguaCinematica, fuentePixelArt, "==========\n ISLANDER \n==========\n Desarrollado por los estudiantes: \n -Leandro Serrano. \n -Alejo Martinez. \n -Sebastian Durazzini. \n -Daniel Raho.");
 
 
 
@@ -298,6 +341,9 @@ void Game::run()
                 _tiempoDiaAcumulado = 0;
 
                 Camara.setCenter(posX, posY);
+
+
+                cinematicaIni.reproducir();
 
                 _transicionMenuJugando = true;
                 _fadeAlpha = 0.0f;
@@ -949,6 +995,8 @@ void Game::run()
 
             character.update(deltatime);
 
+
+
             if (character.estaEnvenenado())
             {
                 if (rand() % 10 == 0)
@@ -987,6 +1035,9 @@ void Game::run()
             interfazBarco->ajustarEscalaAutomaticamente(Camara, relacion);
             interfazBarco->update(posMouseWorld, inv);
             interfazBarco->setVolumen(volumenActual);
+
+            cinematicaF.ajustarEscalaAutomaticamente(Camara,relacion);
+
             if (barco->getDentroDeRango())
             {
                 if (interfazBarco->getCompletado())
@@ -996,7 +1047,8 @@ void Game::run()
                     interfazBarco->setOculto(true);
                     if(opcionesBarcoHuida->getOpcionSeleccionada() == 0)
                     {
-                        window.close();
+                        opcionesBarcoHuida->resetOpcionSeleccionada();
+                        cinematicaF.reproducir();
                     }
                     else if(opcionesBarcoHuida->getOpcionSeleccionada() == 1)
                     {
@@ -1025,6 +1077,25 @@ void Game::run()
             window.draw(inv);
             window.draw(*interfazBarco);
 
+            if (cinematicaF.estaReproduciendo()){
+                opcionesBarcoHuida->setAbierto(false);
+                cinematicaF.update();
+                window.draw(cinematicaF);
+            }
+            else if (cinematicaF.getCompletado()){
+                window.close();
+            }
+            else{
+                window.draw(*opcionesBarcoHuida);
+            }
+
+            if(cinematicaIni.estaReproduciendo()){
+                cinematicaIni.setVolumen(volumenActual);
+                cinematicaIni.ajustarEscalaAutomaticamente(Camara, relacion);
+                cinematicaIni.update();
+                window.draw(cinematicaIni);
+            }
+
 
             window.draw(*opcionesBarcoHuida);
 
@@ -1039,6 +1110,14 @@ void Game::run()
 //            window.draw(nightOverlay);
 
             window.draw(_minimap);
+
+            if (!cinematicaF.estaReproduciendo() && !cinematicaIni.estaReproduciendo()){
+                window.draw(_textoFPS);
+                window.draw(_interfazEstado);
+                //window.draw(nightOverlay);
+                window.draw(_minimap);
+                window.draw(textReloj);
+            }
 
             window.draw(textReloj);
 

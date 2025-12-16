@@ -31,6 +31,8 @@
 #include "BarcoHuida.h"
 #include "InterfazBarcoHuida.h"
 #include "SelectorDeOpciones.h"
+#include "CinematicaFinal.h"
+#include "CinematicaInicial.h"
 
 
 class Game
@@ -70,6 +72,18 @@ class Game
         sf::Texture texturaInterfazBarcoHuida;
         sf::Texture texturaBotonesInterfazBarco;
         sf::Font fuentePixelArt;
+
+
+        // CINEMATICA DE SEBA
+        sf::Texture texturaAguaCinematica;
+        sf::Texture texturaPersonaje;
+        sf::Texture texturaAvion;
+        sf::Texture texturaAvionTurbina;
+        sf::Texture texturaNube;
+
+
+
+
 
 
 
