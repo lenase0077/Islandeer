@@ -1188,6 +1188,12 @@ void Game::run()
 
             character.update(deltatime);
 
+            if (character.getVida() <= 0)
+            {
+            cout << "GAME OVER: AKA Perdiste pa" << endl;
+            window.close();
+            }
+
 
 
             if (character.estaEnvenenado())
