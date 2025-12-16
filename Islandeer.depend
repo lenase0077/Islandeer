@@ -1370,7 +1370,7 @@
 	<SFML/Graphics.hpp>
 	<cmath>
 
-1765822996 source:c:\users\sebas\onedrive\documentos\github\islandeer\estructura.cpp
+1765909920 source:c:\users\sebas\onedrive\documentos\github\islandeer\estructura.cpp
 	"Estructura.h"
 	<iostream>
 	<cmath>
@@ -1399,13 +1399,13 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1765456949 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1765909920 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1765909000 c:\users\sebas\onedrive\documentos\github\islandeer\game.h
+1765909920 c:\users\sebas\onedrive\documentos\github\islandeer\game.h
 	"Cultivos.h"
 	"FabricaCultivos.h"
 	<iostream>
@@ -1836,7 +1836,7 @@
 	<iostream>
 	<ctime>
 
-1765822996 source:c:\users\sebas\onedrive\documentos\github\islandeer\mob.cpp
+1765909920 source:c:\users\sebas\onedrive\documentos\github\islandeer\mob.cpp
 	"Mob.h"
 	<iostream>
 
@@ -3972,7 +3972,7 @@
 	"Colisionador.h"
 	"Funciones.h"
 
-1765822996 c:\users\sebas\onedrive\documentos\github\islandeer\mob.h
+1765909920 c:\users\sebas\onedrive\documentos\github\islandeer\mob.h
 	"SFML/Graphics.hpp"
 	"Colisionador.h"
 	<string>
@@ -3995,7 +3995,7 @@
 	"Herramienta.h"
 	<map>
 
-1765822996 source:c:\users\sebas\onedrive\documentos\github\islandeer\fabricaestructuras.cpp
+1765909920 source:c:\users\sebas\onedrive\documentos\github\islandeer\fabricaestructuras.cpp
 	"FabricaEstructuras.h"
 	<iostream>
 	<memory>
@@ -4024,7 +4024,7 @@
 	<iostream>
 	<sstream>
 
-1765822996 source:c:\users\sebas\onedrive\documentos\github\islandeer\fabricamobs.cpp
+1765909920 source:c:\users\sebas\onedrive\documentos\github\islandeer\fabricamobs.cpp
 	"FabricaMobs.h"
 	<iostream>
 
@@ -4043,7 +4043,7 @@
 1763637553 c:\users\sebas\onedrive\documentos\github\islandeer\murcielago.h
 	"Mob.h"
 
-1763637553 source:c:\users\sebas\onedrive\documentos\github\islandeer\fantasma.cpp
+1765909920 source:c:\users\sebas\onedrive\documentos\github\islandeer\fantasma.cpp
 	"Fantasma.h"
 
 1765552138 c:\users\sebas\onedrive\documentos\github\islandeer\minimap.h
@@ -4063,7 +4063,7 @@
 
 1763637553 c:\users\sebas\onedrive\documentos\github\islandeer\estadodejuego.h
 
-1765909000 source:c:\users\sebas\onedrive\documentos\github\islandeer\menu_principal.cpp
+1765909920 source:c:\users\sebas\onedrive\documentos\github\islandeer\menu_principal.cpp
 	"Menu_Principal.h"
 	<iostream>
 
@@ -4077,7 +4077,7 @@
 	"Minimap.h"
 	<iostream>
 
-1763637553 source:c:\users\sebas\onedrive\documentos\github\islandeer\murcielago.cpp
+1765909920 source:c:\users\sebas\onedrive\documentos\github\islandeer\murcielago.cpp
 	"Murcielago.h"
 
 1765904511 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\arboles.cpp

@@ -1255,19 +1255,17 @@ void Game::run()
                 window.draw(cinematicaIni);
             }
 
-            window.setView(window.getDefaultView());
-
-//            window.draw(nightOverlay);
-
 
             if (!cinematicaF.estaReproduciendo() && !cinematicaIni.estaReproduciendo())
             {
+                window.setView(window.getDefaultView());
                 window.draw(_textoFPS);
                 window.draw(_interfazEstado);
-                //window.draw(nightOverlay);
+                window.draw(nightOverlay);
                 window.draw(_minimap);
                 window.draw(textReloj);
             }
+
 
             if (_enTransicion)
             {
