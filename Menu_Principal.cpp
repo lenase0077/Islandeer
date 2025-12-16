@@ -42,6 +42,10 @@ MenuPrincipal::MenuPrincipal()
     if (!_imagenNuevaPartida.loadFromFile("Nueva partida.png")) {
         std::cout << "Error al cargar NuevaPartida.png" << std::endl;
     }
+    if (!_imagenBotonCargar.loadFromFile("cargar_partida.png")) {
+    std::cout << "Error al cargar CargarPartida.png" << std::endl;
+    }
+
     if (!_imagenGuardar.loadFromFile("GuardarPartida.png")) {
         std::cout << "Error al cargar GuardarPartida.png" << std::endl;
     }
@@ -65,6 +69,7 @@ MenuPrincipal::MenuPrincipal()
     _texturaBotonSalir.loadFromImage(_imagenSalir);
     _texturaBotonVolumenGeneral.loadFromImage(_imagenVolumenGeneral);
     _texturaBotonVolver.loadFromImage(_imagenVolver);
+    _texturaBotonCargar.loadFromImage(_imagenBotonCargar);
     _texturaBotonGuardar.loadFromImage(_imagenGuardar);
 
     ///=====SPRITES=====
@@ -77,6 +82,7 @@ MenuPrincipal::MenuPrincipal()
     _spriteBotonVolumenGeneral.setTexture(_texturaBotonVolumenGeneral);
     _spriteBotonVolver.setTexture(_texturaBotonVolver);
     _spriteBotonGuardar.setTexture(_texturaBotonGuardar);
+    _spriteBotonCargar.setTexture(_texturaBotonCargar);
     _spriteBackground.setTexture(_background);
 
     ///======ORIGENES=====
@@ -89,6 +95,7 @@ MenuPrincipal::MenuPrincipal()
     _spriteBotonVolumenGeneral.setOrigin(_spriteBotonVolumenGeneral.getLocalBounds().width / 2 , _spriteBotonVolumenGeneral.getLocalBounds().height / 2);
     _spriteBotonVolver.setOrigin(_spriteBotonVolver.getLocalBounds().width / 2 , _spriteBotonVolver.getLocalBounds().height / 2);
     _spriteBotonGuardar.setOrigin(_spriteBotonGuardar.getLocalBounds().width / 2 , _spriteBotonGuardar.getLocalBounds().height / 2);
+    _spriteBotonCargar.setOrigin(_spriteBotonCargar.getLocalBounds().width / 2 , _spriteBotonCargar.getLocalBounds().height / 2);
 
     // ---Posicionar Sprites (Centrados) ---
     // (Asumo una ventana de 1024x768)
@@ -102,6 +109,7 @@ MenuPrincipal::MenuPrincipal()
     _spriteBotonVolumenGeneral.setScale(1,1);
     _spriteBotonVolver.setScale(1,1);
     _spriteBotonGuardar.setScale(1,1);
+    _spriteBotonCargar.setScale(1,1);
     _spriteBackground.setScale(1,1);
 
     ///======POSICIONES=====
@@ -114,9 +122,10 @@ MenuPrincipal::MenuPrincipal()
     _spriteBotonJugar.setPosition(centroVentanaX, inicioBotonesY + separacion);
     _spriteBotonOpciones.setPosition(centroVentanaX, inicioBotonesY + (separacion*2));
     _spriteBotonSalir.setPosition(centroVentanaX, inicioBotonesY + (separacion*3));
-    _spriteBotonVolumenGeneral.setPosition(centroVentanaX, 350);
-    _spriteBotonGuardar.setPosition(centroVentanaX, 480);
-    _spriteBotonVolver.setPosition(centroVentanaX, 610);
+    _spriteBotonVolumenGeneral.setPosition(centroVentanaX, 250);
+    _spriteBotonGuardar.setPosition(centroVentanaX, 370);
+    _spriteBotonCargar.setPosition(centroVentanaX, 550);
+    _spriteBotonVolver.setPosition(centroVentanaX, 700);
 
     if (!_fuente.loadFromFile("PIXEARG_.TTF")) {
         std::cout << "Error cargando fuente PIXEARG_.TTF" << std::endl;
@@ -139,6 +148,7 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
     bool hoverVolumenGeneral = clickEnPixel(mousePos, _spriteBotonVolumenGeneral , _imagenVolumenGeneral);
     bool hoverVolver = clickEnPixel(mousePos, _spriteBotonVolver , _imagenVolver);
     bool hoverGuardar = clickEnPixel(mousePos, _spriteBotonGuardar , _imagenGuardar);
+    bool hoverCargar = clickEnPixel(mousePos, _spriteBotonCargar, _imagenBotonCargar);
     bool click = input.mouseIzqRecienPresionado;
 
     float const escalaObjetivoGrande = 1.1f;
@@ -171,16 +181,8 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
             lerp (_rotacionBotonNuevaPartida , rotacionObjetivoNormal , suavizado);
         }
 
-        if (hoverGuardar)
-        {
-            lerp(_escalaBotonGuardar , escalaObjetivoGrande , suavizado);
-            lerp (_rotacionBotonGuardar , rotacionObjetivo , suavizado);
-        }
-        else
-        {
-            lerp(_escalaBotonGuardar , escalaObjetivoNormal , suavizado);
-            lerp (_rotacionBotonGuardar , rotacionObjetivoNormal , suavizado);
-        }
+
+
 
         if (hoverOpciones)
         {
@@ -211,14 +213,13 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
         _spriteBotonNuevaPartida.setScale(_escalaBotonNuevaPartida, _escalaBotonNuevaPartida);
         _spriteBotonNuevaPartida.setRotation(_rotacionBotonNuevaPartida);
 
-        _spriteBotonGuardar.setScale(_escalaBotonGuardar, _escalaBotonGuardar);
-        _spriteBotonGuardar.setRotation(_rotacionBotonGuardar);
 
         _spriteBotonOpciones.setScale(_escalaBotonOpciones , _escalaBotonOpciones);
         _spriteBotonOpciones.setRotation(_rotacionBotonOpciones);
 
         _spriteBotonSalir.setScale(_escalaBotonSalir , _escalaBotonSalir);
         _spriteBotonSalir.setRotation(_rotacionBotonSalir);
+
 
         if (input.mouseIzqRecienPresionado)
         {
@@ -239,6 +240,12 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
             {
                 return OpcionMenu::Salir;
             }
+
+            if (hoverCargar)
+            {
+                return OpcionMenu::Cargar;
+            }
+
         }
         if (click)
         {
@@ -250,6 +257,8 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
             {
                 return OpcionMenu::Salir;
             }
+
+
 
             if (hoverOpciones)
             {
@@ -271,6 +280,32 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
             lerp(_escalaBotonVolumenGeneral , escalaObjetivoNormal , suavizado);
             lerp (_rotacionBotonVolumenGeneral , rotacionObjetivoNormal , suavizado);
         }
+
+        if (hoverGuardar)
+        {
+            lerp(_escalaBotonGuardar , escalaObjetivoGrande , suavizado);
+            lerp (_rotacionBotonGuardar , rotacionObjetivo , suavizado);
+        }
+
+        else
+        {
+            lerp(_escalaBotonGuardar , escalaObjetivoNormal , suavizado);
+            lerp (_rotacionBotonGuardar , rotacionObjetivoNormal , suavizado);
+        }
+
+
+        if (hoverCargar)
+        {
+            lerp(_escalaBotonCargar, escalaObjetivoGrande, suavizado);
+            lerp(_rotacionBotonCargar, rotacionObjetivo, suavizado);
+        }
+        else
+        {
+            lerp(_escalaBotonCargar, escalaObjetivoNormal, suavizado);
+            lerp(_rotacionBotonCargar, rotacionObjetivoNormal, suavizado);
+        }
+
+
         if (hoverVolver)
         {
             lerp(_escalaBotonVolver , escalaObjetivoGrande , suavizado);
@@ -288,6 +323,12 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
         _spriteBotonVolver.setScale(_escalaBotonVolver , _escalaBotonVolver);
         _spriteBotonVolver.setRotation(_rotacionBotonVolver);
 
+        _spriteBotonGuardar.setScale(_escalaBotonGuardar, _escalaBotonGuardar);
+        _spriteBotonGuardar.setRotation(_rotacionBotonGuardar);
+
+        _spriteBotonCargar.setScale(_escalaBotonCargar, _escalaBotonCargar);
+        _spriteBotonCargar.setRotation(_rotacionBotonCargar);
+
         if (click)
         {
             if (hoverVolumenGeneral)
@@ -298,6 +339,11 @@ OpcionMenu MenuPrincipal::actualizar(sf::Vector2f mousePos)
             if (hoverGuardar)
             {
                 return OpcionMenu::Guardar;
+            }
+
+            if (hoverCargar)
+            {
+                return OpcionMenu::Cargar;
             }
 
             if (hoverVolver)
@@ -404,6 +450,7 @@ void MenuPrincipal::draw(sf::RenderTarget& target, sf::RenderStates states) cons
     {
         target.draw(_spriteBotonVolumenGeneral, states);
         target.draw(_spriteBotonGuardar, states);
+        target.draw(_spriteBotonCargar, states);
         target.draw(_spriteBotonVolver, states);
     }
 
