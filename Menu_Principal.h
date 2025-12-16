@@ -12,7 +12,6 @@ enum class OpcionMenu {
     Jugar,
     Opciones,
     Guardar,
-    Cargar,
     Salir
 };
 
@@ -33,7 +32,6 @@ private:
     sf::Texture _texturaBotonVolumenGeneral;
     sf::Texture _texturaBotonVolver;
     sf::Texture _texturaBotonGuardar;
-    sf::Texture _texturaBotonCargar;
     sf::Texture _background;
 
     sf::Image _imagenLogo;
@@ -43,7 +41,6 @@ private:
     sf::Image _imagenSalir;
     sf::Image _imagenVolumenGeneral;
     sf::Image _imagenVolver;
-    sf::Image _imagenBotonCargar;
     sf::Image _imagenGuardar;
 
     sf::Sprite _spriteLogo;
@@ -55,7 +52,6 @@ private:
     sf::Sprite _spriteBotonVolver;
     sf::Sprite _spriteBotonGuardar;
     sf::Sprite _spriteBackground;
-    sf::Sprite _spriteBotonCargar;
 
     sf::SoundBuffer bufferStardew;
     sf::Sound sonidoStardew;
@@ -69,7 +65,6 @@ private:
     float _escalaBotonVolumenGeneral = 1.0f;
     float _escalaBotonVolver = 1.0f;
     float _escalaBotonGuardar = 1.0f;
-    float _escalaBotonCargar = 1.0f;
 
     float _rotacionBotonNuevaPartida = 0.0f;
     float _rotacionBotonJugar = 0.0f;
@@ -78,7 +73,6 @@ private:
     float _rotacionBotonVolumenGeneral = 0.0f;
     float _rotacionBotonVolver = 0.0f;
     float _rotacionBotonGuardar = 0.0f;
-    float _rotacionBotonCargar = 0.0f;
 
     sf::Font _fuente;
     sf::Text _textoTituloVolumen;
