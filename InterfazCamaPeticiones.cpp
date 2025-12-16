@@ -255,3 +255,33 @@ void InterfazCamaPeticiones::ajustarEscalaAutomaticamente(const sf::View& vista,
     }
 }
 
+std::vector<int> InterfazCamaPeticiones::getCantidadesRestantes()
+{
+    return _cantidadNecesaria;
+}
+
+void InterfazCamaPeticiones::setCantidadesRestantes(const std::vector<int>& cantidades)
+{
+    // Validamos que el vector que cargamos tenga el mismo tamaño
+    if (cantidades.size() == _cantidadNecesaria.size())
+    {
+        _cantidadNecesaria = cantidades;
+
+        // Verificamos si ya está completado con los nuevos datos
+        int completos = 0;
+        for (int c : _cantidadNecesaria)
+        {
+            if (c <= 0) completos++;
+        }
+
+        if (completos == _cantidadNecesaria.size())
+        {
+            _completado = true;
+        }
+        else
+        {
+            _completado = false;
+        }
+    }
+}
+

@@ -44,5 +44,8 @@ public:
     void setCantidadesPagina(int pagina, const std::vector<int>& datosCargados);
     void recalcularEstadoCompletado();
 
+    std::vector<int> getCantidadesRestantes();
+    void setCantidadesRestantes(const std::vector<int>& cantidades);
+
 };
 

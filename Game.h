@@ -73,6 +73,10 @@ class Game
         std::unique_ptr<InterfazBarcoHuida> interfazBarco;
         std::unique_ptr<SelectorDeOpciones> opcionesBarcoHuida;
 
+        std::unique_ptr<Cama> camaCueva;
+        std::unique_ptr<InterfazCamaPeticiones> interfazCama;
+        std::unique_ptr<SelectorDeOpciones> opcionesCama;
+
         sf::Texture texturaBarcoHuida;
         sf::Texture texturaInterfazBarcoHuida;
         sf::Texture texturaBotonesInterfazBarco;

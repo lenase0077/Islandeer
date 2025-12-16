@@ -207,11 +207,13 @@ void Game::run()
 
 
 /// ======================== Cama =========================///
-    Cama camaCueva( 32 * 162, 32 * 5, texturaCama);
-    InterfazCamaPeticiones interfazCama(texturaInterfazBarcoHuida, fuentePixelArt, fabItems);
-    SelectorDeOpciones opcionesCama(" Quieres irte a mimir?", fuentePixelArt);
-    opcionesCama.agregarOpcion("SI, estoy muy cansado.");
-    opcionesCama.agregarOpcion("NO, cansancio y plata nunca tuve.");
+
+    camaCueva = std::make_unique<Cama>(32 * 162, 32 * 5, texturaCama);
+    interfazCama = std::make_unique<InterfazCamaPeticiones>(texturaInterfazBarcoHuida, fuentePixelArt, fabItems);
+    opcionesCama = std::make_unique<SelectorDeOpciones>(" Quieres irte a mimir?", fuentePixelArt);
+
+    opcionesCama->agregarOpcion("SI, estoy muy cansado.");
+    opcionesCama->agregarOpcion("NO, cansancio y plata nunca tuve.");
 
 
 /// ======================== Cinematicas =========================///
@@ -1222,34 +1224,45 @@ void Game::run()
             barco->update(PosicionJugador);
 
 
-            camaCueva.update(PosicionJugador);
-            window.draw(camaCueva);
+            camaCueva->update(PosicionJugador);
+            window.draw(*camaCueva);
 
 
-            interfazCama.ajustarEscalaAutomaticamente(Camara, relacion);
-            interfazCama.update(posMouseWorld, inv);
-            if (camaCueva.getDentroDeRango()){
-                if (interfazCama.getCompletado()){
-                    camaCueva.setConstruido(true);
-                    interfazCama.setOculto(true);
-                    opcionesCama.setAbierto(true);
-                    if (opcionesCama.getOpcionSeleccionada() == 0){
-                            opcionesCama.resetOpcionSeleccionada();
-                            ///AQUI VA LA ACCION A EJECUTAR
+            interfazCama->ajustarEscalaAutomaticamente(Camara, relacion);
+            interfazCama->update(posMouseWorld, inv);
+            if (camaCueva->getDentroDeRango()){
+                if (interfazCama->getCompletado()){
+                    camaCueva->setConstruido(true);
+                    interfazCama->setOculto(true);
+                    opcionesCama->setAbierto(true);
+                    if (opcionesCama->getOpcionSeleccionada() == 0){
+                            opcionesCama->resetOpcionSeleccionada();
+                            int diasPasados = static_cast<int>(_tiempoDiaAcumulado / cicloCompletoSegundos);
+                            float seisAM = 0.25f * cicloCompletoSegundos;
+                            float tiempoObjetivo = (diasPasados * cicloCompletoSegundos) + seisAM;
+
+                            if (tiempoObjetivo <= _tiempoDiaAcumulado)
+                            {
+                                tiempoObjetivo += cicloCompletoSegundos;
+                            }
+                            _tiempoDiaAcumulado = tiempoObjetivo;
+                            character.setVida(100);
+
+                            mostrarTexto("A mimir...", character.getPosition().x, character.getPosition().y, 2000);
                     }
-                    else if (opcionesCama.getOpcionSeleccionada() == 1){
-                        opcionesCama.setAbierto(false);
+                    else if (opcionesCama->getOpcionSeleccionada() == 1){
+                        opcionesCama->setAbierto(false);
                     }
                 }
                 else{
-                    interfazCama.setOculto(false);
-                    opcionesCama.setAbierto(false);
+                    interfazCama->setOculto(false);
+                    opcionesCama->setAbierto(false);
                 }
             }
             else{
-                opcionesCama.resetOpcionSeleccionada();
-                opcionesCama.setAbierto(false);
-                interfazCama.setOculto(true);
+                opcionesCama->resetOpcionSeleccionada();
+                opcionesCama->setAbierto(false);
+                interfazCama->setOculto(true);
             }
 
 
@@ -1295,8 +1308,8 @@ void Game::run()
             opcionesBarcoHuida->ajustarEscalaAutomaticamente(Camara, relacion);
             opcionesBarcoHuida->update(posMouseWorld,inv);
 
-            opcionesCama.ajustarEscalaAutomaticamente(Camara, relacion);
-            opcionesCama.update(posMouseWorld,inv);
+            opcionesCama->ajustarEscalaAutomaticamente(Camara, relacion);
+            opcionesCama->update(posMouseWorld,inv);
 
 
 
@@ -1305,8 +1318,8 @@ void Game::run()
             window.draw(inv);
             window.draw(*interfazBarco);
 
-            window.draw(interfazCama);
-            window.draw(opcionesCama);
+            window.draw(*interfazCama);
+            window.draw(*opcionesCama);
 
             if (cinematicaF.estaReproduciendo())
             {
@@ -1469,6 +1482,8 @@ void Game::guardarPartida()
         j["barco"].push_back(interfazBarco->getCantidadesPagina(i));
     }
 
+    j["cama"] = interfazCama->getCantidadesRestantes();
+
 
     std::ofstream archivo("partida_guardada.json");
     if (archivo.is_open())
@@ -1619,6 +1634,21 @@ void Game::cargarPartida()
             barco->setConstruido(true);
         }
     }
+
+    if (j.contains("cama"))
+{
+    // Convertimos el json array a vector int
+    std::vector<int> cantidadesCama = j["cama"].get<std::vector<int>>();
+
+    // Seteamos las cantidades en la interfaz
+    interfazCama->setCantidadesRestantes(cantidadesCama);
+
+    // Si al cargar ya estaba completada, construimos la cama visualmente
+    if (interfazCama->getCompletado())
+    {
+        camaCueva->setConstruido(true);
+    }
+}
 
     cout << "--- PARTIDA CARGADA EXITOSAMENTE ---" << endl;
 }
