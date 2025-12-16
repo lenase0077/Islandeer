@@ -2,29 +2,14 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="funcionesInterpolacion.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="527" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="TileMap.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="407" topLine="7" />
-		</Cursor>
-	</File>
 	<File name="TileMap.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="325" topLine="1" />
 		</Cursor>
 	</File>
-	<File name="SeleccionRectangulo.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="SelectorDeOpciones.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="347" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="FabricaItems.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
+			<Cursor1 position="3232" topLine="55" />
 		</Cursor>
 	</File>
 	<File name="FabricaEstructuras.h" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
@@ -32,49 +17,44 @@
 			<Cursor1 position="422" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="Horno.cpp" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="669" topLine="18" />
+		</Cursor>
+	</File>
 	<File name="Estructura.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="574" topLine="10" />
 		</Cursor>
 	</File>
-	<File name="Estructura.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+	<File name="Enemigo.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2420" topLine="66" />
+			<Cursor1 position="0" topLine="2" />
 		</Cursor>
 	</File>
-	<File name="Item.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Minimap.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="421" topLine="0" />
+			<Cursor1 position="326" topLine="5" />
 		</Cursor>
 	</File>
-	<File name="InventarioResumidoInterfaz.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Comando.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="838" topLine="0" />
+			<Cursor1 position="760" topLine="24" />
 		</Cursor>
 	</File>
-	<File name="FabricaItems.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Minimap.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3746" topLine="89" />
+			<Cursor1 position="533" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Arboles.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="FabricaItems.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="303" topLine="0" />
+			<Cursor1 position="646" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="FabricaEstructuras.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="SeleccionRectangulo.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2314" topLine="55" />
-		</Cursor>
-	</File>
-	<File name="Funciones.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="253" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Menu_Principal.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1681" topLine="53" />
+			<Cursor1 position="347" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Animal.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -82,14 +62,29 @@
 			<Cursor1 position="1575" topLine="20" />
 		</Cursor>
 	</File>
-	<File name="Herramienta.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Personaje.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="269" topLine="0" />
+			<Cursor1 position="991" topLine="20" />
 		</Cursor>
 	</File>
-	<File name="Funciones.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Arboles.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="477" topLine="0" />
+			<Cursor1 position="303" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Mob.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="430" topLine="7" />
+		</Cursor>
+	</File>
+	<File name="Horno.h" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="156" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="FabricaEstructuras.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2314" topLine="55" />
 		</Cursor>
 	</File>
 	<File name="Animal.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -97,19 +92,39 @@
 			<Cursor1 position="6659" topLine="246" />
 		</Cursor>
 	</File>
-	<File name="Herramienta.h" open="1" top="1" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Arboles.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="347" topLine="0" />
+			<Cursor1 position="614" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Menu_Principal.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="TileMap.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="542" topLine="0" />
+			<Cursor1 position="407" topLine="7" />
 		</Cursor>
 	</File>
-	<File name="Cofre.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="CinematicaFinal.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1394" topLine="12" />
+			<Cursor1 position="551" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="FabricaItems.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="CinematicaFinal.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="342" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="funcionesInterpolacion.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="527" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Personaje.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2077" topLine="43" />
 		</Cursor>
 	</File>
 	<File name="Cofre.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -117,9 +132,19 @@
 			<Cursor1 position="546" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="Cofre.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1394" topLine="12" />
+		</Cursor>
+	</File>
 	<File name="Colisionador.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="336" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Mob.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2991" topLine="26" />
 		</Cursor>
 	</File>
 	<File name="Colisionador.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
@@ -132,44 +157,39 @@
 			<Cursor1 position="176" topLine="3" />
 		</Cursor>
 	</File>
+	<File name="Funciones.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="477" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Funciones.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="253" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="Game.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5480" topLine="169" />
+			<Cursor1 position="5158" topLine="145" />
 		</Cursor>
 	</File>
-	<File name="Enemigo.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
+	<File name="Game.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="2" />
+			<Cursor1 position="856" topLine="11" />
 		</Cursor>
 	</File>
-	<File name="Arboles.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Herramienta.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="614" topLine="0" />
+			<Cursor1 position="648" topLine="1" />
 		</Cursor>
 	</File>
-	<File name="Comando.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="InterfazBarcoHuida.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="760" topLine="24" />
+			<Cursor1 position="11631" topLine="282" />
 		</Cursor>
 	</File>
-	<File name="Game.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+	<File name="InterfazBarcoHuida.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="826" topLine="6" />
-		</Cursor>
-	</File>
-	<File name="Mob.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="430" topLine="7" />
-		</Cursor>
-	</File>
-	<File name="Horno.cpp" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="669" topLine="18" />
-		</Cursor>
-	</File>
-	<File name="Horno.h" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="156" topLine="0" />
+			<Cursor1 position="1009" topLine="7" />
 		</Cursor>
 	</File>
 	<File name="InventarioIntefaz.cpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -182,24 +202,39 @@
 			<Cursor1 position="3217" topLine="61" />
 		</Cursor>
 	</File>
-	<File name="Minimap.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="533" topLine="0" />
-		</Cursor>
-	</File>
 	<File name="InventarioResumidoInterfaz.cpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="5677" topLine="149" />
 		</Cursor>
 	</File>
-	<File name="Mob.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="InventarioResumidoInterfaz.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2991" topLine="26" />
+			<Cursor1 position="838" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Item.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Item.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="311" topLine="0" />
+			<Cursor1 position="213" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Item.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1154" topLine="20" />
+		</Cursor>
+	</File>
+	<File name="Menu_Principal.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1681" topLine="53" />
+		</Cursor>
+	</File>
+	<File name="ItemDescripcion.cpp" open="1" top="1" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2836" topLine="27" />
+		</Cursor>
+	</File>
+	<File name="ItemDescripcion.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="998" topLine="6" />
 		</Cursor>
 	</File>
 	<File name="Loot.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
@@ -212,9 +247,14 @@
 			<Cursor1 position="523" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="Menu_Principal.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4462" topLine="147" />
+		</Cursor>
+	</File>
 	<File name="MesaDeCrafteo.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="6333" topLine="184" />
+			<Cursor1 position="87" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="MesaDeCrafteo.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
@@ -222,19 +262,9 @@
 			<Cursor1 position="488" topLine="4" />
 		</Cursor>
 	</File>
-	<File name="Minimap.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Estructura.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="326" topLine="5" />
-		</Cursor>
-	</File>
-	<File name="Personaje.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1058" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Personaje.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2628" topLine="57" />
+			<Cursor1 position="2420" topLine="66" />
 		</Cursor>
 	</File>
 	<File name="Raton.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -245,7 +275,7 @@
 	<Target name="Debug" top="">
 		<File name="Personaje.cpp" />
 		<File name="Personaje.h" />
-		<File name="Game.h" />
 		<File name="Game.cpp" />
+		<File name="Game.h" />
 	</Target>
 </CodeBlocks_layout_file>

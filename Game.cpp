@@ -153,7 +153,7 @@ void Game::run()
 /// ======================== Barco huida =========================///
     BarcoHuida barco(100*32,130*32,texturaBarcoHuida);
     InterfazBarcoHuida interfazBarco(texturaInterfazBarcoHuida, texturaBotonesInterfazBarco, fuentePixelArt,fabItems);
-    SelectorDeOpciones opcionesBarcoHuida("�Quieres retirarte de la isla?",fuentePixelArt);
+    SelectorDeOpciones opcionesBarcoHuida("Quieres retirarte de la isla?",fuentePixelArt);
     opcionesBarcoHuida.agregarOpcion("SI, no banco mas esto.");
     opcionesBarcoHuida.agregarOpcion("NO, no quiero volver a latam.");
 
@@ -192,10 +192,10 @@ void Game::run()
     _sonidoComer.setVolume(_menuPrincipal.getVolumen());
 
     if (!_bufferHacha.loadFromFile("sonidos/hacha.wav")) cout << "Falta hacha.wav" << endl;
-    if (!_bufferPico.loadFromFile("sonidos/mining.wav")) cout << "Falta mining.wav" << endl;
+    if (!_bufferPico.loadFromFile("sonidos/minar.wav")) cout << "Falta minar.wav" << endl;
     if (!_bufferEspada.loadFromFile("sonidos/hit.wav")) cout << "Falta hit.wav" << endl;
 
-    _sonidoHerramienta.setVolume(_menuPrincipal.getVolumen());
+    _sonidoHerramienta.setVolume(_menuPrincipal.getVolumen() + 20);
 
 
 
