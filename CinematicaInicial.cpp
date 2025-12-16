@@ -30,6 +30,29 @@ CinematicaInicial::CinematicaInicial(const sf::Texture& texturaPersonaje, const 
     _sprTurbina.setTextureRect({0,0,47,33});
     _sprTurbina.setOrigin(42,4);
     _sprTurbina.setPosition(_sprAvion.getPosition().x + 292,_sprAvion.getPosition().y + 82);
+
+    /*
+    sf::SoundBuffer _bufferSonidoImpacto;
+    sf::SoundBuffer _bufferSonidoGrito;
+    sf::Sound _sonidoImpacto;
+    sf::Sound _sonidoGrito;
+    */
+
+    if (!_bufferSonidoImpacto.loadFromFile("SonidoImpacto.wav"))
+    {
+        cout << "no se pudo cargar el audio SonidoImpacto.wav" << endl;
+    }
+
+    if (!_bufferSonidoGrito.loadFromFile("GritoPersonaje.wav"))
+    {
+        cout << "no se pudo cargar el audio GritoPersonaje.wav" << endl;
+    }
+
+    _sonidoImpacto.setBuffer(_bufferSonidoImpacto);
+    _sonidoGrito.setBuffer(_bufferSonidoGrito);
+
+    _sonidoImpacto.setVolume(2);
+    _sonidoGrito.setVolume(2);
 }
 void CinematicaInicial::update()
 {
@@ -95,7 +118,7 @@ void CinematicaInicial::update()
                 _sprTurbina.setPosition(_sprAvion.getPosition().x + 292 + (sin(_incSeno) * 4),_sprAvion.getPosition().y + 82 + (sin(_incSeno2) * 2));
 
                 //personaje asustandose
-                _sprPersonaje.setPosition(_sprAvion.getPosition().x + 176,_sprAvion.getPosition().y + 46 + (sin(_incSeno2) * 2));
+                _sprPersonaje.setPosition(_sprAvion.getPosition().x + 176,_sprAvion.getPosition().y + 46 + (sin(_incSeno2) * 1));
 
                 if (_sprNubes.getPosition().x < 700){
                         _sprNubes.setPosition(_sprNubes.getPosition().x + 1.8, _sprNubes.getPosition().y);
@@ -123,7 +146,7 @@ void CinematicaInicial::update()
                 _sprTurbina.setRotation(-45);
 
                 //personaje asustandose
-                _sprPersonaje.setPosition(_sprAvion.getPosition().x + 176,_sprAvion.getPosition().y + 46 + (sin(_incSeno2) * 2 * _movimientoAvion));
+                _sprPersonaje.setPosition(_sprAvion.getPosition().x + 176,_sprAvion.getPosition().y + 46 + (sin(_incSeno2) * 1 * _movimientoAvion));
 
                 if (_sprNubes.getPosition().x < 700){
                         _sprNubes.setPosition(_sprNubes.getPosition().x + 1.8 * _movimientoAvion, _sprNubes.getPosition().y);
@@ -135,11 +158,12 @@ void CinematicaInicial::update()
             else{
                     _etapaAnimacion++;
                     _tiempoEnEtapa.restart();
+                    _sonidoGrito.play();
             }
 
     }
     else if(_etapaAnimacion == 4){///El avion cae y el personaje grita
-            if (_tiempoEnEtapa.getElapsedTime().asSeconds() < 10){
+            if (_tiempoEnEtapa.getElapsedTime().asSeconds() < 6){
                 lerp(_movimientoAvion, 0, 0.02);
 
                 _sprAvion.setPosition(_sprAvion.getPosition().x, _sprAvion.getPosition().y + 3);
@@ -147,7 +171,7 @@ void CinematicaInicial::update()
                 _sprAvionFondo.setPosition(_sprAvion.getPosition());
 
                 //personaje asustandose
-                _sprPersonaje.setPosition(_sprAvion.getPosition().x + 176,_sprAvion.getPosition().y + 46 + (sin(_incSeno2) * 2));
+                _sprPersonaje.setPosition(_sprAvion.getPosition().x + 176,_sprAvion.getPosition().y + 46 + (sin(_incSeno2) * 1));
 
                 if (_sprNubes.getPosition().x < 700){
                         _sprNubes.setPosition(_sprNubes.getPosition().x + 1.8 * _movimientoAvion, _sprNubes.getPosition().y);
@@ -160,19 +184,12 @@ void CinematicaInicial::update()
                     _etapaAnimacion++;
                     _tiempoEnEtapa.restart();
                     ///FINAL
+                    _sonidoImpacto.play();
                     _completado = true;
                     _reproducir = false;
             }
 
     }
-
-
-    /*
-    else{
-        cout << "Completado" << endl;
-        _reproducir = false;
-        _completado = true;
-    }*/
 
 }
 void CinematicaInicial::ajustarEscalaAutomaticamente(const sf::View& vista, const float& relacionAspecto)
@@ -208,5 +225,11 @@ bool CinematicaInicial::estaReproduciendo()
     return _reproducir;
 }
 void CinematicaInicial::reproducir(){
+    cout << "la cinematica inicial se esta reproduciendo" <<endl;
+    _tiempoEnEtapa.restart();
     _reproducir = true;
+}
+void CinematicaInicial::setVolumen(int volumen){///esto es adaptado al codigo y hecho lo ideal seria que todos usemos un porcentaje
+    _sonidoImpacto.setVolume(volumen);
+    _sonidoGrito.setVolume(volumen);
 }

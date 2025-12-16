@@ -1027,7 +1027,6 @@ void Game::run()
                     }
                     else if(opcionesBarcoHuida->getOpcionSeleccionada() == 1)
                     {
-                        opcionesBarcoHuida->resetOpcionSeleccionada();
                         opcionesBarcoHuida->setAbierto(false);
                     }
                 }
@@ -1048,6 +1047,12 @@ void Game::run()
             opcionesBarcoHuida->ajustarEscalaAutomaticamente(Camara, relacion);
             opcionesBarcoHuida->update(posMouseWorld,inv);
 
+            ///Interfaces
+            window.draw(inventarioCofre);
+            window.draw(inv);
+            window.draw(*interfazBarco);
+
+            //Cinematicas
             if (cinematicaF.estaReproduciendo()){
                 opcionesBarcoHuida->setAbierto(false);
                 cinematicaF.update();
@@ -1061,34 +1066,22 @@ void Game::run()
             }
 
             if(cinematicaIni.estaReproduciendo()){
+                cinematicaIni.setVolumen(volumenActual);
                 cinematicaIni.ajustarEscalaAutomaticamente(Camara, relacion);
                 cinematicaIni.update();
                 window.draw(cinematicaIni);
             }
 
-            window.draw(inventarioCofre);
-
-            window.draw(inv);
-            window.draw(*interfazBarco);
-
-
-
-
-
-
-
             window.setView(window.getDefaultView());
 
-            window.draw(_textoFPS);
+            if (!cinematicaF.estaReproduciendo() && !cinematicaIni.estaReproduciendo()){
+                window.draw(_textoFPS);
+                window.draw(_interfazEstado);
+                //window.draw(nightOverlay);
+                window.draw(_minimap);
+                window.draw(textReloj);
+            }
 
-            window.draw(_interfazEstado);
-
-
-//            window.draw(nightOverlay);
-
-            window.draw(_minimap);
-
-            window.draw(textReloj);
 
             if (_enTransicion)
             {

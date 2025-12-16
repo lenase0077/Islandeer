@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 class CinematicaInicial : public sf::Transformable, public sf::Drawable
 {
@@ -17,6 +18,13 @@ private:
     int _etapaAnimacion = 0;
     float _movimientoAvion = 1;
     sf::Clock _tiempoEnEtapa;
+
+    //Sonidos:
+    sf::SoundBuffer _bufferSonidoImpacto;
+    sf::SoundBuffer _bufferSonidoGrito;
+    sf::Sound _sonidoImpacto;
+    sf::Sound _sonidoGrito;
+
 public:
     CinematicaInicial(const sf::Texture& texturaPersonaje, const sf::Texture& texturaAvion, const sf::Texture& texturaTurbina, const sf::Texture& texturaNubes);
     void update();
@@ -25,4 +33,5 @@ public:
     bool getCompletado();
     bool estaReproduciendo();
     void reproducir();
+    void setVolumen(int volumen);
 };
