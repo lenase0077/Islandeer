@@ -8,6 +8,7 @@ enum class SonidoHerramienta { NINGUNO, HACHA, PICO, ESPADA };
 class Herramienta : public Item {
 private:
     float _durabilidad;
+    float _durabilidadMaxima;
     float _danioBase;
     std::map<TipoMaterial, float> _multiplicadores; // Eficiencia contra materiales basicamente
         SonidoHerramienta _tipoSonido;
@@ -25,4 +26,5 @@ public:
     bool estaRota() const override;
         void setTipoSonido(SonidoHerramienta tipo);
     SonidoHerramienta getTipoSonido() const;
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

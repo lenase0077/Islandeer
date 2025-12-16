@@ -13,16 +13,19 @@ private:
     int _cantidad;
     float _posX, _posY;
 
-    sf::Sprite sprItem;
     sf::Text _textoCantidad;
     std::string _descripcion;
     std::string _titulo;
 
     nlohmann::json ConfiguracionItems;
     std::string _contenidoParaJson;
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
     static sf::Font _fuenteTextoCantidad;
+
+protected:
+        sf::Sprite sprItem;
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
 
 public:
     /// Constructores
