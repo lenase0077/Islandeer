@@ -346,7 +346,13 @@ void Game::run()
                 _listaCultivos.clear();
                 listaLoots.clear();
 
-                _tiempoDiaAcumulado = 0;
+                int horaRandom = 6 + (rand() % 13);
+
+                float porcentajeDia = horaRandom / 24.0f;
+
+                _tiempoDiaAcumulado = porcentajeDia * cicloCompletoSegundos;
+
+
 
                 Camara.setCenter(posX, posY);
 
