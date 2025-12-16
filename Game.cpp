@@ -102,6 +102,7 @@ void Game::run()
     inv.agregarItem(32,16);
     inv.agregarItem(33,16);
     inv.agregarItem(28,1);
+    inv.agregarItem(42,1);
 
 
     inv.agregarItem(25,16);
@@ -151,11 +152,14 @@ void Game::run()
     float hambrePorSegundo = 0.5f;
 
 /// ======================== Barco huida =========================///
-    BarcoHuida barco(100*32,130*32,texturaBarcoHuida);
-    InterfazBarcoHuida interfazBarco(texturaInterfazBarcoHuida, texturaBotonesInterfazBarco, fuentePixelArt,fabItems);
-    SelectorDeOpciones opcionesBarcoHuida("Quieres retirarte de la isla?",fuentePixelArt);
-    opcionesBarcoHuida.agregarOpcion("SI, no banco mas esto.");
-    opcionesBarcoHuida.agregarOpcion("NO, no quiero volver a latam.");
+    barco = std::make_unique<BarcoHuida>(100*32, 130*32, texturaBarcoHuida);
+
+    interfazBarco = std::make_unique<InterfazBarcoHuida>(texturaInterfazBarcoHuida, texturaBotonesInterfazBarco, fuentePixelArt, fabItems);
+
+
+    opcionesBarcoHuida = std::make_unique<SelectorDeOpciones>("¿Quieres retirarte de la isla?", fuentePixelArt);
+    opcionesBarcoHuida->agregarOpcion("SI, no banco mas esto.");
+    opcionesBarcoHuida->agregarOpcion("NO, no quiero volver a latam.");
 
 
 
@@ -266,7 +270,6 @@ void Game::run()
 
             if (opcion == OpcionMenu::Jugar)
             {
-                cargar(character);
                 cout << "Anotacion de Lean - Estado jugar carga el personaje" << endl;
 
                 _estadoActual = EstadoJuego::Jugando;
@@ -301,7 +304,7 @@ void Game::run()
                 _fadeAlpha = 0.0f;
                 _estadoFade = 1;
 
-                mostrarTexto("Necesito salir de aqui" , character.getPosition().x - 10, character.getPosition().y - 10, 5000);
+                mostrarTexto("Necesito salir de aqui", character.getPosition().x - 10, character.getPosition().y - 10, 5000);
 
 
 
@@ -313,6 +316,21 @@ void Game::run()
             {
                 guardar(character);
                 cout << "Partida guardada desde el Menu de Opciones" << endl;
+            }
+
+            else if (opcion == OpcionMenu::Cargar)
+            {
+                cargarPartida();
+
+                _estadoActual = EstadoJuego::Jugando;
+                _menuPrincipal.detenerMusica();
+                sonido.setVolume(_menuPrincipal.getVolumen());
+                sonido.play();
+                _menuPrincipal.actualizar(posMouse);
+                _relojInterno.restart();
+
+
+                cout << "Partida cargada desde el Menu de Opciones" << endl;
             }
 
             else if (opcion == OpcionMenu::Salir)
@@ -965,31 +983,37 @@ void Game::run()
             barco.update(PosicionJugador);
 
             window.draw(invR);
-             ///Logica interfazBarco
-            interfazBarco.ajustarEscalaAutomaticamente(Camara, relacion);
-            interfazBarco.update(posMouseWorld, inv);
-            interfazBarco.setVolumen(volumenActual);
-            if (barco.getDentroDeRango()){
-                    if (interfazBarco.getCompletado()){
-                        barco.setConstruido(true);
-                        opcionesBarcoHuida.setAbierto(true);
-                        interfazBarco.setOculto(true);
-                        if(opcionesBarcoHuida.getOpcionSeleccionada() == 0){
-                            window.close();
-                        }
-                        else if(opcionesBarcoHuida.getOpcionSeleccionada() == 1){
-                                opcionesBarcoHuida.setAbierto(false);
-                        }
+            ///Logica interfazBarco
+            interfazBarco->ajustarEscalaAutomaticamente(Camara, relacion);
+            interfazBarco->update(posMouseWorld, inv);
+            interfazBarco->setVolumen(volumenActual);
+            if (barco->getDentroDeRango())
+            {
+                if (interfazBarco->getCompletado())
+                {
+                    barco->setConstruido(true);
+                    opcionesBarcoHuida->setAbierto(true);
+                    interfazBarco->setOculto(true);
+                    if(opcionesBarcoHuida->getOpcionSeleccionada() == 0)
+                    {
+                        window.close();
                     }
-                    else{
-                        opcionesBarcoHuida.setAbierto(false);
-                        interfazBarco.setOculto(false);
+                    else if(opcionesBarcoHuida->getOpcionSeleccionada() == 1)
+                    {
+                        opcionesBarcoHuida->setAbierto(false);
                     }
-                    }
-            else {
-                opcionesBarcoHuida.resetOpcionSeleccionada();
-                interfazBarco.setOculto(true);
-                opcionesBarcoHuida.setAbierto(false);
+                }
+                else
+                {
+                    opcionesBarcoHuida->setAbierto(false);
+                    interfazBarco->setOculto(false);
+                }
+            }
+            else
+            {
+                opcionesBarcoHuida->resetOpcionSeleccionada();
+                interfazBarco->setOculto(true);
+                opcionesBarcoHuida->setAbierto(false);
             }
 
             //================================
@@ -999,10 +1023,10 @@ void Game::run()
             window.draw(inventarioCofre);
 
             window.draw(inv);
-                        window.draw(interfazBarco);
+            window.draw(*interfazBarco);
 
 
-            window.draw(opcionesBarcoHuida);
+            window.draw(*opcionesBarcoHuida);
 
 
             window.setView(window.getDefaultView());
