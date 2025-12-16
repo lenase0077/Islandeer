@@ -56,6 +56,39 @@ void Game::run()
         cout << "ERROR AL CARGAR botonesInterfazBarco.png" << endl;
     }
 
+    sf::Texture texturaAguaCinematica;
+    if (!texturaAguaCinematica.loadFromFile("AguaCinematica.png"))
+    {
+        std::cout << "Error cargando textura AguaCinematica.png" << std::endl;
+    }
+
+    sf::Texture texturaPersonaje;
+    if (!texturaPersonaje.loadFromFile("Personaje.png"))
+    {
+        std::cout << "Error cargando textura Personaje.png" << std::endl;
+    }
+
+    sf::Texture texturaAvion;
+    if (!texturaAvion.loadFromFile("Avion-Sheet.png"))
+    {
+        std::cout << "Error cargando textura Avion-Sheet.png" << std::endl;
+    }
+
+    sf::Texture texturaAvionTurbina;
+    if (!texturaAvionTurbina.loadFromFile("turbina-Sheet.png"))
+    {
+        std::cout << "Error cargando textura turbina-Sheet.png" << std::endl;
+    }
+
+    sf::Texture texturaNube;
+    if (!texturaNube.loadFromFile("Nube.png"))
+    {
+        std::cout << "Error cargando textura Nube.png" << std::endl;
+    }
+
+
+    texturaAguaCinematica.setRepeated(true);
+
     if (!fontReloj.loadFromFile("PIXEARG_.TTF"))
     {
         cout << "Error al cargar PIXEARG_.TTF" << endl;
@@ -101,7 +134,6 @@ void Game::run()
     inv.agregarItem(32,16);
     inv.agregarItem(33,16);
     inv.agregarItem(28,1);
-    inv.agregarItem(42,1);
 
 
     inv.agregarItem(25,16);
@@ -159,6 +191,11 @@ void Game::run()
     opcionesBarcoHuida = std::make_unique<SelectorDeOpciones>("¿Quieres retirarte de la isla?", fuentePixelArt);
     opcionesBarcoHuida->agregarOpcion("SI, no banco mas esto.");
     opcionesBarcoHuida->agregarOpcion("NO, no quiero volver a latam.");
+
+
+/// ======================== Cinematicas =========================///
+    CinematicaInicial cinematicaIni( texturaPersonaje, texturaAvion, texturaAvionTurbina, texturaNube);
+    CinematicaFinal cinematicaF( texturaPersonaje,texturaBarcoHuida, texturaAguaCinematica, fuentePixelArt, "==========\n ISLANDER \n==========\n Desarrollado por los estudiantes: \n -Leandro Serrano. \n -Alejo Martinez. \n -Sebastian Durazzini. \n -Daniel Raho.");
 
 
 
@@ -269,6 +306,7 @@ void Game::run()
 
             if (opcion == OpcionMenu::Jugar)
             {
+                cargarPartida();
                 cout << "Anotacion de Lean - Estado jugar carga el personaje" << endl;
 
                 _estadoActual = EstadoJuego::Jugando;
@@ -304,7 +342,7 @@ void Game::run()
                 _estadoFade = 1;
 
                 mostrarTexto("Necesito salir de aqui", character.getPosition().x - 10, character.getPosition().y - 10, 5000);
-
+                cinematicaIni.reproducir();
 
 
 
@@ -315,21 +353,6 @@ void Game::run()
             {
                 guardarPartida();
                 cout << "Partida guardada desde el Menu de Opciones" << endl;
-            }
-
-            else if (opcion == OpcionMenu::Cargar)
-            {
-                cargarPartida();
-
-                _estadoActual = EstadoJuego::Jugando;
-                _menuPrincipal.detenerMusica();
-                sonido.setVolume(_menuPrincipal.getVolumen());
-                sonido.play();
-                _menuPrincipal.actualizar(posMouse);
-                _relojInterno.restart();
-
-
-                cout << "Partida cargada desde el Menu de Opciones" << endl;
             }
 
             else if (opcion == OpcionMenu::Salir)
@@ -987,6 +1010,9 @@ void Game::run()
             interfazBarco->ajustarEscalaAutomaticamente(Camara, relacion);
             interfazBarco->update(posMouseWorld, inv);
             interfazBarco->setVolumen(volumenActual);
+
+            cinematicaF.ajustarEscalaAutomaticamente(Camara,relacion);
+
             if (barco->getDentroDeRango())
             {
                 if (interfazBarco->getCompletado())
@@ -996,7 +1022,8 @@ void Game::run()
                     interfazBarco->setOculto(true);
                     if(opcionesBarcoHuida->getOpcionSeleccionada() == 0)
                     {
-                        window.close();
+                        opcionesBarcoHuida->resetOpcionSeleccionada();
+                        cinematicaF.reproducir();
                     }
                     else if(opcionesBarcoHuida->getOpcionSeleccionada() == 1)
                     {
@@ -1020,27 +1047,41 @@ void Game::run()
             opcionesBarcoHuida->ajustarEscalaAutomaticamente(Camara, relacion);
             opcionesBarcoHuida->update(posMouseWorld,inv);
 
+            ///Interfaces
             window.draw(inventarioCofre);
-
             window.draw(inv);
             window.draw(*interfazBarco);
 
+            //Cinematicas
+            if (cinematicaF.estaReproduciendo()){
+                opcionesBarcoHuida->setAbierto(false);
+                cinematicaF.update();
+                window.draw(cinematicaF);
+            }
+            else if (cinematicaF.getCompletado()){
+                window.close();
+            }
+            else{
+                window.draw(*opcionesBarcoHuida);
+            }
 
-            window.draw(*opcionesBarcoHuida);
-
+            if(cinematicaIni.estaReproduciendo()){
+                cinematicaIni.setVolumen(volumenActual);
+                cinematicaIni.ajustarEscalaAutomaticamente(Camara, relacion);
+                cinematicaIni.update();
+                window.draw(cinematicaIni);
+            }
 
             window.setView(window.getDefaultView());
 
-            window.draw(_textoFPS);
+            if (!cinematicaF.estaReproduciendo() && !cinematicaIni.estaReproduciendo()){
+                window.draw(_textoFPS);
+                window.draw(_interfazEstado);
+                //window.draw(nightOverlay);
+                window.draw(_minimap);
+                window.draw(textReloj);
+            }
 
-            window.draw(_interfazEstado);
-
-
-//            window.draw(nightOverlay);
-
-            window.draw(_minimap);
-
-            window.draw(textReloj);
 
             if (_enTransicion)
             {
