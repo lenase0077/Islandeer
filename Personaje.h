@@ -63,6 +63,8 @@ class Personaje: public sf::Drawable , public sf::Transformable
 
         void recibirDanio(float danio);
 
+        void curarVeneno();
+
     private:
         float _acumuladorEnergia = 0;
         bool _tocoEnemigo = false;

@@ -61,8 +61,6 @@ class Game
         void colocarEstructura(sf::Vector2f posMouseWorld, InventarioInterfaz& inv, std::list<std::unique_ptr<Estructura>>& lista);
         void spawnearEnemigoIndividual(std::list<std::unique_ptr<Mob>>& listaEnemigos);
 
-
-
         FabricaItems fabItems;
         InventarioInterfaz inv;
 

@@ -739,3 +739,11 @@ void Personaje::recibirDanio(float danio)
     _sprite.setColor(sf::Color::Red);
     _tiempoDanioRojo = 0.5f; // Medio segundo de color rojo/invulnerabilidad
 }
+
+void Personaje::curarVeneno()
+{
+    _tiempoVenenoRestante = 0;
+    _acumuladorDanioVeneno = 0;
+
+    _sprite.setColor(sf::Color::White);
+}
