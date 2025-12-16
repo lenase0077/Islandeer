@@ -128,12 +128,13 @@ std::unique_ptr<Estructura> FabricaEstructuras::crearEstructura(float x, float y
         estructuraCreada -> setVida(1);
         if (rand()%2 == 0)
         {
-            vectorLootIDs.push_back(27);
+            insertarLootEntre(27,vectorLootIDs,1,1);
         }
         else
         {
-            vectorLootIDs.push_back(31);
+            insertarLootEntre(31,vectorLootIDs,1,1);
         }
+        estructuraCreada -> setLootsIDs(vectorLootIDs);
     }
     return estructuraCreada;
 }

@@ -34,6 +34,9 @@ private:
     sf::Texture _texturaBotonVolver;
     sf::Texture _texturaBotonGuardar;
     sf::Texture _texturaBotonCargar;
+    sf::Texture _texturaTituloVolumen;
+    sf::Texture _texturaBotonMas;
+    sf::Texture _texturaBotonMenos;
     sf::Texture _background;
 
     sf::Image _imagenLogo;
@@ -45,6 +48,9 @@ private:
     sf::Image _imagenVolver;
     sf::Image _imagenBotonCargar;
     sf::Image _imagenGuardar;
+    sf::Image _imagenBotonMas;
+    sf::Image _imagenBotonMenos;
+    sf::Image _imagenBotonVolumen;
 
     sf::Sprite _spriteLogo;
     sf::Sprite _spriteBotonNuevaPartida;
@@ -56,6 +62,9 @@ private:
     sf::Sprite _spriteBotonGuardar;
     sf::Sprite _spriteBackground;
     sf::Sprite _spriteBotonCargar;
+    sf::Sprite _spriteTituloVolumen;
+    sf::Sprite _spriteBotonMas;
+    sf::Sprite _spriteBotonMenos;
 
     sf::SoundBuffer bufferStardew;
     sf::Sound sonidoStardew;
@@ -79,6 +88,11 @@ private:
     float _rotacionBotonVolver = 0.0f;
     float _rotacionBotonGuardar = 0.0f;
     float _rotacionBotonCargar = 0.0f;
+
+    float _escalaBotonMas = 1.0f;
+    float _escalaBotonMenos = 1.0f;
+    float _rotacionBotonMas = 0.0f;
+    float _rotacionBotonMenos = 0.0f;
 
     sf::Font _fuente;
     sf::Text _textoTituloVolumen;
