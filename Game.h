@@ -31,6 +31,8 @@
 #include "BarcoHuida.h"
 #include "InterfazBarcoHuida.h"
 #include "SelectorDeOpciones.h"
+#include "CinematicaFinal.h"
+#include "CinematicaInicial.h"
 
 
 class Game
@@ -38,8 +40,8 @@ class Game
     public:
         Game();
         void run();
-        void guardar(Personaje &character);
-        void cargar (Personaje &character);
+        void guardarPartida();
+        void cargarPartida();
         sf::Clock getRelojInterno();
         sf::Texture _texturaCultivos;
         std::list<std::unique_ptr<cultivo>> _listaCultivos;
@@ -57,6 +59,24 @@ class Game
         void mostrarTexto (std::string mensaje, float x, float y);
         void mostrarTexto (std::string mensaje, float x, float y, float duracion);
         void colocarEstructura(sf::Vector2f posMouseWorld, InventarioInterfaz& inv, std::list<std::unique_ptr<Estructura>>& lista);
+
+
+        FabricaItems fabItems;
+        InventarioInterfaz inv;
+
+        std::unique_ptr<BarcoHuida> barco;
+        std::unique_ptr<InterfazBarcoHuida> interfazBarco;
+        std::unique_ptr<SelectorDeOpciones> opcionesBarcoHuida;
+
+        sf::Texture texturaBarcoHuida;
+        sf::Texture texturaInterfazBarcoHuida;
+        sf::Texture texturaBotonesInterfazBarco;
+        sf::Font fuentePixelArt;
+
+
+
+
+
     private:
         sf::Text _textoFPS;
         float _tiempoFPS = 0.0f;
@@ -65,12 +85,6 @@ class Game
 
         sf::SoundBuffer _bufferComer;
         sf::Sound _sonidoComer;
-
-        sf::SoundBuffer _bufferHacha;
-        sf::SoundBuffer _bufferPico;
-        sf::SoundBuffer _bufferEspada;
-
-        sf::Sound _sonidoHerramienta;
 
         sf::Texture _texturaPersonaje;
         Personaje character;
@@ -85,6 +99,7 @@ class Game
         TileMap mapa;
         float _tiempoDiaAcumulado = 0;
         sf::View Camara;
+
 
 
         //==== DIA Y NOCHE===//

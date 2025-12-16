@@ -23,4 +23,15 @@ public:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     sf::FloatRect getBounds() const;
     bool estaMaduro() const;
+
+    int getIDSemilla() const { return _idSemilla; }
+    int getFase() const { return _faseDeCrecimiento; }
+    float getTiempoAcumulado() const { return _tiempoAcumulado; }
+
+    void setFase(int fase) { _faseDeCrecimiento = fase; }
+    void setTiempoAcumulado(float tiempo) { _tiempoAcumulado = tiempo; }
+
+    void actualizarSpriteSegunCrecimiento();
+
+
 };

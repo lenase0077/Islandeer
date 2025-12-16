@@ -73,9 +73,6 @@ class Personaje: public sf::Drawable , public sf::Transformable
         sf::Sprite _sprite;
         Espada _espada;
 
-        sf::SoundBuffer _bufferPoderDorado;
-        sf::Sound _sonidoPoderDorado;
-
         float _hambre;
         float _hambreMaxima;
         float _acumuladorHambre = 0;

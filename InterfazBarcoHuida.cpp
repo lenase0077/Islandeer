@@ -25,7 +25,7 @@ InterfazBarcoHuida::InterfazBarcoHuida(const sf::Texture& texturaFondoInterfaz, 
     _bordeSeleccion.setOutlineColor(sf::Color::White);
 
     //Audio subrayado
-    if (!_bufferSonidoLapiz.loadFromFile("Sonidos/SonidoLapiz.wav"))
+    if (!_bufferSonidoLapiz.loadFromFile("SonidoLapiz.wav"))
     {
         cout << "no se pudo cargar el audio SonidoLapiz.wav" << endl;
     }
@@ -377,5 +377,41 @@ void InterfazBarcoHuida::ajustarEscalaAutomaticamente(const sf::View& vista, con
         textoExigenciaAnalizado.setPosition(215 - textoExigenciaAnalizado.getGlobalBounds().width, 86 + fila*32);
         fila++;
     }
+}
+
+const std::vector<int>& InterfazBarcoHuida::getCantidadesPagina(int pagina) const
+{
+    return _cantidadNecesaria[pagina];
+}
+
+void InterfazBarcoHuida::setCantidadesPagina(int pagina, const std::vector<int>& datosCargados)
+{
+    if (pagina >= 0 && pagina < 4)
+    {
+        _cantidadNecesaria[pagina] = datosCargados;
+    }
+}
+
+void InterfazBarcoHuida::recalcularEstadoCompletado()
+{
+    // Revisamos las 4 páginas
+    int paginasOK = 0;
+    for (int p = 0; p < 4; p++)
+    {
+        bool pagCompleta = true;
+        // Revisamos cada item de la página
+        for (int cantidad : _cantidadNecesaria[p])
+        {
+            if (cantidad > 0)
+            {
+                pagCompleta = false;
+                break;
+            }
+        }
+        _paginaCompletada[p] = pagCompleta;
+        if (pagCompleta) paginasOK++;
+    }
+
+    _completado = (paginasOK == 4);
 }
 

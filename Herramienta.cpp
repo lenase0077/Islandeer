@@ -5,7 +5,6 @@ Herramienta::Herramienta(sf::Texture& textura, int id, float durabilidad, float 
 {
     _durabilidad = durabilidad;
     _danioBase = danioBase;
-    _tipoSonido = SonidoHerramienta::NINGUNO;
 }
 
 void Herramienta::agregarMultiplicador(TipoMaterial material, float valor) {
@@ -21,14 +20,6 @@ float Herramienta::obtenerFuerza(TipoMaterial material) const {
 
 void Herramienta::usar() {
     _durabilidad -= 1.0f;
-}
-
-void Herramienta::setTipoSonido(SonidoHerramienta tipo) {
-    _tipoSonido = tipo;
-}
-
-SonidoHerramienta Herramienta::getTipoSonido() const {
-    return _tipoSonido;
 }
 
 bool Herramienta::estaRota() const {
