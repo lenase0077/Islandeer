@@ -10,6 +10,7 @@ class Herramienta : public Item {
 private:
     float _durabilidad;
     float _danioBase;
+    float _durabilidadMaxima;
     std::map<TipoMaterial, float> _multiplicadores; // Eficiencia contra materiales basicamente
     SonidoHerramienta _tipoSonido;
 
@@ -19,8 +20,9 @@ public:
     void agregarMultiplicador(TipoMaterial material, float valor);
     void setTipoSonido(SonidoHerramienta tipo);
     SonidoHerramienta getTipoSonido() const;
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-    // === POLIFORMISMO ALE ACA SOBREESCRIBO (jeje sabia que tenias curiosidad) (OVERRIDE) ===
+    // === POLIFORMISMO ALE ACA SOBREESCRIBO (jeje sabia que tenias curiosidad) ===
 
     float obtenerFuerza(TipoMaterial material) const override;
     void usar() override;

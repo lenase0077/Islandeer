@@ -302,7 +302,18 @@ void Game::run()
                 _listaCultivos.clear();
                 listaLoots.clear();
 
-                _tiempoDiaAcumulado = 0;
+                int minInicio = 6 * 60;
+                int minFin = 18 * 60;
+
+                int momento_aleatorio = minInicio + (rand() % (minFin - minInicio));
+                float porcentajeDia = momento_aleatorio / 1440.0f;
+                _tiempoDiaAcumulado = porcentajeDia * cicloCompletoSegundos;
+
+                cout << "Tiempo aleatorio" << (momento_aleatorio / 60) << ":" << (momento_aleatorio % 60) << endl;
+
+
+
+
 
                 Camara.setCenter(posX, posY);
 
@@ -747,6 +758,13 @@ void Game::run()
                         cout << "¡Hit! Daño: " << danioFinal << endl;
                         mostrarTexto("Toma Wacha", character.getPosition().x, character.getPosition().y - 10, 2000);
 
+                        _sonidoHerramienta.setBuffer(_bufferEspada);
+
+                        float pitch = 0.9f + static_cast<float>(rand() % 20) / 100.0f;
+                        _sonidoHerramienta.setPitch(pitch);
+                        _sonidoHerramienta.play();
+
+
                         // --- KNOCKBACK FUERTE POR GOLPE ---
                         sf::Vector2f empujeGolpe = animal->getPosition() - character.getPosition();
                         float mag = sqrt(empujeGolpe.x*empujeGolpe.x + empujeGolpe.y*empujeGolpe.y);
@@ -1021,7 +1039,7 @@ void Game::run()
             window.draw(_interfazEstado);
 
 
-//            window.draw(nightOverlay);
+            window.draw(nightOverlay);
 
             window.draw(_minimap);
 
