@@ -7,6 +7,7 @@ using namespace std;
 Game::Game()
     : window(sf::VideoMode(1024, 768), "SFML works!"),
       character(_texturaPersonaje),
+      inv(fabItems),
       _minimap({150.f, 150.f},
 {
     1024.f - 160.f, 10.f
@@ -37,7 +38,7 @@ void Game::run()
     {
         std::cout << "Error cargando textura Cultivos" << std::endl;
     }
-        sf::Texture texturaBarcoHuida;
+    sf::Texture texturaBarcoHuida;
     if (!texturaBarcoHuida.loadFromFile("Catamaran.png"))
     {
         std::cout << "Error cargando textura Catamaran" << std::endl;
@@ -55,6 +56,39 @@ void Game::run()
         cout << "ERROR AL CARGAR botonesInterfazBarco.png" << endl;
     }
 
+    sf::Texture texturaAguaCinematica;
+    if (!texturaAguaCinematica.loadFromFile("AguaCinematica.png"))
+    {
+        std::cout << "Error cargando textura AguaCinematica.png" << std::endl;
+    }
+
+    sf::Texture texturaPersonaje;
+    if (!texturaPersonaje.loadFromFile("Personaje.png"))
+    {
+        std::cout << "Error cargando textura Personaje.png" << std::endl;
+    }
+
+    sf::Texture texturaAvion;
+    if (!texturaAvion.loadFromFile("Avion-Sheet.png"))
+    {
+        std::cout << "Error cargando textura Avion-Sheet.png" << std::endl;
+    }
+
+    sf::Texture texturaAvionTurbina;
+    if (!texturaAvionTurbina.loadFromFile("turbina-Sheet.png"))
+    {
+        std::cout << "Error cargando textura turbina-Sheet.png" << std::endl;
+    }
+
+    sf::Texture texturaNube;
+    if (!texturaNube.loadFromFile("Nube.png"))
+    {
+        std::cout << "Error cargando textura Nube.png" << std::endl;
+    }
+
+
+    texturaAguaCinematica.setRepeated(true);
+
     if (!fontReloj.loadFromFile("PIXEARG_.TTF"))
     {
         cout << "Error al cargar PIXEARG_.TTF" << endl;
@@ -66,7 +100,7 @@ void Game::run()
     _textoFPS.setPosition(10.f, 10.f); // Arriba a la izquierda
     _textoFPS.setString("FPS: 0");
 
-        ///Fuente PIXEL ART
+    ///Fuente PIXEL ART
     sf::Font fuentePixelArt;
     if (fuentePixelArt.getInfo().family == "")
     {
@@ -92,9 +126,7 @@ void Game::run()
 
 /// ======================== Inventario =========================///
 
-    FabricaItems fabItems;
 
-    InventarioInterfaz inv(fabItems);
     InventarioInterfaz inventarioCofre(fabItems, "InventarioCofre.png");
 
 
@@ -151,11 +183,19 @@ void Game::run()
     float hambrePorSegundo = 0.5f;
 
 /// ======================== Barco huida =========================///
-    BarcoHuida barco(100*32,130*32,texturaBarcoHuida);
-    InterfazBarcoHuida interfazBarco(texturaInterfazBarcoHuida, texturaBotonesInterfazBarco, fuentePixelArt,fabItems);
-    SelectorDeOpciones opcionesBarcoHuida("Quieres retirarte de la isla?",fuentePixelArt);
-    opcionesBarcoHuida.agregarOpcion("SI, no banco mas esto.");
-    opcionesBarcoHuida.agregarOpcion("NO, no quiero volver a latam.");
+    barco = std::make_unique<BarcoHuida>(100*32, 130*32, texturaBarcoHuida);
+
+    interfazBarco = std::make_unique<InterfazBarcoHuida>(texturaInterfazBarcoHuida, texturaBotonesInterfazBarco, fuentePixelArt, fabItems);
+
+
+    opcionesBarcoHuida = std::make_unique<SelectorDeOpciones>("¿Quieres retirarte de la isla?", fuentePixelArt);
+    opcionesBarcoHuida->agregarOpcion("SI, no banco mas esto.");
+    opcionesBarcoHuida->agregarOpcion("NO, no quiero volver a latam.");
+
+
+/// ======================== Cinematicas =========================///
+    CinematicaInicial cinematicaIni( texturaPersonaje, texturaAvion, texturaAvionTurbina, texturaNube);
+    CinematicaFinal cinematicaF( texturaPersonaje,texturaBarcoHuida, texturaAguaCinematica, fuentePixelArt, "==========\n ISLANDER \n==========\n Desarrollado por los estudiantes: \n -Leandro Serrano. \n -Alejo Martinez. \n -Sebastian Durazzini. \n -Daniel Raho.");
 
 
 
@@ -275,7 +315,7 @@ void Game::run()
 
             if (opcion == OpcionMenu::Jugar)
             {
-                cargar(character);
+                cargarPartida();
                 cout << "Anotacion de Lean - Estado jugar carga el personaje" << endl;
 
                 _estadoActual = EstadoJuego::Jugando;
@@ -310,8 +350,8 @@ void Game::run()
                 _fadeAlpha = 0.0f;
                 _estadoFade = 1;
 
-                mostrarTexto("Necesito salir de aqui" , character.getPosition().x - 10, character.getPosition().y - 10, 5000);
-
+                mostrarTexto("Necesito salir de aqui", character.getPosition().x - 10, character.getPosition().y - 10, 5000);
+                cinematicaIni.reproducir();
 
 
 
@@ -320,7 +360,7 @@ void Game::run()
 
             else if (opcion == OpcionMenu::Guardar)
             {
-                guardar(character);
+                guardarPartida();
                 cout << "Partida guardada desde el Menu de Opciones" << endl;
             }
 
@@ -534,7 +574,7 @@ void Game::run()
                 window.draw(*animal);
             }
 
-            window.draw(barco);
+            window.draw(*barco);
 
 /// ========================= General ========================= ///
 
@@ -829,8 +869,8 @@ void Game::run()
 
                         // B. ATAQUE
                         {
-                        if (golpeHabilitado && (*estructura)->getRompePorColision())
-                            procesarAtaqueEstructura(estructura->get(), rectEspada, inv);
+                            if (golpeHabilitado && (*estructura)->getRompePorColision())
+                                procesarAtaqueEstructura(estructura->get(), rectEspada, inv);
                         }
                     }
 
@@ -910,14 +950,15 @@ void Game::run()
 /// ======================== UPDATE TEXTOS =========================///
 
 //     Usamos un while con iterador para poder borrar los textos  que "mueren"
-                for (auto it = _listaTextos.begin(); it != _listaTextos.end(); ) {
-                    (*it)->update(deltatime);
+            for (auto it = _listaTextos.begin(); it != _listaTextos.end(); )
+            {
+                (*it)->update(deltatime);
 
-                    if ((*it)->estaDestruido())
-                        it = _listaTextos.erase(it);
-                    else
-                        ++it;
-                }
+                if ((*it)->estaDestruido())
+                    it = _listaTextos.erase(it);
+                else
+                    ++it;
+            }
 
 /// ======================== TEST HERRAMIENTAS =========================///
 
@@ -971,61 +1012,85 @@ void Game::run()
 
 /// ======================== INICIO DRAWABLES =========================///
             invR.update(Camara, relacion);
-            barco.update(PosicionJugador);
+            barco->update(PosicionJugador);
 
             window.draw(invR);
-             ///Logica interfazBarco
-            interfazBarco.ajustarEscalaAutomaticamente(Camara, relacion);
-            interfazBarco.update(posMouseWorld, inv);
-            interfazBarco.setVolumen(volumenActual);
-            if (barco.getDentroDeRango()){
-                    if (interfazBarco.getCompletado()){
-                        barco.setConstruido(true);
-                        opcionesBarcoHuida.setAbierto(true);
-                        interfazBarco.setOculto(true);
-                        if(opcionesBarcoHuida.getOpcionSeleccionada() == 0){
-                            window.close();
-                        }
-                        else if(opcionesBarcoHuida.getOpcionSeleccionada() == 1){
-                                opcionesBarcoHuida.setAbierto(false);
-                        }
+            ///Logica interfazBarco
+            interfazBarco->ajustarEscalaAutomaticamente(Camara, relacion);
+            interfazBarco->update(posMouseWorld, inv);
+            interfazBarco->setVolumen(volumenActual);
+
+            cinematicaF.ajustarEscalaAutomaticamente(Camara,relacion);
+
+            if (barco->getDentroDeRango())
+            {
+                if (interfazBarco->getCompletado())
+                {
+                    barco->setConstruido(true);
+                    opcionesBarcoHuida->setAbierto(true);
+                    interfazBarco->setOculto(true);
+                    if(opcionesBarcoHuida->getOpcionSeleccionada() == 0)
+                    {
+                        opcionesBarcoHuida->resetOpcionSeleccionada();
+                        cinematicaF.reproducir();
                     }
-                    else{
-                        opcionesBarcoHuida.setAbierto(false);
-                        interfazBarco.setOculto(false);
+                    else if(opcionesBarcoHuida->getOpcionSeleccionada() == 1)
+                    {
+                        opcionesBarcoHuida->setAbierto(false);
                     }
-                    }
-            else {
-                opcionesBarcoHuida.resetOpcionSeleccionada();
-                interfazBarco.setOculto(true);
-                opcionesBarcoHuida.setAbierto(false);
+                }
+                else
+                {
+                    opcionesBarcoHuida->setAbierto(false);
+                    interfazBarco->setOculto(false);
+                }
+            }
+            else
+            {
+                opcionesBarcoHuida->resetOpcionSeleccionada();
+                interfazBarco->setOculto(true);
+                opcionesBarcoHuida->setAbierto(false);
             }
 
             //================================
-            opcionesBarcoHuida.ajustarEscalaAutomaticamente(Camara, relacion);
-            opcionesBarcoHuida.update(posMouseWorld,inv);
+            opcionesBarcoHuida->ajustarEscalaAutomaticamente(Camara, relacion);
+            opcionesBarcoHuida->update(posMouseWorld,inv);
 
+            ///Interfaces
             window.draw(inventarioCofre);
-
             window.draw(inv);
-                        window.draw(interfazBarco);
+            window.draw(*interfazBarco);
 
+            //Cinematicas
+            if (cinematicaF.estaReproduciendo()){
+                opcionesBarcoHuida->setAbierto(false);
+                cinematicaF.update();
+                window.draw(cinematicaF);
+            }
+            else if (cinematicaF.getCompletado()){
+                window.close();
+            }
+            else{
+                window.draw(*opcionesBarcoHuida);
+            }
 
-            window.draw(opcionesBarcoHuida);
-
+            if(cinematicaIni.estaReproduciendo()){
+                cinematicaIni.setVolumen(volumenActual);
+                cinematicaIni.ajustarEscalaAutomaticamente(Camara, relacion);
+                cinematicaIni.update();
+                window.draw(cinematicaIni);
+            }
 
             window.setView(window.getDefaultView());
 
-            window.draw(_textoFPS);
+            if (!cinematicaF.estaReproduciendo() && !cinematicaIni.estaReproduciendo()){
+                window.draw(_textoFPS);
+                window.draw(_interfazEstado);
+                //window.draw(nightOverlay);
+                window.draw(_minimap);
+                window.draw(textReloj);
+            }
 
-            window.draw(_interfazEstado);
-
-
-//            window.draw(nightOverlay);
-
-            window.draw(_minimap);
-
-            window.draw(textReloj);
 
             if (_enTransicion)
             {
@@ -1047,7 +1112,7 @@ void Game::run()
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
             {
-                guardar(character);
+                guardarPartida();
                 cout << "Guardado Exitosamente!!" << endl;
             }
 
@@ -1057,35 +1122,254 @@ void Game::run()
         }
     }
 }
-void Game::guardar(Personaje &character)
+void Game::guardarPartida()
 {
-    FILE *Puntero = fopen("ultimoGuardado", "wb");
-    if (Puntero== nullptr)
+
+    json j;
+
+    j["personaje"]["vida"] = character.getVida();
+    j["personaje"]["hambre"] = character.getHambre();
+    j["personaje"]["posX"] = character.getPosition().x;
+    j["personaje"]["posY"] = character.getPosition().y;
+
+    // 2. INVENTARIO DEL JUGADOR
+    int ids[30];
+    int cantidades[30];
+    inv.copiarVectorDeIDs(ids);
+    inv.copiarVectorDeCantidades(cantidades);
+
+    j["inventario"] = json::array();
+    for(int i = 0; i < 30; i++)
     {
-        cout << "ERROR 404" << endl;
+        if (ids[i] != -1)
+        {
+            json itemJson;
+            itemJson["slot"] = i;
+            itemJson["id"] = ids[i];
+            itemJson["cantidad"] = cantidades[i];
+            j["inventario"].push_back(itemJson);
+        }
     }
 
-    _posicionPersonaje = character.getPosition();
+    // 3. ESTRUCTURAS DEL JUGADOR (Cofres, Mesas, Hornos)
 
-    fwrite(&_posicionPersonaje, sizeof(_posicionPersonaje),1,Puntero);
+    j["estructuras"] = json::array();
+    for (auto& est : _listaEstructuras)
+    {
+        if (!est->estaDestruido())
+        {
+            json estJson;
+            estJson["id"] = est->getID();
+            estJson["x"] = est->getPosition().x;
+            estJson["y"] = est->getPosition().y;
 
-    fclose(Puntero);
+            if (est->getID() == 8)
+            {
+                // Convertimos el puntero base Estructura a Cofre
+                Cofre* cofrePtr = dynamic_cast<Cofre*>(est.get());
+
+                if (cofrePtr)
+                {
+                    estJson["contenido"] = json::array(); // Array dentro del JSON del cofre
+
+                    const auto& items = cofrePtr->getItemsGuardados();
+                    for (int i = 0; i < 30; i++)
+                    {
+                        if (items[i] != nullptr)
+                        {
+                            json itemData;
+                            itemData["slot"] = i;
+                            itemData["idItem"] = items[i]->getID();
+                            itemData["cantidad"] = items[i]->getCantidad();
+
+                            estJson["contenido"].push_back(itemData);
+                        }
+                    }
+                }
+            }
+            j["estructuras"].push_back(estJson);
+        }
+    }
+// 4. CULTIVOS
+    j["cultivos"] = json::array();
+    for (auto& cult : _listaCultivos)
+    {
+        json cultJson;
+        // Guardamos lo esencial para recrearlo
+        cultJson["idSemilla"] = cult->getIDSemilla();
+        cultJson["x"] = cult->getPosition().x;
+        cultJson["y"] = cult->getPosition().y;
+
+        // Guardamos el progreso exacto
+        cultJson["fase"] = cult->getFase();
+        cultJson["tiempo"] = cult->getTiempoAcumulado();
+
+        j["cultivos"].push_back(cultJson);
+    }
+
+
+    j["mundo"]["tiempoAcumulado"] = _tiempoDiaAcumulado;
+
+    // 6. PROGRESO DEL BARCO
+    j["barco"] = json::array();
+
+    for (int i = 0; i < 4; i++)
+    {
+        j["barco"].push_back(interfazBarco->getCantidadesPagina(i));
+    }
+
+
+    std::ofstream archivo("partida_guardada.json");
+    if (archivo.is_open())
+    {
+        archivo << j.dump(4);
+        archivo.close();
+        cout << "--- PARTIDA GUARDADA EXITOSAMENTE ---" << endl;
+    }
+    else
+    {
+        cout << "ERROR: No se pudo crear el archivo de guardado." << endl;
+    }
+
+
 }
 
-void Game::cargar(Personaje &character)
-{
 
-    FILE *Puntero = fopen("ultimoGuardado", "rb");
-    if (Puntero== nullptr)
+void Game::cargarPartida()
+{
+    std::ifstream archivo("partida_guardada.json");
+    if (!archivo.is_open())
     {
-        cout << "ERROR 404" << endl;
+        cout << "No existe archivo de guardado." << endl;
+        return;
     }
 
-    fread(&_posicionPersonaje, sizeof(_posicionPersonaje),1,Puntero);
+    json j;
+    archivo >> j; // Parseamos el JSON
+    archivo.close();
 
-    character.setPosicion(_posicionPersonaje.x, _posicionPersonaje.y);
+    cout << "Cargando partida..." << endl;
 
-    fclose(Puntero);
+    // 1. CARGAR PERSONAJE
+    character.setVida(j["personaje"]["vida"]);
+    character.setHambre(j["personaje"]["hambre"]);
+    character.setPosicion(j["personaje"]["posX"], j["personaje"]["posY"]);
+    Camara.setCenter(character.getPosition()); // Ajustamos cámara
+
+    // 2. CARGAR INVENTARIO
+    for(int i=0; i<30; i++) inv.consumirItemEnSlot(i, 9999); // Manera bruta de vaciar
+
+    for (auto& itemJson : j["inventario"])
+    {
+        int id = itemJson["id"];
+        int cant = itemJson["cantidad"];
+
+        inv.agregarItem(id, cant);
+    }
+
+    // 3. CARGAR ESTRUCTURAS
+    _listaEstructuras.clear(); // Borramos las viejas
+    for (auto& estJson : j["estructuras"])
+    {
+        int id = estJson["id"];
+        float x = estJson["x"];
+        float y = estJson["y"];
+
+        // Usamos la fábrica para recrear el objeto
+        auto nuevaEst = _FabricaEstructuras.crearEstructura(x, y, id);
+        if (nuevaEst)
+        {
+
+            // === CARGA DE COFRES ===
+            if (id == 8 && estJson.contains("contenido"))
+            {
+                Cofre* cofrePtr = dynamic_cast<Cofre*>(nuevaEst.get());
+                if (cofrePtr)
+                {
+                    // Obtenemos referencia al array interno para llenarlo
+                    auto& itemsCofre = cofrePtr->getItemsGuardadosModificable();
+
+                    for (auto& itemJson : estJson["contenido"])
+                    {
+                        int slot = itemJson["slot"];
+                        int idItem = itemJson["idItem"];
+                        int cantidad = itemJson["cantidad"];
+
+                        if (slot >= 0 && slot < 30)
+                        {
+                            auto nuevoItem = fabItems.crearItem(idItem);
+                            if (nuevoItem)
+                            {
+                                nuevoItem->setCantidad(cantidad);
+                                itemsCofre[slot] = std::move(nuevoItem);
+                            }
+                        }
+                    }
+                }
+            }
+            // =======================
+
+            _listaEstructuras.push_back(std::move(nuevaEst));
+        }
+    }
+
+// 4. CARGAR CULTIVOS
+    _listaCultivos.clear(); // Limpiamos los actuales
+
+    if (j.contains("cultivos")) // Verificamos que exista en el JSON
+    {
+        for (auto& cultJson : j["cultivos"])
+        {
+            int idSemilla = cultJson["idSemilla"];
+            float x = cultJson["x"];
+            float y = cultJson["y"];
+            int fase = cultJson["fase"];
+            float tiempo = cultJson["tiempo"];
+
+            // 1. Usamos la fábrica para crear el objeto base (esto configura tipo, producto, etc.)
+            auto nuevoCultivo = _fabricaCultivos.crearDesdeSemilla(idSemilla, x, y);
+
+            if (nuevoCultivo != nullptr)
+            {
+                // 2. Sobreescribimos el estado con los datos guardados
+                nuevoCultivo->setFase(fase);
+                nuevoCultivo->setTiempoAcumulado(tiempo);
+
+                // 3. Forzamos la actualización visual
+                nuevoCultivo->actualizarSpriteSegunCrecimiento();
+
+                // 4. Guardamos en la lista
+                _listaCultivos.push_back(std::move(nuevoCultivo));
+            }
+        }
+    }
+
+    // 5. MUNDO
+    _tiempoDiaAcumulado = j["mundo"]["tiempoAcumulado"];
+
+    // 6. CARGAR BARCO
+    if (j.contains("barco"))
+    {
+        int pagina = 0;
+        for (auto& paginaJson : j["barco"])
+        {
+            // Convertimos el array json de vuelta a vector<int>
+            std::vector<int> cantidades = paginaJson.get<std::vector<int>>();
+
+            // Le decimos a la interfaz que actualice esa página
+            interfazBarco->setCantidadesPagina(pagina, cantidades);
+
+            pagina++;
+        }
+        interfazBarco->recalcularEstadoCompletado();
+
+        if (interfazBarco->getCompletado())
+        {
+            barco->setConstruido(true);
+        }
+    }
+
+    cout << "--- PARTIDA CARGADA EXITOSAMENTE ---" << endl;
 }
 
 sf::Clock Game::getRelojInterno()
@@ -1138,18 +1422,18 @@ void Game::regenerarAnimales(std::list<std::unique_ptr<Mob>>& listaAnimales)
 
                     switch(tipoAnimal)
                     {
-                        case 0:
-                            listaAnimales.push_back(_FabricaMobs.crearMobs("Vaca", {posX, posY}));
-                            break;
-                        case 1:
-                            listaAnimales.push_back(_FabricaMobs.crearMobs("Cerdo", {posX, posY}));
-                            break;
-                        case 2:
-                            listaAnimales.push_back(_FabricaMobs.crearMobs("Oveja", {posX, posY}));
-                            break;
-                        case 3:
-                            listaAnimales.push_back(_FabricaMobs.crearMobs("Gallina", {posX, posY}));
-                            break;
+                    case 0:
+                        listaAnimales.push_back(_FabricaMobs.crearMobs("Vaca", {posX, posY}));
+                        break;
+                    case 1:
+                        listaAnimales.push_back(_FabricaMobs.crearMobs("Cerdo", {posX, posY}));
+                        break;
+                    case 2:
+                        listaAnimales.push_back(_FabricaMobs.crearMobs("Oveja", {posX, posY}));
+                        break;
+                    case 3:
+                        listaAnimales.push_back(_FabricaMobs.crearMobs("Gallina", {posX, posY}));
+                        break;
                     }
                 }
             }
@@ -1361,9 +1645,11 @@ void Game::intentarPlantar(sf::Vector2f posMouseWorld, InventarioInterfaz& inv)
 
     //Validar Terreno
     int idSuelo = mapa.getTileID(tileX, tileY);
-    if (!esSueloCultivable(idSuelo)){
+    if (!esSueloCultivable(idSuelo))
+    {
         mostrarTexto("No creo que pueda plantar aqui", character.getPosition().x, character.getPosition().y, 1000);
-        return;}
+        return;
+    }
 
     //Calcular posicion
     float posX = tileX * tileW;
@@ -1520,9 +1806,9 @@ void Game::usarItemEnMano(Personaje& character, InventarioInterfaz& inv)
             character.setVida(character.getVida() + 5);
 
             if (id == 40)
-                 mostrarTexto("Esta dura... deberia cocinarla.", character.getPosition().x, character.getPosition().y, 1000);
+                mostrarTexto("Esta dura... deberia cocinarla.", character.getPosition().x, character.getPosition().y, 1000);
             else
-                 mostrarTexto("Rico y fresco.", character.getPosition().x, character.getPosition().y, 1000);
+                mostrarTexto("Rico y fresco.", character.getPosition().x, character.getPosition().y, 1000);
 
             seConsumio = true;
         }
@@ -1634,20 +1920,24 @@ void Game::colocarEstructura(sf::Vector2f posMouseWorld, InventarioInterfaz& inv
     // 4. Validamos que el lugar est� libre (Colisiones)
     sf::FloatRect rectNuevo(posX + 4, posY + 4, 24, 24);
 
-    if (character.getColisionBounds().intersects(rectNuevo)) {
+    if (character.getColisionBounds().intersects(rectNuevo))
+    {
         mostrarTexto("No creo que sea buena idea", character.getPosition().x, character.getPosition().y, 1000);
         return;
     }
 
-    for (auto& estructura : _listaEstructuras) {
+    for (auto& estructura : _listaEstructuras)
+    {
         if (!estructura->estaDestruido() && estructura->getColisionador().getColision().intersects(rectNuevo)) return;
     }
 
-    for (auto& estructura : lista) {
+    for (auto& estructura : lista)
+    {
         if (!estructura->estaDestruido() && estructura->getColisionador().getColision().intersects(rectNuevo)) return;
     }
 
-    for (auto& cultivos : _listaCultivos) {
+    for (auto& cultivos : _listaCultivos)
+    {
         if (cultivos->getBounds().intersects(rectNuevo)) return;
     }
 
