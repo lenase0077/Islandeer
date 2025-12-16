@@ -33,6 +33,8 @@
 #include "SelectorDeOpciones.h"
 #include "CinematicaFinal.h"
 #include "CinematicaInicial.h"
+#include "Cama.h"
+#include "InterfazCamaPeticiones.h"
 
 
 class Game
@@ -82,6 +84,7 @@ class Game
         sf::Texture texturaAvion;
         sf::Texture texturaAvionTurbina;
         sf::Texture texturaNube;
+        sf::Texture texturaCama;
 
         sf::SoundBuffer _bufferHacha;
         sf::SoundBuffer _bufferPico;

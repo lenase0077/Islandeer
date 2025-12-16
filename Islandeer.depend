@@ -1399,13 +1399,13 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1765909920 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1765916925 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1765909920 c:\users\sebas\onedrive\documentos\github\islandeer\game.h
+1765913799 c:\users\sebas\onedrive\documentos\github\islandeer\game.h
 	"Cultivos.h"
 	"FabricaCultivos.h"
 	<iostream>
@@ -1440,6 +1440,8 @@
 	"SelectorDeOpciones.h"
 	"CinematicaFinal.h"
 	"CinematicaInicial.h"
+	"Cama.h"
+	"InterfazCamaPeticiones.h"
 
 1765909000 c:\users\sebas\onedrive\documentos\github\islandeer\personaje.h
 	"Colisionador.h"
@@ -4495,4 +4497,29 @@
 1765822996 source:c:\users\sebas\onedrive\documentos\github\islandeer\textoflotante.cpp
 	<iostream>
 	"TextoFlotante.h"
+
+1765913038 source:c:\users\sebas\onedrive\documentos\github\islandeer\cama.cpp
+	"Cama.h"
+
+1765911281 c:\users\sebas\onedrive\documentos\github\islandeer\cama.h
+	<SFML/Graphics.hpp>
+	<string>
+	<cmath>
+
+1765913572 source:c:\users\sebas\onedrive\documentos\github\islandeer\interfazcamapeticiones.cpp
+	"InterfazCamaPeticiones.h"
+	"Comando.h"
+	"funcionesInterpolacion.h"
+	<iostream>
+
+1765913445 c:\users\sebas\onedrive\documentos\github\islandeer\interfazcamapeticiones.h
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	"SeleccionRectangulo.h"
+	"InventarioIntefaz.h"
+	"Item.h"
+	<string>
+	<list>
+	<vector>
+	<memory>
 
