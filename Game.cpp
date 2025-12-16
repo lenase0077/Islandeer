@@ -455,6 +455,24 @@ void Game::run()
                     cout << "-------------------" << endl;
                 }
 
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::O)
+                {
+                    cout << "­FORCE SPAWN!" << endl;
+
+                    // Crea un enemigo donde est‚ el mouse (coordenadas de mundo)
+                    sf::Vector2f posMouse = window.mapPixelToCoords(sf::Mouse::getPosition(window), Camara);
+
+                    auto enemigo = _FabricaMobs.crearMobs("Fantasma", posMouse);
+
+                    if (enemigo != nullptr) {
+                        enemigo->setScale(1.0f, 1.0f); // Aseguramos escala
+                        enemigos.push_back(std::move(enemigo));
+                        cout << "Fantasma creado en: " << posMouse.x << ", " << posMouse.y << endl;
+                    } else {
+                        cout << "ERROR: Fabrica devolvi¢ nullptr" << endl;
+                    }
+                }
+
             }
 /// ======================== INICIO DEL GAME LOOP  ======================== ///
             if (cambioDeEstado) break;
@@ -686,6 +704,41 @@ void Game::run()
 
                 //Upadate y Movimiento
                 enemigo->update(PosicionJugador, deltatime);
+
+                //Colision con bordes (tile 322)
+                sf::FloatRect bounds = enemigo->getColisionBounds();
+
+                int tileX = (int)(bounds.left / 32);
+                int tileY = (int)(bounds.top / 32);
+                int rango = 2;
+
+                for (int i = tileX - 1; i <= tileX + rango; i++)
+                {
+                    for (int j = tileY - 1; j <= tileY + rango; j++)
+                    {
+                        //No revisamos fuera del mapa
+                        if (i < 0 || j < 0 || i >= mapa.getMapWidth() || j >= mapa.getMapHeight()) continue;
+
+                        //Verificamos si es el tile 322
+                        if (mapa.getTileID(i, j) == 322)
+                        {
+                            // Creamos las variables aqu¡ mismo (variables locales simples)
+                            sf::FloatRect rectTile(i * 32.f, j * 32.f, 32.f, 32.f);
+                            Colisionador colisionadorTile;
+                            colisionadorTile.setColision(rectTile);
+
+                            //Choque
+                            enemigo->chocar(colisionadorTile);
+
+                            //Si choca con el borde, retrocede
+                            if (enemigo->getChocoConMapa())
+                            {
+                                enemigo->cambioDeRumbo();
+                            }
+                        }
+                    }
+                }
+
                 window.draw(*enemigo);
 
                 bool enemigoMurio = false;
@@ -732,7 +785,7 @@ void Game::run()
                         sf::Vector2f dirGolpe = enemigo->getPosition() - character.getPosition();
                         float magnitud = std::sqrt(dirGolpe.x*dirGolpe.x + dirGolpe.y*dirGolpe.y);
                         if (magnitud > 0) {
-                            enemigo->empujar((dirGolpe / magnitud) * 5.0f);
+                            enemigo->empujar((dirGolpe / magnitud) * 15.0f);
                         }
 
                         //Verificamos su Muerte

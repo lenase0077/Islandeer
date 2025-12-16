@@ -17,8 +17,8 @@
     "estructuras": [],
     "inventario": [
         {
-            "cantidad": 1,
-            "id": 8,
+            "cantidad": 16,
+            "id": 31,
             "slot": 0
         },
         {
@@ -27,13 +27,13 @@
             "slot": 1
         },
         {
-            "cantidad": 16,
-            "id": 33,
+            "cantidad": 1,
+            "id": 2,
             "slot": 2
         },
         {
             "cantidad": 1,
-            "id": 28,
+            "id": 5,
             "slot": 3
         },
         {
@@ -72,18 +72,13 @@
             "slot": 10
         },
         {
-            "cantidad": 1,
-            "id": 2,
-            "slot": 11
-        },
-        {
-            "cantidad": 1,
-            "id": 6,
+            "cantidad": 16,
+            "id": 33,
             "slot": 12
         },
         {
-            "cantidad": 16,
-            "id": 31,
+            "cantidad": 1,
+            "id": 8,
             "slot": 13
         },
         {
@@ -93,7 +88,7 @@
         },
         {
             "cantidad": 1,
-            "id": 5,
+            "id": 6,
             "slot": 15
         },
         {
@@ -130,15 +125,20 @@
             "cantidad": 1,
             "id": 49,
             "slot": 22
+        },
+        {
+            "cantidad": 1,
+            "id": 28,
+            "slot": 24
         }
     ],
     "mundo": {
-        "tiempoAcumulado": 3069.7451171875
+        "tiempoAcumulado": 3059.911376953125
     },
     "personaje": {
-        "hambre": 60.96968078613281,
-        "posX": 2537.959228515625,
-        "posY": 3983.72705078125,
+        "hambre": 65.2237777709961,
+        "posX": 490.045654296875,
+        "posY": 2914.66796875,
         "vida": 90.0
     }
 }

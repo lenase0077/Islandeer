@@ -23,7 +23,7 @@ bool Mob::perseguir(sf::Vector2f Posicionpersonaje, float aceleracion) {
 
     float longitud = std::sqrt(Direccion.x * Direccion.x + Direccion.y * Direccion.y);
 
-    if (longitud < 100 && longitud > 1) {
+    if (longitud < 2 && longitud > 1) {
         Direccion.x /= longitud;
         Direccion.y /= longitud;
 
