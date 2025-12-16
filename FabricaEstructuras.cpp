@@ -109,7 +109,7 @@ std::unique_ptr<Estructura> FabricaEstructuras::crearEstructura(float x, float y
         estructuraCreada->setVida(30);
 //        estructuraCreada->setScale(1.3,1.3);
 
-        insertarLootEntre(36,vectorLootIDs,2,5);
+        insertarLootEntre(10,vectorLootIDs,2,5);
 
         estructuraCreada -> setLootsIDs(vectorLootIDs);
 
@@ -119,21 +119,32 @@ std::unique_ptr<Estructura> FabricaEstructuras::crearEstructura(float x, float y
         estructuraCreada = std::make_unique<Arbol>(_texturaEstructuras, _texturaCopas, x, y, ID, 2);
         estructuraCreada->setVida(30);
 //        estructuraCreada->setScale(1.3,1.3);
-
+        insertarLootEntre(10,vectorLootIDs,2,5);
         insertarLootEntre(34,vectorLootIDs,2,5);
         estructuraCreada -> setLootsIDs(vectorLootIDs);
 
         break;
     case 13:///Pasto
         estructuraCreada -> setVida(1);
-        if (rand()%2 == 0)
+        int random = 1 + rand() % 4;
+
+        if (random == 1)
         {
             insertarLootEntre(27,vectorLootIDs,1,1);
         }
-        else
+        else if (random == 2)
         {
             insertarLootEntre(31,vectorLootIDs,1,1);
         }
+        else if (random == 3)
+        {
+            insertarLootEntre(32,vectorLootIDs,1,1);
+        }
+        else if (random == 4)
+        {
+            insertarLootEntre(33,vectorLootIDs,1,1);
+        }
+
         estructuraCreada -> setLootsIDs(vectorLootIDs);
     }
     return estructuraCreada;

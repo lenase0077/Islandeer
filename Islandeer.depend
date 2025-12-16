@@ -3876,7 +3876,7 @@
 	<iostream>
 	<ctime>
 
-1765915729 source:d:\alejo\alemart\documents\github\islander\menu_principal.cpp
+1765915815 source:d:\alejo\alemart\documents\github\islander\menu_principal.cpp
 	"Menu_Principal.h"
 	<iostream>
 
@@ -4145,7 +4145,7 @@
 1765545402 source:d:\alejo\alemart\documents\github\islander\arboles.cpp
 	"Arboles.h"
 
-1765911288 source:d:\alejo\alemart\documents\github\islander\fabricaestructuras.cpp
+1765916745 source:d:\alejo\alemart\documents\github\islander\fabricaestructuras.cpp
 	"FabricaEstructuras.h"
 	<iostream>
 	<memory>
