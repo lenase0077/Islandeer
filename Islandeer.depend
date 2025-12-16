@@ -445,13 +445,13 @@
 1765476560 c:\users\leand\onedrive\documentos\repositorio\islandeer\funciones.h
 	<SFML/Graphics.hpp>
 
-1765825130 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
+1765820878 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1765825760 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
+1765820562 c:\users\leand\onedrive\documentos\repositorio\islandeer\game.h
 	"Cultivos.h"
 	"FabricaCultivos.h"
 	<iostream>
@@ -485,7 +485,7 @@
 	"InterfazBarcoHuida.h"
 	"SelectorDeOpciones.h"
 
-1765825760 c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.h
+1765817893 c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.h
 	"Colisionador.h"
 	<SFML/Graphics.hpp>
 	"Funciones.h"
@@ -818,7 +818,7 @@
 
 1764170642 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\movimiento_ia.cpp
 
-1765825760 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
+1765817893 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\personaje.cpp
 	<iostream>
 	"Personaje.h"
 	"Funciones.h"
@@ -916,7 +916,7 @@
 	<SFML/Graphics.hpp>
 	<iostream>
 
-1765825198 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\estructura.cpp
+1765814349 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\estructura.cpp
 	"Estructura.h"
 	<iostream>
 	<cmath>
@@ -2886,7 +2886,7 @@
 1764286415 c:\users\leand\onedrive\documentos\repositorio\islandeer\comando.h
 	<SFML/Graphics.hpp>
 
-1765825760 c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.h
+1765814349 c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.h
 	<SFML/Graphics.hpp>
 	"Comando.h"
 	<SFML/Audio.hpp>
@@ -2894,7 +2894,7 @@
 	"funcionesInterpolacion.h"
 	<string>
 
-1765825760 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.cpp
+1765817893 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\menu_principal.cpp
 	"Menu_Principal.h"
 	<iostream>
 
@@ -4179,7 +4179,7 @@
 	<iostream>
 	"Cofre.h"
 
-1765825760 c:\users\leand\onedrive\documentos\repositorio\islandeer\cofre.h
+1765819589 c:\users\leand\onedrive\documentos\repositorio\islandeer\cofre.h
 	"Estructura.h"
 	"InventarioIntefaz.h"
 	"Item.h"
@@ -4190,11 +4190,11 @@
 1764286544 c:\users\leand\onedrive\documentos\repositorio\islandeer\funcion.h
 	<SFML/Graphics.hpp>
 
-1765825760 c:\users\leand\onedrive\documentos\repositorio\islandeer\herramienta.h
+1765817893 c:\users\leand\onedrive\documentos\repositorio\islandeer\herramienta.h
 	"Item.h"
 	<map>
 
-1765825760 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\herramienta.cpp
+1765817893 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\herramienta.cpp
 	"Herramienta.h"
 
 1765456949 c:\users\sebas\onedrive\documentos\github\islandeer\herramienta.h
@@ -4238,7 +4238,7 @@
 	"Horno.h"
 	<cmath>
 
-1765825760 c:\users\leand\onedrive\documentos\repositorio\islandeer\cultivos.h
+1765819589 c:\users\leand\onedrive\documentos\repositorio\islandeer\cultivos.h
 	<SFML/Graphics.hpp>
 	"FabricaItems.h"
 	"Loot.h"
@@ -4253,7 +4253,7 @@
 	<SFML/Graphics.hpp>
 	<string>
 
-1765825760 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\cultivos.cpp
+1765819589 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\cultivos.cpp
 	<iostream>
 	"Cultivos.h"
 
@@ -4344,7 +4344,7 @@
 	<string>
 	<cmath>
 
-1765825760 c:\users\leand\onedrive\documentos\repositorio\islandeer\interfazbarcohuida.h
+1765820851 c:\users\leand\onedrive\documentos\repositorio\islandeer\interfazbarcohuida.h
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 	"SeleccionRectangulo.h"
@@ -4365,7 +4365,7 @@
 1765814744 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\barcohuida.cpp
 	"BarcoHuida.h"
 
-1765825760 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\interfazbarcohuida.cpp
+1765814744 source:c:\users\leand\onedrive\documentos\repositorio\islandeer\interfazbarcohuida.cpp
 	"InterfazBarcoHuida.h"
 	"Comando.h"
 	"funcionesInterpolacion.h"

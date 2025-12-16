@@ -134,7 +134,6 @@ void Game::run()
     inv.agregarItem(32,16);
     inv.agregarItem(33,16);
     inv.agregarItem(28,1);
-    inv.agregarItem(42,1);
 
 
     inv.agregarItem(25,16);
@@ -307,6 +306,7 @@ void Game::run()
 
             if (opcion == OpcionMenu::Jugar)
             {
+                cargarPartida();
                 cout << "Anotacion de Lean - Estado jugar carga el personaje" << endl;
 
                 _estadoActual = EstadoJuego::Jugando;
@@ -353,21 +353,6 @@ void Game::run()
             {
                 guardarPartida();
                 cout << "Partida guardada desde el Menu de Opciones" << endl;
-            }
-
-            else if (opcion == OpcionMenu::Cargar)
-            {
-                cargarPartida();
-
-                _estadoActual = EstadoJuego::Jugando;
-                _menuPrincipal.detenerMusica();
-                sonido.setVolume(_menuPrincipal.getVolumen());
-                sonido.play();
-                _menuPrincipal.actualizar(posMouse);
-                _relojInterno.restart();
-
-
-                cout << "Partida cargada desde el Menu de Opciones" << endl;
             }
 
             else if (opcion == OpcionMenu::Salir)
