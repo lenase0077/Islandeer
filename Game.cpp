@@ -1582,7 +1582,7 @@ void Game::cargarPartida()
             int fase = cultJson["fase"];
             float tiempo = cultJson["tiempo"];
 
-            // 1. Usamos la fábrica para crear el objeto base (esto configura tipo, producto, etc.)
+            // 1. Usamos la fabrica para crear el objeto base (esto configura tipo, producto, etc.)
             auto nuevoCultivo = _fabricaCultivos.crearDesdeSemilla(idSemilla, x, y);
 
             if (nuevoCultivo != nullptr)
@@ -1713,12 +1713,10 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
         {
             int idTile = mapa.getTileID(x, y);
 
-            // 1. OPTIMIZACIÓN: Filtro rápido (Early Exit)
-            // Si es un tile prohibido (ej: Agua 103), saltamos al siguiente ciclo inmediatamente.
+            // 1. OPTIMIZACIÓN: Filtro rapid
             if (idTile == 103 || idTile == 0) continue;
 
-            // Clasificación de terreno
-            // (Usar un switch o un array de propiedades sería aun más rápido, pero esto está bien)
+            // (Usar un switch o un array de propiedades seria aun más rapido, pero esto esta bien)
             bool esPasto = (idTile == 28 || idTile == 29 || idTile == 36 || idTile == 37);
             bool esArena = (idTile == 35 || idTile == 79);
             bool esCueva = (idTile == 132);
@@ -1734,7 +1732,6 @@ void Game::regenerarRecursos(std::list<std::unique_ptr<Estructura>>& listaEstruc
 
             if (esPasto)
             {
-                // Arreglé los rangos para que sean continuos y sin solapamientos lógicos
                 if (probabilidad < 80)           idEstructura = 0;  // Árbol
                 else if (probabilidad < 150) {                      // 80 a 149
                     if (probabilidad >= 90)      idEstructura = 1;  // Piedra
