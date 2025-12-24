@@ -36,6 +36,9 @@
 #include "Cama.h"
 #include "InterfazCamaPeticiones.h"
 
+///SOLO PRUEBAS
+#include "MisionGUI.h"
+
 
 
 class Game

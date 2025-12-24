@@ -91,11 +91,14 @@ void Game::run()
         std::cout << "Error cargando textura Cama.png" << std::endl;
     }
 
+    sf::Texture texturaMisionGui;
+    if (!texturaMisionGui.loadFromFile("mision.png"))
+    {
+        std::cout << "Error cargando textura mision.png" << std::endl;
+    }
+
 
     texturaAguaCinematica.setRepeated(true);
-
-
-
 
 
 
@@ -122,6 +125,11 @@ void Game::run()
         }
         const_cast<sf::Texture&>(fuentePixelArt.getTexture(8)).setSmooth(false);
     }
+
+/// ======================== Configuracion del MISIONES AI  =========================///
+
+    MisionGUI mision1( fuentePixelArt, texturaMisionGui, "INVADIR POLONIA", "Invade polonia y pon feliz a nuestro amigo de bigote chistoso para que pueda ponerse a bailar la macarena que tu cuerpo es pa darle alegria y cosa buena.", 500);
+    //MisionGUI mision1( fuentePixelArt, texturaMisionGui);
 
 /// ======================== Configuracion del FADE  =========================///
 
@@ -1326,6 +1334,15 @@ void Game::run()
                 window.draw(*opcionesBarcoHuida);
             }
 
+            /// ======================== CONTROL MISIONES =========================///
+
+            mision1.ajustarEscalaAutomaticamente(Camara, relacion);
+            mision1.update(posMouseWorld);
+            window.draw(mision1);
+
+
+            /// ==========================================================================///
+
             if(cinematicaIni.estaReproduciendo())
             {
                 cinematicaIni.setVolumen(volumenActual);
@@ -1340,7 +1357,7 @@ void Game::run()
                 window.setView(window.getDefaultView());
                 window.draw(_textoFPS);
                 window.draw(_interfazEstado);
-                window.draw(nightOverlay);
+                //window.draw(nightOverlay);NOCHE
                 window.draw(_minimap);
                 window.draw(textReloj);
             }
@@ -1350,6 +1367,9 @@ void Game::run()
             {
                 window.draw(_fadeRect);
             }
+
+
+
 
 /// ======================== CAMARA EFECTO Y CENTRADO =========================///
 
