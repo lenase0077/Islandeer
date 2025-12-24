@@ -115,6 +115,8 @@
 		<Unit filename="MesaDeCrafteo.h" />
 		<Unit filename="Minimap.cpp" />
 		<Unit filename="Minimap.h" />
+		<Unit filename="MisionGUI.cpp" />
+		<Unit filename="MisionGUI.h" />
 		<Unit filename="Mob.cpp" />
 		<Unit filename="Mob.h" />
 		<Unit filename="Mob_Hostil.h" />
