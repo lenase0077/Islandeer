@@ -9,7 +9,7 @@
 class MisionGUI : public sf::Transformable, public sf::Drawable
 {
 private:
-    bool _oculto = false;
+    bool _oculto = true;
     bool _reclamado = false;
     SeleccionRectangulo _botonReclamar;
     sf::Text _textoTitulo; // Max 18 caracteres.
@@ -21,6 +21,7 @@ private:
     const sf::Font* _fuentesTextos;
     std::vector<int> _itemsRequeridosIDs;
     std::vector<int> _itemsRequeridosCantidad;
+    int _reglon = 0;
 
     bool itemsCompletados(InventarioInterfaz& inventarioJugador);
     void quitarItems(InventarioInterfaz& inventarioJugador);
@@ -39,5 +40,6 @@ public:
     void update(const sf::Vector2f& posGlobalDelMouse, InventarioInterfaz& inventarioJugador, int& monedasJugador);
     void setItemsRequeridos( std::vector<int> itemsRequeridosIDs, std::vector<int> itemsRequeridosCantidad);
     void agregarItemRequerido(int ID, int cantidad);
+    void setReglon(int reglon);
 };
 

@@ -1401,13 +1401,13 @@
 1761749987 c:\users\sebas\onedrive\documentos\github\islandeer\funcionesinterpolacion.h
 	<SFML/Graphics.hpp>
 
-1766747338 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
+1766752632 source:c:\users\sebas\onedrive\documentos\github\islandeer\game.cpp
 	<iostream>
 	<fstream>
 	"Game.h"
 	"json.hpp"
 
-1766743829 c:\users\sebas\onedrive\documentos\github\islandeer\game.h
+1766750997 c:\users\sebas\onedrive\documentos\github\islandeer\game.h
 	"Cultivos.h"
 	"FabricaCultivos.h"
 	<iostream>
@@ -1444,7 +1444,7 @@
 	"CinematicaInicial.h"
 	"Cama.h"
 	"InterfazCamaPeticiones.h"
-	"MisionGUI.h"
+	"InterfazMisiones.h"
 
 1765962290 c:\users\sebas\onedrive\documentos\github\islandeer\personaje.h
 	"Colisionador.h"
@@ -4551,7 +4551,7 @@
 	"funcionesInterpolacion.h"
 	<iostream>
 
-1766745530 c:\users\sebas\onedrive\documentos\github\islandeer\misiongui.h
+1766752733 c:\users\sebas\onedrive\documentos\github\islandeer\misiongui.h
 	"SeleccionRectangulo.h"
 	"SFML/Graphics.hpp"
 	<string>
@@ -4559,16 +4559,20 @@
 	"InventarioIntefaz.h"
 	"Comando.h"
 
-1766745530 source:c:\users\sebas\onedrive\documentos\github\islandeer\misiongui.cpp
+1766752005 source:c:\users\sebas\onedrive\documentos\github\islandeer\misiongui.cpp
 	"MisionGUI.h"
 	"funcionesInterpolacion.h"
 	"Funciones.h"
 
-1766747419 source:c:\users\sebas\onedrive\documentos\github\islandeer\interfazmisiones.cpp
+1766756533 source:c:\users\sebas\onedrive\documentos\github\islandeer\interfazmisiones.cpp
 	"InterfazMisiones.h"
+	"funcionesInterpolacion.h"
 
-1766747740 c:\users\sebas\onedrive\documentos\github\islandeer\interfazmisiones.h
+1766756533 c:\users\sebas\onedrive\documentos\github\islandeer\interfazmisiones.h
 	"MisionGUI.h"
 	<vector>
 	"InventarioIntefaz.h"
+	"SFML/Graphics.hpp"
+	"SeleccionRectangulo.h"
+	"Comando.h"
 

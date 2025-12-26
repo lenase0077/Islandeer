@@ -35,9 +35,7 @@
 #include "CinematicaInicial.h"
 #include "Cama.h"
 #include "InterfazCamaPeticiones.h"
-
-///SOLO PRUEBAS
-#include "MisionGUI.h"
+#include "InterfazMisiones.h"
 
 
 

@@ -128,9 +128,26 @@ void Game::run()
 
 /// ======================== Configuracion del MISIONES AI  =========================///
 
-    MisionGUI mision1( fuentePixelArt, texturaMisionGui, "Ayudando a la cazadora", "Nesesito 10 palos para crearme un arma de la hostia", 500);
-    mision1.setItemsRequeridos({10,18},{5,1});
+    /*MisionGUI mision1( fuentePixelArt, texturaMisionGui, "Ayudando a la cazadora", "Nesesito 10 palos para crearme un arma de la hostia", 500);
+    mision1.setItemsRequeridos({10,18},{5,1});*/
     //MisionGUI mision1( fuentePixelArt, texturaMisionGui);
+
+    InterfazMisiones controlMisiones( fuentePixelArt, texturaMisionGui);
+    controlMisiones.agregarMision("Ayudando a la cazadora",
+                                  "Nesesito 5 palos y 1 piedra para crearme un arma de la hostia",
+                                   100,
+                                   {10,18},
+                                   {5,1});
+    controlMisiones.agregarMision("Alimentando al pueblo",
+                                  "Nesesito 3 papas cocinadas y 2 carnes cocinadas para mis babys UwU",
+                                   500,
+                                   {41,48},
+                                   {3,2});
+    controlMisiones.agregarMision("Eres la leche tio",
+                                  "Nesesito 2 balde de leche para hacer rico queso",
+                                   250,
+                                   {30},
+                                   {2});
 
 /// ======================== Configuracion texto moneda  =========================///
     textMonedas.setFont(fuentePixelArt);
@@ -1343,13 +1360,9 @@ void Game::run()
 
             /// ======================== CONTROL MISIONES =========================///
 
-            mision1.ajustarEscalaAutomaticamente(Camara, relacion);
-            mision1.update(posMouseWorld,inv, monedas);
-            /*  obviamente esto rompe todo actualmente
-            if (mision1.getReclamado()){
-                mision1.~MisionGUI();
-            }*/
-            window.draw(mision1);
+            controlMisiones.ajustarEscalaAutomaticamente(Camara, relacion);
+            controlMisiones.update(posMouseWorld, inv, monedas);
+            window.draw(controlMisiones);
 
 
             /// ==========================================================================///

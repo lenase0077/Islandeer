@@ -2,14 +2,24 @@
 #include "MisionGUI.h"
 #include <vector>
 #include "InventarioIntefaz.h"
+#include "SFML/Graphics.hpp"
+#include "SeleccionRectangulo.h"
+#include "Comando.h"
 
 class InterfazMisiones : public sf::Transformable, public sf::Drawable
 {
 private:
     std::vector<MisionGUI> _misiones;
-    bool _oculto = false;
+    bool _oculto = true;
+    sf::Font* _fuenteTextos;
+    sf::Texture* _texturaMision;
+    SeleccionRectangulo _botonAbrir;
+    sf::Sprite _sprBotonAbrir;
+
+    //const sf::Font& fuenteTextos, const sf::Texture& texturaMision
+
 public:
-    InterfazMisiones(const sf::Font& fuenteTextos, const sf::Texture& texturaMision);
+    InterfazMisiones( sf::Font& fuenteTextos,  sf::Texture& texturaMision);
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     void agregarMision(const std::string& titulo = "TITULO MISION",
                        const std::string& explicacion = "Aqui va la explicacion de la mision a realizar",

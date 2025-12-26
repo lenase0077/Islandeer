@@ -93,11 +93,17 @@ void MisionGUI::ajustarEscalaAutomaticamente(const sf::View& vista, const float&
 
     sf::Vector2f posicionCartel;
 
-    if(!_oculto) posicionCartel = sf::Vector2f(vista.getCenter().x - centroX, vista.getCenter().y- vista.getSize().y/2.5);
+    float posY = (vista.getCenter().y - vista.getSize().y/2.5) + (_reglon * 64 * escalaCartel.y);
+
+    if(!_oculto) posicionCartel = sf::Vector2f(vista.getCenter().x - centroX, posY);
     else posicionCartel = sf::Vector2f(vista.getCenter().x - centroX, vista.getCenter().y + vista.getSize().y);
 
     ///SETEADO DEL TRANSFORM
-    setPosition(posicionCartel);
+    sf::Vector2f posicionCartelActual = getPosition();
+
+    lerp(posicionCartelActual,posicionCartel,0.1);
+
+    setPosition(posicionCartelActual);
     setScale(escalaCartel);
 
     ///ajuste texto titulo
@@ -152,4 +158,8 @@ void MisionGUI::setItemsRequeridos( std::vector<int> itemsRequeridosIDs, std::ve
 void MisionGUI::agregarItemRequerido(int ID, int cantidad){
     _itemsRequeridosIDs.push_back(ID);
     _itemsRequeridosCantidad.push_back(cantidad);
+}
+
+void MisionGUI::setReglon(int reglon){
+    _reglon = reglon;
 }
