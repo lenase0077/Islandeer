@@ -47,25 +47,38 @@ bool MisionGUI::getOculto()
 {
     return _oculto;
 }
-bool MisionGUI::getCompletado()
+bool MisionGUI::getReclamado()
 {
-    return _completado;
+    return _reclamado;
 }
 
-void MisionGUI::update(const sf::Vector2f& posGlobalDelMouse)
+void MisionGUI::update(const sf::Vector2f& posGlobalDelMouse, InventarioInterfaz& inventarioJugador, int& monedasJugador)
 {
-    if (_botonReclamar.estaDentro(posGlobalDelMouse.x, posGlobalDelMouse.y, true)){
-        ///Seleccion suave
-        sf::Vector2f escalaActualBoton = _sprBotonReclamar.getScale();
-        lerp(escalaActualBoton, {1.1,1.1},0.2);
-        _sprBotonReclamar.setScale(escalaActualBoton);
+    Comandos& input = Comandos::getInstancia();
 
+    if(itemsCompletados(inventarioJugador)){
+        ///ajustar visualizacion boton
+        _sprBotonReclamar.setColor(sf::Color(255,255,255,255));
+
+        if (_botonReclamar.estaDentro(posGlobalDelMouse.x, posGlobalDelMouse.y, true)){
+            ///Seleccion suave
+            sf::Vector2f escalaActualBoton = _sprBotonReclamar.getScale();
+            lerp(escalaActualBoton, {1.1,1.1},0.2);
+            _sprBotonReclamar.setScale(escalaActualBoton);
+            if (input.mouseIzqRecienPresionado){
+                monedasJugador += _recompensa;
+                _reclamado = true;
+            }
+        }
+        else{
+            ///deseleccion suave
+            sf::Vector2f escalaActualBoton = _sprBotonReclamar.getScale();
+            lerp(escalaActualBoton, {1,1},0.2);
+            _sprBotonReclamar.setScale(escalaActualBoton);
+        }
     }
     else{
-        ///deseleccion suave
-        sf::Vector2f escalaActualBoton = _sprBotonReclamar.getScale();
-        lerp(escalaActualBoton, {1,1},0.2);
-        _sprBotonReclamar.setScale(escalaActualBoton);
+        _sprBotonReclamar.setColor(sf::Color(255,255,255,50));
     }
 }
 
@@ -115,4 +128,28 @@ void MisionGUI::draw(sf::RenderTarget& target, sf::RenderStates states) const
     target.draw(_sprBotonReclamar, states);
 }
 
+bool MisionGUI::itemsCompletados(InventarioInterfaz& inventarioJugador){
+    if (_itemsRequeridosIDs.size() < 1) return false;
+    for(int i = 0; i < _itemsRequeridosIDs.size(); i++){
+        if (inventarioJugador.buscarItems(_itemsRequeridosIDs[i], _itemsRequeridosCantidad[i]) == -1){ //si los items no son encontrados
+            return false;
+        }
+    }
+    return true;
+}
 
+void MisionGUI::quitarItems(InventarioInterfaz& inventarioJugador){
+    for(int i = 0; i < _itemsRequeridosIDs.size(); i++){
+        inventarioJugador.quitarItem(_itemsRequeridosIDs[i], _itemsRequeridosCantidad[i]);
+    }
+}
+
+void MisionGUI::setItemsRequeridos( std::vector<int> itemsRequeridosIDs, std::vector<int> itemsRequeridosCantidad){
+    _itemsRequeridosIDs = itemsRequeridosIDs;
+    _itemsRequeridosCantidad = itemsRequeridosCantidad;
+}
+
+void MisionGUI::agregarItemRequerido(int ID, int cantidad){
+    _itemsRequeridosIDs.push_back(ID);
+    _itemsRequeridosCantidad.push_back(cantidad);
+}

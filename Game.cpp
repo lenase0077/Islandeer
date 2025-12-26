@@ -128,8 +128,15 @@ void Game::run()
 
 /// ======================== Configuracion del MISIONES AI  =========================///
 
-    MisionGUI mision1( fuentePixelArt, texturaMisionGui, "INVADIR POLONIA", "Invade polonia y pon feliz a nuestro amigo de bigote chistoso para que pueda ponerse a bailar la macarena que tu cuerpo es pa darle alegria y cosa buena.", 500);
+    MisionGUI mision1( fuentePixelArt, texturaMisionGui, "Ayudando a la cazadora", "Nesesito 10 palos para crearme un arma de la hostia", 500);
+    mision1.setItemsRequeridos({10,18},{5,1});
     //MisionGUI mision1( fuentePixelArt, texturaMisionGui);
+
+/// ======================== Configuracion texto moneda  =========================///
+    textMonedas.setFont(fuentePixelArt);
+    textMonedas.setCharacterSize(8);
+    textMonedas.setScale(2,2);
+    textMonedas.setFillColor(sf::Color::White);
 
 /// ======================== Configuracion del FADE  =========================///
 
@@ -1337,11 +1344,18 @@ void Game::run()
             /// ======================== CONTROL MISIONES =========================///
 
             mision1.ajustarEscalaAutomaticamente(Camara, relacion);
-            mision1.update(posMouseWorld);
+            mision1.update(posMouseWorld,inv, monedas);
+            /*  obviamente esto rompe todo actualmente
+            if (mision1.getReclamado()){
+                mision1.~MisionGUI();
+            }*/
             window.draw(mision1);
 
 
             /// ==========================================================================///
+
+            textMonedas.setString("$" + std::to_string(monedas));
+            textMonedas.setPosition(932 - textMonedas.getGlobalBounds().width/2, 182);
 
             if(cinematicaIni.estaReproduciendo())
             {
@@ -1360,6 +1374,7 @@ void Game::run()
                 //window.draw(nightOverlay);NOCHE
                 window.draw(_minimap);
                 window.draw(textReloj);
+                window.draw(textMonedas);
             }
 
 

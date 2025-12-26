@@ -107,7 +107,7 @@ class Game
         sf::Sound _sonidoHerramienta;
 
 
-
+        int monedas = 0;
 
 
 
@@ -170,5 +170,5 @@ class Game
 
         SistemaParticulas _particulas;
 
-
+        sf::Text textMonedas;
 };

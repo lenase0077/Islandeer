@@ -99,6 +99,8 @@
 		<Unit filename="InterfazCamaPeticiones.h" />
 		<Unit filename="InterfazEstado.cpp" />
 		<Unit filename="InterfazEstado.h" />
+		<Unit filename="InterfazMisiones.cpp" />
+		<Unit filename="InterfazMisiones.h" />
 		<Unit filename="InventarioIntefaz.cpp" />
 		<Unit filename="InventarioIntefaz.h" />
 		<Unit filename="InventarioResumidoInterfaz.cpp" />
