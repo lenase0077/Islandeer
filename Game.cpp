@@ -91,14 +91,21 @@ void Game::run()
         std::cout << "Error cargando textura Cama.png" << std::endl;
     }
 
+    sf::Texture texturaMisionGui;
+    if (!texturaMisionGui.loadFromFile("mision.png"))
+    {
+        std::cout << "Error cargando textura mision.png" << std::endl;
+    }
+
 
     texturaAguaCinematica.setRepeated(true);
 
 
-
-
-
-
+    if (!_bufferMoneda.loadFromFile("sonidoMoneda.wav"))
+    {
+        std::cout << "Error cargando el audio sonidoMoneda.wav" << std::endl;
+    }
+    _sonidoMoneda.setBuffer(_bufferMoneda);
 
 
 
@@ -122,6 +129,35 @@ void Game::run()
         }
         const_cast<sf::Texture&>(fuentePixelArt.getTexture(8)).setSmooth(false);
     }
+
+/// ======================== Configuracion del MISIONES AI  =========================///
+
+    /*MisionGUI mision1( fuentePixelArt, texturaMisionGui, "Ayudando a la cazadora", "Nesesito 10 palos para crearme un arma de la hostia", 500);
+    mision1.setItemsRequeridos({10,18},{5,1});*/
+    //MisionGUI mision1( fuentePixelArt, texturaMisionGui);
+
+    InterfazMisiones controlMisiones( fuentePixelArt, texturaMisionGui);
+    controlMisiones.agregarMision("Ayudando a la cazadora",
+                                  "Nesesito 5 palos y 1 piedra para crearme un arma de la hostia",
+                                   100,
+                                   {10,18},
+                                   {5,1});
+    controlMisiones.agregarMision("Alimentando al pueblo",
+                                  "Nesesito 3 papas cocinadas y 2 carnes cocinadas para mis babys UwU",
+                                   500,
+                                   {41,48},
+                                   {3,2});
+    controlMisiones.agregarMision("Eres la leche tio",
+                                  "Nesesito 2 balde de leche para hacer rico queso",
+                                   250,
+                                   {30},
+                                   {2});
+
+/// ======================== Configuracion texto moneda  =========================///
+    textMonedas.setFont(fuentePixelArt);
+    textMonedas.setCharacterSize(8);
+    textMonedas.setScale(2,2);
+    textMonedas.setFillColor(sf::Color::White);
 
 /// ======================== Configuracion del FADE  =========================///
 
@@ -1326,6 +1362,31 @@ void Game::run()
                 window.draw(*opcionesBarcoHuida);
             }
 
+            /// ======================== CONTROL MISIONES =========================///
+
+            controlMisiones.ajustarEscalaAutomaticamente(Camara, relacion);
+            controlMisiones.update(posMouseWorld, inv, monedasObjetivo);
+            window.draw(controlMisiones);
+
+
+            /// ==========================================================================///
+
+            if (monedas != monedasObjetivo){
+                if (monedas > monedasObjetivo - 5 && monedas < monedasObjetivo + 5){
+                    monedas = monedasObjetivo;
+                }
+                else monedas = monedas + (monedasObjetivo - monedas)* 0.2;
+                if ((_sonidoMoneda.getStatus()) != sf::Sound::Playing){
+                    _sonidoMoneda.setLoop(false);
+                    _sonidoMoneda.setVolume(volumenActual);
+                    _sonidoMoneda.setPitch(1 + (rand()%10*0.1));
+                    _sonidoMoneda.play();
+                }
+            }
+
+            textMonedas.setString("$" + std::to_string(monedas));
+            textMonedas.setPosition(932 - textMonedas.getGlobalBounds().width/2, 182);
+
             if(cinematicaIni.estaReproduciendo())
             {
                 cinematicaIni.setVolumen(volumenActual);
@@ -1340,9 +1401,10 @@ void Game::run()
                 window.setView(window.getDefaultView());
                 window.draw(_textoFPS);
                 window.draw(_interfazEstado);
-                window.draw(nightOverlay);
+                //window.draw(nightOverlay);NOCHE
                 window.draw(_minimap);
                 window.draw(textReloj);
+                window.draw(textMonedas);
             }
 
 
@@ -1350,6 +1412,9 @@ void Game::run()
             {
                 window.draw(_fadeRect);
             }
+
+
+
 
 /// ======================== CAMARA EFECTO Y CENTRADO =========================///
 
