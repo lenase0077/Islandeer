@@ -101,7 +101,11 @@ void Game::run()
     texturaAguaCinematica.setRepeated(true);
 
 
-
+    if (!_bufferMoneda.loadFromFile("sonidoMoneda.wav"))
+    {
+        std::cout << "Error cargando el audio sonidoMoneda.wav" << std::endl;
+    }
+    _sonidoMoneda.setBuffer(_bufferMoneda);
 
 
 
@@ -1361,11 +1365,24 @@ void Game::run()
             /// ======================== CONTROL MISIONES =========================///
 
             controlMisiones.ajustarEscalaAutomaticamente(Camara, relacion);
-            controlMisiones.update(posMouseWorld, inv, monedas);
+            controlMisiones.update(posMouseWorld, inv, monedasObjetivo);
             window.draw(controlMisiones);
 
 
             /// ==========================================================================///
+
+            if (monedas != monedasObjetivo){
+                if (monedas > monedasObjetivo - 5 && monedas < monedasObjetivo + 5){
+                    monedas = monedasObjetivo;
+                }
+                else monedas = monedas + (monedasObjetivo - monedas)* 0.2;
+                if ((_sonidoMoneda.getStatus()) != sf::Sound::Playing){
+                    _sonidoMoneda.setLoop(false);
+                    _sonidoMoneda.setVolume(volumenActual);
+                    _sonidoMoneda.setPitch(1 + (rand()%10*0.1));
+                    _sonidoMoneda.play();
+                }
+            }
 
             textMonedas.setString("$" + std::to_string(monedas));
             textMonedas.setPosition(932 - textMonedas.getGlobalBounds().width/2, 182);

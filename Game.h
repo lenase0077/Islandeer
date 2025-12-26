@@ -100,12 +100,16 @@ class Game
         sf::SoundBuffer _bufferPico;
         sf::SoundBuffer _bufferEspada;
         sf::SoundBuffer _bufferMate;
+        sf::SoundBuffer _bufferMoneda;
+
+        sf::Sound _sonidoMoneda;
 
 
         sf::Sound _sonidoHerramienta;
 
 
         int monedas = 0;
+        int monedasObjetivo = 0;
 
 
 
